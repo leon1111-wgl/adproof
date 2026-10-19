@@ -1,0 +1,28 @@
+{
+  "id": "cosmetics_regulation",
+  "title": "化妆品监督管理条例",
+  "short_title": "化妆品监督管理条例",
+  "type": "行政法规",
+  "issuer": "国务院",
+  "promulgated": "2020-06-16",
+  "effective": "2021-01-01",
+  "validity": "有效",
+  "version_history": [],
+  "source": {
+    "name": "国家法律法规数据库",
+    "url": "https://flk.npc.gov.cn/detail?id=ff80808176d5cbce0176d73cd2ea03ce",
+    "record_id": "ff80808176d5cbce0176d73cd2ea03ce",
+    "retrieved_at": "2026-10-19",
+    "method": "在国家法律法规数据库的官方阅读器中打开该版本正文，逐条摘录规则库引用到的条款；scripts/verify_law_snapshot.py 可通过数据库的“命中展示”接口逐段复核。"
+  },
+  "scope_note": "只收录规则库引用到的条款，不是条例全文。",
+  "articles": [
+    {
+      "number": 43,
+      "paragraphs": [
+        {"text": "化妆品广告的内容应当真实、合法。"},
+        {"text": "化妆品广告不得明示或者暗示产品具有医疗作用，不得含有虚假或者引人误解的内容，不得欺骗、误导消费者。"}
+      ]
+    }
+  ]
+}

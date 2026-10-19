@@ -1,0 +1,407 @@
+# AdProof 规则库（可在控制台「规则库 → YAML 编辑」中修改，保存前会自动校验）
+#
+# 约定
+# - 正则运行在“归一化文本”上：全角转半角、英文转小写、去掉空白和夹在汉字之间的装饰符号。
+#   宏：{NB} = 一个非断句字符，{B} = 一个断句符号（逗号、句号、问号、感叹号、分号、换行）。
+# - law_refs 只能引用 backend/laws/ 中已核对的条款；引用不到时该依据会显示为“待核对”。
+#   when 表示仅对这些商品类目生效（例如保健食品额外适用第十八条）。
+# - references 用于还没有纳入本地快照的文件，一律标注 status: pending（待核对），不摘录正文。
+# - examples.hit / examples.pass 是规则自带的正反例，测试和保存时都会运行。
+
+version: "2026.10.19"
+name: 广告合规基础规则库
+description: 面向短视频与直播带货脚本的广告法基础规则。演示用途，不构成法律意见。
+
+product_categories:
+  general: 通用
+  cosmetics: 美妆个护
+  food: 普通食品
+  health_food: 保健食品
+  digital: 数码家电
+  home: 家居日用
+  apparel: 服饰鞋包
+  franchise: 招商加盟
+  education: 课程培训
+
+categories:
+  - id: absolute_terms
+    label: 绝对化用语
+    description: 最高级、排名第一、“天花板”等无法证明的极限表述。
+    severity: high
+    priority: 70
+    law_refs:
+      - {law: advertising_law, article: 9, paragraph: 1, item: 3}
+    penalty_refs:
+      - {law: advertising_law, article: 57, paragraph: 1, item: 1}
+    references:
+      - title: 广告绝对化用语执法指南
+        issuer: 国家市场监督管理总局
+        status: pending
+        note: 尚未纳入本地法条快照，原文与适用口径待人工核对，暂不摘录任何条文。
+    rewrite: {strategy: delete_clause, note: 删除无法证明的极限表述，改为可核实的具体事实。}
+
+  - id: authority_endorsement
+    label: 国家机关名义
+    description: 使用或者变相使用国家机关、国家机关工作人员的名义或形象背书。
+    severity: high
+    priority: 80
+    law_refs:
+      - {law: advertising_law, article: 9, paragraph: 1, item: 2}
+    penalty_refs:
+      - {law: advertising_law, article: 57, paragraph: 1, item: 1}
+    rewrite: {strategy: delete_clause, note: 删除国家机关背书类表述。}
+
+  - id: medical_claims
+    label: 疾病治疗与医疗用语
+    description: 非医疗类商品宣称疾病治疗功能、使用医疗用语或与药品混淆。
+    severity: high
+    priority: 90
+    law_refs:
+      - {law: advertising_law, article: 17, paragraph: 1}
+      - {law: advertising_law, article: 18, paragraph: 1, item: 2, when: [health_food]}
+      - {law: food_safety_law, article: 73, paragraph: 1, when: [food, health_food]}
+      - {law: cosmetics_regulation, article: 43, paragraph: 2, when: [cosmetics]}
+    penalty_refs:
+      - {law: advertising_law, article: 58, paragraph: 1, item: 2}
+    rewrite: {strategy: delete_clause, note: 删除疾病治疗或医疗相关表述，只描述正常使用体验。}
+
+  - id: effect_claims
+    label: 效果保证与虚构效果
+    description: 对使用效果作出保证，或给出无法证明的量化效果。
+    severity: high
+    priority: 60
+    law_refs:
+      - {law: advertising_law, article: 4, paragraph: 1}
+      - {law: advertising_law, article: 28, paragraph: 2, item: 4}
+      - {law: advertising_law, article: 18, paragraph: 1, item: 1, when: [health_food]}
+    penalty_refs:
+      - {law: advertising_law, article: 55, paragraph: 1}
+    rewrite: {strategy: delete_clause, note: 删除效果保证；如有真实测试数据，注明测试条件与出处。}
+
+  - id: unsourced_data
+    label: 数据无出处
+    description: 使用数据、调查结果、实验结论作证明，但没有标明出处。
+    severity: medium
+    priority: 50
+    law_refs:
+      - {law: advertising_law, article: 11, paragraph: 2}
+      - {law: advertising_law, article: 28, paragraph: 2, item: 3}
+    penalty_refs:
+      - {law: advertising_law, article: 59, paragraph: 1, item: 2}
+    rewrite: {strategy: delete_clause, note: 补充数据出处、统计口径和时间，或删除该数据。}
+
+  - id: disparagement
+    label: 贬低其他经营者
+    description: 贬低其他生产经营者的商品或者服务。
+    severity: medium
+    priority: 40
+    law_refs:
+      - {law: advertising_law, article: 13, paragraph: 1}
+    penalty_refs:
+      - {law: advertising_law, article: 59, paragraph: 1, item: 4}
+    rewrite: {strategy: delete_clause, note: 删除针对其他经营者的贬低，只讲自家商品的事实。}
+
+  - id: guaranteed_returns
+    label: 收益或结果保证
+    description: 招商加盟承诺收益、保本，或教育培训承诺通过、就业、变现等结果。
+    severity: high
+    priority: 85
+    law_refs:
+      - {law: advertising_law, article: 25, paragraph: 1, item: 1, when: [franchise]}
+      - {law: advertising_law, article: 24, paragraph: 1, item: 1, when: [education]}
+    penalty_refs:
+      - {law: advertising_law, article: 58, paragraph: 1, item: 7, when: [franchise]}
+      - {law: advertising_law, article: 58, paragraph: 1, item: 6, when: [education]}
+    rewrite: {strategy: replace, fallback: 实际效果因人而异, note: 删除保证性承诺，并提示风险与个体差异。}
+
+  - id: fact_mismatch
+    label: 与商品资料不符
+    description: 脚本中的价格、成分、规格等数字与商品资料不一致。
+    severity: high
+    priority: 95
+    law_refs:
+      - {law: advertising_law, article: 28, paragraph: 2, item: 2}
+      - {law: advertising_law, article: 8, paragraph: 1}
+    penalty_refs:
+      - {law: advertising_law, article: 55, paragraph: 1}
+    rewrite: {strategy: replace, note: 按商品资料改正数字。}
+
+rules:
+  # ------------------------------------------------------------------ 绝对化用语
+  - id: ABS-01
+    name: “最”字最高级
+    category: absolute_terms
+    patterns:
+      - '(?:全网|全国|全球|史上|行业|业内|同类|同价位|全场|本店|市面上)?最(?:佳|好用|好吃|好喝|好|优|强|棒|牛|高级|先进|便宜|划算|实惠|超值|值得|畅销|热销|火爆|受欢迎|安全|有效|管用|专业|正宗|权威|纯正|天然|舒服|舒适|耐用|靠谱|保湿|美白|显白|持久|轻薄|清爽|温和|好看)'
+    exceptions:
+      - '最好(?:在|先|不要|别|还是|搭配|配合|提前|每天|坚持|放|冷藏)'
+    negation: true
+    reason: 使用“最佳”“最好”等最高级用语，属于第九条第三项列举的绝对化用语。
+    rewrite:
+      strategy: prefix
+      prefix_from: 最
+      prefix_to: 很
+      replacements: {最佳: 出色, 最好: 很好}
+    examples:
+      hit: [这是我用过最好用的精华, 全场最划算的一单]
+      pass: [最近换季皮肤有点干, 最好在晚上洁面后使用, 我们不说最好，只说合适]
+
+  - id: ABS-02
+    name: 最低价等价格极限词
+    category: absolute_terms
+    patterns:
+      - '(?:全网|全国|全平台|全渠道|史上|历史|今年|年度|行业)最低(?:价格|价|折扣)?'
+      - '最低(?:价格|价|折扣)'
+      - '全网(?:最)?便宜'
+    exceptions:
+      - '最低(?:只要|仅需|可至|至|消费|温度|配置|档|要求|标准)'
+    reason: “全网最低价”“史上最低”等价格极限词无法证明，属于绝对化用语。
+    rewrite:
+      strategy: replace
+      replacements: {全网最低价: 直播间活动价, 史上最低价: 本场活动价, 最低价: 活动价, 全网最便宜: 很实惠, 全网便宜: 很实惠}
+      fallback: 活动价
+    examples:
+      hit: [今天直播间全网最低价, 这个价格是史上最低]
+      pass: [券后最低只要59元, 最低温度零下5度]
+
+  - id: ABS-03
+    name: 第一、NO.1 等排名用语
+    category: absolute_terms
+    patterns:
+      - '(?:销量|排名|行业|全网|全国|全球|品类|同类|领域|国内|口碑|好评|人气)(?:排名)?(?:第一|冠军)'
+      - '第一(?:品牌|名|大牌)'
+      - 'no\.?1|top\.?1'
+      - '(?:全网|行业|全国|全球|国内)首(?:个|家|款|创)'
+      - '首创'
+    exceptions:
+      - '第一(?:次|步|天|时间|批|个月|周|口|眼|件|单|位)'
+    reason: “销量第一”“NO.1”“首创”等排名或首位表述无法证明，属于绝对化用语。
+    rewrite:
+      strategy: replace
+      replacements: {销量第一: 销量不错, 销量冠军: 热销, 排名第一: 很受欢迎, 第一品牌: 知名品牌, 第一名: 热门款, no.1: 人气款, top1: 人气款, 首创: 采用, 行业首创: 采用}
+    examples:
+      hit: [这款是同类销量第一, NO.1 爆款面霜, 行业首创的配方]
+      pass: [第一次用就爱上了, 第一步先洁面]
+
+  - id: ABS-04
+    name: 顶级、天花板等极限词
+    category: absolute_terms
+    keywords: [顶级, 顶尖, 极品, 极致, 至尊, 巅峰, 王牌, 销冠, 无敌, 绝无仅有, 史无前例, 万能, 天花板, 封神, 遥遥领先, 没有之一, 首选]
+    reason: “顶级”“天花板”等极限词无法证明，属于绝对化用语。
+    rewrite:
+      strategy: replace
+      replacements: {没有之一: '', 首选: 常选, 天花板: 口碑款, 顶级: 优质, 顶尖: 优质, 极品: 优质, 极致: 出色, 至尊: 高端, 巅峰: 出色, 王牌: 主推, 销冠: 热销款, 无敌: 很, 万能: 多用途, 封神: 口碑好, 遥遥领先: 表现不错}
+    examples:
+      hit: [国货天花板级别的面霜, 顶级的原料]
+      pass: [顶部按压设计, 极为细腻的质地]
+
+  - id: ABS-05
+    name: 国家级、世界级用语
+    category: absolute_terms
+    patterns:
+      - '国家级|世界级|全球级|宇宙级|最高级|最高等级'
+    exceptions:
+      - '国家级(?:非物质文化遗产|非遗)'
+    reason: 法条直接列举了“国家级”“最高级”，“世界级”等同类表述同样无法证明。
+    rewrite:
+      strategy: replace
+      replacements: {国家级: 专业, 世界级: 专业, 全球级: 专业, 宇宙级: 专业, 最高级: 高品质, 最高等级: 高品质}
+    examples:
+      hit: [国家级配方, 世界级工艺]
+      pass: [国家级非遗手工技艺]
+
+  # ------------------------------------------------------------------ 国家机关名义
+  - id: AUT-01
+    name: 国家机关背书与特供
+    category: authority_endorsement
+    patterns:
+      - '(?:国家|政府|部委|国务院|卫健委|药监局|市场监管局|海关|机关单位|部队)(?:指定|推荐|认证|专供|特供|监制|背书|采购)'
+      - '(?:人民大会堂|国宴|机关)(?:专用|专供|特供|指定|御用)'
+      - '特供'
+    exceptions:
+      - '(?:电商|线上|直播间|渠道|门店|会员|粉丝)特供'
+      - '国家推荐(?:标准|性标准)'
+    reason: 使用或者变相使用国家机关名义背书，属于第九条第二项的禁止情形。
+    examples:
+      hit: [这款茶是国宴特供, 政府指定合作品牌]
+      pass: [粉丝特供福利价, 符合国家推荐标准]
+
+  # ------------------------------------------------------------------ 疾病治疗与医疗用语
+  - id: MED-01
+    name: 疾病治疗功能
+    category: medical_claims
+    patterns:
+      - '治疗|治愈|根治|疗效|药到病除|包治|祛病|消炎|抗炎|止痛|镇痛|止痒'
+      - '降(?:血压|血糖|血脂|三高|尿酸)'
+      - '(?:防|抗|治)癌|抗肿瘤|抗病毒|活血化瘀|清热解毒|排毒养颜'
+      - '调理(?:脾胃|肠胃|气血|内分泌)'
+    negation: true
+    reason: 非医疗类商品宣称疾病治疗功能。
+    rewrite:
+      strategy: replace
+      replacements: {消炎: 舒缓, 抗炎: 舒缓, 止痒: 舒缓, 止痛: 舒缓, 镇痛: 舒缓}
+    examples:
+      hit: [喝一个月能降血糖, 这款精华还能消炎祛痘]
+      pass: [本品不能治疗疾病, 皮肤科医生建议做好防晒]
+
+  - id: MED-02
+    name: 医疗用语
+    category: medical_claims
+    patterns:
+      - '处方|药方|秘方|偏方|古方|医用级|医学级|药用级|药妆|医生推荐|专家推荐|医院同款|医院专用|疗程|药效'
+      - '临床(?:验证|试验|实验|证明|测试)'
+      - '(?:无|零|没有)副作用'
+    negation: true
+    reason: 使用医疗用语，容易使商品与药品、医疗器械混淆。
+    rewrite:
+      strategy: replace
+      replacements: {医用级: 温和配方, 医学级: 温和配方, 药妆: 护肤品, 疗程: 周期}
+    examples:
+      hit: [医用级的修护面膜, 坚持三个疗程, 临床验证有效]
+      pass: [适合日常护肤]
+
+  - id: MED-03
+    name: 与药品比较或替代药物
+    category: medical_claims
+    patterns:
+      - '(?:比|胜过|堪比|媲美|相当于|顶得上|不输)(?:吃)?(?:药|药物|药品)'
+      - '(?:代替|替代|取代)(?:吃药|药物|药品|药)'
+      - '不用(?:再)?吃药'
+    negation: true
+    reason: 与药品进行比较或暗示可以替代药物，容易使商品与药品混淆。
+    law_refs:
+      - {law: advertising_law, article: 18, paragraph: 1, item: 4, when: [health_food]}
+    examples:
+      hit: [喝它比吃药还管用, 以后不用再吃药了]
+      pass: [本品不能代替药物]
+
+  - id: MED-04
+    name: 疾病预防与治愈表述
+    category: medical_claims
+    patterns:
+      - '(?:预防|防止|远离|告别|再也不|不再)(?:得)?(?:感冒|流感|失眠|便秘|过敏|三高|高血压|糖尿病|骨质疏松|贫血|近视|脱发)'
+      - '(?:颈椎病|腰椎病|关节炎|失眠|便秘|湿疹|鼻炎|胃病|高血压|糖尿病|痛风|脂肪肝|咽炎|脱发|三高)(?:都|也|全)?(?:好了|治好了|没了|消失了|痊愈了?|不犯了)'
+    reason: 宣称预防或治愈具体疾病。
+    examples:
+      hit: [换季再也不感冒, 用了以后颈椎病都好了]
+      pass: [换季注意保暖]
+
+  # ------------------------------------------------------------------ 效果保证与虚构效果
+  - id: EFF-01
+    name: 保证有效
+    category: effect_claims
+    patterns:
+      - '(?:保证|确保|一定|绝对|肯定|百分百|百分之百|100%)(?:能|会|可以)?{NB}{0,4}?(?:有效|见效|管用|变白|美白|瘦|长高|改善|解决|去除|祛除|好转|满意|增强|提高|提升|增加)'
+      - '无效(?:包|全额)?退款|不(?:见效|满意)不要钱'
+    reason: 对使用效果作出保证，可能构成虚假或引人误解的宣传。
+    examples:
+      hit: [保证三天见效, 100%有效, 无效全额退款]
+      pass: [效果因人而异]
+
+  - id: EFF-02
+    name: 量化效果承诺
+    category: effect_claims
+    patterns:
+      - '\d+(?:天|日|周|个月|次)(?:内|之内)?(?:就|就能|就可以|即可|轻松|快速)?(?:瘦|减|掉|白|变白|美白|焕白|提亮|亮|长高|淡斑|祛斑|祛痘|淡化|年轻|紧致|生发)(?:了)?(?:\d+(?:斤|公斤|kg|cm|厘米|岁|个色号))?'
+      - '(?:瘦|减|掉)了?\d+(?:斤|公斤|kg)'
+      - '年轻\d+岁'
+    reason: 量化的效果承诺需要真实、可验证的依据，否则可能属于虚构使用商品的效果。
+    examples:
+      hit: [7天瘦10斤, 28天变白, 一个月掉了15斤]
+      pass: [建议连续使用28天观察肤感]
+
+  - id: EFF-03
+    name: 立竿见影等夸大表述
+    category: effect_claims
+    keywords: [立竿见影, 立刻见效, 马上见效, 当天见效, 一次见效, 永不反弹, 一劳永逸, 彻底告别, 根除]
+    reason: “立竿见影”“永不反弹”等表述夸大使用效果，容易误导消费者。
+    examples:
+      hit: [涂上立竿见影, 瘦下来永不反弹]
+      pass: [坚持使用]
+
+  # ------------------------------------------------------------------ 数据无出处
+  - id: DAT-01
+    name: 数据与调查结果无出处
+    category: unsourced_data
+    patterns:
+      - '\d+(?:\.\d+)?%的?(?:用户|顾客|消费者|宝妈|女生|女性|男性|人|姐妹|买家|回头客|客户)'
+      - '(?:回购率|复购率|好评率|满意率|有效率|推荐率|改善率)(?:高达|达到|超过|超|高于)?\d+(?:\.\d+)?%'
+      - '\d+(?:\.\d+)?%(?:回购率|复购率|好评率|满意率|有效率|推荐率|改善率)'
+      - '(?:研究|实验|调查|测试|权威数据|数据)(?:表明|显示|证明|证实)'
+      - '(?:权威|专业|第三方)机构(?:检测|认证|证明)'
+    unless_sentence: '数据来源|来源[:：]|出自|引自|据.{1,20}(?:报告|统计|调查|研究)|报告编号'
+    reason: 引用数据、调查或实验结论时没有标明出处。
+    rewrite:
+      strategy: replace
+      subs:
+        - {pattern: '^\d+(?:\.\d+)?%的?', replace: 很多}
+        - {pattern: '^(?:研究|实验|调查|测试|权威数据|数据)(?:表明|显示|证明|证实)$', replace: 从我们的使用体验看}
+    examples:
+      hit: [98%的用户都回购了, 回购率高达90%, 实验证明能提亮]
+      pass: [回购率32%（数据来源：店铺后台2026年9月统计）]
+
+  # ------------------------------------------------------------------ 贬低其他经营者
+  - id: DIS-01
+    name: 贬低其他经营者
+    category: disparagement
+    patterns:
+      - '(?:别家|别人家|其他家|其它家|其他品牌|其它品牌|某些品牌|有些品牌|一些品牌|友商|同行|市面上|外面|大牌|竞品)的?{NB}{0,10}?(?:智商税|垃圾|割韭菜|偷工减料|骗人|劣质|坑人|以次充好|黑心|假货|没法比|比不了|都是坑|噱头|全是添加剂|有毒)'
+      - '(?:吊打|碾压|完爆|秒杀)(?:一切|所有|一众)?(?:同类|大牌|其他|别家|同行|竞品)'
+    reason: 贬低其他生产经营者的商品或者服务。
+    examples:
+      hit: [别家卖的都是智商税, 吊打一众大牌]
+      pass: [我们只讲自己的配方]
+
+  # ------------------------------------------------------------------ 收益或结果保证
+  - id: RET-01
+    name: 招商收益保证
+    category: guaranteed_returns
+    applies_to: [franchise]
+    patterns:
+      - '稳赚(?:不赔)?|包赚|躺赚|只赚不赔|零风险|无风险|保本|保收益'
+      - '(?:保证|确保|包)(?:回本|盈利|赚钱|收益)'
+      - '月入(?:过)?\d*(?:万|千)|年入(?:过)?\d*万'
+      - '\d+个?月(?:就能|就|即可)?回本|当月回本|一年回本'
+    reason: 招商广告对收益作出保证性承诺，或暗示保本、无风险。
+    rewrite:
+      strategy: replace
+      fallback: 收益受选址和经营情况影响，存在亏损风险
+    examples:
+      hit: [加盟稳赚不赔, 3个月就能回本]
+      pass: [加盟有风险，投资需谨慎]
+
+  - id: RET-02
+    name: 培训结果保证
+    category: guaranteed_returns
+    applies_to: [education]
+    patterns:
+      - '(?:保证|包|确保|100%|百分百)(?:过|通过|拿证|上岸|提分|涨粉|学会|就业|接单|变现)'
+      - '不过(?:全额)?退(?:费|款)'
+      - '学完(?:就能|就可以|即可)(?:月入|接单|变现|赚)'
+    reason: 教育培训广告对学习效果作出保证性承诺。
+    rewrite:
+      strategy: replace
+      fallback: 学习效果因人而异
+    examples:
+      hit: [报名包学会, 不过全额退费]
+      pass: [课程共32节]
+
+disclosures:
+  - id: DSC-01
+    name: 保健食品应标明“本品不能代替药物”
+    applies_to: [health_food]
+    required: 本品不能代替药物
+    severity: high
+    law_refs:
+      - {law: advertising_law, article: 18, paragraph: 2}
+      - {law: food_safety_law, article: 79, paragraph: 1}
+    suggestion: 本品不能代替药物。
+
+  - id: DSC-02
+    name: 招商广告应提示投资风险
+    applies_to: [franchise]
+    required: [投资有风险, 存在风险, 风险自担, 亏损风险, 经营风险]
+    severity: high
+    law_refs:
+      - {law: advertising_law, article: 25, paragraph: 1}
+    suggestion: 投资有风险，收益受选址和经营情况影响。

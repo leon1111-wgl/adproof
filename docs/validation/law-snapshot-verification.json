@@ -1,0 +1,176 @@
+{
+  "checked_at": "2026-10-19 23:43:02",
+  "method": "Re-check the local law snapshots against the National Laws and Regulations Database.",
+  "laws": [
+    {
+      "id": "advertising_law",
+      "title": "中华人民共和国广告法",
+      "record_id": "ff8081817ab231eb017abd6bd860052d",
+      "units": [
+        {
+          "unit": "第四条",
+          "chars": 49,
+          "queries": 4,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第八条",
+          "chars": 165,
+          "queries": 14,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第九条",
+          "chars": 280,
+          "queries": 25,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第十一条",
+          "chars": 102,
+          "queries": 9,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第十二条",
+          "chars": 89,
+          "queries": 8,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第十三条",
+          "chars": 25,
+          "queries": 2,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第十七条",
+          "chars": 69,
+          "queries": 6,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第十八条",
+          "chars": 153,
+          "queries": 59,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第二十四条",
+          "chars": 157,
+          "queries": 13,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第二十五条",
+          "chars": 157,
+          "queries": 20,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第二十八条",
+          "chars": 288,
+          "queries": 25,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第五十五条",
+          "chars": 529,
+          "queries": 59,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第五十七条",
+          "chars": 449,
+          "queries": 52,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第五十八条",
+          "chars": 951,
+          "queries": 91,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第五十九条",
+          "chars": 288,
+          "queries": 46,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        }
+      ]
+    },
+    {
+      "id": "cosmetics_regulation",
+      "title": "化妆品监督管理条例",
+      "record_id": "ff80808176d5cbce0176d73cd2ea03ce",
+      "units": [
+        {
+          "unit": "第四十三条",
+          "chars": 70,
+          "queries": 6,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        }
+      ]
+    },
+    {
+      "id": "food_safety_law",
+      "title": "中华人民共和国食品安全法",
+      "record_id": "7b5a76d0461745a08d3f964916b87ef3",
+      "units": [
+        {
+          "unit": "第七十三条",
+          "chars": 159,
+          "queries": 16,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        },
+        {
+          "unit": "第七十九条",
+          "chars": 156,
+          "queries": 23,
+          "verified": true,
+          "missing": [],
+          "boundary_punctuation": []
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "units": 18,
+    "verified": 18,
+    "failed": 0
+  }
+}

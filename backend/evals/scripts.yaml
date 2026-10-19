@@ -1,0 +1,547 @@
+# AdProof 评测集（SYNTHETIC：脚本、品牌、商品全部虚构）
+#
+# 标注写在原文里：[[分类|违规片段]]，加载时去掉标记并换算成字符起止位置。
+# 标注口径（docs/EVALUATION.md 有完整说明）：
+# - 显性违规只标最小违规表述，例如“最好用”“全网最低价”“消炎”“98%的姐妹”；
+#   紧挨着的比较范围词（全网 / 史上 / 行业 / 同类）算在片段内。
+# - 隐含违规标承载这层意思的最短分句片段，例如“喝了一个月血糖都稳了”。
+# - fact_mismatch 只标与商品资料不一致的“数字 + 单位”，例如“30%”“99元”。
+# - missing_disclosures 记录脚本缺少的必要声明（文档级，不计入片段指标）。
+#
+# 划分：dev 用来调试规则；test 写完后不再据此改规则，只用于报告。
+# 两部分由同一作者编写，独立性有限，这一点在 README 和评测文档里都有说明。
+
+items:
+  # ====================================================================== dev
+  - id: dev-01
+    split: dev
+    product: MIA-SERUM
+    marked: |-
+      姐妹们看过来！这是我用过[[absolute_terms|最好用]]的一瓶精华，[[fact_mismatch|30%]]烟酰胺，熬夜脸也能救回来。今天直播间[[absolute_terms|全网最低价]]，到手价129元，库存不多。
+
+  - id: dev-02
+    split: dev
+    product: MIA-SERUM
+    marked: |-
+      这款精华除了提亮，还能[[medical_claims|消炎]]祛痘，[[medical_claims|医用级]]配方，敏感肌放心用。[[unsourced_data|98%的姐妹]]用完都回购了。
+
+  - id: dev-03
+    split: dev
+    product: NOAH-OAT
+    marked: |-
+      早上一杯Noah燕麦代餐，饱腹一上午。我爸[[medical_claims|喝了一个月血糖都稳了]]，[[effect_claims|7天瘦5斤]]不是梦。每份含膳食纤维6g，到手价59元。
+
+  - id: dev-04
+    split: dev
+    product: NOAH-TEA
+    marked: |-
+      每天一杯红豆薏米茶，[[medical_claims|清热解毒]]，还能[[medical_claims|调理脾胃]]。我们家是同类[[absolute_terms|销量第一]]的养生茶，30袋只要39元。
+
+  - id: dev-05
+    split: dev
+    product: IRIS-VC
+    missing_disclosures: [DSC-01]
+    marked: |-
+      Iris维生素C咀嚼片，每天一片，[[effect_claims|保证增强抵抗力]]，换季[[medical_claims|再也不感冒]]，[[medical_claims|比吃药还管用]]。到手价89元。
+
+  - id: dev-06
+    split: dev
+    product: IRIS-VC
+    tags: [clean]
+    marked: |-
+      Iris维生素C咀嚼片，补充维生素C，每日1片，咀嚼食用。60片一瓶，到手价89元。本品不能代替药物。
+
+  - id: dev-07
+    split: dev
+    product: JACK-EARBUDS
+    marked: |-
+      Jack降噪耳机，降噪深度35dB，地铁里也安静。单次续航8小时，配合充电盒30小时。同价位[[disparagement|吊打所有竞品]]，性价比[[absolute_terms|天花板]]。
+
+  - id: dev-08
+    split: dev
+    product: JACK-CHARGER
+    marked: |-
+      Jack氮化镓充电器，[[fact_mismatch|100W]]快充，[[absolute_terms|行业首创]]双口智能分配。到手价119元。
+
+  - id: dev-09
+    split: dev
+    product: EMMA-PILLOW
+    marked: |-
+      Emma乳胶枕，天然乳胶含量85%，睡一晚[[medical_claims|颈椎病都好了]]，[[medical_claims|治疗失眠]]效果特别明显，[[absolute_terms|国家级]]工艺。到手价199元。
+
+  - id: dev-10
+    split: dev
+    product: LEON-FRANCHISE
+    missing_disclosures: [DSC-02]
+    marked: |-
+      想创业的朋友看过来，Leon优选社区零食店，加盟费29800元，[[guaranteed_returns|稳赚不赔]]，[[guaranteed_returns|3个月就能回本]]，[[guaranteed_returns|月入过万]]不是问题。
+
+  - id: dev-11
+    split: dev
+    product: LEON-COURSE
+    marked: |-
+      Leon学堂剪辑课，共32节录播课，每周1次直播答疑。[[guaranteed_returns|包学会]]，[[guaranteed_returns|学完就能接单]]，[[guaranteed_returns|不过全额退费]]。
+
+  - id: dev-12
+    split: dev
+    product: MIA-SUNSCREEN
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      夏天出门必备这支防晒乳
+
+      2
+      00:00:02,500 --> 00:00:05,000
+      SPF50+ PA++++，质地轻薄
+
+      3
+      00:00:05,000 --> 00:00:08,000
+      [[absolute_terms|全网最好用]]的防晒，[[absolute_terms|没有之一]]
+
+      4
+      00:00:08,000 --> 00:00:11,000
+      [[effect_claims|一抹就白]]，还防晒伤[[medical_claims|消炎]]
+
+      5
+      00:00:11,000 --> 00:00:13,000
+      今天直播间到手价89元
+
+  - id: dev-13
+    split: dev
+    product: NOAH-OAT
+    tags: [clean, hard_negative]
+    marked: |-
+      最近换季，早餐我就冲一杯Noah燕麦代餐粉，每次30g加200ml温水，第一次喝就觉得很顺口。最好在早上先喝杯温水。到手价59元，以页面为准。
+
+  - id: dev-14
+    split: dev
+    product: JACK-EARBUDS
+    marked: |-
+      说实话，[[disparagement|市面上很多降噪耳机都是在割韭菜]]。我们这款降噪深度35dB，[[unsourced_data|十个人里九个说好]]。到手价299元。
+
+  - id: dev-15
+    split: dev
+    product: MIA-SERUM
+    marked: |-
+      这瓶精华是[[authority_endorsement|国宴特供]]级别的品质，[[unsourced_data|实验证明]][[effect_claims|28天提亮肤色]]。到手价129元。
+
+  - id: dev-16
+    split: dev
+    product: IRIS-PROBIOTIC
+    marked: |-
+      Iris益生菌固体饮料，每日1袋温水冲服。[[medical_claims|调理肠胃]]，[[medical_claims|便秘一喝就通]]，换季还能[[medical_claims|预防感冒]]。20袋只要69元。
+
+  - id: dev-17
+    split: dev
+    product: EMMA-TOWEL
+    tags: [clean, hard_negative]
+    marked: |-
+      Emma纯棉毛巾，100%棉，吸水快不掉毛，一次买3条，洗脸擦头都够用。到手价49元。
+
+  - id: dev-18
+    split: dev
+    product: NOAH-TEA
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      红豆薏米茶，一盒30袋
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      我妈[[medical_claims|喝了两周湿疹都没了]]
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      [[absolute_terms|史上最低价]]只要[[fact_mismatch|29元]]
+
+  - id: dev-19
+    split: dev
+    product: MIA-SERUM
+    tags: [evasion]
+    marked: |-
+      这款精华真的是[[absolute_terms|最*好*用]]的！[[absolute_terms|ＮＯ．１]]的提亮精华，[[absolute_terms|顶 级]]原料。到手价129元。
+
+  - id: dev-20
+    split: dev
+    product: JACK-EARBUDS
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      Jack降噪耳机来了
+
+      2
+      00:00:03,000 --> 00:00:06,500
+      单次续航[[fact_mismatch|12小时]]，通勤一周不用充
+
+      3
+      00:00:06,500 --> 00:00:10,000
+      降噪深度35dB，到手价299元
+
+  - id: dev-21
+    split: dev
+    product: LEON-FRANCHISE
+    tags: [clean]
+    marked: |-
+      Leon优选社区零食店招募加盟伙伴，加盟费29800元，建议门店40平方米以上。投资有风险，收益受选址和经营情况影响，请理性评估。
+
+  - id: dev-22
+    split: dev
+    product: IRIS-VC
+    marked: |-
+      换季我每天吃一片Iris维生素C咀嚼片，吃了它就[[medical_claims|不用再吃药]]了。[[unsourced_data|有效率高达96%]]，到手价89元。本品不能代替药物。
+
+  - id: dev-23
+    split: dev
+    product: MIA-SUNSCREEN
+    tags: [clean, hard_negative]
+    marked: |-
+      出门前十五分钟涂抹，SPF50+ PA++++，日常通勤够用。第一步先洁面，再上防晒。我们不说最好，只说适合自己的。到手价89元。
+
+  - id: dev-24
+    split: dev
+    product: JACK-CHARGER
+    marked: |-
+      [[absolute_terms|最强]]氮化镓，65W快充半小时充满，[[unsourced_data|权威机构检测]]发热更低。到手价119元。
+
+  - id: dev-25
+    split: dev
+    product: EMMA-PILLOW
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      Emma乳胶枕，天然乳胶含量85%
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      [[disparagement|别人家的乳胶枕都是以次充好]]
+
+      3
+      00:00:06,000 --> 00:00:09,500
+      [[effect_claims|睡一晚就不落枕]]，到手价199元
+
+  - id: dev-26
+    split: dev
+    product: NOAH-OAT
+    marked: |-
+      Noah代餐粉，每份含膳食纤维[[fact_mismatch|10g]]，[[effect_claims|一个月掉了15斤]]，[[effect_claims|永不反弹]]。到手价59元。
+
+  - id: dev-27
+    split: dev
+    product: MIA-SERUM
+    tags: [hard_negative]
+    marked: |-
+      皮肤科医生建议做好防晒和保湿。[[medical_claims|医生都让我们多用这个]]精华，5%烟酰胺，温和不刺激。到手价129元。
+
+  - id: dev-28
+    split: dev
+    product: JACK-EARBUDS
+    tags: [clean, hard_negative]
+    marked: |-
+      耳机到手后最好先充满电再用，降噪深度35dB，单次续航8小时。下单后我们第一时间发货，到手价299元。
+
+  - id: dev-29
+    split: dev
+    product: LEON-COURSE
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      想学剪辑的看过来
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      Leon学堂32节录播课
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      [[guaranteed_returns|保证学会]]，[[guaranteed_returns|学完就能月入过万]]
+
+  - id: dev-30
+    split: dev
+    product: IRIS-PROBIOTIC
+    marked: |-
+      这款益生菌固体饮料是[[authority_endorsement|国家都在推广]]的好东西，宝妈[[absolute_terms|首选]]。20袋只要69元，每日1袋。
+
+  # ====================================================================== test
+  - id: test-01
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      今天给大家推荐这瓶烟酰胺精华，[[absolute_terms|全网销量第一]]，[[absolute_terms|最受欢迎]]的提亮单品。浓度[[fact_mismatch|10%]]，到手价129元。
+
+  - id: test-02
+    split: test
+    product: MIA-SERUM
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,000
+      油痘肌的姐妹注意了
+
+      2
+      00:00:02,000 --> 00:00:05,000
+      这瓶精华[[medical_claims|专治闭口粉刺]]
+
+      3
+      00:00:05,000 --> 00:00:08,000
+      [[medical_claims|皮肤科医生推荐]]，[[medical_claims|药妆级]]配方
+
+      4
+      00:00:08,000 --> 00:00:10,000
+      到手价129元
+
+  - id: test-03
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      减肥的姐妹冲它！早餐换成Noah燕麦代餐，[[effect_claims|半个月瘦8斤]]，[[effect_claims|立刻见效]]。[[unsourced_data|90%的用户]]反馈不饿肚子。到手价[[fact_mismatch|49元]]。
+
+  - id: test-04
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      熬夜党来一杯红豆薏米茶，喝完整个人都清爽了，长期喝还能[[medical_claims|降血脂]]、[[medical_claims|防治脂肪肝]]。[[disparagement|别家的茶包全是香精勾兑的]]。30袋到手价39元。
+
+  - id: test-05
+    split: test
+    product: IRIS-VC
+    missing_disclosures: [DSC-01]
+    marked: |-
+      每天一片Iris维生素C咀嚼片，有效[[medical_claims|预防感冒]]，免疫力差的人[[medical_claims|吃了就不生病]]，纯天然[[medical_claims|无副作用]]。60片到手价89元。
+
+  - id: test-06
+    split: test
+    product: IRIS-VC
+    tags: [clean]
+    marked: |-
+      Iris维生素C咀嚼片，保健功能是补充维生素C，每日1片。一瓶60片，到手价89元。本品不能代替药物，请按推荐量食用。
+
+  - id: test-07
+    split: test
+    product: JACK-EARBUDS
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      这副降噪耳机我愿称之为耳机界的[[absolute_terms|天花板]]
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      降噪深度[[fact_mismatch|45dB]]，地铁秒变图书馆
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      [[disparagement|某些大牌卖两千多还不如它]]
+
+  - id: test-08
+    split: test
+    product: JACK-CHARGER
+    marked: |-
+      [[absolute_terms|全球首款]]双口65W氮化镓充电器，[[unsourced_data|测试显示]]充电速度比普通充电头快一倍。到手价119元。
+
+  - id: test-09
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      颈椎不好的朋友一定要试试这款乳胶枕，[[medical_claims|矫正颈椎]]，[[medical_claims|改善睡眠障碍]]，[[medical_claims|用了三天就不疼了]]。天然乳胶含量[[fact_mismatch|95%]]。
+
+  - id: test-10
+    split: test
+    product: LEON-FRANCHISE
+    missing_disclosures: [DSC-02]
+    marked: |-
+      Leon优选社区零食店，[[guaranteed_returns|零风险]]创业，总部协助选址，[[guaranteed_returns|一年回本]]，开起来[[guaranteed_returns|在家就能收钱]]。加盟费29800元。
+
+  - id: test-11
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      零基础也能学的剪辑课，[[guaranteed_returns|7天包会]]，[[guaranteed_returns|学完保证接单]]。[[unsourced_data|已帮助3万名学员]]转行做剪辑。32节录播课，到手价199元。
+
+  - id: test-12
+    split: test
+    product: MIA-SUNSCREEN
+    marked: |-
+      这支防晒乳是我用过[[absolute_terms|最清爽]]的，SPF50+ PA++++，出门涂一层[[effect_claims|保证不晒黑]]。到手价89元。
+
+  - id: test-13
+    split: test
+    product: NOAH-OAT
+    tags: [clean]
+    marked: |-
+      上班族的早餐可以这样搭：Noah燕麦代餐粉每次30g，加200ml温水冲开，每份含膳食纤维6g。500g一袋，到手价59元，具体以页面价格为准。
+
+  - id: test-14
+    split: test
+    product: IRIS-PROBIOTIC
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      肠胃不好的宝妈看过来
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      Iris益生菌专门[[medical_claims|调理肠胃]]
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      孩子[[medical_claims|喝了一周便秘就好了]]
+
+      4
+      00:00:09,000 --> 00:00:12,000
+      [[unsourced_data|八成宝妈]]都回购，20袋69元
+
+  - id: test-15
+    split: test
+    product: JACK-EARBUDS
+    tags: [clean, hard_negative]
+    marked: |-
+      第一次用降噪耳机的话，建议先在安静的地方试戴。这副耳机降噪深度35dB，配合充电盒续航30小时，最好每天睡前放回盒里充电。到手价299元。
+
+  - id: test-16
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      Emma纯棉毛巾，[[absolute_terms|史上最柔软]]，[[unsourced_data|实验表明]]吸水性提升50%。到手价[[fact_mismatch|39元]]。
+
+  - id: test-17
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      用之前我脸上全是痘印，[[effect_claims|坚持用了两个月痘印全没了]]。[[disparagement|有些品牌的精华就是在糊弄人]]，我们只讲真实成分：5%烟酰胺。到手价129元。
+
+  - id: test-18
+    split: test
+    product: NOAH-TEA
+    input_type: srt
+    tags: [clean]
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      红豆薏米芡实，三样都是常见食材
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      一盒30袋，每天一袋
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      到手价39元，喜欢的点链接
+
+  - id: test-19
+    split: test
+    product: IRIS-VC
+    marked: |-
+      Iris维生素C咀嚼片，效果[[medical_claims|堪比药品]]，[[medical_claims|能替代感冒药]]，吃了[[effect_claims|绝对有效]]。本品不能代替药物。到手价89元。
+
+  - id: test-20
+    split: test
+    product: JACK-CHARGER
+    input_type: srt
+    tags: [clean, hard_negative]
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      出差党可以看看这个充电器
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      最大输出功率65W，双口同时充
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      到手价119元
+
+  - id: test-21
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      这款乳胶枕是[[authority_endorsement|机关单位指定]]用枕，天然乳胶含量85%，我睡过[[absolute_terms|最舒服]]的枕头就是它。到手价199元。
+
+  - id: test-22
+    split: test
+    product: LEON-FRANCHISE
+    tags: [clean]
+    marked: |-
+      Leon优选社区零食店正在招募加盟商，加盟费29800元，门店建议40平方米以上。投资有风险，收益受选址和经营情况影响，加盟前请做好评估。
+
+  - id: test-23
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      Leon学堂剪辑课，[[unsourced_data|好评率99%]]，[[guaranteed_returns|包教包会]]，[[guaranteed_returns|学完就可以变现]]。共32节录播课，每周1次直播答疑。
+
+  - id: test-24
+    split: test
+    product: MIA-SUNSCREEN
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      防晒选不对，夏天白费
+
+      2
+      00:00:02,500 --> 00:00:05,500
+      这支是[[absolute_terms|行业顶尖]]的防晒科技
+
+      3
+      00:00:05,500 --> 00:00:08,500
+      [[unsourced_data|调查显示]]敏感肌也能放心用
+
+      4
+      00:00:08,500 --> 00:00:11,000
+      50ml到手价89元
+
+  - id: test-25
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      [[disparagement|外面卖的代餐粉都是智商税]]，我们的Noah燕麦代餐粉是[[authority_endorsement|官方认可]]的健康早餐，每份含膳食纤维6g。到手价59元。
+
+  - id: test-26
+    split: test
+    product: JACK-EARBUDS
+    marked: |-
+      [[absolute_terms|最顶级]]的降噪体验，戴上[[effect_claims|立竿见影]]隔绝噪音，续航[[fact_mismatch|40小时]]。到手价299元。
+
+  - id: test-27
+    split: test
+    product: IRIS-PROBIOTIC
+    marked: |-
+      Iris益生菌固体饮料，[[absolute_terms|最有效]]的肠道养护方案，[[medical_claims|治疗肠炎]]，还能[[medical_claims|抗病毒]]。20袋到手价69元。
+
+  - id: test-28
+    split: test
+    product: EMMA-TOWEL
+    input_type: srt
+    tags: [clean]
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:03,000
+      100%棉的毛巾，摸起来很软
+
+      2
+      00:00:03,000 --> 00:00:06,000
+      三条一起买更划算
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      到手价49元，洗脸洗头都能用
+
+  - id: test-29
+    split: test
+    product: MIA-SERUM
+    tags: [hard_negative]
+    marked: |-
+      这瓶烟酰胺精华，回购率32%（数据来源：店铺后台2026年9月统计），今天直播间到手价[[fact_mismatch|99元]]，比平时便宜。
+
+  - id: test-30
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      [[absolute_terms|全网最低]]！红豆薏米茶只要39元，喝它能[[medical_claims|排毒养颜]]，[[unsourced_data|98%的人]]喝完都说好，[[effect_claims|一喝就瘦]]。

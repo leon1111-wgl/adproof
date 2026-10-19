@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ADPROOF_JWT_SECRET: ${ADPROOF_JWT_SECRET:-change-me-to-a-long-random-string-before-deploying}
+      ADPROOF_LLM_PROVIDER: ${ADPROOF_LLM_PROVIDER:-mock}
+      ADPROOF_LLM_PRESET: ${ADPROOF_LLM_PRESET:-}
+      ADPROOF_LLM_API_KEY: ${ADPROOF_LLM_API_KEY:-}
+      ADPROOF_LLM_MODEL: ${ADPROOF_LLM_MODEL:-}
+      ADPROOF_MOCK_LATENCY_MS: ${ADPROOF_MOCK_LATENCY_MS:-0}
+      ADPROOF_CORS_ORIGINS: http://localhost:8000
+    volumes:
+      - adproof-data:/app/data
+
+volumes:
+  adproof-data:
