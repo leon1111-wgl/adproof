@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ExternalLink, Play, Save, ShieldCheck } from "lucide-react";
-import { api } from "../api";
+import { ApiError, api } from "../api";
 import { useAuth } from "../auth";
 import { Citations } from "../components/Citations";
 import { MarkedText } from "../components/ScriptView";
@@ -145,6 +145,8 @@ function YamlTab({ canSave, onSaved }: { canSave: boolean; onSaved: () => void }
       history.reload();
       onSaved();
     } catch (e) {
+      const detail = e instanceof ApiError ? (e.detail as { errors?: string[] } | undefined) : undefined;
+      if (detail?.errors) setResult({ ok: false, errors: detail.errors, warnings: [] });
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);

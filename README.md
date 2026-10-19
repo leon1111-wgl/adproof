@@ -109,9 +109,9 @@ flowchart LR
       RW --> RE[复审<br/>最多 2 轮]
     end
     BG --> Pipeline
-    MR -.-> LLM{{LLM<br/>离线确定性模型 / 豆包 / 混元 / DeepSeek}}
-    RR -.-> RULES[(rules/*.yaml)]
-    EL -.-> LAWS[(laws/*.json<br/>已核对法条快照)]
+    MR -.-> LLM{{"LLM<br/>离线确定性模型 / 豆包 / 混元 / DeepSeek"}}
+    RR -.-> RULES[("rules/*.yaml")]
+    EL -.-> LAWS[("laws/*.json<br/>已核对法条快照")]
     Pipeline --> TR[(Run / Span 链路)]
     Pipeline --> DB[(审查记录 · finding)]
     DB --> HR[人工终审<br/>确认 / 误报 / 修改 / 驳回]
