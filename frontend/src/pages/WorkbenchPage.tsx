@@ -1,24 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FileUp, Play, Sparkles } from "lucide-react";
-import { api } from "../api";
+import { DEMO, api } from "../api";
 import { canDecide, useAuth } from "../auth";
 import { ErrorBanner, RiskBadge, StatusBadge, time, useLoad } from "../components/ui";
+import samples from "../samples.json";
 import type { Product, Review } from "../types";
 
-/** Demo scripts per product (SYNTHETIC). They are not part of the evaluation set. */
-const SAMPLES: Record<string, { text?: string; srt?: string }> = {
-  "MIA-SERUM": {
-    text: "姐妹们，这瓶烟酰胺精华我真的回购了三次，是我用过最好用的提亮精华！含30%烟酰胺，敏感肌也能用，还能消炎祛痘。\n92%的姐妹用完都说皮肤亮了一个度，别家卖的都是智商税。\n今天直播间到手价99元，全网最低价，拍一发二！",
-  },
-  "NOAH-OAT": { text: "早餐换成Noah燕麦代餐粉，一杯顶饱一上午。我自己喝了一个月瘦了8斤，我妈喝完血压都降下来了。每份含膳食纤维6g，到手价59元。" },
-  "IRIS-VC": { text: "Iris维生素C咀嚼片，每天一片，换季再也不感冒，比吃药还管用。60片一瓶，到手价89元。" },
-  "JACK-EARBUDS": {
-    srt: "1\n00:00:00,000 --> 00:00:03,200\n家人们，这副降噪耳机今天上车了\n\n2\n00:00:03,200 --> 00:00:06,800\n降噪深度45dB，同价位吊打所有竞品\n\n3\n00:00:06,800 --> 00:00:10,000\n单次续航8小时，行业首创智能降噪\n\n4\n00:00:10,000 --> 00:00:13,000\n到手价299元，点小黄车下单\n",
-  },
-  "LEON-FRANCHISE": { text: "Leon优选社区零食店，加盟费29800元，总部包选址，稳赚不赔，一年回本，在家就能收钱。" },
-  "LEON-COURSE": { text: "零基础剪辑课，32节录播课，保证学会，学完就能接单，好评率高达98%。" },
-};
+// Demo scripts per product (SYNTHETIC). They are not part of the evaluation set; the static
+// demo's recorder (scripts/record_demo.py) reviews exactly these.
+const SAMPLES = samples as Record<string, { text?: string; srt?: string }>;
 
 const AGENTS: [string, string][] = [
   ["卖点提炼", "从商品资料提炼卖点，每条都要摘抄资料原文作依据"],
@@ -167,6 +158,9 @@ export default function WorkbenchPage() {
                 <input type="checkbox" checked={inject} onChange={(e) => setInject(e.target.checked)} />
                 演示开关：让模型通道额外返回一条原文中不存在的引用，观察证据定位如何拦截
               </label>
+            )}
+            {DEMO && (
+              <div className="faint">静态演示：只能提交录制好的输入，即各商品的示例脚本（点“填入示例”）和生成选项；提交后回放当时的审查结果。</div>
             )}
             <div className="row">
               <span className="faint">{meta?.offline ? "当前使用离线确定性模型（无需 API Key）" : `当前模型：${meta?.model}`}</span>

@@ -1,3 +1,8 @@
+import { demoGet, demoPost, demoPut } from "./demo";
+
+/** Static GitHub Pages build: reads come from recorded responses, writes stay in memory (see demo.ts). */
+export const DEMO = import.meta.env.VITE_DEMO === "1";
+
 const TOKEN_KEY = "adproof.token";
 
 export function getToken(): string | null {
@@ -56,7 +61,7 @@ const json = (method: string, body?: unknown): RequestInit => ({
 });
 
 export const api = {
-  get: <T,>(path: string) => fetch(path, { headers: headers() }).then((r) => parse<T>(r)),
-  post: <T,>(path: string, body?: unknown) => fetch(path, json("POST", body)).then((r) => parse<T>(r)),
-  put: <T,>(path: string, body: unknown) => fetch(path, json("PUT", body)).then((r) => parse<T>(r)),
+  get: <T,>(path: string) => (DEMO ? demoGet<T>(path) : fetch(path, { headers: headers() }).then((r) => parse<T>(r))),
+  post: <T,>(path: string, body?: unknown) => (DEMO ? demoPost<T>(path, body) : fetch(path, json("POST", body)).then((r) => parse<T>(r))),
+  put: <T,>(path: string, body: unknown) => (DEMO ? demoPut<T>(path) : fetch(path, json("PUT", body)).then((r) => parse<T>(r))),
 };

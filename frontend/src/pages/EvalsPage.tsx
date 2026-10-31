@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Play } from "lucide-react";
-import { api } from "../api";
+import { DEMO, api } from "../api";
 import { useAuth } from "../auth";
 import { MarkedText, type TextMark } from "../components/ScriptView";
 import { Empty, ErrorBanner, Kpi, ms, pct, time, useLoad } from "../components/ui";
@@ -125,7 +125,8 @@ export default function EvalsPage() {
               {runs.data.map((r) => <option key={r.id} value={r.id}>#{r.id} · test F1 {pct(r.test_f1)} · {r.triggered_by} · {time(r.created_at)}</option>)}
             </select>
           )}
-          {user?.role === "admin" && <button className="btn btn-primary" disabled={busy} onClick={runNow}><Play size={15} /> {busy ? "运行中…" : "运行评测"}</button>}
+          {user?.role === "admin" && !DEMO && <button className="btn btn-primary" disabled={busy} onClick={runNow}><Play size={15} /> {busy ? "运行中…" : "运行评测"}</button>}
+          {DEMO && <span className="tag tag-replay" title="完整服务里管理员可以在这里运行；CI 每次提交都会运行">录制的评测结果 · 静态演示不重新运行</span>}
         </div>
       </div>
       <ErrorBanner error={error ?? runs.error} />

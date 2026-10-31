@@ -1,30 +1,39 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Activity, BookCheck, FilePenLine, FlaskConical, ListChecks, LogOut, Monitor, Moon, Sun } from "lucide-react";
-import { api } from "../api";
+import { useEffect, useState } from "react";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { LogOut, Menu, X } from "lucide-react";
+import { DEMO, api } from "../api";
 import { useAuth } from "../auth";
-import { Logo, ROLE_TEXT, useTheme } from "./ui";
+import { Logo, ROLE_TEXT, ThemeButton } from "./ui";
 
-const TITLES: Record<string, string> = {
-  workbench: "脚本工作台",
-  reviews: "审查记录",
-  rules: "规则库",
-  evals: "评测报告",
-  traces: "链路追踪",
-};
+/** Console sections, set like a journal's table of contents (§1–§5). */
+const SECTIONS = [
+  { to: "/workbench", label: "脚本工作台", hint: "提交脚本或按资料生成" },
+  { to: "/reviews", label: "审查记录", hint: "批注稿、改写与终审" },
+  { to: "/rules", label: "规则库", hint: "规则、法条快照与试运行" },
+  { to: "/evals", label: "评测报告", hint: "离线评测与逐条对照" },
+  { to: "/traces", label: "链路追踪", hint: "每个环节的输入输出" },
+];
 
-interface NavItem {
-  to: string;
-  label: string;
-  icon: ReactNode;
-  count?: number;
+export function DemoBanner() {
+  return (
+    <div className="demo-banner" role="note">
+      <span className="demo-tag">静态演示</span>
+      <span>
+        回放离线规则模型在 SYNTHETIC 数据上的保存结果 · 判定与签发只在本页内存中生效 · 完整服务请按{" "}
+        <a href="https://github.com/leon1111-wgl/adproof#快速开始" target="_blank" rel="noreferrer">
+          README
+        </a>{" "}
+        本地运行
+      </span>
+    </div>
+  );
 }
 
 export default function Layout() {
   const { user, meta, logout } = useAuth();
   const location = useLocation();
   const [pending, setPending] = useState(0);
-  const [theme, setTheme] = useTheme();
+  const [toc, setToc] = useState(false);
 
   useEffect(() => {
     const load = () =>
@@ -37,75 +46,69 @@ export default function Layout() {
     return () => window.clearInterval(timer);
   }, [location.pathname]);
 
-  const section = location.pathname.split("/")[1] || "workbench";
-  const groups: [string, NavItem[]][] = [
-    ["审查", [
-      { to: "/workbench", label: "脚本工作台", icon: <FilePenLine size={16} /> },
-      { to: "/reviews", label: "审查记录", icon: <ListChecks size={16} />, count: pending },
-    ]],
-    ["质量", [
-      { to: "/rules", label: "规则库", icon: <BookCheck size={16} /> },
-      { to: "/evals", label: "评测报告", icon: <FlaskConical size={16} /> },
-    ]],
-    ["运维", [{ to: "/traces", label: "链路追踪", icon: <Activity size={16} /> }]],
-  ];
-  const nextTheme = theme === "system" ? "light" : theme === "light" ? "dark" : "system";
-  const themeLabel = { system: "跟随系统", light: "浅色", dark: "深色" }[theme];
+  useEffect(() => setToc(false), [location.pathname]);
+  useEffect(() => {
+    if (!toc) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setToc(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [toc]);
+
+  const links = (className: string) =>
+    SECTIONS.map((s, i) => (
+      <NavLink key={s.to} to={s.to} className={className}>
+        <span className="folio">§{i + 1}</span>
+        <span className="toc-label">{s.label}</span>
+        <span className="toc-leader" aria-hidden="true" />
+        <span className="toc-hint">{s.hint}</span>
+        {s.to === "/reviews" && pending > 0 && <span className="count" title="待终审">{pending}</span>}
+      </NavLink>
+    ));
 
   return (
     <div className="shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <Logo />
-          <span className="brand-name">AdProof</span>
-        </div>
-        <div className="tenant-card">
-          <div className="name">Leon优选 · 内容合规中心</div>
-          <div className="meta">带货素材审查 · 演示环境</div>
-        </div>
-        <nav className="nav">
-          {groups.map(([group, items]) => (
-            <div key={group}>
-              <div className="nav-group">{group}</div>
-              {items.map((item) => (
-                <NavLink key={item.to} to={item.to} className={({ isActive }) => (isActive ? "active" : "")}>
-                  {item.icon}
-                  {item.label}
-                  {item.count ? <span className="count">{item.count}</span> : null}
-                </NavLink>
-              ))}
-            </div>
-          ))}
-        </nav>
-        <div className="sidebar-foot">
-          <span className="avatar me">{user?.name.slice(0, 1)}</span>
-          <div style={{ minWidth: 0, lineHeight: 1.3 }}>
-            <div className="ellipsis" style={{ fontSize: 13, fontWeight: 500 }}>{user?.name}</div>
-            <div className="faint">{user?.title} · {ROLE_TEXT[user?.role ?? ""]}</div>
-          </div>
+      <header className="masthead">
+        <div className="mast-inner">
+          <Link to="/" className="mast-brand" title="AdProof 介绍页">
+            <Logo size={26} />
+            <span>
+              <b className="serif">AdProof</b>
+              <span>Leon优选 · 内容合规中心</span>
+            </span>
+          </Link>
+          <nav className="mast-nav" aria-label="控制台导航">
+            {links("mast-link")}
+          </nav>
           <span className="spacer" />
-          <button className="icon-btn" title="退出登录" aria-label="退出登录" onClick={logout}><LogOut size={15} /></button>
+          {meta && (
+            <span className="tag mast-model" title={`规则库 ${meta.ruleset.version} · ${meta.ruleset.hash}`}>
+              {meta.offline ? "离线确定性模型" : meta.model} · 规则 {meta.ruleset.hash.slice(0, 7)}
+            </span>
+          )}
+          <span className="tag mast-synthetic">SYNTHETIC</span>
+          {DEMO && <span className="tag tag-replay">回放</span>}
+          <ThemeButton />
+          <span className="mast-user" title={`${user?.title} · ${ROLE_TEXT[user?.role ?? ""]}`}>
+            <span className="avatar">{user?.name.slice(0, 1)}</span>
+            <span className="mast-user-text">
+              {user?.name} <span className="faint">{ROLE_TEXT[user?.role ?? ""]}</span>
+            </span>
+          </span>
+          <button className="icon-btn" title="退出登录" aria-label="退出登录" onClick={logout}>
+            <LogOut size={15} />
+          </button>
+          <button className="icon-btn mast-toc" aria-expanded={toc} aria-controls="toc-sheet" aria-label="目录" onClick={() => setToc(!toc)}>
+            {toc ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-      </aside>
-      <div className="main">
-        <header className="topbar">
-          <div className="crumbs">
-            <span className="ellipsis">内容合规中心</span>
-            <span>/</span>
-            <b>{TITLES[section] ?? "AdProof"}</b>
-          </div>
-          <div className="row">
-            {meta && (
-              <span className="badge" title={`规则库 ${meta.ruleset.version} · ${meta.ruleset.hash}`}>
-                {meta.offline ? "离线确定性模型" : `模型 ${meta.model}`} · 规则 {meta.ruleset.hash.slice(0, 7)}
-              </span>
-            )}
-            <span className="badge">数据均为虚构（SYNTHETIC）</span>
-            <button className="icon-btn" title={`主题：${themeLabel}（点击切换）`} aria-label="切换主题" onClick={() => setTheme(nextTheme)}>
-              {theme === "light" ? <Sun size={16} /> : theme === "dark" ? <Moon size={16} /> : <Monitor size={16} />}
-            </button>
-          </div>
-        </header>
+        {toc && (
+          <nav className="toc-sheet" id="toc-sheet" aria-label="目录">
+            <div className="toc-title serif">目录</div>
+            {links("toc-link")}
+          </nav>
+        )}
+      </header>
+      <div className="desk">
         <Outlet />
       </div>
     </div>

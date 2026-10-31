@@ -1,16 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Check, CircleSlash, Activity as TraceIcon } from "lucide-react";
-import { ApiError, api } from "../api";
+import { ApiError, DEMO, api } from "../api";
 import { useAuth } from "../auth";
-import { Citations } from "../components/Citations";
-import { FindingScript } from "../components/ScriptView";
-import {
-  AGENT_TEXT, CHANNEL_TEXT, Empty, ErrorBanner, Modal, RiskBadge, SEVERITY_TEXT, SeverityDot, StatusBadge, ms, time,
-} from "../components/ui";
+import { Manuscript, Redline } from "../components/Manuscript";
+import { AGENT_TEXT, Empty, ErrorBanner, Modal, RiskBadge, SEVERITY_TEXT, Stamp, StatusBadge, ms, time } from "../components/ui";
 import type { AgentSpan, Finding, Recheck, Review } from "../types";
 
-type Tab = "original" | "rewrite" | "facts";
+type Tab = "marked" | "redline" | "clean" | "facts";
 
 function PipelineStrip({ review }: { review: Review }) {
   const spans = review.agents ?? [];
@@ -54,14 +51,15 @@ function PipelineStrip({ review }: { review: Review }) {
     }
   }
   return (
-    <div className="pipeline">
-      {steps.map((s) => (
-        <div key={s.key} className={`pipe-step${s.parallel ? " parallel" : ""}${s.state ? "" : " waiting"}`}>
-          <div className="name"><span className={`pipe-state ${s.state}`} />{s.name}</div>
-          <div className="meta">{s.meta}</div>
-        </div>
+    <ol className="slip" aria-label="流转单">
+      {steps.map((s, i) => (
+        <li key={s.key} className={`slip-step${s.parallel ? " parallel" : ""}${s.state ? ` ${s.state}` : " waiting"}`}>
+          <span className="slip-no mono">{String(i + 1).padStart(2, "0")}</span>
+          <span className="slip-name">{s.name}</span>
+          <span className="slip-meta mono">{s.meta}</span>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 
   function state(span?: AgentSpan) {
@@ -74,91 +72,37 @@ function PipelineStrip({ review }: { review: Review }) {
   }
 }
 
-function FindingCard({
-  finding, active, canVerdict, onSelect, onVerdict,
+/** Reviewer's verdict on one note: confirm, or mark a false positive with a reason. */
+function VerdictActions({
+  finding, canVerdict, onVerdict,
 }: {
   finding: Finding;
-  active: boolean;
   canVerdict: boolean;
-  onSelect: () => void;
   onVerdict: (verdict: "confirmed" | "false_positive" | null, note: string) => Promise<void>;
 }) {
   const [fpNote, setFpNote] = useState<string | null>(null);
-  const basis = finding.citations.filter((c) => c.kind === "basis");
-  const penalty = finding.citations.filter((c) => c.kind === "penalty");
-  const s = finding.suggestion;
+  if (!canVerdict && !finding.verdict) return null;
   return (
-    <div className={`finding${active ? " active" : ""}${finding.verdict === "false_positive" ? " fp" : ""}`} onClick={onSelect} id={`finding-${finding.key}`}>
-      <div className="head">
-        <SeverityDot level={finding.severity} />
-        <span className="key">{finding.key}</span>
-        <b style={{ fontWeight: 500 }}>{finding.category_label}</b>
-        {finding.rule_id && <span className="faint mono">{finding.rule_id}</span>}
-        <span className="spacer" />
-        {finding.channels.map((c) => <span key={c} className={`channel ${c}`}>{CHANNEL_TEXT[c]}</span>)}
-      </div>
-      <div className="quote">
-        <q>{finding.quote}</q>
-        <span className="where">
-          {finding.cue ? `第 ${finding.cue.index} 条字幕 ${finding.cue.start.slice(3, 8)} · ` : ""}字符 {finding.start}–{finding.end}
-        </span>
-      </div>
-      <div className="reason">
-        {finding.reason}
-        {finding.model_reason && finding.channels.includes("rule") && <span className="faint">（模型：{finding.model_reason}）</span>}
-      </div>
-      {finding.evidence && (
-        <div className="reason">商品资料「{finding.evidence.fact_key}」：{finding.evidence.fact_value}</div>
-      )}
-      <div className="basis" onClick={(e) => e.stopPropagation()}>
-        <Citations citations={basis} references={finding.references} />
-        <Citations citations={penalty} />
-      </div>
-      {s && (
-        <div className="suggest">
-          <span className="faint">建议：</span>
-          {s.strategy === "delete_clause" ? "删除这一分句" : s.replacement ? <>改为“{s.replacement}”</> : "删除该表述"}
-          {s.note && <span className="faint"> · {s.note}</span>}
-        </div>
-      )}
-      {(canVerdict || finding.verdict) && (
-        <div className="actions" onClick={(e) => e.stopPropagation()}>
-          {finding.verdict ? (
-            <>
-              <span className={`badge ${finding.verdict === "confirmed" ? "badge-danger" : ""}`}>
-                {finding.verdict === "confirmed" ? "已确认违规" : "已标记误报"} · {finding.verdict_by?.name}
-              </span>
-              {finding.verdict_note && <span className="faint ellipsis">{finding.verdict_note}</span>}
-              {canVerdict && <button className="btn btn-text btn-sm" onClick={() => onVerdict(null, "")}>撤销</button>}
-            </>
-          ) : fpNote === null ? (
-            <>
-              <button className="btn btn-sm" onClick={() => onVerdict("confirmed", "")}><Check size={13} /> 确认违规</button>
-              <button className="btn btn-sm" onClick={() => setFpNote("")}><CircleSlash size={13} /> 标记误报</button>
-            </>
-          ) : (
-            <>
-              <input className="input" style={{ height: 26 }} autoFocus placeholder="误报理由（会进入规则误报统计）" value={fpNote} onChange={(e) => setFpNote(e.target.value)} />
-              <button className="btn btn-sm btn-primary" disabled={fpNote.trim().length < 2} onClick={() => onVerdict("false_positive", fpNote).then(() => setFpNote(null))}>提交</button>
-              <button className="btn btn-sm" onClick={() => setFpNote(null)}>取消</button>
-            </>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function DiffView({ review }: { review: Review }) {
-  const rw = review.rewrite;
-  if (!rw || !rw.diff) return <Empty>没有需要改写的内容。</Empty>;
-  return (
-    <div className="diff">
-      {rw.diff.map((op, i) =>
-        op.op === "equal" ? <span key={i}>{op.a}</span>
-          : op.op === "insert" ? <ins key={i}>{op.b}</ins>
-            : op.op === "delete" ? <del key={i}>{op.a}</del>
-              : <span key={i}><del>{op.a}</del><ins>{op.b}</ins></span>,
+    <div className="note-actions">
+      {finding.verdict ? (
+        <>
+          <span className={`badge ${finding.verdict === "confirmed" ? "badge-danger" : ""}`}>
+            {finding.verdict === "confirmed" ? "已确认违规" : "已标记误报"} · {finding.verdict_by?.name}
+          </span>
+          {finding.verdict_note && <span className="faint">{finding.verdict_note}</span>}
+          {canVerdict && <button className="btn btn-text btn-sm" onClick={() => onVerdict(null, "")}>撤销</button>}
+        </>
+      ) : fpNote === null ? (
+        <>
+          <button className="btn btn-sm" onClick={() => onVerdict("confirmed", "")}><Check size={13} /> 确认违规</button>
+          <button className="btn btn-sm" onClick={() => setFpNote("")}><CircleSlash size={13} /> 标记误报</button>
+        </>
+      ) : (
+        <>
+          <input className="input" style={{ height: 28 }} autoFocus aria-label="误报理由" placeholder="误报理由（会进入规则误报统计）" value={fpNote} onChange={(e) => setFpNote(e.target.value)} />
+          <button className="btn btn-sm btn-primary" disabled={fpNote.trim().length < 2} onClick={() => onVerdict("false_positive", fpNote).then(() => setFpNote(null))}>提交</button>
+          <button className="btn btn-sm" onClick={() => setFpNote(null)}>取消</button>
+        </>
       )}
     </div>
   );
@@ -205,8 +149,9 @@ function EditModal({ review, onClose, onDone }: { review: Review; onClose: () =>
       </>
     }>
       <p className="muted small">在改写稿基础上人工修改。提交前必须复检：复检使用同一套规则和模型通道，仍有高、中风险问题时不能通过。</p>
-      <textarea className="textarea" style={{ minHeight: 200, fontSize: 14 }} value={text} onChange={(e) => { setText(e.target.value); setCheck(null); }} />
-      <input className="input" placeholder="终审备注（可选）" value={note} onChange={(e) => setNote(e.target.value)} />
+      {DEMO && <p className="faint">静态演示只录制了未改动改写稿的复检；改动后的文本需要完整服务。</p>}
+      <textarea className="textarea serif" aria-label="修改稿" style={{ minHeight: 200, fontSize: 15 }} value={text} onChange={(e) => { setText(e.target.value); setCheck(null); }} />
+      <input className="input" aria-label="终审备注" placeholder="终审备注（可选）" value={note} onChange={(e) => setNote(e.target.value)} />
       <ErrorBanner error={error} />
       {check && (
         check.passed
@@ -225,9 +170,8 @@ export default function ReviewPage() {
   const { meta } = useAuth();
   const [review, setReview] = useState<Review | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<Tab>("original");
+  const [tab, setTab] = useState<Tab>("marked");
   const [active, setActive] = useState<string | null>(null);
-  const [pulse, setPulse] = useState(0);
   const [note, setNote] = useState("");
   const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -255,10 +199,8 @@ export default function ReviewPage() {
 
   const findings = useMemo(() => review?.findings ?? [], [review]);
   const select = (key: string) => {
-    setActive(key);
-    setPulse((p) => p + 1);
-    setTab("original");
-    document.getElementById(`finding-${key}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    setActive((current) => (current === key ? null : key));
+    setTab("marked");
   };
 
   async function verdict(key: string, value: "confirmed" | "false_positive" | null, text: string) {
@@ -298,152 +240,141 @@ export default function ReviewPage() {
 
   return (
     <div className="page stack" style={{ gap: 14 }}>
-      <div className="row row-wrap">
-        <Link to="/reviews" className="btn btn-sm"><ArrowLeft size={14} /> 审查记录</Link>
-        <h1 style={{ marginLeft: 4 }}>{review.title}</h1>
-        <StatusBadge status={review.status} />
-        <RiskBadge level={review.risk_level} />
-        <span className="spacer" />
-        {review.run_id && <Link className="btn btn-sm" to={`/traces/${review.run_id}`}><TraceIcon size={14} /> 链路追踪</Link>}
-      </div>
-      <div className="faint">
-        {review.product.brand} {review.product.name} · {categoryName(review.product.category)} ·
-        {" "}{review.mode === "generate" ? `系统生成（${review.options?.tone === "aggressive" ? "激进·演示" : "稳妥"}）` : review.input_type === "srt" ? "SRT 字幕" : "口播文案"} ·
-        {" "}{review.created_by.name} 提交于 {time(review.created_at)} · 规则库 {review.ruleset_version}（{review.ruleset_hash.slice(0, 7)}）· {review.provider === "mock" ? "离线确定性模型" : review.model}
+      <div className="review-head">
+        <Link to="/reviews" className="back-link small"><ArrowLeft size={14} /> 审查记录</Link>
+        <div className="row row-wrap" style={{ gap: 10 }}>
+          <h1 className="serif">{review.title}</h1>
+          <StatusBadge status={review.status} />
+          <RiskBadge level={review.risk_level} />
+          <span className="spacer" />
+          {review.run_id && <Link className="btn btn-sm" to={`/traces/${review.run_id}`}><TraceIcon size={14} /> 链路追踪</Link>}
+        </div>
+        <div className="faint">
+          {review.product.brand} {review.product.name} · {categoryName(review.product.category)} ·
+          {" "}{review.mode === "generate" ? `系统生成（${review.options?.tone === "aggressive" ? "激进·演示" : "稳妥"}）` : review.input_type === "srt" ? "SRT 字幕" : "口播文案"} ·
+          {" "}{review.created_by.name} 提交于 {time(review.created_at)} · 规则库 {review.ruleset_version}（{review.ruleset_hash.slice(0, 7)}）· {review.provider === "mock" ? "离线确定性模型" : review.model}
+        </div>
       </div>
       <PipelineStrip review={review} />
       <ErrorBanner error={error ?? review.error} />
       {running ? <div className="card"><Empty>多个审查环节正在运行，结果出来后会自动刷新…</Empty></div> : (
-        <div className="review-grid">
-          <div className="card">
-            <div className="card-head">
-              <div className="tabs" style={{ marginTop: 10 }}>
-                <button className={tab === "original" ? "active" : ""} onClick={() => setTab("original")}>原稿标注</button>
-                <button className={tab === "rewrite" ? "active" : ""} onClick={() => setTab("rewrite")}>改写稿{rewrite.changed ? "" : "（无改动）"}</button>
-                <button className={tab === "facts" ? "active" : ""} onClick={() => setTab("facts")}>卖点与商品资料</button>
-              </div>
-              {tab === "original" && (
-                <div className="legend">
-                  <span><span className="sev-dot high" />高风险</span>
-                  <span><span className="sev-dot medium" />中风险</span>
-                  <span className="faint">悬停看法条 · 点击定位</span>
-                </div>
-              )}
-              {tab === "rewrite" && rewrite.rounds && (
-                <span className={`badge ${rewrite.passed ? "badge-success" : "badge-danger"}`}>
-                  {rewrite.passed ? "复审通过" : "复审未通过"} · {rewrite.rounds.length} 轮
-                </span>
-              )}
+        <section className="sheet-card">
+          <div className="sheet-tabs">
+            <div className="tabs" role="tablist" aria-label="稿件视图">
+              {([
+                ["marked", `批注稿 · ${findings.length + missing.length}`],
+                ["redline", "红笔改稿"],
+                ["clean", "清样"],
+                ["facts", "卖点与资料"],
+              ] as [Tab, string][]).map(([key, label]) => (
+                <button key={key} role="tab" aria-selected={tab === key} className={tab === key ? "active" : ""} onClick={() => setTab(key)}>{label}</button>
+              ))}
             </div>
-            <div className="panel-scroll">
-              {tab === "original" && (
-                <FindingScript text={review.source_text ?? ""} findings={findings} cues={review.cues}
-                  activeKey={active} onSelect={select} pulse={pulse} />
+            <span className="spacer" />
+            {tab === "marked" && review.validation && (
+              <span className="faint" title="每条结果都重新核对了原文片段和法条快照">
+                证据校验 {review.validation.valid}/{review.validation.checked} · 法条已核对 {review.validation.citations_verified}/{review.validation.citations}
+              </span>
+            )}
+            {(tab === "redline" || tab === "clean") && rewrite.rounds && (
+              <span className={`badge ${rewrite.passed ? "badge-success" : "badge-danger"}`}>
+                {rewrite.passed ? "改写稿复审通过" : "改写稿复审未通过"} · {rewrite.rounds.length} 轮
+              </span>
+            )}
+          </div>
+          {tab === "marked" && (
+            <>
+              {findings.length === 0 && missing.length === 0 && (review.rejected?.length ?? 0) === 0 ? (
+                <div className="manuscript"><div className="ms-text">{review.source_text}</div><Empty>没有发现问题。</Empty></div>
+              ) : (
+                <Manuscript
+                  text={review.source_text ?? ""}
+                  cues={review.cues}
+                  findings={findings}
+                  missing={missing}
+                  rejected={review.rejected}
+                  activeKey={active}
+                  onSelect={select}
+                  actionsFor={(f) => <VerdictActions finding={f} canVerdict={Boolean(perms?.can_verdict)} onVerdict={(v, n) => verdict(f.key, v, n)} />}
+                />
               )}
-              {tab === "rewrite" && (
-                <>
-                  <DiffView review={review} />
-                  {rewrite.edits && rewrite.edits.length > 0 && (
-                    <div className="card-pad" style={{ borderTop: "1px solid var(--border-2)" }}>
-                      <div className="label" style={{ marginBottom: 6 }}>第 1 轮改动（{rewrite.edits.length} 处）</div>
-                      <table className="table"><tbody>
-                        {rewrite.edits.map((e, i) => (
-                          <tr key={i}>
-                            <td className="mono faint nowrap">{e.keys.join(" ")}</td>
-                            <td><del className="small" style={{ color: "var(--danger)" }}>{e.original || "（无）"}</del></td>
-                            <td className="small">{e.replacement ? e.replacement : <span className="faint">删除</span>}</td>
-                            <td className="faint small">{e.note}</td>
-                          </tr>
-                        ))}
-                      </tbody></table>
-                    </div>
-                  )}
-                </>
-              )}
-              {tab === "facts" && (
-                <div className="card-pad stack" style={{ gap: 16 }}>
-                  <div>
-                    <div className="label" style={{ marginBottom: 6 }}>卖点提炼（每条都摘抄了资料原文）</div>
-                    {review.selling_points?.length ? (
-                      <table className="facts"><tbody>
-                        {review.selling_points.map((p) => (
-                          <tr key={p.title + p.detail}><td>{p.title}</td><td>{p.detail}<div className="faint">依据：{p.source_field} · “{p.evidence}”</div></td></tr>
-                        ))}
-                      </tbody></table>
-                    ) : <span className="faint">没有可用的卖点</span>}
-                  </div>
-                  <div>
-                    <div className="label" style={{ marginBottom: 6 }}>商品资料（审查时的快照）</div>
-                    <table className="facts"><tbody>
-                      {review.product.facts.map((f) => <tr key={f.key}><td>{f.key}</td><td>{f.value}</td></tr>)}
+              <div className="sheet-legend">
+                <span><mark className="hl high">删去</mark> 高风险</span>
+                <span><mark className="hl medium">波浪线</mark> 中风险</span>
+                <span className="faint">点红笔处或批注展开依据；法条标签悬停可看已核对的原文</span>
+              </div>
+            </>
+          )}
+          {tab === "redline" && (
+            rewrite.diff ? (
+              <>
+                <Redline rewrite={rewrite} />
+                {rewrite.edits && rewrite.edits.length > 0 && (
+                  <div className="table-wrap" style={{ borderTop: "1px solid var(--border-2)" }}>
+                    <table className="table"><tbody>
+                      {rewrite.edits.map((e, i) => (
+                        <tr key={i}>
+                          <td className="mono faint nowrap">{e.keys.join(" ")}</td>
+                          <td><del className="pen-del">{e.original || "（无）"}</del></td>
+                          <td>{e.replacement ? <ins className="pen-ins">{e.replacement}</ins> : <span className="faint">删除</span>}</td>
+                          <td className="faint small">{e.note}</td>
+                        </tr>
+                      ))}
                     </tbody></table>
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-head">
-              <h3>审查结果</h3>
-              <span className="row small">
-                <span><span className="sev-dot high" /> {counts.high ?? 0}</span>
-                <span><span className="sev-dot medium" /> {counts.medium ?? 0}</span>
-                {review.validation && (
-                  <span className="badge badge-success" title="每条结果都重新核对了原文片段和法条快照">
-                    证据校验 {review.validation.valid}/{review.validation.checked} · 法条 {review.validation.citations_verified}/{review.validation.citations}
-                  </span>
                 )}
-              </span>
+              </>
+            ) : <Empty>没有需要改写的内容。</Empty>
+          )}
+          {tab === "clean" && (
+            <div className="clean-copy">
+              <div className="ms-text">{rewrite.text || review.source_text}</div>
+              <div className="faint">清样：按红笔改稿逐条替换后的全文，改写稿会用同一套规则和模型再审一遍{rewrite.changed === false ? "（本稿无需改动）" : ""}。</div>
             </div>
-            <div className="panel-scroll">
-              {(review.rejected?.length ?? 0) > 0 && (
-                <div className="card-pad" style={{ borderBottom: "1px solid var(--border-2)" }}>
-                  <div className="notice">
-                    模型通道返回的 {review.rejected!.length} 条引用在原文中找不到，已拦截、未展示：
-                    {review.rejected!.map((r) => `“${r.quote}”`).join("、")}
-                  </div>
-                </div>
-              )}
-              {missing.map((d) => (
-                <div className="finding" key={d.id} style={{ cursor: "default" }}>
-                  <div className="head"><SeverityDot level={d.severity} /><span className="key">{d.id}</span><b style={{ fontWeight: 500 }}>缺少必要声明</b></div>
-                  <div className="reason">全文没有出现：{d.required}</div>
-                  <div className="basis"><Citations citations={d.citations} /></div>
-                  <div className="suggest"><span className="faint">建议：</span>在结尾补充“{d.suggestion}”</div>
-                </div>
-              ))}
-              {findings.length === 0 && missing.length === 0 && <Empty>没有发现问题。</Empty>}
-              {findings.map((f) => (
-                <FindingCard key={f.key} finding={f} active={active === f.key} canVerdict={Boolean(perms?.can_verdict)}
-                  onSelect={() => select(f.key)} onVerdict={(v, n) => verdict(f.key, v, n)} />
-              ))}
+          )}
+          {tab === "facts" && (
+            <div className="card-pad stack" style={{ gap: 16 }}>
+              <div>
+                <div className="label" style={{ marginBottom: 6 }}>卖点提炼（每条都摘抄了资料原文）</div>
+                {review.selling_points?.length ? (
+                  <table className="facts"><tbody>
+                    {review.selling_points.map((p) => (
+                      <tr key={p.title + p.detail}><td>{p.title}</td><td>{p.detail}<div className="faint">依据：{p.source_field} · “{p.evidence}”</div></td></tr>
+                    ))}
+                  </tbody></table>
+                ) : <span className="faint">没有可用的卖点</span>}
+              </div>
+              <div>
+                <div className="label" style={{ marginBottom: 6 }}>商品资料（审查时的快照）</div>
+                <table className="facts"><tbody>
+                  {review.product.facts.map((f) => <tr key={f.key}><td>{f.key}</td><td>{f.value}</td></tr>)}
+                </tbody></table>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </section>
       )}
 
       {!running && review.decision && (
-        <div className="card card-pad stack">
-          <div className="row">
-            <b>终审结果</b>
-            <StatusBadge status={review.status} />
-            <span className="faint">
-              {review.decided_by?.name} · {time(review.decided_at)} ·
-              {" "}{review.decision === "reject" ? "驳回" : review.decision_version === "rewrite" ? "采用改写稿" : review.decision_version === "edited" ? "人工修改后通过" : "原稿通过"}
-            </span>
+        <div className="verdict-card">
+          <Stamp status={review.status} />
+          <div className="stack" style={{ gap: 4, minWidth: 0 }}>
+            <b>
+              {review.decision === "reject" ? "驳回" : review.decision_version === "rewrite" ? "采用改写稿" : review.decision_version === "edited" ? "人工修改后通过" : "原稿通过"}
+              <span className="faint" style={{ fontWeight: 400 }}> · {review.decided_by?.name} · {time(review.decided_at)}</span>
+            </b>
+            {review.decision_note && <div className="muted">{review.decision_note}</div>}
+            {review.final_text && <div className="final-text">{review.final_text}</div>}
           </div>
-          {review.decision_note && <div className="muted">{review.decision_note}</div>}
-          {review.final_text && <div className="json" style={{ whiteSpace: "pre-wrap", fontFamily: "var(--font)", fontSize: 14 }}>{review.final_text}</div>}
         </div>
       )}
 
       {!running && !review.decision && review.status === "pending" && (
         <div className="decision-bar">
-          <b>人工终审</b>
+          <b className="serif">终审签发</b>
           {perms?.can_decide ? (
             <>
-              <textarea className="textarea" placeholder="终审备注（驳回时必填）" value={note} onChange={(e) => setNote(e.target.value)} />
+              <textarea className="textarea" aria-label="终审备注" placeholder="终审备注（驳回时必填）" value={note} onChange={(e) => setNote(e.target.value)} />
               <button className="btn btn-primary" disabled={busy || !rewrite.passed} title={rewrite.passed ? "" : "改写稿没有通过复审"} onClick={() => decide("approve", "rewrite")}>采用改写稿通过</button>
               <button className="btn" disabled={busy} onClick={() => setEditing(true)}>修改后通过</button>
               <button className="btn" disabled={busy} title="仅当所有高、中风险问题都标记为误报时可用" onClick={() => decide("approve", "original")}>原稿通过</button>
@@ -451,7 +382,10 @@ export default function ReviewPage() {
             </>
           ) : <span className="muted">{perms?.reason}</span>}
           <span className="spacer" />
-          <span className="faint">{SEVERITY_TEXT.high} {counts.high ?? 0} · {SEVERITY_TEXT.medium} {counts.medium ?? 0} · 已判定 {findings.filter((f) => f.verdict).length}/{findings.length}</span>
+          <span className="faint">
+            {SEVERITY_TEXT.high} {counts.high ?? 0} · {SEVERITY_TEXT.medium} {counts.medium ?? 0} · 已判定 {findings.filter((f) => f.verdict).length}/{findings.length}
+            {DEMO && " · 静态演示：判定和签发只在本页内存中生效，规则与服务端相同"}
+          </span>
         </div>
       )}
       {editing && <EditModal review={review} onClose={() => setEditing(false)} onDone={(r) => { setReview(r); setEditing(false); }} />}

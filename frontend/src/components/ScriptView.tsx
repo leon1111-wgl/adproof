@@ -1,6 +1,4 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
-import type { Cue, Finding } from "../types";
-import { CHANNEL_TEXT, SEVERITY_TEXT } from "./ui";
+import { Fragment } from "react";
 
 export interface TextMark {
   id: string;
@@ -54,6 +52,13 @@ export function MarkedText({
             className={`${main.className}${active ? " active" : ""}`}
             data-ids={seg.marks.map((m) => m.id).join(" ")}
             onClick={() => onSelect?.(main.id)}
+            role={onSelect ? "button" : undefined}
+            tabIndex={onSelect ? 0 : undefined}
+            onKeyDown={(e) => {
+              if (!onSelect || (e.key !== "Enter" && e.key !== " ")) return;
+              e.preventDefault();
+              onSelect(main.id);
+            }}
             onMouseEnter={(e) => onHover?.(main.id, e.currentTarget)}
             onMouseLeave={() => onHover?.(null, null)}
           >
@@ -63,76 +68,5 @@ export function MarkedText({
         );
       })}
     </>
-  );
-}
-
-function Tip({ finding, anchor }: { finding: Finding; anchor: HTMLElement }) {
-  const rect = anchor.getBoundingClientRect();
-  const top = rect.bottom + 8 + 220 > window.innerHeight ? rect.top - 8 : rect.bottom + 8;
-  const style = { left: Math.min(rect.left, window.innerWidth - 360), top, transform: top < rect.top ? "translateY(-100%)" : undefined };
-  const basis = finding.citations.find((c) => c.kind === "basis");
-  return (
-    <div className="hl-tip" style={style}>
-      <b>{finding.key} · {finding.category_label}</b> <span className="faint">{SEVERITY_TEXT[finding.severity]} · {finding.channels.map((c) => CHANNEL_TEXT[c]).join(" + ")}</span>
-      <div>{finding.rule_name ?? finding.model_reason ?? finding.reason}</div>
-      {basis && (
-        <div className="law">
-          <b>{basis.label}</b>
-          <div>{basis.status === "verified" ? basis.text : "原文待核对"}</div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/** The annotated script: plain text, or SRT cues with their timestamps. */
-export function FindingScript({
-  text, findings, cues, activeKey, onSelect, pulse,
-}: {
-  text: string;
-  findings: Finding[];
-  cues?: Cue[];
-  activeKey: string | null;
-  onSelect: (key: string) => void;
-  pulse: number;
-}) {
-  const box = useRef<HTMLDivElement>(null);
-  const [hover, setHover] = useState<{ key: string; el: HTMLElement } | null>(null);
-  const marks: TextMark[] = findings.map((f) => ({
-    id: f.key, start: f.start, end: f.end, label: f.key,
-    className: `hl ${f.severity}${f.verdict === "false_positive" ? " fp" : ""}`,
-  }));
-
-  useEffect(() => {
-    if (!activeKey || !box.current) return;
-    const el = box.current.querySelector<HTMLElement>(`mark[data-ids~="${activeKey}"]`);
-    el?.scrollIntoView({ block: "center", behavior: "smooth" });
-  }, [activeKey, pulse]);
-
-  const common = {
-    text, marks, activeId: activeKey, onSelect,
-    onHover: (id: string | null, el: HTMLElement | null) => setHover(id && el ? { key: id, el } : null),
-  };
-  let body: ReactNode;
-  if (cues && cues.length > 0) {
-    body = (
-      <div className="script-cues">
-        {cues.map((cue) => (
-          <div className="cue-row" key={cue.index}>
-            <span className="cue-time">#{cue.index} {cue.start.slice(3, 8)}–{cue.end.slice(3, 8)}</span>
-            <span><MarkedText {...common} from={cue.char_start} to={cue.char_end} /></span>
-          </div>
-        ))}
-      </div>
-    );
-  } else {
-    body = <div className="script"><MarkedText {...common} /></div>;
-  }
-  const hovered = hover ? findings.find((f) => f.key === hover.key) : null;
-  return (
-    <div ref={box} key={pulse}>
-      {body}
-      {hovered && hover && <Tip finding={hovered} anchor={hover.el} />}
-    </div>
   );
 }

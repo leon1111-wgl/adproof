@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { Monitor, Moon, Sun, X } from "lucide-react";
 import type { Severity } from "../types";
 
 export const ROLE_TEXT: Record<string, string> = { admin: "管理员", reviewer: "审核员", operator: "运营" };
@@ -31,6 +31,13 @@ export function StatusBadge({ status }: { status: string }) {
   return <span className={`badge ${cls}`}>{text}</span>;
 }
 
+const STAMP: Record<string, string> = { approved: "准予发布", rejected: "退回重写", pending: "待终审" };
+
+/** A sign-off result, inked like an editor's stamp. */
+export function Stamp({ status }: { status: string }) {
+  return <span className={`stamp stamp-${status}`}>{STAMP[status] ?? STATUS[status]?.[0] ?? status}</span>;
+}
+
 export function RiskBadge({ level }: { level?: Severity | null }) {
   if (!level) return <span className="faint">—</span>;
   const cls = { high: "badge-danger", medium: "badge-warning", low: "badge-success" }[level];
@@ -41,15 +48,39 @@ export function SeverityDot({ level }: { level: Severity }) {
   return <span className={`sev-dot ${level}`} title={SEVERITY_TEXT[level]} />;
 }
 
-export function Modal({ title, onClose, children, footer, wide }: { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; wide?: boolean }) {
+/** Escape closes; Tab stays inside; focus moves in on open and back to the opener on close. */
+function useDialogFocus(panel: RefObject<HTMLElement | null>, onClose: () => void) {
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const opener = document.activeElement as HTMLElement | null;
+    panel.current?.querySelector<HTMLElement>("[data-autofocus], button")?.focus();
+    return () => opener?.focus?.();
+  }, [panel]);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key !== "Tab" || !panel.current) return;
+      const items = panel.current.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"]), select, input, textarea');
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [panel, onClose]);
+}
+
+export function Modal({ title, onClose, children, footer, wide }: { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; wide?: boolean }) {
+  const panel = useRef<HTMLDivElement>(null);
+  useDialogFocus(panel, onClose);
   return (
     <div className="modal-backdrop" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="card modal" role="dialog" aria-label={title} style={wide ? { width: "min(880px, 100%)" } : undefined}>
+      <div className="card modal" role="dialog" aria-modal="true" aria-label={title} ref={panel} style={wide ? { width: "min(880px, 100%)" } : undefined}>
         <div className="card-head">
           <h2>{title}</h2>
           <button className="icon-btn" onClick={onClose} aria-label="关闭"><X size={18} /></button>
@@ -62,15 +93,12 @@ export function Modal({ title, onClose, children, footer, wide }: { title: strin
 }
 
 export function Drawer({ title, onClose, children }: { title: ReactNode; onClose: () => void; children: ReactNode }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const panel = useRef<HTMLElement>(null);
+  useDialogFocus(panel, onClose);
   return (
     <>
       <div className="drawer-backdrop" onClick={onClose} />
-      <aside className="drawer" role="dialog">
+      <aside className="drawer" role="dialog" aria-modal="true" ref={panel}>
         <div className="card-head" style={{ position: "sticky", top: 0, background: "var(--surface)", zIndex: 1 }}>
           <div style={{ minWidth: 0 }}>{title}</div>
           <button className="icon-btn" onClick={onClose} aria-label="关闭"><X size={18} /></button>
@@ -122,13 +150,25 @@ export function time(iso?: string | null) {
   return `${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${hm}`;
 }
 
+/** A ruled page with one line struck through in red pen. */
 export function Logo({ size = 24 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-      <rect width="24" height="24" rx="5" fill="var(--primary)" />
-      <path d="M7.5 6.5h6.5l3 3v8h-9.5z" fill="none" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" />
-      <path d="M10 13l1.8 1.8 3.2-3.6" fill="none" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className="logo">
+      <rect width="24" height="24" rx="4" fill="#2b2520" />
+      <path d="M6.5 7.5h11M6.5 12h11M6.5 16.5h6.5" stroke="#f6f0e4" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M5 12.9 19 11.1" stroke="#ea5a3c" strokeWidth="2.2" strokeLinecap="round" />
     </svg>
+  );
+}
+
+export function ThemeButton() {
+  const [theme, setTheme] = useTheme();
+  const next = theme === "system" ? "light" : theme === "light" ? "dark" : "system";
+  const label = { system: "跟随系统", light: "浅色", dark: "深色" }[theme];
+  return (
+    <button className="icon-btn" title={`主题：${label}（点击切换）`} aria-label={`切换主题，当前：${label}`} onClick={() => setTheme(next)}>
+      {theme === "light" ? <Sun size={16} /> : theme === "dark" ? <Moon size={16} /> : <Monitor size={16} />}
+    </button>
   );
 }
 

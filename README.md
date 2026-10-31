@@ -1,6 +1,9 @@
 # AdProof · 带货素材合规审查 Multi-Agent
 
 [![CI](https://github.com/leon1111-wgl/adproof/actions/workflows/ci.yml/badge.svg)](https://github.com/leon1111-wgl/adproof/actions/workflows/ci.yml)
+[![Demo](https://github.com/leon1111-wgl/adproof/actions/workflows/pages.yml/badge.svg)](https://github.com/leon1111-wgl/adproof/actions/workflows/pages.yml)
+
+**Demo：<https://leon1111-wgl.github.io/adproof/>**（静态演示，打开即用：回放离线确定性模型在 SYNTHETIC 数据上的录制结果，判定和签发只在页面内存中生效；完整服务按下文[快速开始](#快速开始)本地运行）
 
 **每一处违规都能追溯到原文的第几个字、命中的哪条规则、哪部法律的哪一条原文；每一份改写稿都要再审一遍，最后由人签字。**
 
@@ -8,9 +11,9 @@ AdProof 面向抖音电商等短视频 / 直播带货场景：商家提交口播
 
 作者：**Leon Wang** · 个人项目 · 仓库中的品牌、商品、脚本全部为虚构（SYNTHETIC）· 不构成法律意见 · 与任何平台无关联。
 
-![脚本工作台：逐字标注、法条原文悬浮卡片](docs/assets/review-evidence.png)
+![批注稿：红笔标出的片段、页边批注和已核对的法条原文](docs/assets/review-evidence.png)
 
-> 上图：左侧是原稿，每处问题按风险着色并编号；右侧是逐条结果。悬停在依据上，会显示《广告法》第十七条的原文（取自国家法律法规数据库，注明版本和核对日期），原文中被引用的部分高亮。顶部是本次运行的 Agent 流水线和每一步耗时。
+> 上图：审核员 Mia 打开运营 Emma 提交的口播稿。高风险片段用红笔划掉、中风险画波浪线，每处带圈号；页边批注与片段对齐，写明问题类型、法律依据和改法，选中的批注用虚线连回原文。悬停在依据上，显示《广告法》对应条款的原文（取自国家法律法规数据库的已核对快照，注明版本和核对日期）。顶部流转单是本次运行的各个环节，底部是终审签发。
 
 ---
 
@@ -28,7 +31,7 @@ AdProof 面向抖音电商等短视频 / 直播带货场景：商家提交口播
 
 <table>
 <tr>
-<td width="50%"><img src="docs/assets/review-rewrite.png" alt="改写稿"><br><b>改写与复审</b>：逐条最小改动（替换、删分句、按商品资料改数字、补必要声明），改写稿自动复审</td>
+<td width="50%"><img src="docs/assets/review-rewrite.png" alt="红笔改稿"><br><b>红笔改稿 → 清样</b>：逐条最小改动（替换、删分句、按商品资料改数字、补必要声明），删去的划红线、补写的跟在 ‸ 后；改写稿自动复审</td>
 <td width="50%"><img src="docs/assets/review-srt.png" alt="字幕定位"><br><b>SRT 字幕定位</b>：问题落到第几条字幕、哪个时间点；“45dB”与商品资料“35dB”不一致</td>
 </tr>
 <tr>
@@ -41,7 +44,14 @@ AdProof 面向抖音电商等短视频 / 直播带货场景：商家提交口播
 </tr>
 <tr>
 <td><img src="docs/assets/evals.png" alt="评测报告"><br><b>评测报告</b>：60 条字符级标注的虚构脚本，按违规类型算片段级 P / R / F1，含通道消融和改写复审通过率</td>
-<td><img src="docs/assets/trace.png" alt="链路追踪"><br><b>链路追踪</b>：每个 Agent 的输入、输出、耗时和 Token；规则审查与模型审查并行（截图中离线模型的耗时为模拟值）</td>
+<td><img src="docs/assets/trace.png" alt="链路追踪"><br><b>链路追踪</b>：每个 Agent 的输入、输出、耗时和 Token；规则审查与模型审查并行（截图来自静态演示的录制，离线模型未加模拟延迟）</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%"><img src="docs/assets/landing.png" alt="介绍页"><br><b>介绍页</b>：一份真实录制的批注样稿（批注稿 / 红笔改稿 / 清样）、流转单和带前提的离线评测，再进入审查台</td>
+<td width="50%"><img src="docs/assets/mobile.png" alt="手机" width="300"><br><b>手机</b>：页边批注改为排在正文下方，点红笔处展开对应批注；导航收进“目录”</td>
 </tr>
 </table>
 
@@ -156,6 +166,20 @@ pnpm dev            # http://localhost:5173 ，/api 代理到 8000
 docker compose up --build    # http://localhost:8000
 ```
 
+**静态演示（GitHub Pages）**：`scripts/record_demo.py` 在进程内启动真实后端（离线确定性模型 + SYNTHETIC 数据，不联网、不加载任何模型权重），录下种子审查记录、工作台每个可选输入（各商品的示例脚本、全部生成选项，含/不含幻觉演示开关）的审查结果、改写稿复检、规则试运行和评测，存到 `frontend/public/demo/`。`pnpm build:demo` 构建的控制台读这些文件而不调用 API；逐条判定和终审签发只改页面内存，按与 `review_service.py` 相同的规则执行（四眼原则、高中风险未标误报不能原稿通过、修改稿须复检），刷新即恢复。每次推送 main，[pages.yml](.github/workflows/pages.yml) 都从当次提交重新录制再发布。
+
+```bash
+cd backend && python ../scripts/record_demo.py   # 重新录制
+cd frontend && pnpm dev:demo                      # http://localhost:5173/adproof/
+```
+
+**重新生成截图**（基于静态演示，不需要后端；需要 Playwright）：
+
+```bash
+cd frontend && pnpm build:demo && pnpm preview --mode demo --port 4173 --strictPort &
+node scripts/screenshots.mjs
+```
+
 **测试与评测**：
 
 ```bash
@@ -202,7 +226,7 @@ ADPROOF_LLM_MODEL=<控制台里的模型或接入点 ID>
 
 - 规则库是演示用的基础版：只覆盖广告法中最常见的几类问题，词表是封闭的，换个说法就可能漏；平台自己的商品发布规范没有纳入。
 - 法条快照只摘录了规则引用的 18 条条文；《广告绝对化用语执法指南》等文件尚未核对原文，界面显示为“待核对”。
-- 离线“模型”是一组上下文模式，用来跑通双通道合并和幻觉拦截流程，不是语言模型；截图中的模型耗时是模拟值（`ADPROOF_MOCK_LATENCY_MS`），测试和评测不使用模拟延迟。
+- 离线“模型”是一组上下文模式，用来跑通双通道合并和幻觉拦截流程，不是语言模型；演示部署可以用 `ADPROOF_MOCK_LATENCY_MS` 模拟模型耗时，测试、评测、静态演示和截图都不使用模拟延迟。
 - 审查结果是辅助判断，不构成法律意见；是否投放应以审核员和法务意见为准。
 
 ## 目录结构
@@ -223,9 +247,10 @@ backend/
   seed/           虚构商品资料
   scripts/        法条快照在线复核脚本
   tests/          pytest
-frontend/src/     React 控制台（工作台、审查详情、规则库、评测报告、链路追踪）
+frontend/src/     React 控制台（介绍页、工作台、批注稿与终审、规则库、评测报告、链路追踪）
+frontend/public/demo/  静态演示的录制数据（由 scripts/record_demo.py 生成）
 docs/             架构、评测、规则与法条、部署文档；截图；法条复核报告
-scripts/          README 截图脚本（Playwright）
+scripts/          静态演示录制脚本、README 截图脚本（Playwright）
 ```
 
 ## 技术栈
