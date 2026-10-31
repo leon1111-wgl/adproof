@@ -57,7 +57,7 @@ function Specimen() {
         <span className="spacer" />
         <span className="faint">
           {specimen.product.brand}
-          {specimen.product.name} · 录制的真实输出 · SYNTHETIC
+          {specimen.product.name} · 离线确定性模型的录制输出 · SYNTHETIC
         </span>
       </div>
       {view === "marked" && <Manuscript text={specimen.text} findings={specimen.findings} activeKey={active} onSelect={(k) => setActive(active === k ? null : k)} />}

@@ -78,6 +78,7 @@ async function submit(page, { product, generate = false, tone, inject = false })
 await session({ viewport: { width: 1440, height: 1500 } }, async (page) => {
   await page.goto(BASE);
   await page.locator(".specimen .note").nth(2).click();
+  await page.mouse.move(4, 4); // no stray law pop-over in the shot
   await shot(page, "landing");
 });
 await session({}, async (page) => {

@@ -19,7 +19,7 @@ export function DemoBanner() {
     <div className="demo-banner" role="note">
       <span className="demo-tag">静态演示</span>
       <span>
-        回放离线规则模型在 SYNTHETIC 数据上的保存结果 · 判定与签发只在本页内存中生效 · 完整服务请按{" "}
+        回放离线确定性模型在 SYNTHETIC 数据上的保存结果 · 判定与签发只在本页内存中生效 · 完整服务请按{" "}
         <a href="https://github.com/leon1111-wgl/adproof#快速开始" target="_blank" rel="noreferrer">
           README
         </a>{" "}

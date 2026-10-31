@@ -22,9 +22,11 @@ and sign-offs are applied in page memory with the same rules as review_service.p
 from __future__ import annotations
 
 import json
+import random
 import shutil
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +35,7 @@ sys.path.insert(0, str(ROOT / "backend"))
 
 from fastapi.testclient import TestClient  # noqa: E402
 
+from app import models  # noqa: E402
 from app.config import Settings  # noqa: E402
 from app.main import create_app  # noqa: E402
 from app.security import rate_limiter  # noqa: E402
@@ -62,7 +65,14 @@ def file_for(path: str) -> str:
     return path.lstrip("/").replace("?", "@") + ".json"
 
 
+def seed_ids(seed: int = 20261019) -> None:
+    """Make run IDs reproducible across recordings (models.new_id uses uuid4)."""
+    rng = random.Random(seed)
+    models.uuid = type("SeededUUID", (), {"uuid4": staticmethod(lambda: uuid.UUID(int=rng.getrandbits(128)))})
+
+
 def main() -> None:
+    seed_ids()
     tmp = Path(tempfile.mkdtemp(prefix="adproof-demo-"))
     settings = Settings.from_env()
     settings.database_url = f"sqlite:///{tmp / 'demo.db'}"

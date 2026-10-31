@@ -28,8 +28,11 @@ function Note({ finding, active, onSelect, actions }: { finding: Finding; active
       onClick={onSelect}
     >
       <header>
-        <span className="note-no" aria-hidden="true">{noteNo(finding.key)}</span>
-        <b>{finding.category_label}</b>
+        <button type="button" className="note-toggle" aria-expanded={active} onClick={(e) => { e.stopPropagation(); onSelect(); }}>
+          <span className="note-no" aria-hidden="true">{noteNo(finding.key)}</span>
+          <b>{finding.category_label}</b>
+          <span className="visually-hidden">（批注 {noteNo(finding.key)}，{active ? "收起" : "展开"}）</span>
+        </button>
         <span className="note-sev">{SEVERITY_TEXT[finding.severity]}</span>
         {finding.verdict && <span className={`note-verdict ${finding.verdict}`}>{finding.verdict === "confirmed" ? "已确认" : "误报"}</span>}
       </header>
@@ -139,8 +142,12 @@ export function Manuscript({
     setLayout({ tops, height: floor, leader });
   }, [findings, activeKey, wide, width, text]);
 
-  // wide: keep the span in view (its note sits beside it); narrow: bring the opened note into view
+  // wide: keep the span in view (its note sits beside it); narrow: bring the opened note into view.
+  // Only when the selection changes: a preselected note must not scroll the page away from its top.
+  const shown = useRef(activeKey);
   useEffect(() => {
+    if (shown.current === activeKey) return;
+    shown.current = activeKey;
     if (!activeKey || !body.current) return;
     const target = body.current.querySelector<HTMLElement>(wide ? `mark[data-ids~="${activeKey}"]` : `.note[data-key="${activeKey}"]`);
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;

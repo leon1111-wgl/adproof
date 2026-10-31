@@ -60,6 +60,7 @@ async function viewer(): Promise<User> {
 // ---------------------------------------------------------------- in-memory reviews and traces
 let reviews: Promise<Map<number, Review>> | null = null;
 const createdRuns: unknown[] = [];
+const recordedRunOf = new Map<string, string>(); // run id of a review submitted here -> the recorded run it replays
 
 function store(): Promise<Map<number, Review>> {
   reviews ??= load<Review[]>("reviews.json").then((list) => new Map(list.map((r) => [r.id, clone(r)])));
@@ -113,9 +114,12 @@ async function createReview(body: Record<string, unknown>, user: User): Promise<
     throw new ApiError(422, "静态演示只能审查录制好的示例脚本：点“填入示例”后再提交。审查自己的脚本请按 README 在本地运行完整服务。");
   }
   const all = await store();
-  const review: Review = { ...clone(recorded.review), id: Math.max(0, ...all.keys()) + 1, created_by: brief(user), created_at: now() };
+  const id = Math.max(0, ...all.keys()) + 1;
+  const runId = recorded.review.run_id ? `${recorded.review.run_id}-demo${id}` : null;
+  if (runId) recordedRunOf.set(runId, recorded.review.run_id!);
+  const review: Review = { ...clone(recorded.review), id, run_id: runId, created_by: brief(user), created_at: now() };
   all.set(review.id, review);
-  if (recorded.run_row) createdRuns.unshift({ ...recorded.run_row, created_at: review.created_at, review: { id: review.id, title: review.title, status: review.status } });
+  if (recorded.run_row) createdRuns.unshift({ ...recorded.run_row, id: runId, created_at: review.created_at, review: { id, title: review.title, status: review.status } });
   return serialize(review, user);
 }
 
@@ -186,6 +190,32 @@ async function decide(review: Review, body: { decision?: string; version?: strin
   review.agents = [...(review.agents ?? []), { agent: "human_review", name: "人工终审", status: review.status === "approved" ? "ok" : "rejected", started_ms: started, latency_ms: 0 }];
 }
 
+function runReview(all: Map<number, Review>, row: { review: { id: number } }) {
+  const review = all.get(row.review.id);
+  return review ? { id: review.id, title: review.title, status: review.status } : row.review;
+}
+
+/** A recorded trace, pointed at the in-memory review it belongs to, with the sign-off made here appended. */
+async function runDetail(runId: string) {
+  const detail = clone(await load<{ id: string; review: { id: number; title: string; status: string } | null; spans: Record<string, unknown>[] }>(
+    `api/runs/${recordedRunOf.get(runId) ?? runId}.json`,
+  ));
+  const review = [...(await store()).values()].find((r) => r.run_id === runId);
+  if (!review) return detail;
+  detail.id = runId;
+  detail.review = { id: review.id, title: review.title, status: review.status };
+  const human = review.agents?.find((a) => a.agent === "human_review");
+  if (human && !detail.spans.some((s) => s.agent === "human_review")) {
+    detail.spans.push({
+      id: detail.spans.length + 1, seq: detail.spans.length + 1, agent: "human_review", name: "人工终审", status: human.status,
+      input: { reviewer: review.decided_by?.name, open_findings: (review.findings ?? []).filter((f) => !f.verdict).map((f) => f.key) },
+      output: { decision: review.decision, version: review.decision_version, note: review.decision_note },
+      started_ms: human.started_ms, latency_ms: 0, model: null, prompt_tokens: 0, completion_tokens: 0,
+    });
+  }
+  return detail;
+}
+
 // ---------------------------------------------------------------- API surface used by api.ts
 // mirrors file_for() in scripts/record_demo.py
 const fileFor = (path: string) => `${path.replace(/^\//, "").replace("?", "@")}.json`;
@@ -209,7 +239,13 @@ export async function demoGet<T>(path: string): Promise<T> {
   }
   const one = route.match(/^\/api\/reviews\/(\d+)$/);
   if (one) return serialize(await getReview(Number(one[1])), user) as T;
-  if (route === "/api/runs") return [...createdRuns, ...(await load<unknown[]>("api/runs@limit=200.json"))] as T;
+  if (route === "/api/runs") {
+    const rows = [...createdRuns, ...(await load<{ id: string; review: { id: number; status: string } | null }[]>("api/runs@limit=200.json"))];
+    const all = await store();
+    return rows.map((row) => (row as { review: { id: number } | null }).review ? { ...(row as object), review: runReview(all, row as { review: { id: number } }) } : row) as T;
+  }
+  const run = route.match(/^\/api\/runs\/([\w-]+)$/);
+  if (run) return (await runDetail(run[1])) as T;
   return load<T>(fileFor(path));
 }
 

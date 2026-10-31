@@ -202,8 +202,15 @@ function TestTab({ products }: { products: Record<string, string> }) {
   const [text, setText] = useState("这款精华是全网最好用的！98%的姐妹都回购了，别家都是智商税。本品不能代替药物。");
   const [category, setCategory] = useState("cosmetics");
   const [result, setResult] = useState<{ hits: { rule_id: string; category_label: string; start: number; end: number; quote: string; severity: Severity }[] } | null>(null);
+  const [error, setError] = useState<string | null>(null);
   async function run() {
-    setResult(await api.post("/api/rules/test", { text, product_category: category }));
+    setError(null);
+    try {
+      setResult(await api.post("/api/rules/test", { text, product_category: category }));
+    } catch (e) {
+      setResult(null);
+      setError(e instanceof Error ? e.message : String(e));
+    }
   }
   return (
     <div className="grid grid-2" style={{ alignItems: "start" }}>
@@ -217,6 +224,7 @@ function TestTab({ products }: { products: Record<string, string> }) {
         </div>
         <textarea className="textarea" style={{ minHeight: 200 }} value={text} onChange={(e) => setText(e.target.value)} />
         <div className="faint">规则试运行只走规则通道，不调用模型，方便调试正则和例外。</div>
+        <ErrorBanner error={error} />
       </div>
       <div className="card">
         <div className="card-head"><h3>命中结果</h3>{result && <span className="faint">{result.hits.length} 处</span>}</div>

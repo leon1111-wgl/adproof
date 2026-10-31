@@ -132,7 +132,7 @@ export function ErrorBanner({ error }: { error: string | null | undefined }) {
 }
 
 export const pct = (v: number | null | undefined, digits = 1) => (v == null ? "—" : `${(v * 100).toFixed(digits)}%`);
-export const ms = (v: number | null | undefined) => (v == null ? "—" : v >= 1000 ? `${(v / 1000).toFixed(1)}s` : `${v}ms`);
+export const ms = (v: number | null | undefined) => (v == null ? "—" : v >= 1000 ? `${(v / 1000).toFixed(1)}s` : v < 1 ? "<1ms" : `${v}ms`);
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /** 刚刚 / 5 分钟前 / 今天 14:05 / 昨天 09:12 / 10-08 14:05 */

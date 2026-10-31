@@ -67,7 +67,7 @@ export default function LoginPage() {
             <h1 className="serif">今天由谁来审稿？</h1>
             <p className="muted" style={{ marginTop: 6 }}>
               不同角色能做的事不同：运营提交，审核员判定和签发，提交人不能审自己的稿子。
-              {DEMO && " 静态演示里不需要密码，账号切换只在本页生效。"}
+              {DEMO && " 静态演示里不需要密码。"}
             </p>
           </div>
           {demo && demo.accounts.length > 0 && (
