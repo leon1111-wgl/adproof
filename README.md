@@ -5,7 +5,12 @@
 
 **Demo：<https://leon1111-wgl.github.io/adproof/>**（静态演示，打开即用：回放离线确定性模型在 SYNTHETIC 数据上的录制结果，判定和签发只在页面内存中生效；完整服务按下文[快速开始](#快速开始)本地运行）
 
+**Code：<https://github.com/leon1111-wgl/adproof>** · 文档：[架构](docs/ARCHITECTURE.md) · [规则](docs/RULES.md) · [评测](docs/EVALUATION.md) · [部署](docs/DEPLOYMENT.md)
+
 **每一处违规都能追溯到原文的第几个字、命中的哪条规则、哪部法律的哪一条原文；每一份改写稿都要再审一遍，最后由人签字。**
+Multi-agent ad-copy compliance review: each flagged span links to the matched rule and to law text from verified snapshots; each rewrite is re-reviewed, then signed off by a person.
+
+**关键词 / Keywords**：广告合规 ad compliance · 带货口播脚本 / 直播字幕 SRT · Multi-Agent · 规则 + 模型双通道 · 法条原文引用 · 证据定位 · 改写复审 · 人工终审 human-in-the-loop · FastAPI + React
 
 AdProof 面向抖音电商等短视频 / 直播带货场景：商家提交口播脚本或直播字幕（.srt），也可以让系统按商品资料生成一版；多个 Agent 依次完成卖点提炼、双通道合规审查、证据定位、改写建议和复审，最后交给审核员终审。
 
