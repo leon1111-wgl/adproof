@@ -40,7 +40,8 @@
    "category_label": "绝对化用语",
    "rule_name": "“最”字最高级",
    "rule_ids": [
-    "ABS-01"
+    "ABS-01",
+    "ABS-06"
    ],
    "reason": "使用“最佳”“最好”等最高级用语，属于第九条第三项列举的绝对化用语。",
    "model_reason": null,
@@ -792,18 +793,28 @@
    },
    {
     "op": "equal",
-    "a": "姐妹都回购",
-    "b": "姐妹都回购"
+    "a": "姐妹都回购了",
+    "b": "姐妹都回购了"
    },
    {
     "op": "delete",
-    "a": "了，别家卖的都是智商税。用了一个星期痘印都淡",
+    "a": "，别家卖的都是智商税",
     "b": ""
    },
    {
     "op": "equal",
-    "a": "了。今天到手价",
-    "b": "了。今天到手价"
+    "a": "。",
+    "b": "。"
+   },
+   {
+    "op": "delete",
+    "a": "用了一个星期痘印都淡了。",
+    "b": ""
+   },
+   {
+    "op": "equal",
+    "a": "今天到手价",
+    "b": "今天到手价"
    },
    {
     "op": "replace",
@@ -835,11 +846,12 @@
     "remaining_blocking": 0,
     "missing_disclosures": 0
    }
-  ]
+  ],
+  "withheld": false
  },
  "ruleset": {
-  "version": "2026.10.19",
-  "hash": "185d5f77a358",
+  "version": "2026.11.07",
+  "hash": "68ead7161d01",
   "name": "广告合规基础规则库"
  },
  "model": "adproof-offline",
@@ -849,14 +861,15 @@
    "test": 30
   },
   "test": {
-   "precision": 1.0,
-   "recall": 0.7656,
-   "f1": 0.8673,
-   "strict_f1": 0.6372,
-   "rewrite_passed": 23,
+   "precision": 0.9804,
+   "recall": 0.7812,
+   "f1": 0.8696,
+   "strict_f1": 0.7304,
+   "rewrite_passed": 21,
    "rewrite_scripts": 23,
-   "evidence_valid": 49,
-   "evidence_checked": 49
+   "rewrite_withheld": 2,
+   "evidence_valid": 51,
+   "evidence_checked": 51
   },
   "dev_f1": 0.9831
  }

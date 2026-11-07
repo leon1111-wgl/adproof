@@ -112,6 +112,10 @@ export interface RewriteResult {
   text?: string;
   changed?: boolean;
   passed?: boolean;
+  review_passed?: boolean;
+  /** the automatic rewrite does not read as copy: it is not shown and cannot be approved */
+  withheld?: boolean;
+  withheld_reasons?: string[];
   rounds?: { round: number; edits: number; remaining: number; remaining_blocking: number; missing_disclosures: number }[];
   edits?: { start: number; end: number; original: string; replacement: string; keys: string[]; strategy: string; note: string }[];
   diff?: { op: "equal" | "replace" | "delete" | "insert"; a: string; b: string }[];
@@ -133,6 +137,22 @@ export interface AgentSpan {
   status: string;
   started_ms: number;
   latency_ms: number;
+}
+
+/** Static demo: which engine produced an answer (src/demo.ts). */
+export interface EngineInfo {
+  kind: "recorded" | "browser";
+  label: string;
+  detail: string;
+}
+
+export interface ScopeReport {
+  verdict: string;
+  state: "flagged" | "no_hit" | "not_reviewable";
+  input_notes: string[];
+  checked: { label: string; detail: string }[];
+  not_checked: { label: string; detail: string }[];
+  signals: { topic: string; quote: string; sentence: string; at: [number, number]; start: number; end: number; note: string }[];
 }
 
 export interface Review {
@@ -169,8 +189,11 @@ export interface Review {
   rejected?: { quote: string; category: string; reason: string; stage: string }[];
   validation?: { checked: number; valid: number; citations: number; citations_verified: number; pending_basis: number; errors: unknown[] };
   final_text?: string | null;
+  final_check?: { counts: Partial<Counts>; risk_level: Severity; passed: boolean; engine?: EngineInfo } | null;
   permissions?: { can_verdict: boolean; can_decide: boolean; reason: string };
   agents?: AgentSpan[];
+  engine?: EngineInfo;
+  scope?: ScopeReport;
 }
 
 export interface Meta {
@@ -192,4 +215,5 @@ export interface Recheck {
   counts: Counts;
   risk_level: Severity;
   passed: boolean;
+  engine?: EngineInfo;
 }

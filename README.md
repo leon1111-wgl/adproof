@@ -3,9 +3,11 @@
 [![CI](https://github.com/leon1111-wgl/adproof/actions/workflows/ci.yml/badge.svg)](https://github.com/leon1111-wgl/adproof/actions/workflows/ci.yml)
 [![Demo](https://github.com/leon1111-wgl/adproof/actions/workflows/pages.yml/badge.svg)](https://github.com/leon1111-wgl/adproof/actions/workflows/pages.yml)
 
-**Demo：<https://leon1111-wgl.github.io/adproof/>**（静态演示，打开即用：回放离线确定性模型在 SYNTHETIC 数据上的录制结果，判定和签发只在页面内存中生效；完整服务按下文[快速开始](#快速开始)本地运行）
+By [Leon Wang](https://leon1111-wgl.github.io/)
 
-**Code：<https://github.com/leon1111-wgl/adproof>** · 文档：[架构](docs/ARCHITECTURE.md) · [规则](docs/RULES.md) · [评测](docs/EVALUATION.md) · [部署](docs/DEPLOYMENT.md)
+**Demo：<https://leon1111-wgl.github.io/adproof/>**（静态演示，打开即用：**粘贴自己的带货脚本或 SRT，在浏览器里直接审查**——标出片段、规则和已核对的法条原文，给出复审通过的改写稿，并按服务端规则模拟签发；不需要服务器、密钥或费用，脚本不上传。示例脚本回放后端的录制结果，每条结果都标明出自哪个引擎。完整服务按下文[快速开始](#快速开始)本地运行）
+
+**Code：<https://github.com/leon1111-wgl/adproof>** · 文档：[架构](docs/ARCHITECTURE.md) · [规则](docs/RULES.md) · [评测](docs/EVALUATION.md) · [部署](docs/DEPLOYMENT.md) · [前沿调研](docs/FRONTIER_REVIEW.md) · [更新记录](CHANGELOG.md)
 
 **每一处违规都能追溯到原文的第几个字、命中的哪条规则、哪部法律的哪一条原文；每一份改写稿都要再审一遍，最后由人签字。**
 Multi-agent ad-copy compliance review: each flagged span links to the matched rule and to law text from verified snapshots; each rewrite is re-reviewed, then signed off by a person.
@@ -171,11 +173,16 @@ pnpm dev            # http://localhost:5173 ，/api 代理到 8000
 docker compose up --build    # http://localhost:8000
 ```
 
-**静态演示（GitHub Pages）**：`scripts/record_demo.py` 在进程内启动真实后端（离线确定性模型 + SYNTHETIC 数据，不联网、不加载任何模型权重），录下种子审查记录、工作台每个可选输入（各商品的示例脚本、全部生成选项，含/不含幻觉演示开关）的审查结果、改写稿复检、规则试运行和评测，存到 `frontend/public/demo/`。`pnpm build:demo` 构建的控制台读这些文件而不调用 API；逐条判定和终审签发只改页面内存，按与 `review_service.py` 相同的规则执行（四眼原则、高中风险未标误报不能原稿通过、修改稿须复检），刷新即恢复。每次推送 main，[pages.yml](.github/workflows/pages.yml) 都从当次提交重新录制再发布。
+**静态演示（GitHub Pages）**：访客自己的脚本由浏览器里的审查引擎处理（`frontend/src/engine/`，后端流水线的 TypeScript 移植）。引擎不带自己的规则或法条：`scripts/build_browser_pack.py` 用后端的规则库校验后导出 `pack.json`；`scripts/export_parity_fixtures.py` 让后端在 528 个输入上跑完整流水线，`pnpm test` 要求浏览器输出逐字段相同。每次审查还附一份“审查范围”：检查了什么、没有检查什么、哪些句子超出规则库需要人判断；规则没有命中时写“这不等于合规”。
+
+录制部分：`scripts/record_demo.py` 在进程内启动真实后端（离线确定性模型 + SYNTHETIC 数据，不联网、不加载任何模型权重），录下种子审查记录、工作台每个可选输入（各商品的示例脚本、全部生成选项，含/不含幻觉演示开关）的审查结果、改写稿复检、规则试运行和评测，存到 `frontend/public/demo/`。`pnpm build:demo` 构建的控制台读这些文件而不调用 API；逐条判定和终审签发只改页面内存，按与 `review_service.py` 相同的规则执行（四眼原则、高中风险未标误报不能原稿通过、修改稿须复检），刷新即恢复。每次推送 main，[pages.yml](.github/workflows/pages.yml) 都从当次提交重新录制再发布。
 
 ```bash
-cd backend && python ../scripts/record_demo.py   # 重新录制
-cd frontend && pnpm dev:demo                      # http://localhost:5173/adproof/
+cd backend && python ../scripts/record_demo.py              # 重新录制
+cd backend && python ../scripts/build_browser_pack.py       # 规则库或法条快照改动后重建 pack.json（CI 用 --check 检查）
+cd backend && python ../scripts/export_parity_fixtures.py --include-blind   # 一致性测试夹具（生成文件，不入库）
+cd frontend && pnpm test                                    # 一致性、覆盖、审查范围、模拟签发、恶意输入耗时
+cd frontend && pnpm dev:demo                                # http://localhost:5173/adproof/
 ```
 
 **重新生成截图**（基于静态演示，不需要后端；需要 Playwright）：
@@ -213,25 +220,27 @@ ADPROOF_LLM_MODEL=<控制台里的模型或接入点 ID>
 
 | 指标（test 集） | 结果 | 说明 |
 |---|---|---|
-| 片段级 Precision / Recall / F1 | 100.0% / 76.6% / 86.7% | 同类型且 IoU ≥ 0.5 记为命中；严格边界 F1 为 63.7% |
+| 片段级 Precision / Recall / F1 | 98.0% / 78.1% / 87.0% | 同类型且 IoU ≥ 0.5 记为命中；严格边界 F1 为 73.0%（规则库 2026.11.07）；上一版为 100.0% / 76.6% / 86.7%，唯一的误报是片段边界 |
 | 通道消融 F1 | 规则 79.2% · 模型 24.7% · 双通道 86.7% | 离线模型通道只模拟隐含表述，单独使用召回很低 |
-| 改写后复审通过率 | 23/23（100%） | 金标违规片段被改写的比例为 76.6%，与召回一致 |
-| 证据校验 / 法条核对 | 49/49 · 133/133 | 每条结果的片段与原文一致，引用的法条全部来自已核对快照 |
+| 改写后复审通过率 | 21/23，另有 2 份无法自动改写 | 读不通的改写稿不展示、不算通过（v1.1 收尾轮的改写质量门）；金标违规片段被改写的比例为 79.7% |
+| 证据校验 / 法条核对 | 51/51 · 138/138 | 每条结果的片段与原文一致，引用的法条全部来自已核对快照 |
 | 必要声明（文档级）F1 | 100% | 保健食品“本品不能代替药物”、招商广告风险提示 |
 | 干净脚本误报 | 0/7 | |
 
-按违规类型（test 集）：绝对化用语 F1 95.2%，疾病治疗与医疗用语 75.9%，效果保证 92.3%，数据无出处 93.3%，贬低其他经营者 66.7%，收益或结果保证 83.3%，与商品资料不符 92.3%，国家机关名义 100%（仅 2 个样本）。dev 集 F1 为 98.3%（规则在 dev 上调试，仅供参考）。
+按违规类型（test 集）：绝对化用语 F1 100%，疾病治疗与医疗用语 80.0%，效果保证 76.9%，数据无出处 93.3%，贬低其他经营者 66.7%，收益或结果保证 83.3%，与商品资料不符 92.3%，国家机关名义 100%（仅 2 个样本）。dev 集 F1 为 98.3%（规则在 dev 上调试，仅供参考）。
+
+**盲测集**（v1.1 新增，60 条脚本、78 个金标片段、20 条干净脚本；另一个模型只看分类说明写成，提交后才第一次运行）：首跑（盲，`0ff7247`）片段 P / R / F1 为 82.5% / 60.3% / 69.6%，干净脚本误报 1/20；看过错误并修复后复跑（非盲）为 94.2% / 83.3% / 88.4%，误报 0/20，改写复审通过 32/40、另有 8 份无法自动改写。浏览器引擎在这 60 条上与后端逐字段一致。详见 [docs/EVALUATION.md](docs/EVALUATION.md#6-浏览器内审查v11)。
 
 > **请如实理解这些数字**：
 > 1. 结果来自**离线确定性模型和合成数据**，只能说明流水线、合并、定位、校验和门禁按设计工作，**不代表真实模型的审查质量**。接入真实模型后请重新运行评测。
-> 2. test 集写完后没有再据此修改规则，但规则和数据出自同一作者，**test 上 100% 的精确率很可能偏乐观**；漏检的 15 处全部是规则词表之外的换说法（如“专治”“包教包会”“史上最柔软”），见评测文档。
+> 2. test 集写完后没有再据此修改规则，但规则和数据出自同一作者，**test 上的精确率很可能偏乐观**；上一版公开的 15 处漏检里，v1.1 收尾轮按类别加的规则补上了 2 处（“防治脂肪肝”“史上最柔软”），所以 test 已不是未看过的集合，见评测文档。
 > 3. 复审用的是同一套审查器，“复审通过”只说明改写消除了审查器能识别的问题，**不等于真正合规**。这也是终审必须由人来做的原因。
 
 ## 诚实说明与局限
 
 - 规则库是演示用的基础版：只覆盖广告法中最常见的几类问题，词表是封闭的，换个说法就可能漏；平台自己的商品发布规范没有纳入。
-- 法条快照只摘录了规则引用的 18 条条文；《广告绝对化用语执法指南》等文件尚未核对原文，界面显示为“待核对”。
-- 离线“模型”是一组上下文模式，用来跑通双通道合并和幻觉拦截流程，不是语言模型；演示部署可以用 `ADPROOF_MOCK_LATENCY_MS` 模拟模型耗时，测试、评测、静态演示和截图都不使用模拟延迟。
+- 法条快照只摘录了规则引用的 18 条条文（v1.1 起第十二条也有规则使用）；《直播电商监督管理办法》《互联网广告管理办法》尚未核对进快照；《广告绝对化用语执法指南》等文件尚未核对原文，界面显示为“待核对”。
+- 离线“模型”是一组上下文模式，用来跑通双通道合并和幻觉拦截流程，不是语言模型（盲测上单独使用 F1 只有 7.3%）；静态演示的浏览器引擎用的也是它，没有调用任何语言模型；演示部署可以用 `ADPROOF_MOCK_LATENCY_MS` 模拟模型耗时，测试、评测、静态演示和截图都不使用模拟延迟。
 - 审查结果是辅助判断，不构成法律意见；是否投放应以审核员和法务意见为准。
 
 ## 目录结构
@@ -253,14 +262,16 @@ backend/
   scripts/        法条快照在线复核脚本
   tests/          pytest
 frontend/src/     React 控制台（介绍页、工作台、批注稿与终审、规则库、评测报告、链路追踪）
+frontend/src/engine/  浏览器内审查引擎（后端流水线的移植）与 pack.json（由规则库和法条快照导出）
+frontend/tests/   vitest：与后端一致、覆盖用例、审查范围、模拟签发、恶意输入耗时
 frontend/public/demo/  静态演示的录制数据（由 scripts/record_demo.py 生成）
 docs/             架构、评测、规则与法条、部署文档；截图；法条复核报告
-scripts/          静态演示录制脚本、README 截图脚本（Playwright）
+scripts/          静态演示录制、浏览器 pack 导出、一致性夹具导出、README 截图脚本（Playwright）
 ```
 
 ## 技术栈
 
-Python 3.12 · FastAPI · SQLAlchemy 2 · SQLite · Pydantic · PyYAML · httpx · PyJWT · pytest · React 19 · TypeScript · Vite · Playwright（截图）· Docker · GitHub Actions
+Python 3.12 · FastAPI · SQLAlchemy 2 · SQLite · Pydantic · PyYAML · httpx · PyJWT · pytest · React 19 · TypeScript · Vite · Vitest · Playwright（截图）· Docker · GitHub Actions
 
 ## 路线图
 
@@ -269,6 +280,8 @@ Python 3.12 · FastAPI · SQLAlchemy 2 · SQLite · Pydantic · PyYAML · httpx 
 - [ ] 视频画面与字幕对齐（OCR 贴片文字、口播 ASR），审查画面中的绝对化用语
 - [ ] 审核员误报标记自动生成规则修改建议（例外或否定语境），经评测门禁后再上线
 - [ ] 纳入平台商品发布规范和《广告绝对化用语执法指南》原文（核对后）
+- [ ] 核对《直播电商监督管理办法》《互联网广告管理办法》原文进快照，再为直播间义务、AI 生成形象标识等写规则
+- [ ] 完整服务的控制台也显示“审查范围”（目前只有静态演示有）
 
 ## 声明
 

@@ -172,7 +172,7 @@ def main() -> None:
         "text": specimen_review["source_text"],
         "findings": specimen_review["findings"],
         "disclosures": specimen_review["disclosures"],
-        "rewrite": {k: specimen_review["rewrite"].get(k) for k in ("text", "diff", "passed", "rounds")},
+        "rewrite": {k: specimen_review["rewrite"].get(k) for k in ("text", "diff", "passed", "rounds", "withheld")},
         "ruleset": meta["ruleset"],
         "model": meta["model"],
         "eval": {
@@ -180,6 +180,7 @@ def main() -> None:
             "test": {"precision": test["span"]["micro"]["precision"], "recall": test["span"]["micro"]["recall"],
                      "f1": test["span"]["micro"]["f1"], "strict_f1": test["span_strict"]["f1"],
                      "rewrite_passed": test["rewrite"]["passed"], "rewrite_scripts": test["rewrite"]["scripts"],
+                     "rewrite_withheld": test["rewrite"].get("withheld", 0),
                      "evidence_valid": test["evidence"]["findings_valid"], "evidence_checked": test["evidence"]["findings_checked"]},
             "dev_f1": dev["span"]["micro"]["f1"],
         },

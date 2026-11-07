@@ -1,0 +1,893 @@
+{
+ "_note": "Coverage cases for the browser reviewer (SYNTHETIC). Each rule category and each verified article: one plain and one colloquial livestream wording, with the exact citations it must carry. lookalike cases must produce no finding and no missing statement.",
+ "cases": [
+  {
+   "id": "abs-plain",
+   "wording": "plain",
+   "text": "这是市面上最好的精华。",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "最好",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "abs-colloquial",
+   "wording": "colloquial",
+   "text": "家人们，这个真的是国货天花板，冲！",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "天花板",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "abs-colloquial-2",
+   "wording": "colloquial",
+   "text": "宝子们，zui好用的就是这支，yyds！",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "zui好用",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "aut-plain",
+   "wording": "plain",
+   "text": "本品为政府指定合作品牌。",
+   "expect": {
+    "category": "authority_endorsement",
+    "quote_contains": "政府指定",
+    "citations": [
+     "advertising_law:9:1:2/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   },
+   "category": "food"
+  },
+  {
+   "id": "aut-colloquial",
+   "wording": "colloquial",
+   "text": "宝子们，这茶可是国宴特供，外面根本买不到！",
+   "expect": {
+    "category": "authority_endorsement",
+    "quote_contains": "国宴特供",
+    "citations": [
+     "advertising_law:9:1:2/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   },
+   "category": "food"
+  },
+  {
+   "id": "med-plain-food",
+   "wording": "plain",
+   "text": "这款红豆薏米茶能治疗失眠。",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "治疗",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "food"
+  },
+  {
+   "id": "med-colloquial-food",
+   "wording": "colloquial",
+   "text": "我妈喝了一个月，高血压都好了！",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "高血压都好了",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "food"
+  },
+  {
+   "id": "med-plain-cosmetics",
+   "wording": "plain",
+   "text": "这款精华能消炎祛痘。",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "消炎",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "cosmetics_regulation:43:2/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "med-colloquial-cosmetics",
+   "wording": "colloquial",
+   "text": "姐妹们，这个面膜我用了以后湿疹都好了！",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "湿疹都好了",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "cosmetics_regulation:43:2/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "med-plain-health",
+   "wording": "plain",
+   "text": "本品能降血糖。本品不能代替药物。",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "降血糖",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:18:1:2/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "health_food"
+  },
+  {
+   "id": "med-colloquial-health",
+   "wording": "colloquial",
+   "text": "宝子们，吃了它比吃药还管用！本品不能代替药物。",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "比吃药",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:18:1:2/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:18:1:4/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   },
+   "category": "health_food"
+  },
+  {
+   "id": "eff-plain",
+   "wording": "plain",
+   "text": "这款面霜保证三天见效。",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "保证三天见效",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "eff-colloquial",
+   "wording": "colloquial",
+   "text": "家人们，七天瘦十斤不是梦，冲就完了！",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "七天瘦十斤",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "category": "food"
+  },
+  {
+   "id": "eff-plain-health",
+   "wording": "plain",
+   "text": "坚持吃三个月保证见效。本品不能代替药物。",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "保证见效",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:18:1:1/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "category": "health_food"
+  },
+  {
+   "id": "eff-colloquial-health",
+   "wording": "colloquial",
+   "text": "宝子们，吃了它百分百有效，不信你试试！本品不能代替药物。",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "百分百有效",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:18:1:1/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "category": "health_food"
+  },
+  {
+   "id": "dat-plain",
+   "wording": "plain",
+   "text": "研究表明，本品可提亮肤色。",
+   "expect": {
+    "category": "unsourced_data",
+    "quote_contains": "研究表明",
+    "citations": [
+     "advertising_law:11:2/basis",
+     "advertising_law:28:2:3/basis",
+     "advertising_law:59:1:2/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "dat-colloquial",
+   "wording": "colloquial",
+   "text": "直播间98%的姐妹都回购了，闭眼入！",
+   "expect": {
+    "category": "unsourced_data",
+    "quote_contains": "98%的姐妹",
+    "citations": [
+     "advertising_law:11:2/basis",
+     "advertising_law:28:2:3/basis",
+     "advertising_law:59:1:2/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "dat-colloquial-2",
+   "wording": "colloquial",
+   "text": "家人们，90%的宝子都回购了，原价199，今天只要99！",
+   "category": "food",
+   "expect": {
+    "category": "unsourced_data",
+    "quote_contains": "90%的宝子",
+    "citations": [
+     "advertising_law:11:2/basis",
+     "advertising_law:28:2:3/basis",
+     "advertising_law:59:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "dis-plain",
+   "wording": "plain",
+   "text": "别家卖的都是智商税。",
+   "expect": {
+    "category": "disparagement",
+    "quote_contains": "智商税",
+    "citations": [
+     "advertising_law:13:1/basis",
+     "advertising_law:59:1:4/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "dis-colloquial",
+   "wording": "colloquial",
+   "text": "姐妹们，外面那些大牌全是噱头，听我的！",
+   "expect": {
+    "category": "disparagement",
+    "quote_contains": "噱头",
+    "citations": [
+     "advertising_law:13:1/basis",
+     "advertising_law:59:1:4/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "ret-plain-franchise",
+   "wording": "plain",
+   "text": "加盟本品牌保证盈利。投资有风险。",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "保证盈利",
+    "citations": [
+     "advertising_law:25:1:1/basis",
+     "advertising_law:58:1:7/penalty"
+    ]
+   },
+   "category": "franchise"
+  },
+  {
+   "id": "ret-colloquial-franchise",
+   "wording": "colloquial",
+   "text": "老板们，开一家店直接躺赚，3个月就能回本！投资有风险。",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "躺赚",
+    "citations": [
+     "advertising_law:25:1:1/basis",
+     "advertising_law:58:1:7/penalty"
+    ]
+   },
+   "category": "franchise"
+  },
+  {
+   "id": "ret-plain-education",
+   "wording": "plain",
+   "text": "报名本课程保证通过考试。",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "保证通过",
+    "citations": [
+     "advertising_law:24:1:1/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   },
+   "category": "education"
+  },
+  {
+   "id": "ret-colloquial-education",
+   "wording": "colloquial",
+   "text": "家人们跟着Leon老师学，包上岸，不过全额退费！",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "包上岸",
+    "citations": [
+     "advertising_law:24:1:1/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   },
+   "category": "education"
+  },
+  {
+   "id": "pat-plain",
+   "wording": "plain",
+   "text": "本品采用专利配方。",
+   "expect": {
+    "category": "patent_claims",
+    "quote_contains": "专利配方",
+    "citations": [
+     "advertising_law:12:1/basis",
+     "advertising_law:59:1:3/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "pat-colloquial",
+   "wording": "colloquial",
+   "text": "家人们，这可是咱家独家专利技术，别家都没有！",
+   "expect": {
+    "category": "patent_claims",
+    "quote_contains": "专利技术",
+    "citations": [
+     "advertising_law:12:1/basis",
+     "advertising_law:59:1:3/penalty"
+    ]
+   },
+   "category": "cosmetics"
+  },
+  {
+   "id": "fact-plain",
+   "wording": "plain",
+   "text": "这瓶精华含30%烟酰胺。",
+   "expect": {
+    "category": "fact_mismatch",
+    "quote_contains": "30%",
+    "citations": [
+     "advertising_law:28:2:2/basis",
+     "advertising_law:8:1/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "fact-colloquial",
+   "wording": "colloquial",
+   "text": "姐妹们，咱这个烟酰胺足足有10%，懂的都懂！",
+   "expect": {
+    "category": "fact_mismatch",
+    "quote_contains": "10%",
+    "citations": [
+     "advertising_law:28:2:2/basis",
+     "advertising_law:8:1/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "fact-colloquial-price",
+   "wording": "colloquial",
+   "text": "家人们，今天直播间只要199元，上链接！",
+   "expect": {
+    "category": "fact_mismatch",
+    "quote_contains": "199元",
+    "citations": [
+     "advertising_law:28:2:2/basis",
+     "advertising_law:8:1/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   },
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "dsc01-plain",
+   "wording": "plain",
+   "text": "维生素C咀嚼片，每日1片，咀嚼食用。",
+   "sku": "IRIS-VC",
+   "expect": {
+    "missing_disclosure": "DSC-01",
+    "citations": [
+     "advertising_law:18:2/basis",
+     "food_safety_law:79:1/basis"
+    ]
+   }
+  },
+  {
+   "id": "dsc01-colloquial",
+   "wording": "colloquial",
+   "text": "家人们，这个VC片一天一片，冲就完了！",
+   "sku": "IRIS-VC",
+   "expect": {
+    "missing_disclosure": "DSC-01",
+    "citations": [
+     "advertising_law:18:2/basis",
+     "food_safety_law:79:1/basis"
+    ]
+   }
+  },
+  {
+   "id": "dsc02-plain",
+   "wording": "plain",
+   "text": "社区零食店加盟计划，加盟费29800元。",
+   "sku": "LEON-FRANCHISE",
+   "expect": {
+    "missing_disclosure": "DSC-02",
+    "citations": [
+     "advertising_law:25:1/basis"
+    ]
+   }
+  },
+  {
+   "id": "dsc02-colloquial",
+   "wording": "colloquial",
+   "text": "老板们，开店就找Leon优选，名额不多，赶紧上车！",
+   "sku": "LEON-FRANCHISE",
+   "expect": {
+    "missing_disclosure": "DSC-02",
+    "citations": [
+     "advertising_law:25:1/basis"
+    ]
+   }
+  },
+  {
+   "id": "end-plain-health",
+   "wording": "plain",
+   "text": "老专家都在吃，我们也很放心。本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "老专家都在吃",
+    "citations": [
+     "advertising_law:18:1:5/basis",
+     "advertising_law:58:1:3/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-colloquial-health",
+   "wording": "colloquial",
+   "text": "家人们，协和的主任都在吃这个！本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "主任都在吃",
+    "citations": [
+     "advertising_law:18:1:5/basis",
+     "advertising_law:58:1:3/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-plain-education",
+   "wording": "plain",
+   "text": "本课程由名校教授推荐。",
+   "category": "education",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "名校教授推荐",
+    "citations": [
+     "advertising_law:24:1:3/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-colloquial-education",
+   "wording": "colloquial",
+   "text": "宝子们，清华学霸亲自推荐的剪辑课，冲！",
+   "category": "education",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "清华学霸亲自推荐",
+    "citations": [
+     "advertising_law:24:1:3/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "abs-scope-most",
+   "wording": "plain",
+   "text": "这款保温杯是全网最保温的。",
+   "category": "digital",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "全网最保温",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   }
+  },
+  {
+   "id": "abs-only-one",
+   "wording": "plain",
+   "text": "行业唯一通过该认证的面霜。",
+   "category": "cosmetics",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "行业唯一",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   }
+  },
+  {
+   "id": "dis-nickname",
+   "wording": "colloquial",
+   "text": "姐妹们，隔壁那家的面膜就是垃圾！",
+   "category": "cosmetics",
+   "expect": {
+    "category": "disparagement",
+    "quote_contains": "垃圾",
+    "citations": [
+     "advertising_law:13:1/basis",
+     "advertising_law:59:1:4/penalty"
+    ]
+   }
+  },
+  {
+   "id": "dat-performance",
+   "wording": "plain",
+   "text": "这款吸尘器吸力提高2倍。",
+   "category": "digital",
+   "expect": {
+    "category": "unsourced_data",
+    "quote_contains": "吸力提高2倍",
+    "citations": [
+     "advertising_law:11:2/basis",
+     "advertising_law:28:2:3/basis",
+     "advertising_law:59:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "med-disease-name",
+   "wording": "plain",
+   "text": "这款枕头可以缓解颈椎病。",
+   "category": "home",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "缓解颈椎病",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "med-stop-medicine",
+   "wording": "colloquial",
+   "text": "宝子们，喝了这个就可以停掉降糖药。本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "停掉降糖药",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:18:1:2/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:18:1:4/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "ret-pass-guarantee",
+   "wording": "colloquial",
+   "text": "跟着Leon老师学，保过！",
+   "category": "education",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "保过",
+    "citations": [
+     "advertising_law:24:1:1/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "ret-annual-yield",
+   "wording": "plain",
+   "text": "加盟年化收益15%，投资有风险。",
+   "category": "franchise",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "年化收益15%",
+    "citations": [
+     "advertising_law:25:1:1/basis",
+     "advertising_law:58:1:7/penalty"
+    ]
+   }
+  },
+  {
+   "id": "eff-all-gone",
+   "wording": "colloquial",
+   "text": "敷完黑眼圈统统消失了！",
+   "category": "cosmetics",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "黑眼圈统统消失了",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   }
+  },
+  {
+   "id": "ok-advisory",
+   "wording": "lookalike",
+   "text": "最近换季皮肤有点干，最好在晚上洁面后使用。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-first",
+   "wording": "lookalike",
+   "text": "第一次用就爱上了，第一时间发货。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-top",
+   "wording": "lookalike",
+   "text": "顶部按压设计，极为细腻的质地。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-health-disclosure",
+   "wording": "lookalike",
+   "text": "本品不能代替药物。每日1片，咀嚼食用。",
+   "expect": null,
+   "sku": "IRIS-VC"
+  },
+  {
+   "id": "ok-sourced-data",
+   "wording": "lookalike",
+   "text": "回购率32%（数据来源：店铺后台2026年9月统计）。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-patent-number",
+   "wording": "lookalike",
+   "text": "专利号ZL202310123456.7（发明专利），已在包装上标注。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-fan-price",
+   "wording": "lookalike",
+   "text": "粉丝特供福利价，今天直播间到手价129元。",
+   "expect": null,
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "ok-national-standard",
+   "wording": "lookalike",
+   "text": "符合国家推荐标准。",
+   "expect": null,
+   "category": "food"
+  },
+  {
+   "id": "ok-not-best",
+   "wording": "lookalike",
+   "text": "我们不说最好，只说合适。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-varies",
+   "wording": "lookalike",
+   "text": "效果因人而异，建议连续使用28天观察肤感。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-not-treatment",
+   "wording": "lookalike",
+   "text": "本品不能治疗疾病，如有不适请咨询医生。",
+   "expect": null,
+   "category": "food"
+  },
+  {
+   "id": "ok-franchise-risk",
+   "wording": "lookalike",
+   "text": "投资有风险，收益受选址和经营情况影响。加盟费29800元。",
+   "expect": null,
+   "sku": "LEON-FRANCHISE"
+  },
+  {
+   "id": "ok-course-facts",
+   "wording": "lookalike",
+   "text": "课程共32节，每周1次直播答疑。",
+   "expect": null,
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "ok-spoken-numbers",
+   "wording": "lookalike",
+   "text": "家人们，三天发货，一个月用一瓶刚刚好。",
+   "expect": null,
+   "category": "food"
+  },
+  {
+   "id": "ok-power",
+   "wording": "lookalike",
+   "text": "最大输出功率65W。",
+   "expect": null,
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "ok-earbuds",
+   "wording": "lookalike",
+   "text": "降噪深度35dB，单次续航8小时。",
+   "expect": null,
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "ok-no-patent",
+   "wording": "lookalike",
+   "text": "我们没有申请专利，配方很简单。",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-enthusiasm",
+   "wording": "lookalike",
+   "text": "宝子们，这个颜色绝了，冲就完了！",
+   "expect": null,
+   "category": "cosmetics"
+  },
+  {
+   "id": "ok-lowest-temp",
+   "wording": "lookalike",
+   "text": "最低温度零下5度也不会冻住，券后最低只要59元。",
+   "expect": null,
+   "category": "food"
+  },
+  {
+   "id": "ok-only-flaw",
+   "wording": "lookalike",
+   "text": "唯一的缺点是有点贵。",
+   "category": "cosmetics",
+   "expect": null
+  },
+  {
+   "id": "ok-favourite",
+   "wording": "lookalike",
+   "text": "我最喜欢这个颜色。",
+   "category": "cosmetics",
+   "expect": null
+  },
+  {
+   "id": "ok-some-day",
+   "wording": "lookalike",
+   "text": "某天我把垃圾倒了才出门。",
+   "category": "general",
+   "expect": null
+  },
+  {
+   "id": "ok-hospital-queue",
+   "wording": "lookalike",
+   "text": "周末来门店比去医院排队省事。",
+   "category": "general",
+   "expect": null
+  },
+  {
+   "id": "ok-price-cut",
+   "wording": "lookalike",
+   "text": "价格降低20%，活动到周日。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-after-sales",
+   "wording": "lookalike",
+   "text": "售后问题统统解决，放心下单。",
+   "category": "home",
+   "expect": null
+  },
+  {
+   "id": "ok-patients-advice",
+   "wording": "lookalike",
+   "text": "高血压患者请遵医嘱食用。",
+   "category": "food",
+   "expect": null
+  },
+  {
+   "id": "ok-weekly-qa",
+   "wording": "lookalike",
+   "text": "保证每周一次直播答疑。",
+   "category": "education",
+   "expect": null
+  },
+  {
+   "id": "ok-doctor-guidance",
+   "wording": "lookalike",
+   "text": "请在医生指导下食用。本品不能代替药物。",
+   "category": "health_food",
+   "expect": null
+  },
+  {
+   "id": "ok-own-teacher",
+   "wording": "lookalike",
+   "text": "课程由Leon老师主讲，每周答疑。",
+   "category": "education",
+   "expect": null
+  },
+  {
+   "id": "ok-sourced-gain",
+   "wording": "lookalike",
+   "text": "续航提升30%（数据来源：品牌实验室2026年测试报告）。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-price-compare",
+   "wording": "lookalike",
+   "text": "比某果的手机便宜一半，性能差不多。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-premiere",
+   "wording": "lookalike",
+   "text": "新品首单立减20元。",
+   "category": "digital",
+   "expect": null
+  }
+ ]
+}

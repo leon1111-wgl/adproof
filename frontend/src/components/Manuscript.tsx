@@ -13,6 +13,7 @@ function suggestionText(f: Finding): string | null {
   const s = f.suggestion;
   if (!s) return null;
   if (s.strategy === "delete_clause") return "删去这一分句";
+  if (s.replacement === "") return "删去这几个字";
   return s.replacement ? `改为“${s.replacement}”` : "删去";
 }
 

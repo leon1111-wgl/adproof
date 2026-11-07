@@ -14,7 +14,7 @@ interface SplitReport {
   ablation: { rule: Prf; model: Prf; both: Prf };
   script_level: { violating: number; detected: number; detection_rate: number | null; clean: number; clean_flagged: number; false_alarm_rate: number | null };
   disclosures: Prf;
-  rewrite: { scripts: number; passed: number; pass_rate: number | null; gold_spans: number; gold_eliminated: number; elimination_rate: number | null };
+  rewrite: { scripts: number; passed: number; withheld?: number; pass_rate: number | null; gold_spans: number; gold_eliminated: number; elimination_rate: number | null };
   evidence: { findings_checked: number; findings_valid: number; validity: number; citations: number; citations_verified: number; pending_basis: number; rejected_model_quotes: number };
   channels: Record<string, number>;
   latency_ms: { p50: number; p95: number };
@@ -25,7 +25,7 @@ interface EvalCase {
   pred: { key: string; category: string; start: number; end: number; quote: string; channels: string[]; rule_id: string | null }[];
   matched: [number, number][]; missed: number[]; false_positives: number[];
   disclosures: { gold_missing: string[]; pred_missing: string[] };
-  rewrite: { passed: boolean | null; rounds: number; gold_eliminated: number };
+  rewrite: { passed: boolean | null; withheld?: boolean; rounds: number; gold_eliminated: number };
   latency_ms: number;
 }
 interface EvalRunSummary {
@@ -56,7 +56,7 @@ function CaseRow({ c, label }: { c: EvalCase; label: (id: string) => string }) {
         <td className="mono num">{c.matched.length}</td>
         <td className="mono num">{c.missed.length ? <span style={{ color: "var(--danger)" }}>{c.missed.length}</span> : 0}</td>
         <td className="mono num">{c.false_positives.length ? <span style={{ color: "var(--warning)" }}>{c.false_positives.length}</span> : 0}</td>
-        <td>{c.rewrite.passed == null ? <span className="faint">—</span> : c.rewrite.passed ? <span className="badge badge-success">通过</span> : <span className="badge badge-danger">未通过</span>}</td>
+        <td>{c.rewrite.passed == null ? <span className="faint">—</span> : c.rewrite.withheld ? <span className="badge badge-warning">无法自动改写</span> : c.rewrite.passed ? <span className="badge badge-success">通过</span> : <span className="badge badge-danger">未通过</span>}</td>
         <td className="small faint">{c.tags.join(" · ")}</td>
       </tr>
       {open && (
@@ -151,7 +151,7 @@ export default function EvalsPage() {
           <div className="grid grid-4">
             <Kpi label="片段 F1（IoU ≥ 0.5）" value={pct(report.span.micro.f1)} sub={`P ${pct(report.span.micro.precision)} · R ${pct(report.span.micro.recall)} · 宏平均 ${pct(report.span.macro_f1)}`} />
             <Kpi label="严格边界 F1" value={pct(report.span_strict.f1)} sub={`不计类型的定位 F1 ${pct(report.localisation.f1)}`} />
-            <Kpi label="改写后复审通过率" value={pct(report.rewrite.pass_rate)} sub={`${report.rewrite.passed}/${report.rewrite.scripts} 条 · 金标违规被改写 ${pct(report.rewrite.elimination_rate)}`} />
+            <Kpi label="改写后复审通过率" value={pct(report.rewrite.pass_rate)} sub={`${report.rewrite.passed}/${report.rewrite.scripts} 条${report.rewrite.withheld ? `（另有 ${report.rewrite.withheld} 份无法自动改写）` : ""} · 金标违规被改写 ${pct(report.rewrite.elimination_rate)}`} />
             <Kpi label="证据校验" value={`${report.evidence.findings_valid}/${report.evidence.findings_checked}`} sub={`法条已核对 ${report.evidence.citations_verified}/${report.evidence.citations} · 待核对依据 ${report.evidence.pending_basis}`} />
           </div>
           <div className="grid grid-2" style={{ alignItems: "start" }}>

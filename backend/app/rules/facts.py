@@ -20,7 +20,8 @@ _UNITS = {
     "袋": "袋", "课时": "节", "节": "节", "分贝": "db", "db": "db", "mah": "mah", "厘米": "cm", "cm": "cm",
     "毫米": "mm", "mm": "mm", "瓦": "w", "w": "w",
 }
-NUM_UNIT = re.compile(r"(\d+(?:\.\d+)?)(毫升|ml|千克|公斤|kg|克|g|元|块|%|小时|h|天|片|粒|袋|课时|节|分贝|db|mah|厘米|cm|毫米|mm|瓦|w)(?![a-z])")
+# (?<!\d): a match starts where a digit run starts; same results, no quadratic backtracking on "1111…"
+NUM_UNIT = re.compile(r"(?<!\d)(\d+(?:\.\d+)?)(毫升|ml|千克|公斤|kg|克|g|元|块|%|小时|h|天|片|粒|袋|课时|节|分贝|db|mah|厘米|cm|毫米|mm|瓦|w)(?![a-z])")
 _CJK_RUN = re.compile(r"[\u4e00-\u9fff]{2,}")
 # Words that mark a price clause even when the product sheet key is just "价格".
 _PRICE_WORDS = {"价", "到手", "券后", "只要", "仅需", "售价", "直播间"}

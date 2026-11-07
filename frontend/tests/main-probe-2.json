@@ -1,0 +1,205 @@
+{
+ "_note": "Second probe by the main session at a93e189 (N: should flag, K: clean look-alikes). Regression tests, not a measurement. N2, N4, N5, N6, N16, N20 are agreed known gaps.",
+ "cases": [
+  {
+   "id": "N1",
+   "category": "cosmetics",
+   "text": "这个面膜敷完湿疹都好了，皮炎也不痒了。"
+  },
+  {
+   "id": "N2",
+   "category": "cosmetics",
+   "text": "用了它，黑头粉刺一扫光，比皮肤科开的药还好。"
+  },
+  {
+   "id": "N3",
+   "category": "food",
+   "text": "这个山楂条吃了能降血脂，高血压的老人也适合。"
+  },
+  {
+   "id": "N4",
+   "category": "food",
+   "text": "宝宝吃这个米粉不容易感冒，抵抗力杠杠的。"
+  },
+  {
+   "id": "N5",
+   "category": "health_food",
+   "text": "吃了这个，胰岛素都可以停了。本品不能代替药物。"
+  },
+  {
+   "id": "N6",
+   "category": "health_food",
+   "text": "坚持吃三个月，保证你血压正常。本品不能代替药物。"
+  },
+  {
+   "id": "N7",
+   "category": "digital",
+   "text": "这是全宇宙最强的蓝牙耳机。"
+  },
+  {
+   "id": "N8",
+   "category": "digital",
+   "text": "行业内独一无二的降噪技术。"
+  },
+  {
+   "id": "N9",
+   "category": "digital",
+   "text": "拍照效果吊打某星，某星就是智商税。"
+  },
+  {
+   "id": "N10",
+   "category": "digital",
+   "text": "充电速度快了200%，信号增强五成。"
+  },
+  {
+   "id": "N11",
+   "category": "home",
+   "text": "空气净化器除甲醛率99.9%，权威机构检测。"
+  },
+  {
+   "id": "N12",
+   "category": "home",
+   "text": "这个按摩椅能缓解颈椎病，治好了我妈的腰疼。"
+  },
+  {
+   "id": "N13",
+   "category": "apparel",
+   "text": "全国销量冠军，卖爆了。"
+  },
+  {
+   "id": "N14",
+   "category": "apparel",
+   "text": "这条裤子穿上立马瘦十斤，显瘦效果绝无仅有。"
+  },
+  {
+   "id": "N15",
+   "category": "franchise",
+   "text": "加盟一年回本，三年稳赚两百万。投资有风险。"
+  },
+  {
+   "id": "N16",
+   "category": "franchise",
+   "text": "年收益率不低于15%，亏了总部兜底。"
+  },
+  {
+   "id": "N17",
+   "category": "education",
+   "text": "包过！考不过免费重修到过为止。"
+  },
+  {
+   "id": "N18",
+   "category": "education",
+   "text": "985名师团队亲授，北大教授力荐。"
+  },
+  {
+   "id": "N19",
+   "category": "general",
+   "text": "史无前例的低价，错过就没了。"
+  },
+  {
+   "id": "N20",
+   "category": "cosmetics",
+   "text": "这款防脱洗发水，一周长出新头发，告别秃顶。"
+  },
+  {
+   "id": "N21",
+   "category": "health_food",
+   "text": "专家教授联名推荐，三甲医院都在用。本品不能代替药物。"
+  },
+  {
+   "id": "N22",
+   "category": "food",
+   "text": "喝这个茶能排毒养颜，清除体内毒素，预防癌症。"
+  },
+  {
+   "id": "N23",
+   "category": "cosmetics",
+   "text": "全球首款零添加面霜。"
+  },
+  {
+   "id": "N24",
+   "category": "home",
+   "text": "睡这个枕头，打呼噜的毛病彻底根治。"
+  },
+  {
+   "id": "K1",
+   "category": "cosmetics",
+   "text": "这款面霜我最近天天用，质地很好推开。"
+  },
+  {
+   "id": "K2",
+   "category": "food",
+   "text": "山楂条酸甜口，第一口就很开胃，配料表只有山楂和白砂糖。"
+  },
+  {
+   "id": "K3",
+   "category": "health_food",
+   "text": "本品不能代替药物。每日两粒，饭后服用。"
+  },
+  {
+   "id": "K4",
+   "category": "digital",
+   "text": "这款耳机有三种颜色，白色款卖得比较快。"
+  },
+  {
+   "id": "K5",
+   "category": "digital",
+   "text": "充电口是Type-C，最大支持20W，具体以参数页为准。"
+  },
+  {
+   "id": "K6",
+   "category": "home",
+   "text": "净化器滤网建议三到六个月更换一次，具体看使用环境。"
+  },
+  {
+   "id": "K7",
+   "category": "apparel",
+   "text": "这条裤子是高腰版型，身高一米六的朋友选S码。"
+  },
+  {
+   "id": "K8",
+   "category": "franchise",
+   "text": "加盟前请实地考察门店，收益受多种因素影响，投资有风险。"
+  },
+  {
+   "id": "K9",
+   "category": "education",
+   "text": "课程有回放，考试安排以官方通知为准。"
+  },
+  {
+   "id": "K10",
+   "category": "general",
+   "text": "今天直播间第一个上的是这款保温杯，容量500毫升。"
+  },
+  {
+   "id": "K11",
+   "category": "cosmetics",
+   "text": "敏感肌的朋友建议先在耳后试用。"
+  },
+  {
+   "id": "K12",
+   "category": "food",
+   "text": "这个米粉是给八个月以上宝宝吃的辅食，具体看包装说明。"
+  },
+  {
+   "id": "K13",
+   "category": "home",
+   "text": "按摩椅有三档力度，第一次用建议从最低档开始。"
+  },
+  {
+   "id": "K14",
+   "category": "digital",
+   "text": "我们的售后电话24小时有人接。"
+  },
+  {
+   "id": "K15",
+   "category": "general",
+   "text": "医院旁边就有我们的线下店，欢迎来看看。"
+  },
+  {
+   "id": "K16",
+   "category": "food",
+   "text": "这款是绿茶，冲泡水温八十度左右口感最好。"
+  }
+ ]
+}

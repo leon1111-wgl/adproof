@@ -240,6 +240,8 @@ def decide(db: Session, review: Review, user: User, decision: str, version: str 
         review.status, review.final_text = "approved", review.source_text
     elif decision == "approve" and version == "rewrite":
         rewrite = review.rewrite or {}
+        if rewrite.get("withheld"):
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": "无法自动改写，请用“修改后通过”人工改写"})
         if not rewrite.get("passed"):
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": "改写稿没有通过复审，请修改后再提交"})
         review.status, review.final_text = "approved", rewrite.get("text") or review.source_text

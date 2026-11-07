@@ -1,6 +1,8 @@
 name: Demo site (GitHub Pages)
 
-# The static demo at https://leon1111-wgl.github.io/adproof/ : the real console in replay mode.
+# The static demo at https://leon1111-wgl.github.io/adproof/ : the real console. A visitor's own script is
+# reviewed in the tab by frontend/src/engine (tested equal to the backend pipeline before deploy);
+# sample scripts and generate options replay recordings.
 # Every deployment re-records it from this commit's backend (offline mock model,
 # SYNTHETIC demo data; scripts/record_demo.py), so the demo always shows what the code does.
 # Nothing in the demo talks to a server.
@@ -43,10 +45,13 @@ jobs:
         run: |
           pip install -r requirements.txt
           python ../scripts/record_demo.py | tee -a "$GITHUB_STEP_SUMMARY"
-      - name: Build the console in replay mode
+          python ../scripts/build_browser_pack.py --check
+          python ../scripts/export_parity_fixtures.py --include-blind
+      - name: Test the browser engine, then build the console (own scripts in the tab, samples replayed)
         working-directory: frontend
         run: |
           pnpm install --frozen-lockfile
+          pnpm test
           pnpm build:demo
           cp dist/index.html dist/404.html  # deep links such as /adproof/reviews/1
       - uses: actions/upload-pages-artifact@v3
