@@ -846,7 +846,8 @@
     "remaining_blocking": 0,
     "missing_disclosures": 0
    }
-  ]
+  ],
+  "withheld": false
  },
  "ruleset": {
   "version": "2026.11.07",
@@ -866,6 +867,7 @@
    "strict_f1": 0.713,
    "rewrite_passed": 21,
    "rewrite_scripts": 23,
+   "rewrite_withheld": 2,
    "evidence_valid": 51,
    "evidence_checked": 51
   },

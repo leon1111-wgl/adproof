@@ -21,7 +21,7 @@ const specimen = recorded as unknown as {
   model: string;
   eval: {
     items: { dev: number; test: number };
-    test: { precision: number; recall: number; f1: number; strict_f1: number; rewrite_passed: number; rewrite_scripts: number; evidence_valid: number; evidence_checked: number };
+    test: { precision: number; recall: number; f1: number; strict_f1: number; rewrite_passed: number; rewrite_scripts: number; rewrite_withheld?: number; evidence_valid: number; evidence_checked: number };
     dev_f1: number;
   };
 };
@@ -65,7 +65,7 @@ function Specimen() {
       {view === "clean" && (
         <div className="clean-copy">
           <div className="ms-text">{specimen.rewrite.text}</div>
-          <div className="faint">改写稿用同一套审查器复审{specimen.rewrite.passed ? "通过" : "未通过"}；是否发布仍由审核员签字决定。</div>
+          <div className="faint">{specimen.rewrite.withheld ? "这份稿子无法自动改写，需要审核员人工修改" : `改写稿用同一套审查器复审${specimen.rewrite.passed ? "通过" : "未通过"}`}；是否发布仍由审核员签字决定。</div>
         </div>
       )}
     </div>
@@ -196,7 +196,7 @@ export default function Landing() {
                 <tr>
                   <td>改写后复审通过（test）</td>
                   <td className="mono num">
-                    {t.rewrite_passed}/{t.rewrite_scripts}
+                    {t.rewrite_passed}/{t.rewrite_scripts}{t.rewrite_withheld ? `（另有 ${t.rewrite_withheld} 份无法自动改写）` : ""}
                   </td>
                 </tr>
                 <tr>
