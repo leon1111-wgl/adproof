@@ -221,7 +221,7 @@ export default function WorkbenchPage() {
               <tr key={r.id} className="clickable" onClick={() => navigate(`/reviews/${r.id}`)}>
                 <td>{r.title}</td>
                 <td><StatusBadge status={r.status} /></td>
-                <td><RiskBadge level={r.risk_level} /></td>
+                <td><RiskBadge level={r.risk_level} scope={r.scope?.state} /></td>
                 <td className="mono">{r.counts?.total ?? "—"}</td>
                 <td className="nowrap">{r.created_by?.name}</td>
                 <td className="faint nowrap">{time(r.created_at)}</td>

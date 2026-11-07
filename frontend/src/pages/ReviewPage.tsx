@@ -27,7 +27,7 @@ function PipelineStrip({ review }: { review: Review }) {
   ];
   if (review.mode === "generate") steps.push({ key: "sw", name: AGENT_TEXT.script_writer, ...state(pick(spans, "script_writer")) });
   steps.push({
-    key: "rv", name: review.provider === "browser" ? "规则 ∥ 离线语义" : "规则 ∥ 模型", parallel: true,
+    key: "rv", name: review.provider === "browser" ? "规则 ∥ 语义" : "规则 ∥ 模型", parallel: true,
     meta: rule || model ? `${ms(rule?.latency_ms)} ∥ ${ms(model?.latency_ms)}` : "—",
     state: worst([rule?.status, model?.status]) ?? "",
   });
@@ -299,7 +299,7 @@ export default function ReviewPage() {
         <div className="row row-wrap" style={{ gap: 10 }}>
           <h1 className="serif">{review.title}</h1>
           <StatusBadge status={review.status} />
-          <RiskBadge level={review.risk_level} />
+          <RiskBadge level={review.risk_level} scope={review.scope?.state} />
           <span className="spacer" />
           {review.run_id && <Link className="btn btn-sm" to={`/traces/${review.run_id}`}><TraceIcon size={14} /> 链路追踪</Link>}
         </div>

@@ -14,7 +14,10 @@ import { Tracer, recheck as engineRecheck, run as engineRun, type Product as Eng
 import { checkDisclosures, CATEGORIES, scan } from "./engine/rules";
 import { scopeOf } from "./engine/scope";
 import { cpLen, parseSrt, SRTError, type Cue } from "./engine/text";
+import samples from "./samples.json";
 import type { EngineInfo, Product, Recheck, Review, Severity, User, UserBrief } from "./types";
+
+const SAMPLES = samples as Record<string, { text?: string; srt?: string }>;
 
 const ROOT = `${import.meta.env.BASE_URL}demo/`;
 const TOKEN_PREFIX = "demo:";
@@ -49,7 +52,7 @@ export const CUSTOM_PRODUCTS: Product[] = Object.entries(pack.product_categories
 const RECORDED_ENGINE = (recordedAt: string): EngineInfo => ({
   kind: "recorded",
   label: "回放 · 后端流水线的录制结果",
-  detail: `真实 API + 离线确定性模型在 SYNTHETIC 数据上的输出，录制于 ${recordedAt.slice(0, 10)}；没有重新计算。`,
+  detail: `后端 API 在进程内运行、离线确定性模型（不是语言模型）、SYNTHETIC 数据，录制于 ${recordedAt.slice(0, 10)}；没有重新计算。`,
 });
 
 const BROWSER_ENGINE: EngineInfo = {
@@ -219,7 +222,11 @@ async function createReview(body: Record<string, unknown>, user: User): Promise<
   let recorded: Template;
   if (request.mode === "review") {
     // the recorded run when this is exactly a sample script; the browser engine for anything else
-    const template = await load<Template>(`templates/${templateName(request)}.json`).catch(() => null);
+    // (only samples were recorded, so nothing else is fetched)
+    const sample = SAMPLES[request.sku];
+    const sampleText = request.input_type === "srt" ? sample?.srt : sample?.text;
+    const isSample = product.id > 0 && sampleText !== undefined && sameText(sampleText) === sameText(request.content);
+    const template = isSample ? await load<Template>(`templates/${templateName(request)}.json`).catch(() => null) : null;
     if (!template || request.input_type !== template.request.input_type || sameText(request.content) !== sameText(template.request.content)) {
       return browserReview(product as Product, request, user);
     }
