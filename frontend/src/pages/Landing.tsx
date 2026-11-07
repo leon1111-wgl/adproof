@@ -107,11 +107,8 @@ export default function Landing() {
         <section className="hero">
           <div>
             <span className="eyebrow">AD COMPLIANCE · 带货素材合规审查</span>
-            <h1 className="serif">
-              每一处违规，都用红笔圈出来，
-              <br />
-              并在页边写明依据
-            </h1>
+            <h1 className="serif">AdProof</h1>
+            <p className="hero-stack">Multi-Agent · 规则引擎 · FastAPI · React · TypeScript</p>
             <p className="lead">
               短视频口播和直播字幕交上来，多个 Agent 逐条标出问题：落到原文的第几个字、命中哪条规则、对应《广告法》哪一条的原文；
               再给出改写稿并复审一遍，最后由审核员签字。

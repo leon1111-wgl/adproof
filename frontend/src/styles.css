@@ -438,6 +438,7 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
 .landing main { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; align-items: end; padding: 64px 0 52px; border-bottom: 1px solid var(--border); }
 .hero h1 { font-size: 42px; line-height: 1.3; font-weight: 700; letter-spacing: 0.02em; }
+.hero .hero-stack { margin-top: 10px; font-family: var(--mono); font-size: 15px; line-height: 1.6; letter-spacing: 0.02em; color: var(--pen); }
 .hero .lead { margin-top: 18px; max-width: 640px; font-size: 16px; line-height: 1.9; color: var(--text-2); }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 .colophon { margin: 0; display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 8px 14px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--border); border-radius: 2px; font-size: 13px; position: relative; }
