@@ -19,7 +19,7 @@ from ..textutil import CLAUSE_END, SENTENCE_END, clause_bounds, normalize, sente
 from . import prompts
 from .tracing import SpanHandle
 
-SCOPE_PREFIXES = ("全网", "全国", "全球", "史上", "行业", "业内", "同类", "同价位", "全场", "本店", "市面上")
+SCOPE_PREFIXES = ("全宇宙", "全世界", "全行业", "行业内", "全网", "全国", "全球", "史上", "宇宙", "世界", "行业", "业内", "同类", "同价位", "全场", "本店", "市面上")
 
 
 @dataclass
@@ -344,6 +344,36 @@ _BAD_PUNCT = re.compile(r"[，,、；;：:][，,、；;：:。!?！？]|[。!?�
 # a clause that only sets up the claim ("吃了这个酸奶，…") cannot end a sentence on its own
 _DANGLING = re.compile(r"^(?:吃了|喝了|用了|涂了|抹了|穿了|只要|如果|自从|坚持(?:用|吃|喝))[^，,]*$")
 _PEJORATIVE = re.compile(r"智商税|垃圾|辣鸡|破烂|割韭菜|偷工减料|骗人|劣质|坑人|以次充好|黑心|假货|都是坑|噱头|有毒|一用就坏|鼓包|差远了|弱爆了")
+_PARTICLE_START = re.compile(r"(?:^|[，,、；;：:。!?！？\n])\s*的(?!确)")
+_STANDALONE = {"这", "那", "它", "我", "你", "您", "他", "她", "这款", "那款", "这个", "那个", "这是", "那是", "它是",
+               "我们", "你们", "大家", "今天", "现在", "真的", "还有", "而且", "所以", "但是", "因为", "如果"}
+_STANDALONE_END = {"了", "吧", "呢", "啊", "呀", "哦", "啦", "吗"}
+_CJK = re.compile(r"^[\u4e00-\u9fff]{1,2}$")
+
+
+def _stub(after: str, diff: list[dict]) -> str | None:
+    """A deletion inside a clause must not leave one or two characters cut off from their word
+    ("行业内独一无二的降噪技术" -> "行的降噪技术")."""
+    pos = 0
+    for op in diff:
+        if op["op"] == "delete" and _CONTENT.search(op["a"]):  # a word was deleted, not "*" or spaces
+            p = pos
+            if 0 < p < len(after) and after[p - 1] not in CLAUSE_END and after[p] not in CLAUSE_END:
+                a = p
+                while a > 0 and after[a - 1] not in CLAUSE_END:
+                    a -= 1
+                b = p
+                while b < len(after) and after[b] not in CLAUSE_END:
+                    b += 1
+                left, right = after[a:p], after[p:b]
+                if _CJK.match(left) and left not in _STANDALONE:
+                    return left
+                if _CJK.match(right) and right not in _STANDALONE_END:
+                    return right
+        pos += len(op["b"])
+    return None
+
+
 _DOUBLED = re.compile(r"([\u4e00-\u9fff]{2,4})\1")
 KEEP_RATIO = 0.6
 
@@ -369,6 +399,11 @@ def rewrite_problems(before: str, after: str, findings: list[dict], rounds: list
         if sentence and _DANGLING.match(sentence) and any(sentence + c in before for c in "，,"):
             problems.append(f"改写后句子不完整：{sentence}")
             break
+    stub = _stub(after, diff)
+    if stub:
+        problems.append(f"删改后留下了被截断的字：{stub}")
+    if len(_PARTICLE_START.findall(after)) > len(_PARTICLE_START.findall(before)):
+        problems.append("改写后有分句以“的”开头")
     left = [m.group(0) for m in _PEJORATIVE.finditer(after)]
     if left:
         problems.append(f"改写后仍有贬低性的说法：{left[0]}")

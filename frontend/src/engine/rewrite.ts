@@ -372,6 +372,33 @@ const BAD_PUNCT = /[，,、；;：:][，,、；;：:。!?！？]|[。!?！？][�
 const DANGLING = /^(?:吃了|喝了|用了|涂了|抹了|穿了|只要|如果|自从|坚持(?:用|吃|喝))[^，,]*$/;
 const PEJORATIVE = /智商税|垃圾|辣鸡|破烂|割韭菜|偷工减料|骗人|劣质|坑人|以次充好|黑心|假货|都是坑|噱头|有毒|一用就坏|鼓包|差远了|弱爆了/;
 const DOUBLED = /([\u4e00-\u9fff]{2,4})\1/g;
+const PARTICLE_START = /(?:^|[，,、；;：:。!?！？\n])\s*的(?!确)/g;
+const STANDALONE = new Set(["这", "那", "它", "我", "你", "您", "他", "她", "这款", "那款", "这个", "那个", "这是", "那是", "它是",
+  "我们", "你们", "大家", "今天", "现在", "真的", "还有", "而且", "所以", "但是", "因为", "如果"]);
+const STANDALONE_END = new Set(["了", "吧", "呢", "啊", "呀", "哦", "啦", "吗"]);
+const CJK_STUB = /^[\u4e00-\u9fff]{1,2}$/;
+
+/** rewriter._stub: a deletion inside a clause must not leave one or two characters cut off from their word. */
+function stub(after: string, diff: DiffOp[]): string | null {
+  let pos = 0;
+  for (const op of diff) {
+    if (op.op === "delete" && CONTENT.test(op.a)) {
+      const p = pos;
+      if (p > 0 && p < after.length && !CLAUSE_END.includes(after[p - 1]) && !CLAUSE_END.includes(after[p])) {
+        let a = p;
+        while (a > 0 && !CLAUSE_END.includes(after[a - 1])) a--;
+        let b = p;
+        while (b < after.length && !CLAUSE_END.includes(after[b])) b++;
+        const left = after.slice(a, p);
+        const right = after.slice(p, b);
+        if (CJK_STUB.test(left) && !STANDALONE.has(left)) return left;
+        if (CJK_STUB.test(right) && !STANDALONE_END.has(right)) return right;
+      }
+    }
+    pos += op.b.length;
+  }
+  return null;
+}
 export const KEEP_RATIO = 0.6;
 const STATEMENTS = pack.disclosures.flatMap((d) => [...d.phrases, d.suggestion]);
 
@@ -394,6 +421,9 @@ export function rewriteProblems(before: string, after: string, findings: Pick<Fi
       break;
     }
   }
+  const cut = stub(after, diff);
+  if (cut) problems.push(`删改后留下了被截断的字：${cut}`);
+  if ((after.match(PARTICLE_START) ?? []).length > (before.match(PARTICLE_START) ?? []).length) problems.push("改写后有分句以“的”开头");
   const left = PEJORATIVE.exec(after);
   if (left) problems.push(`改写后仍有贬低性的说法：${left[0]}`);
   if (BAD_PUNCT.test(after)) problems.push("改写后标点残缺");

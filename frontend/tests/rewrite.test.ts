@@ -17,6 +17,11 @@ const fixture = new URL("./fixtures/parity.json", import.meta.url);
 if (existsSync(fixture)) for (const c of JSON.parse(readFileSync(fixture, "utf-8")).cases) inputs.push({ id: `parity:${c.id}`, product: c.product, script: c.script });
 
 const CONTENT = /[一-鿿A-Za-z0-9]/;
+const BOUNDARY = "，,、:：。!?！？;；\n";
+const STUB = /^[\u4e00-\u9fff]{1,2}$/;
+const PARTICLE_START = /(?:^|[，,、；;：:。!?！？\n])\s*的(?!确)/g;
+const OK_LEFT = new Set(["这", "那", "它", "我", "你", "您", "他", "她", "这款", "那款", "这个", "那个", "这是", "那是", "它是", "我们", "你们", "大家", "今天", "现在", "真的", "还有", "而且", "所以", "但是", "因为", "如果"]);
+const OK_RIGHT = new Set(["了", "吧", "呢", "啊", "呀", "哦", "啦", "吗"]);
 const DOUBLED_PUNCT = /[，,、；;：:][，,、；;：:。!?！？]|[。!?！？][，,、；;：:]|(?:^|\n)\s*[，,、；;：:。!?！？]/;
 
 describe("rewrites that are shown read as copy", () => {
@@ -36,6 +41,22 @@ describe("rewrites that are shown read as copy", () => {
     if (!DOUBLED_PUNCT.test(x.script)) expect(rw.text).not.toMatch(DOUBLED_PUNCT);
     const edits = rw.edits.filter((e) => e.strategy !== "append" && [...e.replacement].length >= 4);
     for (const e of edits) expect(rw.text.split(e.replacement).length - 1, `repeated: ${e.replacement}`).toBeLessThanOrEqual(Math.max(1, x.script.split(e.replacement).length - 1));
+    // no word cut off at a deletion inside a clause (independent of rewrite.ts): walk the diff
+    let at = 0;
+    for (const op of rw.diff) {
+      if (op.op === "delete" && CONTENT.test(op.a) && at > 0 && at < rw.text.length && !BOUNDARY.includes(rw.text[at - 1]) && !BOUNDARY.includes(rw.text[at])) {
+        let a = at;
+        while (a > 0 && !BOUNDARY.includes(rw.text[a - 1])) a--;
+        let b = at;
+        while (b < rw.text.length && !BOUNDARY.includes(rw.text[b])) b++;
+        const left = rw.text.slice(a, at);
+        const right = rw.text.slice(at, b);
+        expect(STUB.test(left) && !OK_LEFT.has(left), `stub before a deletion: ${left}`).toBe(false);
+        expect(STUB.test(right) && !OK_RIGHT.has(right), `stub after a deletion: ${right}`).toBe(false);
+      }
+      at += op.b.length;
+    }
+    expect((rw.text.match(PARTICLE_START) ?? []).length).toBeLessThanOrEqual((x.script.match(PARTICLE_START) ?? []).length);
     for (const e of rw.edits.filter((e) => e.strategy === "fallback" && e.replacement)) {
       const at = rw.text.indexOf(e.replacement);
       const next = rw.text[at + e.replacement.length];

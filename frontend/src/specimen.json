@@ -851,7 +851,7 @@
  },
  "ruleset": {
   "version": "2026.11.07",
-  "hash": "56cac3c4b82f",
+  "hash": "68ead7161d01",
   "name": "广告合规基础规则库"
  },
  "model": "adproof-offline",
@@ -864,7 +864,7 @@
    "precision": 0.9804,
    "recall": 0.7812,
    "f1": 0.8696,
-   "strict_f1": 0.713,
+   "strict_f1": 0.7304,
    "rewrite_passed": 21,
    "rewrite_scripts": 23,
    "rewrite_withheld": 2,

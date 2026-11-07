@@ -33,3 +33,29 @@ describe("main session probe (regression, not a measurement)", () => {
     });
   }
 });
+
+const second = JSON.parse(readFileSync(new URL("./main-probe-2.json", import.meta.url), "utf-8")) as { cases: { id: string; category: string; text: string }[] };
+const KNOWN_GAPS = new Set(["N2", "N4", "N5", "N6", "N16", "N20"]); // agreed with the main session, listed in CHANGELOG
+
+describe("main session probe 2 (regression, not a measurement)", () => {
+  for (const c of second.cases) {
+    it(`${c.id} ${c.text}`, () => {
+      const { out, missing, scope } = review(c);
+      if (c.id.startsWith("K")) {
+        expect(out.findings.map((f) => f.quote)).toEqual([]);
+        expect(missing.map((d) => d.id)).toEqual([]);
+        expect(scope.verdict).toContain("不等于合规");
+      } else if (!KNOWN_GAPS.has(c.id)) {
+        expect(out.findings.length, "flagged").toBeGreaterThan(0);
+      }
+    });
+  }
+  it("N8, N9, N10, N11, N21: the problem does not survive in a shown rewrite", () => {
+    const keep: Record<string, string[]> = { N8: ["行的"], N9: ["某星"], N10: ["五成"], N11: ["99.9%"], N21: ["医院"] };
+    for (const [id, words] of Object.entries(keep)) {
+      const c = second.cases.find((x) => x.id === id)!;
+      const rw = review(c).out.rewrite!;
+      if (!rw.withheld) for (const w of words) expect(rw.text.includes(w), `${id} keeps ${w}`).toBe(false);
+    }
+  });
+});
