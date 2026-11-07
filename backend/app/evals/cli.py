@@ -33,6 +33,7 @@ LABELS = {
     "unsourced_data": "数据无出处",
     "disparagement": "贬低其他经营者",
     "guaranteed_returns": "收益或结果保证",
+    "patent_claims": "专利宣称",
     "fact_mismatch": "与商品资料不符",
 }
 
