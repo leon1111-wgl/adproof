@@ -3,7 +3,7 @@
  * only when one is configured; the static demo never has one). */
 import { pack } from "./pack";
 import { rewriteSpec } from "./rules";
-import { clauseBounds, cpLen, normalize, pyRegex } from "./text";
+import { CLAUSE_END, SENTENCE_END, clauseBounds, cpLen, normalize, pyRegex } from "./text";
 import type { DisclosureResult, Finding } from "./evidence";
 
 const SCOPE_PREFIXES = pack.scope_prefixes;
@@ -51,7 +51,8 @@ export function templateSuggestion(finding: Pick<Finding, "category" | "rule_id"
   if (spec.strategy === "prefix" && spec.prefix_from && quote.includes(spec.prefix_from)) {
     return [stripScope(quote.replace(spec.prefix_from, () => spec.prefix_to ?? "")), "replace", spec.note];
   }
-  if (spec.fallback !== null) return [spec.fallback, "replace", spec.note];
+  // a generic phrase, not derived from the quote: only stands in for a whole claim (see plan)
+  if (spec.fallback !== null) return [spec.fallback, "fallback", spec.note];
   return [null, "delete_clause", spec.note || "删除该表述"];
 }
 
@@ -62,6 +63,35 @@ function clauseEdit(text: string, start: number, end: number): [number, number] 
   else if (a > 0 && "，,、:：".includes(text[a - 1])) a -= 1;
   else if (b < text.length && "。!?！？;；".includes(text[b])) b += 1;
   return [a, b];
+}
+
+const endsClause = (text: string, end: number) => end >= text.length || CLAUSE_END.includes(text[end]);
+
+/** rewriter._tidy: deletions must not leave stray punctuation. */
+function tidy(text: string, edits: Edit[]): Edit[] {
+  const joined: Edit[] = [];
+  for (const e of edits) {
+    const last = joined.length ? joined[joined.length - 1] : null;
+    if (last && last.replacement === "" && e.replacement === "" && last.strategy !== "append" && e.strategy !== "append" && last.end === e.start && e.end > e.start) {
+      joined[joined.length - 1] = { ...last, end: e.end, keys: [...last.keys, ...e.keys.filter((k) => !last.keys.includes(k))] };
+    } else {
+      joined.push(e);
+    }
+  }
+  const out: Edit[] = [];
+  joined.forEach((e, i) => {
+    if (e.replacement === "" && e.strategy !== "append" && e.end > e.start) {
+      const prevEnd = out.length ? out[out.length - 1].end : -1;
+      const nxt = i + 1 < joined.length ? joined[i + 1].start : text.length + 1;
+      let { start, end } = e;
+      const atStart = start === 0 || SENTENCE_END.includes(text[start - 1]);
+      if (atStart && end < text.length && end < nxt && "，,、:：。!?！？;；\n".includes(text[end])) end += 1;
+      else if (!atStart && (end >= text.length || SENTENCE_END.includes(text[end])) && start - 1 >= prevEnd && "，,、:：".includes(text[start - 1])) start -= 1;
+      e = { ...e, start, end };
+    }
+    out.push(e);
+  });
+  return out;
 }
 
 export function mergeEdits(text: string, edits: Edit[]): Edit[] {
@@ -107,23 +137,48 @@ export function suggest(finding: Finding) {
 
 export function plan(text: string, findings: Finding[], disclosures: DisclosureResult[]): Edit[] {
   const edits: Edit[] = [];
+  const fallbacks = new Set<string>();
   for (const finding of findings) {
-    const [replacement, strategy, note] = templateSuggestion(finding);
+    let [replacement, strategy] = templateSuggestion(finding);
+    const note = templateSuggestion(finding)[2];
+    // "月入十万不是梦" -> "存在亏损风险不是梦"; the same phrase twice reads as a template
+    if (strategy === "fallback" && replacement && (fallbacks.has(replacement) || !endsClause(text, finding.end))) strategy = "delete_clause";
+    if (strategy === "fallback") fallbacks.add(replacement ?? "");
+    if (strategy !== "delete_clause" && !replacement) {
+      const [a, b] = clauseBounds(text, finding.start, finding.end);
+      if (text.slice(a, b).trim() === text.slice(finding.start, finding.end).trim()) strategy = "delete_clause";
+    }
     if (strategy === "delete_clause") {
       const [a, b] = clauseEdit(text, finding.start, finding.end);
       edits.push({ start: a, end: b, replacement: "", keys: [finding.key], strategy, note });
     } else {
-      edits.push({ start: finding.start, end: finding.end, replacement: replacement ?? "", keys: [finding.key], strategy, note });
+      let r = replacement ?? "";
+      for (let k = Math.min(r.length, 4); k > 1; k--) {
+        if (text.slice(Math.max(0, finding.start - k), finding.start) === r.slice(0, k)) {
+          r = r.slice(k);
+          break;
+        }
+      }
+      for (let k = Math.min(r.length, 4); k > 1; k--) {
+        if (text.slice(finding.end, finding.end + k) === r.slice(-k)) {
+          r = r.slice(0, -k);
+          break;
+        }
+      }
+      edits.push({ start: finding.start, end: finding.end, replacement: r, keys: [finding.key], strategy, note });
     }
   }
+  const planned = normalize(edits.map((e) => e.replacement).join("")).text;
   for (const d of disclosures) {
+    const phrases = pack.disclosures.find((x) => x.id === d.id)?.phrases ?? [];
+    if (!d.present && phrases.some((ph) => planned.includes(normalize(ph).text))) continue; // a replacement already says it
     if (d.present) continue;
     const tail = text.trimEnd();
     const sep = !tail ? "" : text.endsWith("\n") || text.includes("\n") ? "\n" : "";
     const end = text.length;
     edits.push({ start: end, end, replacement: sep + d.suggestion, keys: [d.id], strategy: "append", note: `补充必要声明：${d.required}` });
   }
-  return mergeEdits(text, edits);
+  return tidy(text, mergeEdits(text, edits));
 }
 
 // ---------------------------------------------------------------- difflib.SequenceMatcher (autojunk=False)
@@ -307,4 +362,67 @@ export function charDiff(before: string, after: string, rounds?: AppliedEdit[][]
     }
   }
   return ops;
+}
+
+// ---------------------------------------------------------------- quality gate (rewriter.rewrite_problems)
+// A rewrite is shown only if it still reads as copy; otherwise "无法自动改写，请审核员人工改写".
+const CONTENT = /[\u4e00-\u9fff\u3400-\u4dbfA-Za-z0-9]/;
+const CONTENT_G = /[\u4e00-\u9fff\u3400-\u4dbfA-Za-z0-9]/g;
+const BAD_PUNCT = /[，,、；;：:][，,、；;：:。!?！？]|[。!?！？][，,、；;：:]|(?:^|\n)\s*[，,、；;：:。!?！？]/;
+const DANGLING = /^(?:吃了|喝了|用了|涂了|抹了|穿了|只要|如果|自从|坚持(?:用|吃|喝))[^，,]*$/;
+const PEJORATIVE = /智商税|垃圾|辣鸡|破烂|割韭菜|偷工减料|骗人|劣质|坑人|以次充好|黑心|假货|都是坑|噱头|有毒|一用就坏|鼓包|差远了|弱爆了/;
+const DOUBLED = /([\u4e00-\u9fff]{2,4})\1/g;
+export const KEEP_RATIO = 0.6;
+const STATEMENTS = pack.disclosures.flatMap((d) => [...d.phrases, d.suggestion]);
+
+const contentCount = (text: string) => (text.match(CONTENT_G) ?? []).length;
+const countOf = (text: string, part: string) => (part ? text.split(part).length - 1 : 0);
+
+export function rewriteProblems(before: string, after: string, findings: Pick<Finding, "start" | "end">[], rounds: AppliedEdit[][], diff: DiffOp[]): string[] {
+  const problems: string[] = [];
+  const edits = rounds.flat();
+  const templates = edits.filter((e) => e.strategy === "fallback" && e.replacement).map((e) => e.replacement);
+  let body = after;
+  for (const phrase of [...new Set([...STATEMENTS, ...templates].filter(Boolean))].sort((x, y) => cpLen(y) - cpLen(x) || (x < y ? -1 : x > y ? 1 : 0))) {
+    body = body.split(phrase).join("");
+  }
+  if (contentCount(body) === 0) problems.push("改写后除了模板语句和必要声明没有剩下内容");
+  for (const raw of after.split(/[。!?！？\n]/)) {
+    const sentence = raw.trim();
+    if (sentence && DANGLING.test(sentence) && [..."，,"].some((c) => before.includes(sentence + c))) {
+      problems.push(`改写后句子不完整：${sentence}`);
+      break;
+    }
+  }
+  const left = PEJORATIVE.exec(after);
+  if (left) problems.push(`改写后仍有贬低性的说法：${left[0]}`);
+  if (BAD_PUNCT.test(after)) problems.push("改写后标点残缺");
+  const doubled = [...after.matchAll(DOUBLED)].map((m) => m[0]).filter((d) => !before.includes(d));
+  if (doubled.length) problems.push(`改写后出现重复的词：${doubled[0]}`);
+  const replacements = [...new Set(edits.filter((e) => e.strategy !== "append" && cpLen(e.replacement) >= 4).map((e) => e.replacement))];
+  for (const r of replacements) {
+    if (countOf(after, r) > Math.max(1, countOf(before, r))) {
+      problems.push(`同一替换语重复出现：${r}`);
+      break;
+    }
+  }
+  for (const r of [...new Set(templates)]) {
+    const at = after.indexOf(r);
+    if (at >= 0 && !endsClause(after, at + r.length)) {
+      problems.push(`替换语没有落在分句末尾：${r}`);
+      break;
+    }
+  }
+  const flagged = new Set<number>();
+  for (const f of findings) for (let i = f.start; i < f.end; i++) flagged.add(i);
+  let base = 0;
+  for (let i = 0; i < before.length; i++) if (!flagged.has(i) && CONTENT.test(before[i])) base++;
+  let kept = 0;
+  let pos = 0;
+  for (const op of diff) {
+    if (op.op === "equal") for (let k = 0; k < op.a.length; k++) if (!flagged.has(pos + k) && CONTENT.test(op.a[k])) kept++;
+    pos += op.a.length;
+  }
+  if (base && kept / base < KEEP_RATIO) problems.push(`改写删掉了大部分没有问题的内容（保留 ${kept}/${base} 字）`);
+  return problems;
 }

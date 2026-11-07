@@ -33,6 +33,7 @@ LABELS = {
     "unsourced_data": "数据无出处",
     "disparagement": "贬低其他经营者",
     "guaranteed_returns": "收益或结果保证",
+    "endorsement": "专业人士或代言人推荐",
     "patent_claims": "专利宣称",
     "fact_mismatch": "与商品资料不符",
 }
@@ -83,7 +84,7 @@ def print_report(result: dict) -> None:
         a = r["ablation"]
         print(f"    通道消融 F1：规则 {_fmt(a['rule']['f1'])} · 模型 {_fmt(a['model']['f1'])} · 双通道 {_fmt(a['both']['f1'])}")
         rw = r["rewrite"]
-        print(f"    改写后复审通过 {rw['passed']}/{rw['scripts']} ({_fmt(rw['pass_rate'])}) · "
+        print(f"    改写后复审通过 {rw['passed']}/{rw['scripts']} ({_fmt(rw['pass_rate'])}，另有 {rw.get('withheld', 0)} 份无法自动改写) · "
               f"金标违规被改写 {rw['gold_eliminated']}/{rw['gold_spans']} ({_fmt(rw['elimination_rate'])})")
         e = r["evidence"]
         print(f"    证据校验 {e['findings_valid']}/{e['findings_checked']} · 法条已核对 {e['citations_verified']}/{e['citations']}"

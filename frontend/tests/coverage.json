@@ -479,6 +479,193 @@
    }
   },
   {
+   "id": "end-plain-health",
+   "wording": "plain",
+   "text": "老专家都在吃，我们也很放心。本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "老专家都在吃",
+    "citations": [
+     "advertising_law:18:1:5/basis",
+     "advertising_law:58:1:3/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-colloquial-health",
+   "wording": "colloquial",
+   "text": "家人们，协和的主任都在吃这个！本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "主任都在吃",
+    "citations": [
+     "advertising_law:18:1:5/basis",
+     "advertising_law:58:1:3/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-plain-education",
+   "wording": "plain",
+   "text": "本课程由名校教授推荐。",
+   "category": "education",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "名校教授推荐",
+    "citations": [
+     "advertising_law:24:1:3/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "end-colloquial-education",
+   "wording": "colloquial",
+   "text": "宝子们，清华学霸亲自推荐的剪辑课，冲！",
+   "category": "education",
+   "expect": {
+    "category": "endorsement",
+    "quote_contains": "清华学霸亲自推荐",
+    "citations": [
+     "advertising_law:24:1:3/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "abs-scope-most",
+   "wording": "plain",
+   "text": "这款保温杯是全网最保温的。",
+   "category": "digital",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "全网最保温",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   }
+  },
+  {
+   "id": "abs-only-one",
+   "wording": "plain",
+   "text": "行业唯一通过该认证的面霜。",
+   "category": "cosmetics",
+   "expect": {
+    "category": "absolute_terms",
+    "quote_contains": "行业唯一",
+    "citations": [
+     "advertising_law:9:1:3/basis",
+     "advertising_law:57:1:1/penalty"
+    ]
+   }
+  },
+  {
+   "id": "dis-nickname",
+   "wording": "colloquial",
+   "text": "姐妹们，隔壁那家的面膜就是垃圾！",
+   "category": "cosmetics",
+   "expect": {
+    "category": "disparagement",
+    "quote_contains": "垃圾",
+    "citations": [
+     "advertising_law:13:1/basis",
+     "advertising_law:59:1:4/penalty"
+    ]
+   }
+  },
+  {
+   "id": "dat-performance",
+   "wording": "plain",
+   "text": "这款吸尘器吸力提高2倍。",
+   "category": "digital",
+   "expect": {
+    "category": "unsourced_data",
+    "quote_contains": "吸力提高2倍",
+    "citations": [
+     "advertising_law:11:2/basis",
+     "advertising_law:28:2:3/basis",
+     "advertising_law:59:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "med-disease-name",
+   "wording": "plain",
+   "text": "这款枕头可以缓解颈椎病。",
+   "category": "home",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "缓解颈椎病",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "med-stop-medicine",
+   "wording": "colloquial",
+   "text": "宝子们，喝了这个就可以停掉降糖药。本品不能代替药物。",
+   "category": "health_food",
+   "expect": {
+    "category": "medical_claims",
+    "quote_contains": "停掉降糖药",
+    "citations": [
+     "advertising_law:17:1/basis",
+     "advertising_law:18:1:2/basis",
+     "food_safety_law:73:1/basis",
+     "advertising_law:18:1:4/basis",
+     "advertising_law:58:1:2/penalty"
+    ]
+   }
+  },
+  {
+   "id": "ret-pass-guarantee",
+   "wording": "colloquial",
+   "text": "跟着Leon老师学，保过！",
+   "category": "education",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "保过",
+    "citations": [
+     "advertising_law:24:1:1/basis",
+     "advertising_law:58:1:6/penalty"
+    ]
+   }
+  },
+  {
+   "id": "ret-annual-yield",
+   "wording": "plain",
+   "text": "加盟年化收益15%，投资有风险。",
+   "category": "franchise",
+   "expect": {
+    "category": "guaranteed_returns",
+    "quote_contains": "年化收益15%",
+    "citations": [
+     "advertising_law:25:1:1/basis",
+     "advertising_law:58:1:7/penalty"
+    ]
+   }
+  },
+  {
+   "id": "eff-all-gone",
+   "wording": "colloquial",
+   "text": "敷完黑眼圈统统消失了！",
+   "category": "cosmetics",
+   "expect": {
+    "category": "effect_claims",
+    "quote_contains": "黑眼圈统统消失了",
+    "citations": [
+     "advertising_law:4:1/basis",
+     "advertising_law:28:2:4/basis",
+     "advertising_law:55:1/penalty"
+    ]
+   }
+  },
+  {
    "id": "ok-advisory",
    "wording": "lookalike",
    "text": "最近换季皮肤有点干，最好在晚上洁面后使用。",
@@ -610,6 +797,97 @@
    "text": "最低温度零下5度也不会冻住，券后最低只要59元。",
    "expect": null,
    "category": "food"
+  },
+  {
+   "id": "ok-only-flaw",
+   "wording": "lookalike",
+   "text": "唯一的缺点是有点贵。",
+   "category": "cosmetics",
+   "expect": null
+  },
+  {
+   "id": "ok-favourite",
+   "wording": "lookalike",
+   "text": "我最喜欢这个颜色。",
+   "category": "cosmetics",
+   "expect": null
+  },
+  {
+   "id": "ok-some-day",
+   "wording": "lookalike",
+   "text": "某天我把垃圾倒了才出门。",
+   "category": "general",
+   "expect": null
+  },
+  {
+   "id": "ok-hospital-queue",
+   "wording": "lookalike",
+   "text": "周末来门店比去医院排队省事。",
+   "category": "general",
+   "expect": null
+  },
+  {
+   "id": "ok-price-cut",
+   "wording": "lookalike",
+   "text": "价格降低20%，活动到周日。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-after-sales",
+   "wording": "lookalike",
+   "text": "售后问题统统解决，放心下单。",
+   "category": "home",
+   "expect": null
+  },
+  {
+   "id": "ok-patients-advice",
+   "wording": "lookalike",
+   "text": "高血压患者请遵医嘱食用。",
+   "category": "food",
+   "expect": null
+  },
+  {
+   "id": "ok-weekly-qa",
+   "wording": "lookalike",
+   "text": "保证每周一次直播答疑。",
+   "category": "education",
+   "expect": null
+  },
+  {
+   "id": "ok-doctor-guidance",
+   "wording": "lookalike",
+   "text": "请在医生指导下食用。本品不能代替药物。",
+   "category": "health_food",
+   "expect": null
+  },
+  {
+   "id": "ok-own-teacher",
+   "wording": "lookalike",
+   "text": "课程由Leon老师主讲，每周答疑。",
+   "category": "education",
+   "expect": null
+  },
+  {
+   "id": "ok-sourced-gain",
+   "wording": "lookalike",
+   "text": "续航提升30%（数据来源：品牌实验室2026年测试报告）。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-price-compare",
+   "wording": "lookalike",
+   "text": "比某果的手机便宜一半，性能差不多。",
+   "category": "digital",
+   "expect": null
+  },
+  {
+   "id": "ok-premiere",
+   "wording": "lookalike",
+   "text": "新品首单立减20元。",
+   "category": "digital",
+   "expect": null
   }
  ]
 }

@@ -93,3 +93,15 @@ describe("模拟 sign-off follows review_service.py", () => {
     expect([r.status, r.decision_version, r.final_text]).toEqual(["approved", "edited", "这款精华质地清爽，适合日常使用。"]);
   });
 });
+
+describe("withheld rewrites cannot be approved", () => {
+  it("a script that is all claim gets no rewrite to approve", async () => {
+    const r = submit("这个床垫能治疗腰椎间盘突出。", emma, CUSTOM_PRODUCTS.find((p) => p.category === "home")!);
+    expect(r.rewrite?.withheld).toBe(true);
+    expect(r.rewrite?.passed).toBe(false);
+    const err = await rejects(decide(r, { decision: "approve", version: "rewrite", note: "" }, mia), 409);
+    expect(err.message).toContain("无法自动改写");
+    await decide(r, { decision: "revise", final_text: "这款床垫偏硬，适合喜欢硬床的朋友。", note: "人工改写" }, mia);
+    expect(r.status).toBe("approved");
+  });
+});

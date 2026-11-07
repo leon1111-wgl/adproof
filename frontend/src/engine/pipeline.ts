@@ -10,7 +10,7 @@ import {
   buildDisclosures, locate, mergeAndBuild, offlineModelChannel, ruleChannel, validateFindings,
   type DisclosureResult, type Finding, type ProductLike, type Rejected, type Validation,
 } from "./evidence";
-import { applyEdits, charDiff, plan, suggest, type AppliedEdit, type DiffOp } from "./rewrite";
+import { applyEdits, charDiff, plan, rewriteProblems, suggest, type AppliedEdit, type DiffOp } from "./rewrite";
 import { normalize, type Cue } from "./text";
 import type { ProductFact } from "./facts";
 
@@ -146,6 +146,10 @@ export interface RewriteResult {
   text: string;
   changed: boolean;
   edits: AppliedEdit[];
+  review_passed: boolean;
+  /** the rewrite does not read as copy: not shown, cannot be approved */
+  withheld: boolean;
+  withheld_reasons: string[];
   rounds: { round: number; edits: number; remaining: number; remaining_blocking: number; missing_disclosures: number }[];
   passed: boolean;
   remaining: Finding[];
@@ -177,9 +181,12 @@ export function rewriteLoop(original: ReviewPass, product: Product, tracer: Trac
     current = review(newText, product, tracer, { stage: `复审 ${round}` });
     rounds.push({ round, edits: applied.length, remaining: current.findings.length, remaining_blocking: blockingOf(current).length, missing_disclosures: missingOf(current).length });
   }
+  const diff = charDiff(text, current.text, appliedRounds);
+  const problems = current.text !== text ? rewriteProblems(text, current.text, original.findings, appliedRounds, diff) : [];
   return {
-    text: current.text, changed: current.text !== text, edits: first, rounds, passed: passed(current),
-    remaining: current.findings, remaining_disclosures: missingOf(current), diff: charDiff(text, current.text, appliedRounds),
+    text: current.text, changed: current.text !== text, edits: first, rounds, review_passed: passed(current),
+    withheld: problems.length > 0, withheld_reasons: problems, passed: passed(current) && !problems.length,
+    remaining: current.findings, remaining_disclosures: missingOf(current), diff,
   };
 }
 

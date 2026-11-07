@@ -50,6 +50,7 @@ class SplitStats:
         self.clean_flagged = 0
         self.rewrite_total = 0
         self.rewrite_passed = 0
+        self.rewrite_withheld = 0
         self.gold_spans = 0
         self.gold_eliminated = 0
         self.disclosure = {"tp": 0, "fp": 0, "fn": 0}
@@ -86,6 +87,7 @@ class SplitStats:
             "rewrite": {
                 "scripts": self.rewrite_total,
                 "passed": self.rewrite_passed,
+                "withheld": self.rewrite_withheld,
                 "pass_rate": round(self.rewrite_passed / self.rewrite_total, 4) if self.rewrite_total else None,
                 "gold_spans": self.gold_spans,
                 "gold_eliminated": self.gold_eliminated,
@@ -142,6 +144,7 @@ def run_eval(pipeline: ReviewPipeline, items: list[EvalItem]) -> dict:
                 s.violating_detected += 1 if (pairs or set(pred_missing) & set(gold_missing)) else 0
                 s.rewrite_total += 1
                 s.rewrite_passed += 1 if rewrite.get("passed") else 0
+                s.rewrite_withheld += 1 if rewrite.get("withheld") else 0
             else:
                 s.clean += 1
                 s.clean_flagged += 1 if (pred or pred_missing) else 0
@@ -178,6 +181,8 @@ def run_eval(pipeline: ReviewPipeline, items: list[EvalItem]) -> dict:
             "disclosures": {"gold_missing": gold_missing, "pred_missing": pred_missing},
             "rewrite": {
                 "passed": rewrite.get("passed"),
+                "withheld": rewrite.get("withheld", False),
+                "withheld_reasons": rewrite.get("withheld_reasons", []),
                 "rounds": len(rewrite.get("rounds", [])),
                 "text": rewrite.get("text"),
                 "gold_eliminated": sum(eliminated),

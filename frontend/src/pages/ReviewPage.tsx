@@ -109,7 +109,7 @@ function VerdictActions({
 }
 
 function EditModal({ review, onClose, onDone }: { review: Review; onClose: () => void; onDone: (r: Review) => void }) {
-  const [text, setText] = useState(review.rewrite?.text || review.source_text || "");
+  const [text, setText] = useState((review.rewrite?.withheld ? review.source_text : review.rewrite?.text) || review.source_text || "");
   const [check, setCheck] = useState<Recheck | null>(null);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
@@ -337,7 +337,9 @@ export default function ReviewPage() {
               </span>
             )}
             {(tab === "redline" || tab === "clean") && rewrite.rounds && (
-              rewrite.rounds.length === 0
+              rewrite.withheld
+                ? <span className="badge badge-warning" title="自动改写读不通，没有展示，也不能直接采用">无法自动改写</span>
+                : rewrite.rounds.length === 0
                 ? <span className="badge" title="规则未命中，不等于合规">无需改写 · 规则未命中</span>
                 : <span className={`badge ${rewrite.passed ? "badge-success" : "badge-danger"}`} title="复审通过只说明审查器能识别的问题已消除，不等于合规">
                     {rewrite.passed ? "改写稿复审通过" : "改写稿复审未通过"} · {rewrite.rounds.length} 轮
@@ -367,7 +369,16 @@ export default function ReviewPage() {
               </div>
             </>
           )}
-          {tab === "redline" && (
+          {(tab === "redline" || tab === "clean") && rewrite.withheld && (
+            <div className="card-pad stack" style={{ gap: 10 }}>
+              <div className="notice">
+                <b>无法自动改写，请审核员人工改写。</b>按规则模板改出来的稿子读不通，所以没有展示，也不能“采用改写稿通过”：
+                <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>{(rewrite.withheld_reasons ?? []).map((r) => <li key={r}>{r}</li>)}</ul>
+              </div>
+              <div className="faint">每条问题的改法仍写在批注稿的页边；可以用“修改后通过”人工改写，提交前会在本页复检。</div>
+            </div>
+          )}
+          {tab === "redline" && !rewrite.withheld && (
             rewrite.diff ? (
               <>
                 <Redline rewrite={rewrite} />
@@ -388,7 +399,7 @@ export default function ReviewPage() {
               </>
             ) : <Empty>没有需要改写的内容。</Empty>
           )}
-          {tab === "clean" && (
+          {tab === "clean" && !rewrite.withheld && (
             <div className="clean-copy">
               <div className="ms-text">{rewrite.text || review.source_text}</div>
               <div className="faint">清样：按红笔改稿逐条替换后的全文，改写稿会用同一套审查器再审一遍{rewrite.changed === false ? "（本稿无需改动）" : ""}。复审通过不等于合规。</div>
@@ -441,7 +452,7 @@ export default function ReviewPage() {
           {perms?.can_decide ? (
             <>
               <textarea className="textarea" aria-label="终审备注" placeholder="终审备注（驳回时必填）" value={note} onChange={(e) => setNote(e.target.value)} />
-              <button className="btn btn-primary" disabled={busy || !rewrite.passed} title={rewrite.passed ? "" : "改写稿没有通过复审"} onClick={() => decide("approve", "rewrite")}>采用改写稿通过</button>
+              <button className="btn btn-primary" disabled={busy || !rewrite.passed} title={rewrite.passed ? "" : rewrite.withheld ? "无法自动改写，请人工修改" : "改写稿没有通过复审"} onClick={() => decide("approve", "rewrite")}>采用改写稿通过</button>
               <button className="btn" disabled={busy} onClick={() => setEditing(true)}>修改后通过</button>
               <button className="btn" disabled={busy} title="仅当所有高、中风险问题都标记为误报时可用" onClick={() => decide("approve", "original")}>原稿通过</button>
               <button className="btn btn-danger" disabled={busy || note.trim().length < 2} onClick={() => decide("reject")}>驳回</button>

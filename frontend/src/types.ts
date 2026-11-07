@@ -112,6 +112,10 @@ export interface RewriteResult {
   text?: string;
   changed?: boolean;
   passed?: boolean;
+  review_passed?: boolean;
+  /** the automatic rewrite does not read as copy: it is not shown and cannot be approved */
+  withheld?: boolean;
+  withheld_reasons?: string[];
   rounds?: { round: number; edits: number; remaining: number; remaining_blocking: number; missing_disclosures: number }[];
   edits?: { start: number; end: number; original: string; replacement: string; keys: string[]; strategy: string; note: string }[];
   diff?: { op: "equal" | "replace" | "delete" | "insert"; a: string; b: string }[];

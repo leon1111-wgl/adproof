@@ -291,6 +291,7 @@ export async function decide(review: Review, body: { decision?: string; version?
     }
     finalText = review.source_text ?? null;
   } else if (body.decision === "approve" && body.version === "rewrite") {
+    if (review.rewrite?.withheld) throw new ApiError(409, "无法自动改写，请用“修改后通过”人工改写", { message: "无法自动改写，请用“修改后通过”人工改写" });
     if (!review.rewrite?.passed) throw new ApiError(409, "改写稿没有通过复审，请修改后再提交", { message: "改写稿没有通过复审，请修改后再提交" });
     finalText = review.rewrite.text || review.source_text || null;
   } else if (body.decision === "revise") {

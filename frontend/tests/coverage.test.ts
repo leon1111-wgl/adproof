@@ -70,7 +70,7 @@ describe("coverage: categories and verified articles", () => {
         expect(d, "missing statement reported").toBeTruthy();
         expect(d!.citations.map((x) => label({ ...x, kind: "basis" }))).toEqual(c.expect.citations);
         expect(d!.citations.every((x) => x.status === "verified")).toBe(true);
-        expect(out.rewrite?.passed).toBe(true);
+        expect(out.rewrite?.passed).toBe(!out.rewrite?.withheld);
         return;
       }
       const f = out.findings.find((x) => x.category === c.expect!.category && x.quote.includes(c.expect!.quote_contains!));
@@ -78,9 +78,14 @@ describe("coverage: categories and verified articles", () => {
       expect(f!.citations.map(label)).toEqual(c.expect.citations);
       expect(f!.citations.every((x) => x.status === "verified")).toBe(true);
       expect(f!.pending_basis).toBe(false);
-      // the suggested rewrite passes re-review and no longer contains the flagged words
-      expect(out.rewrite?.passed).toBe(true);
-      expect(out.rewrite!.text.includes(f!.quote)).toBe(false);
+      // a rewrite is either shown (passed re-review, flagged words gone) or withheld with a reason
+      if (out.rewrite!.withheld) {
+        expect(out.rewrite!.passed).toBe(false);
+        expect(out.rewrite!.withheld_reasons.length).toBeGreaterThan(0);
+      } else {
+        expect(out.rewrite?.passed).toBe(true);
+        expect(out.rewrite!.text.includes(f!.quote)).toBe(false);
+      }
     });
   }
 });
