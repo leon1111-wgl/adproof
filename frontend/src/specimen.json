@@ -849,7 +849,7 @@
  },
  "ruleset": {
   "version": "2026.11.07",
-  "hash": "0df411b1786e",
+  "hash": "401f6e5e54bd",
   "name": "广告合规基础规则库"
  },
  "model": "adproof-offline",
