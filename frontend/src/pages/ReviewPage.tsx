@@ -5,7 +5,7 @@ import { ApiError, DEMO, api } from "../api";
 import { useAuth } from "../auth";
 import { Manuscript, Redline } from "../components/Manuscript";
 import { AGENT_TEXT, Empty, ErrorBanner, Modal, RiskBadge, SEVERITY_TEXT, Stamp, StatusBadge, ms, time } from "../components/ui";
-import type { AgentSpan, Finding, Recheck, Review } from "../types";
+import type { AgentSpan, Finding, Recheck, Review, ScopeReport } from "../types";
 
 type Tab = "marked" | "redline" | "clean" | "facts";
 
@@ -27,7 +27,7 @@ function PipelineStrip({ review }: { review: Review }) {
   ];
   if (review.mode === "generate") steps.push({ key: "sw", name: AGENT_TEXT.script_writer, ...state(pick(spans, "script_writer")) });
   steps.push({
-    key: "rv", name: "规则 ∥ 模型", parallel: true,
+    key: "rv", name: review.provider === "browser" ? "规则 ∥ 离线语义" : "规则 ∥ 模型", parallel: true,
     meta: rule || model ? `${ms(rule?.latency_ms)} ∥ ${ms(model?.latency_ms)}` : "—",
     state: worst([rule?.status, model?.status]) ?? "",
   });
@@ -149,13 +149,13 @@ function EditModal({ review, onClose, onDone }: { review: Review; onClose: () =>
       </>
     }>
       <p className="muted small">在改写稿基础上人工修改。提交前必须复检：复检使用同一套规则和模型通道，仍有高、中风险问题时不能通过。</p>
-      {DEMO && <p className="faint">静态演示只录制了未改动改写稿的复检；改动后的文本需要完整服务。</p>}
+      {DEMO && <p className="faint">静态演示：复检在本页浏览器内运行（与后端规则相同）；未改动的示例改写稿使用录制的复检结果。</p>}
       <textarea className="textarea serif" aria-label="修改稿" style={{ minHeight: 200, fontSize: 15 }} value={text} onChange={(e) => { setText(e.target.value); setCheck(null); }} />
       <input className="input" aria-label="终审备注" placeholder="终审备注（可选）" value={note} onChange={(e) => setNote(e.target.value)} />
       <ErrorBanner error={error} />
       {check && (
         check.passed
-          ? <div className="notice">复检通过：没有高、中风险问题，也没有缺少的必要声明。</div>
+          ? <div className="notice">复检通过：没有高、中风险问题，也没有缺少的必要声明（不等于合规）。{check.engine && <span className="faint"> · {check.engine.label}</span>}</div>
           : <div className="error-banner">
               复检仍有问题：{blocking.map((f) => `“${f.quote}”（${f.category_label}）`).join("、")}
               {missing.length > 0 && ` 缺少声明：${missing.map((d) => d.required).join("、")}`}
@@ -165,9 +165,63 @@ function EditModal({ review, onClose, onDone }: { review: Review; onClose: () =>
   );
 }
 
+/** Default-deny statement: what this review checked, what it did not, and claims outside the rules. */
+function ScopePanel({ scope }: { scope: ScopeReport }) {
+  return (
+    <section className={`scope-sheet ${scope.state}`} aria-label="审查范围">
+      <div className="scope-head">
+        <b className="serif">审查范围</b>
+        <span className="scope-verdict">{scope.verdict}</span>
+      </div>
+      {scope.input_notes.map((n) => <div key={n} className="error-banner">{n}</div>)}
+      {scope.signals.length > 0 && (
+        <div className="scope-signals">
+          <div className="label">超出规则库范围的说法 · 不是审查结论，需要人工判断</div>
+          <ul>
+            {scope.signals.map((s) => (
+              <li key={`${s.topic}-${s.start}`}>
+                <span className="scope-topic">{s.topic}</span>
+                <q>{s.sentence.slice(0, s.at[0])}<mark className="scope-mark">{s.sentence.slice(s.at[0], s.at[1])}</mark>{s.sentence.slice(s.at[1])}</q>
+                <span className="faint">{s.note}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="scope-cols">
+        <div>
+          <div className="label">这次检查了</div>
+          <dl>{scope.checked.map((c) => <div key={c.label}><dt>{c.label}</dt><dd>{c.detail}</dd></div>)}</dl>
+        </div>
+        <div>
+          <div className="label">没有检查</div>
+          <dl>{scope.not_checked.map((c) => <div key={c.label}><dt>{c.label}</dt><dd>{c.detail}</dd></div>)}</dl>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Static demo: the submitter cannot sign off (four-eyes), so offer to continue as a reviewer. */
+function SwitchReviewer({ review }: { review: Review }) {
+  const { user, login } = useAuth();
+  const [accounts, setAccounts] = useState<{ email: string; name: string; role: string; title: string }[]>([]);
+  useEffect(() => {
+    api.get<{ accounts: { email: string; name: string; role: string; title: string }[] }>("/api/auth/demo-accounts").then((r) => setAccounts(r.accounts)).catch(() => setAccounts([]));
+  }, []);
+  const eligible = (role: string) => accounts.find((a) => a.role === role && a.name !== review.created_by.name && a.email !== user?.email);
+  const target = eligible("reviewer") ?? eligible("admin");
+  if (!target) return null;
+  return (
+    <button className="btn btn-sm" onClick={() => void login(target.email, "")}>
+      切换为{target.role === "admin" ? "合规负责人" : "审核员"} {target.name} 签发（模拟）
+    </button>
+  );
+}
+
 export default function ReviewPage() {
   const { reviewId } = useParams();
-  const { meta } = useAuth();
+  const { meta, user } = useAuth();
   const [review, setReview] = useState<Review | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("marked");
@@ -195,7 +249,7 @@ export default function ReviewPage() {
       stopped = true;
       window.clearTimeout(timer);
     };
-  }, [reviewId]);
+  }, [reviewId, user?.id]);
 
   const findings = useMemo(() => review?.findings ?? [], [review]);
   const select = (key: string) => {
@@ -252,8 +306,14 @@ export default function ReviewPage() {
         <div className="faint">
           {review.product.brand} {review.product.name} · {categoryName(review.product.category)} ·
           {" "}{review.mode === "generate" ? `系统生成（${review.options?.tone === "aggressive" ? "激进·演示" : "稳妥"}）` : review.input_type === "srt" ? "SRT 字幕" : "口播文案"} ·
-          {" "}{review.created_by.name} 提交于 {time(review.created_at)} · 规则库 {review.ruleset_version}（{review.ruleset_hash.slice(0, 7)}）· {review.provider === "mock" ? "离线确定性模型" : review.model}
+          {" "}{review.created_by.name} 提交于 {time(review.created_at)} · 规则库 {review.ruleset_version}（{review.ruleset_hash.slice(0, 7)}）· {review.provider === "browser" ? "浏览器内引擎（规则 + 离线语义模式）" : review.provider === "mock" ? "离线确定性模型" : review.model}
         </div>
+        {review.engine && (
+          <div className={`engine-note ${review.engine.kind}`} role="note">
+            <b>{review.engine.label}</b>
+            <span>{review.engine.detail}</span>
+          </div>
+        )}
       </div>
       <PipelineStrip review={review} />
       <ErrorBanner error={error ?? review.error} />
@@ -277,15 +337,17 @@ export default function ReviewPage() {
               </span>
             )}
             {(tab === "redline" || tab === "clean") && rewrite.rounds && (
-              <span className={`badge ${rewrite.passed ? "badge-success" : "badge-danger"}`}>
-                {rewrite.passed ? "改写稿复审通过" : "改写稿复审未通过"} · {rewrite.rounds.length} 轮
-              </span>
+              rewrite.rounds.length === 0
+                ? <span className="badge" title="规则未命中，不等于合规">无需改写 · 规则未命中</span>
+                : <span className={`badge ${rewrite.passed ? "badge-success" : "badge-danger"}`} title="复审通过只说明审查器能识别的问题已消除，不等于合规">
+                    {rewrite.passed ? "改写稿复审通过" : "改写稿复审未通过"} · {rewrite.rounds.length} 轮
+                  </span>
             )}
           </div>
           {tab === "marked" && (
             <>
               {findings.length === 0 && missing.length === 0 && (review.rejected?.length ?? 0) === 0 ? (
-                <div className="manuscript"><div className="ms-text">{review.source_text}</div><Empty>没有发现问题。</Empty></div>
+                <div className="manuscript"><div className="ms-text">{review.source_text}</div><Empty>规则库没有命中。这不等于合规，见下方“审查范围”。</Empty></div>
               ) : (
                 <Manuscript
                   text={review.source_text ?? ""}
@@ -329,7 +391,7 @@ export default function ReviewPage() {
           {tab === "clean" && (
             <div className="clean-copy">
               <div className="ms-text">{rewrite.text || review.source_text}</div>
-              <div className="faint">清样：按红笔改稿逐条替换后的全文，改写稿会用同一套规则和模型再审一遍{rewrite.changed === false ? "（本稿无需改动）" : ""}。</div>
+              <div className="faint">清样：按红笔改稿逐条替换后的全文，改写稿会用同一套审查器再审一遍{rewrite.changed === false ? "（本稿无需改动）" : ""}。复审通过不等于合规。</div>
             </div>
           )}
           {tab === "facts" && (
@@ -355,11 +417,14 @@ export default function ReviewPage() {
         </section>
       )}
 
+      {!running && review.scope && <ScopePanel scope={review.scope} />}
+
       {!running && review.decision && (
         <div className="verdict-card">
           <Stamp status={review.status} />
           <div className="stack" style={{ gap: 4, minWidth: 0 }}>
             <b>
+              {DEMO && <span className="tag tag-sim">模拟</span>}
               {review.decision === "reject" ? "驳回" : review.decision_version === "rewrite" ? "采用改写稿" : review.decision_version === "edited" ? "人工修改后通过" : "原稿通过"}
               <span className="faint" style={{ fontWeight: 400 }}> · {review.decided_by?.name} · {time(review.decided_at)}</span>
             </b>
@@ -371,7 +436,7 @@ export default function ReviewPage() {
 
       {!running && !review.decision && review.status === "pending" && (
         <div className="decision-bar">
-          <b className="serif">终审签发</b>
+          <b className="serif">终审签发{DEMO && <span className="tag tag-sim">模拟</span>}</b>
           {perms?.can_decide ? (
             <>
               <textarea className="textarea" aria-label="终审备注" placeholder="终审备注（驳回时必填）" value={note} onChange={(e) => setNote(e.target.value)} />
@@ -380,11 +445,16 @@ export default function ReviewPage() {
               <button className="btn" disabled={busy} title="仅当所有高、中风险问题都标记为误报时可用" onClick={() => decide("approve", "original")}>原稿通过</button>
               <button className="btn btn-danger" disabled={busy || note.trim().length < 2} onClick={() => decide("reject")}>驳回</button>
             </>
-          ) : <span className="muted">{perms?.reason}</span>}
+          ) : (
+            <>
+              <span className="muted">{perms?.reason}</span>
+              {DEMO && <SwitchReviewer review={review} />}
+            </>
+          )}
           <span className="spacer" />
           <span className="faint">
             {SEVERITY_TEXT.high} {counts.high ?? 0} · {SEVERITY_TEXT.medium} {counts.medium ?? 0} · 已判定 {findings.filter((f) => f.verdict).length}/{findings.length}
-            {DEMO && " · 静态演示：判定和签发只在本页内存中生效，规则与服务端相同"}
+            {DEMO && " · 模拟：判定和签发只在本页内存中生效，四眼原则和放行条件与服务端 review_service.py 相同"}
           </span>
         </div>
       )}

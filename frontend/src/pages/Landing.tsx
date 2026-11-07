@@ -141,7 +141,7 @@ export default function Landing() {
             <dt>数据</dt>
             <dd>品牌、商品和脚本均为虚构（SYNTHETIC）</dd>
             <dt>版本</dt>
-            <dd>{DEMO ? "静态演示 · 回放录制结果" : "完整服务"}</dd>
+            <dd>{DEMO ? "静态演示 · 自己的脚本在浏览器内审查，示例回放录制结果" : "完整服务"}</dd>
           </dl>
         </section>
 

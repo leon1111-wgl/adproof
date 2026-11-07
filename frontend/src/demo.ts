@@ -1,12 +1,20 @@
 /* Static demo (`vite build --mode demo`, served by GitHub Pages).
  *
- * There is no backend. Reads come from responses recorded by scripts/record_demo.py, which ran
- * the real API with the offline mock model on the SYNTHETIC demo data. Submitting from the
- * workbench returns the recorded review for that exact input. Verdicts and sign-offs change
- * this tab's memory only, under the same rules as backend/app/review_service.py (four-eyes,
- * blocking findings, re-check before an edited approval); a reload restores the recording. */
+ * There is no backend. Two engines answer, and every review says which one produced it:
+ * - recorded: responses saved by scripts/record_demo.py, which ran the real API with the offline
+ *   mock model on the SYNTHETIC demo data (seeded reviews, each sample script, generate options);
+ * - browser: any other script a visitor submits is reviewed in the tab by src/engine/, a port of
+ *   the backend pipeline that tests/parity.test.ts keeps identical to it. Nothing is uploaded.
+ * Verdicts and sign-offs (模拟) change this tab's memory only, under the same rules as
+ * backend/app/review_service.py (four-eyes, blocking findings, re-check before an edited
+ * approval); a reload restores the recording. */
 import { ApiError, getToken } from "./api";
-import type { Recheck, Review, Severity, User, UserBrief } from "./types";
+import { pack } from "./engine/pack";
+import { Tracer, recheck as engineRecheck, run as engineRun, type Product as EngineProduct } from "./engine/pipeline";
+import { checkDisclosures, CATEGORIES, scan } from "./engine/rules";
+import { scopeOf } from "./engine/scope";
+import { cpLen, parseSrt, SRTError, type Cue } from "./engine/text";
+import type { EngineInfo, Product, Recheck, Review, Severity, User, UserBrief } from "./types";
 
 const ROOT = `${import.meta.env.BASE_URL}demo/`;
 const TOKEN_PREFIX = "demo:";
@@ -29,6 +37,26 @@ interface WorkbenchRequest {
   tone: string;
   inject_hallucination: boolean;
 }
+
+const MAX_CHARS = 6000; // Settings.max_script_chars
+
+/** Category-only choices for a visitor's own product: no product sheet, so no fact check. */
+export const CUSTOM_PRODUCTS: Product[] = Object.entries(pack.product_categories).map(([category, label], i) => ({
+  id: -(i + 1), sku: `CUSTOM-${category}`, name: "访客脚本", brand: "", category,
+  description: `未提供商品资料，只按「${label}」类目的规则审查`, facts: [],
+}));
+
+const RECORDED_ENGINE = (recordedAt: string): EngineInfo => ({
+  kind: "recorded",
+  label: "回放 · 后端流水线的录制结果",
+  detail: `真实 API + 离线确定性模型在 SYNTHETIC 数据上的输出，录制于 ${recordedAt.slice(0, 10)}；没有重新计算。`,
+});
+
+const BROWSER_ENGINE: EngineInfo = {
+  kind: "browser",
+  label: "浏览器内审查 · 本页计算",
+  detail: `后端流水线的 TypeScript 移植（规则库 ${pack.ruleset.version} · ${pack.ruleset.hash}，与后端逐条一致，见 parity 测试）。规则 + 离线语义模式，没有调用服务器或语言模型，脚本不上传。`,
+};
 
 const files = new Map<string, Promise<unknown>>();
 
@@ -63,12 +91,76 @@ const createdRuns: unknown[] = [];
 const recordedRunOf = new Map<string, string>(); // run id of a review submitted here -> the recorded run it replays
 
 function store(): Promise<Map<number, Review>> {
-  reviews ??= load<Review[]>("reviews.json").then((list) => new Map(list.map((r) => [r.id, clone(r)])));
+  reviews ??= Promise.all([load<Review[]>("reviews.json"), load<DemoIndex>("index.json")]).then(([list, index]) => {
+    recordedAt = index.recorded_at;
+    return new Map(list.map((r) => [r.id, clone(r)]));
+  });
   return reviews;
 }
 
+// ---------------------------------------------------------------- the browser engine
+const browserRuns = new Map<string, unknown>(); // run id -> trace detail of a review computed here
+
+function prepareInput(inputType: string, content: string): [string, Cue[]] {
+  // review_service.prepare_input()
+  let text: string;
+  let cues: Cue[] = [];
+  if (inputType === "srt") {
+    try {
+      [text, cues] = parseSrt(content);
+    } catch (e) {
+      if (e instanceof SRTError) throw new ApiError(422, `字幕文件解析失败：${e.message}`);
+      throw e;
+    }
+  } else {
+    text = content.replace(/\r\n/g, "\n").trim();
+  }
+  if (!text.trim()) throw new ApiError(422, "脚本内容为空");
+  if (cpLen(text) > MAX_CHARS) throw new ApiError(422, `脚本超过 ${MAX_CHARS} 字，请分段提交`);
+  return [text, cues];
+}
+
+/** One review computed in the tab, shaped like the API's review (exported for tests). */
+export function buildBrowserReview(id: number, product: Product, request: Pick<WorkbenchRequest, "input_type" | "content" | "inject_hallucination">, user: User) {
+  const [text, cues] = prepareInput(request.input_type, request.content);
+  const runId = `browser-${Date.now().toString(36)}-${id}`;
+  const tracer = new Tracer();
+  const out = engineRun({ product: product as EngineProduct, script: text, cues, injectHallucination: request.inject_hallucination }, tracer);
+  const at = now();
+  const latency = tracer.spans.reduce((t, s) => t + s.latency_ms, 0);
+  const label = pack.product_categories[product.category] ?? product.category;
+  const title = product.id < 0 ? `访客脚本 · ${label}` : `${product.brand}${product.name} · 访客脚本`;
+  const review: Review = {
+    id, title, status: "pending", mode: "review", input_type: request.input_type, product_id: product.id, product: clone(product),
+    risk_level: out.risk_level, counts: out.counts, ruleset_version: pack.ruleset.version, ruleset_hash: pack.ruleset.hash,
+    provider: "browser", model: pack.provider.model, run_id: runId, error: null, created_by: brief(user), created_at: at,
+    decision: null, decision_version: null, decision_note: "", decided_by: null, decided_at: null,
+    source_text: out.script, source_raw: request.input_type === "srt" ? request.content : null, cues: out.cues,
+    options: { inject_hallucination: request.inject_hallucination }, selling_points: out.selling_points,
+    findings: out.findings.map((f, i) => ({ ...f, id: -(i + 1), verdict: null, verdict_note: "", verdict_by: null })) as Review["findings"],
+    disclosures: out.disclosures as Review["disclosures"], rewrite: out.rewrite as Review["rewrite"], rejected: out.rejected as Review["rejected"],
+    validation: out.validation as Review["validation"], final_text: null,
+    agents: tracer.spans.map((s) => ({ agent: s.agent, name: s.name, status: s.status, started_ms: s.started_ms, latency_ms: s.latency_ms })),
+    engine: BROWSER_ENGINE,
+  };
+  review.scope = scopeOf(text, product, { findings: out.findings, missing: out.disclosures.filter((d) => !d.present).length });
+  const row = { id: runId, kind: "review", status: "completed", provider: "browser", model: pack.provider.model, latency_ms: Math.round(latency),
+    prompt_tokens: 0, completion_tokens: 0, tokens_estimated: false, error: null, created_at: at, review: { id, title, status: review.status }, spans: tracer.spans.length };
+  return { review, row, detail: { ...row, spans: tracer.spans.map((s, i) => ({ id: i + 1, ...s })) } };
+}
+
+async function browserReview(product: Product, request: WorkbenchRequest, user: User): Promise<Review> {
+  const all = await store();
+  const id = Math.max(0, ...all.keys()) + 1;
+  const { review, row, detail } = buildBrowserReview(id, product, request, user);
+  all.set(id, review);
+  createdRuns.unshift(row);
+  browserRuns.set(row.id, detail);
+  return serialize(review, user);
+}
+
 /** review_service.permissions() */
-function permissions(review: Review, user: User): NonNullable<Review["permissions"]> {
+export function permissions(review: Review, user: User): NonNullable<Review["permissions"]> {
   const decider = user.role === "admin" || user.role === "reviewer";
   const own = review.created_by.id === user.id;
   const open = review.status === "pending";
@@ -79,7 +171,22 @@ function permissions(review: Review, user: User): NonNullable<Review["permission
   return { can_verdict: decider && open, can_decide: decider && open && !own, reason };
 }
 
-const serialize = (review: Review, user: User): Review => ({ ...clone(review), permissions: permissions(review, user) });
+let recordedAt = "";
+
+/** Every review answers with its engine and a default-deny scope statement. */
+function annotate(review: Review): void {
+  review.engine ??= RECORDED_ENGINE(recordedAt);
+  if (!review.scope && review.source_text && review.status !== "queued" && review.status !== "running") {
+    review.scope = scopeOf(review.source_text, review.product, {
+      findings: review.findings ?? [], missing: (review.disclosures ?? []).filter((d) => !d.present).length,
+    });
+  }
+}
+
+const serialize = (review: Review, user: User): Review => {
+  annotate(review);
+  return { ...clone(review), permissions: permissions(review, user) };
+};
 
 async function getReview(id: number): Promise<Review> {
   const all = await store();
@@ -99,19 +206,26 @@ const templateName = (r: WorkbenchRequest) => // scripts/record_demo.py template
   [r.sku, r.mode, ...(r.mode === "review" ? [] : [r.style, r.tone]), r.inject_hallucination ? "1" : "0"].join(".");
 
 async function createReview(body: Record<string, unknown>, user: User): Promise<Review> {
-  const products = await load<{ id: number; sku: string }[]>("api/products.json");
+  const products = [...(await load<Product[]>("api/products.json")), ...CUSTOM_PRODUCTS];
   const product = products.find((p) => p.id === body.product_id);
+  if (product && product.id < 0 && body.mode !== "review") throw new ApiError(422, "生成脚本需要商品资料，请选择一个演示商品");
   if (!product) throw new ApiError(404, "商品不存在");
   const inject = Boolean(body.inject_hallucination);
   if (inject && user.role === "operator") throw new ApiError(403, "演示开关仅对审核员和管理员开放");
   const request = { sku: product.sku, mode: body.mode, input_type: body.input_type, content: String(body.content ?? ""),
     style: body.style, tone: body.tone, inject_hallucination: inject } as WorkbenchRequest;
-  const recorded = await load<{ request: WorkbenchRequest; review: Review; run_row: Record<string, unknown> | null }>(
-    `templates/${templateName(request)}.json`, "静态演示没有录制这组选项。完整功能请按 README 在本地运行。",
-  );
+  type Template = { request: WorkbenchRequest; review: Review; run_row: Record<string, unknown> | null };
   const sameText = (a: string) => a.replace(/\r\n/g, "\n").trim();
-  if (request.mode === "review" && (request.input_type !== recorded.request.input_type || sameText(request.content) !== sameText(recorded.request.content))) {
-    throw new ApiError(422, "静态演示只能审查录制好的示例脚本：点“填入示例”后再提交。审查自己的脚本请按 README 在本地运行完整服务。");
+  let recorded: Template;
+  if (request.mode === "review") {
+    // the recorded run when this is exactly a sample script; the browser engine for anything else
+    const template = await load<Template>(`templates/${templateName(request)}.json`).catch(() => null);
+    if (!template || request.input_type !== template.request.input_type || sameText(request.content) !== sameText(template.request.content)) {
+      return browserReview(product as Product, request, user);
+    }
+    recorded = template;
+  } else {
+    recorded = await load<Template>(`templates/${templateName(request)}.json`, "静态演示没有录制这组选项。完整功能请按 README 在本地运行。");
   }
   const all = await store();
   const id = Math.max(0, ...all.keys()) + 1;
@@ -124,7 +238,7 @@ async function createReview(body: Record<string, unknown>, user: User): Promise<
 }
 
 /** review_service.set_verdict() */
-function setVerdict(review: Review, key: string, body: { verdict?: string | null; note?: string }, user: User): void {
+export function setVerdict(review: Review, key: string, body: { verdict?: string | null; note?: string }, user: User): void {
   requireDecider(user);
   const finding = review.findings?.find((f) => f.key === key);
   if (!finding) throw new ApiError(404, "该条结果不存在");
@@ -136,17 +250,21 @@ function setVerdict(review: Review, key: string, body: { verdict?: string | null
   finding.verdict_by = body.verdict ? brief(user) : null;
 }
 
+/** review_service.recheck(): the recorded re-check when there is one, otherwise the browser engine. */
 async function findRecheck(review: Review, text: string): Promise<Recheck> {
-  const rechecks = await load<{ sku: string; text: string; result: Recheck }[]>("rechecks.json");
   const normalized = text.replace(/\r\n/g, "\n").trim();
   if (!normalized) throw new ApiError(422, "脚本内容为空");
-  const hit = rechecks.find((r) => r.sku === review.product.sku && r.text === normalized);
-  if (!hit) throw new ApiError(422, "静态演示只录制了未改动改写稿的复检。改动后的文本需要完整服务复检（按 README 在本地运行）。");
-  return clone(hit.result);
+  if (review.engine?.kind !== "browser") {
+    const rechecks = await load<{ sku: string; text: string; result: Recheck }[]>("rechecks.json");
+    const hit = rechecks.find((r) => r.sku === review.product.sku && r.text === normalized);
+    if (hit) return { ...clone(hit.result), engine: RECORDED_ENGINE(recordedAt) };
+  }
+  const result = engineRecheck(normalized, review.product as EngineProduct);
+  return { ...(clone(result) as unknown as Recheck), engine: BROWSER_ENGINE };
 }
 
 /** review_service.decide() */
-async function decide(review: Review, body: { decision?: string; version?: string | null; final_text?: string | null; note?: string }, user: User): Promise<void> {
+export async function decide(review: Review, body: { decision?: string; version?: string | null; final_text?: string | null; note?: string }, user: User): Promise<void> {
   requireDecider(user);
   if (body.decision === "approve" && !body.version) throw new ApiError(422, "请选择通过原稿还是改写稿");
   if (review.status !== "pending") throw new ApiError(409, "该脚本不在待终审状态");
@@ -197,6 +315,21 @@ function runReview(all: Map<number, Review>, row: { review: { id: number } }) {
 
 /** A recorded trace, pointed at the in-memory review it belongs to, with the sign-off made here appended. */
 async function runDetail(runId: string) {
+  const computed = browserRuns.get(runId);
+  if (computed) {
+    const review = [...(await store()).values()].find((r) => r.run_id === runId);
+    const out = clone(computed) as { review: unknown; spans: Record<string, unknown>[] };
+    if (review) {
+      out.review = { id: review.id, title: review.title, status: review.status };
+      if (review.decision) {
+        out.spans.push({ id: out.spans.length + 1, seq: out.spans.length + 1, agent: "human_review", name: "人工终审（模拟）", status: review.status === "approved" ? "ok" : "rejected",
+          input: { reviewer: review.decided_by?.name, open_findings: (review.findings ?? []).filter((f) => !f.verdict).map((f) => f.key) },
+          output: { decision: review.decision, version: review.decision_version, note: review.decision_note },
+          started_ms: Math.max(0, new Date(review.decided_at ?? review.created_at).getTime() - new Date(review.created_at).getTime()), latency_ms: 0, model: null, prompt_tokens: 0, completion_tokens: 0 });
+      }
+    }
+    return out;
+  }
   const detail = clone(await load<{ id: string; review: { id: number; title: string; status: string } | null; spans: Record<string, unknown>[] }>(
     `api/runs/${recordedRunOf.get(runId) ?? runId}.json`,
   ));
@@ -283,10 +416,16 @@ export async function demoPost<T>(path: string, body?: unknown): Promise<T> {
     throw new ApiError(422, "静态演示只能校验未修改的规则库；修改后的校验需要完整服务（按 README 在本地运行）。");
   }
   if (path === "/api/rules/test") {
-    const runs = await load<{ text: string; product_category: string; result: T }[]>("rules-test.json");
-    const hit = runs.find((r) => r.text === String(data.text ?? "").trim() && r.product_category === data.product_category);
-    if (hit) return hit.result;
-    throw new ApiError(422, "静态演示只录制了默认示例文本的试运行；改动后的文本需要完整服务（按 README 在本地运行）。");
+    // api/rules.py test_rules(), on the browser engine's copy of the same rule library
+    const category = String(data.product_category ?? "");
+    if (!(category in pack.product_categories)) throw new ApiError(422, "未知的商品类目");
+    const text = String(data.text ?? "");
+    return {
+      hits: scan(text, category).map((h) => ({ rule_id: h.rule_id, rule_ids: h.rule_ids, rule_name: h.rule_name, category: h.category,
+        category_label: CATEGORIES.get(h.category)!.label, severity: h.severity, start: h.start, end: h.end, quote: h.quote })),
+      disclosures: checkDisclosures(text, category),
+      engine: BROWSER_ENGINE,
+    } as T;
   }
   if (path === "/api/evals/runs") {
     throw new ApiError(409, "静态演示不能重新运行评测。完整服务里管理员可以在这里触发；CI 每次提交都会运行同一套评测。");

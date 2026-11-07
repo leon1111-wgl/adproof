@@ -135,6 +135,22 @@ export interface AgentSpan {
   latency_ms: number;
 }
 
+/** Static demo: which engine produced an answer (src/demo.ts). */
+export interface EngineInfo {
+  kind: "recorded" | "browser";
+  label: string;
+  detail: string;
+}
+
+export interface ScopeReport {
+  verdict: string;
+  state: "flagged" | "no_hit" | "not_reviewable";
+  input_notes: string[];
+  checked: { label: string; detail: string }[];
+  not_checked: { label: string; detail: string }[];
+  signals: { topic: string; quote: string; sentence: string; at: [number, number]; start: number; end: number; note: string }[];
+}
+
 export interface Review {
   id: number;
   title: string;
@@ -171,6 +187,8 @@ export interface Review {
   final_text?: string | null;
   permissions?: { can_verdict: boolean; can_decide: boolean; reason: string };
   agents?: AgentSpan[];
+  engine?: EngineInfo;
+  scope?: ScopeReport;
 }
 
 export interface Meta {
@@ -192,4 +210,5 @@ export interface Recheck {
   counts: Counts;
   risk_level: Severity;
   passed: boolean;
+  engine?: EngineInfo;
 }

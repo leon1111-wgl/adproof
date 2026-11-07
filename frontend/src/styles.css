@@ -542,3 +542,28 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
   .tag-replay { display: none; }
   .mast-brand > span > span { display: none; }
 }
+
+/* ---------------------------------------------------------------- engine provenance and review scope */
+.engine-note { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-top: 8px; padding: 6px 10px; font-size: 12.5px; color: var(--text-2); background: var(--paper); border: 1px solid var(--border-2); border-left: 3px solid var(--pen); border-radius: 2px; }
+.engine-note.browser { border-left-color: var(--link); }
+.engine-note b { color: var(--text); font-weight: 600; }
+.tag-sim { display: inline-block; margin: 0 6px; padding: 0 6px; font-size: 11px; font-weight: 500; line-height: 18px; color: var(--warning); border: 1px solid currentColor; border-radius: 2px; vertical-align: 2px; font-family: var(--font); }
+.scope-sheet { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--link); border-radius: 4px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.scope-sheet.not_reviewable { border-top-color: var(--pen); }
+.scope-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.scope-head b { font-size: 15px; }
+.scope-verdict { font-size: 14px; color: var(--text); }
+.scope-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.scope-cols dl { margin: 6px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.scope-cols dl > div { display: grid; grid-template-columns: 7.5em 1fr; gap: 8px; font-size: 13px; }
+.scope-cols dt { color: var(--text-2); font-weight: 500; }
+.scope-cols dd { margin: 0; color: var(--text-2); }
+.scope-signals ul { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.scope-signals li { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; font-size: 13px; padding-left: 10px; border-left: 2px dashed var(--link); }
+.scope-topic { color: var(--link); font-weight: 600; font-size: 12px; }
+.scope-signals q { font-family: var(--serif); color: var(--text); }
+.scope-mark { background: none; color: var(--link); text-decoration: underline dashed; text-underline-offset: 3px; }
+@media (max-width: 720px) {
+  .scope-cols { grid-template-columns: 1fr; }
+  .scope-cols dl > div { grid-template-columns: 1fr; gap: 2px; }
+}
