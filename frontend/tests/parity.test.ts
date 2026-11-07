@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { pack } from "../src/engine/pack";
 import { recheck, run, type Product } from "../src/engine/pipeline";
 import { exampleFailures } from "../src/engine/rules";
-import type { Cue } from "../src/engine/text";
+import { parseSrt, type Cue } from "../src/engine/text";
 
 interface Case {
   id: string;
@@ -13,6 +13,7 @@ interface Case {
   script: string;
   cues: Cue[];
   inject?: boolean;
+  srt?: string;
   expected: Record<string, unknown>;
   recheck: { passed: boolean; counts: unknown; risk_level: string; keys: string[] } | null;
 }
@@ -31,6 +32,10 @@ describe("parity with backend/app/agents/pipeline.py", () => {
 
   for (const c of fixture.cases) {
     it(c.id, () => {
+      if (c.srt !== undefined) {
+        // the tab parses subtitles itself: same text, same cues (UTF-16 offsets)
+        expect(parseSrt(c.srt)).toEqual([c.script, c.cues]);
+      }
       const out = JSON.parse(JSON.stringify(run({ product: c.product, script: c.script, cues: c.cues, injectHallucination: Boolean(c.inject) })));
       expect(out).toEqual(c.expected);
       if (c.recheck) {

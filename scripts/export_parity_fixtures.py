@@ -128,7 +128,8 @@ def corpus(include_blind: bool) -> list[dict]:
     for sku, sample in json.loads(SAMPLES.read_text(encoding="utf-8")).items():
         if "srt" in sample:
             text, cues = parse_srt(sample["srt"])
-            cases.append({"id": f"sample:{sku}", "product": products[sku], "script": text, "cues": [c.to_dict() for c in cues]})
+            cases.append({"id": f"sample:{sku}", "product": products[sku], "script": text, "cues": [c.to_dict() for c in cues],
+                          "srt": sample["srt"]})
         else:
             cases.append({"id": f"sample:{sku}", "product": products[sku], "script": sample["text"].strip(), "cues": []})
     if COVERAGE.exists():
@@ -161,6 +162,20 @@ def corpus(include_blind: bool) -> list[dict]:
     ]
     for i, text in enumerate(edge):
         cases.append({"id": f"edge:{i}", "product": custom("cosmetics"), "script": text, "cues": []})
+    # hostile 6000-character inputs (the backend's limit): bounded time on both sides
+    fill = lambda unit: (unit * (6000 // len(unit) + 1))[:6000]  # noqa: E731
+    hostile = ["全网最好用，", "最好用", "最*好*用 ", "🔥最好用👍🏻", "1", "1.", "12天",
+               "家人们七天瘦十斤！98%的宝子都回购了，别家都是智商税，国宴特供，专利配方，比吃药还管用。"]
+    for i, unit in enumerate(hostile):
+        cases.append({"id": f"hostile:{i}", "product": products["IRIS-VC"], "script": fill(unit), "cues": []})
+    # subtitles the tab parses itself: full-width timing digits, emoji, tags, CRLF
+    srts = [
+        "1\r\n００:００:０１,０００ --> ００:００:０３,０００\r\n全网最好用的精华🔥\r\n\r\n2\r\n00:00:03,000 --> 00:00:05,500\r\n<i>98%的姐妹</i>都回购了",
+        "\ufeff1\n00:00:00,000 --> 00:00:02,000\n👍🏻家人们看过来\n\n2\n00:00:02,000 --> 00:00:04,000\n这茶是国宴特供，喝了湿疹都好了\n\n3\n00:00:04,000 --> 00:00:06,0\n本品采用专利配方",
+    ]
+    for i, raw in enumerate(srts):
+        text, cues = parse_srt(raw)
+        cases.append({"id": f"srt:{i}", "product": products["NOAH-TEA"], "script": text, "cues": [c.to_dict() for c in cues], "srt": raw})
     return cases
 
 
@@ -179,6 +194,8 @@ def main() -> int:
             counts, risk = summarize(again.findings, again.disclosures)
             recheck = {"passed": again.passed(), "counts": counts, "risk_level": risk,
                        "keys": [f["key"] for f in again.findings]}
+        case = {**case, "cues": [{**c, "char_start": u16(case["script"], c["char_start"]), "char_end": u16(case["script"], c["char_end"])}
+                                 for c in case["cues"]]}
         results.append({**case, "expected": convert(out), "recheck": recheck})
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"ruleset": pipe.ruleset.hash, "cases": results}, ensure_ascii=False), encoding="utf-8")

@@ -430,6 +430,7 @@ export default function ReviewPage() {
             </b>
             {review.decision_note && <div className="muted">{review.decision_note}</div>}
             {review.final_text && <div className="final-text">{review.final_text}</div>}
+            {review.final_check?.engine && <div className="faint">修改稿复检：{review.final_check.engine.label}（没有高、中风险问题，也没有缺少的必要声明；不等于合规）</div>}
           </div>
         </div>
       )}

@@ -1,0 +1,2601 @@
+{
+ "meta": {
+  "provider": "mock",
+  "model": "adproof-offline",
+  "ruleset_version": "2026.11.07",
+  "ruleset_hash": "766c01787114",
+  "dataset_hash": "b4efc0b0fce1",
+  "items": 60,
+  "elapsed_ms": 74,
+  "offline": true
+ },
+ "categories": [
+  "absolute_terms",
+  "authority_endorsement",
+  "medical_claims",
+  "effect_claims",
+  "unsourced_data",
+  "disparagement",
+  "guaranteed_returns",
+  "patent_claims",
+  "fact_mismatch"
+ ],
+ "split": {
+  "items": 60,
+  "span": {
+   "micro": {
+    "precision": 0.8246,
+    "recall": 0.6026,
+    "f1": 0.6963,
+    "tp": 47,
+    "fp": 10,
+    "fn": 31
+   },
+   "macro_f1": 0.6761,
+   "per_category": {
+    "absolute_terms": {
+     "precision": 0.7,
+     "recall": 0.6364,
+     "f1": 0.6667,
+     "tp": 7,
+     "fp": 3,
+     "fn": 4,
+     "support": 11
+    },
+    "authority_endorsement": {
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "tp": 3,
+     "fp": 0,
+     "fn": 1,
+     "support": 4
+    },
+    "medical_claims": {
+     "precision": 0.75,
+     "recall": 0.6667,
+     "f1": 0.7059,
+     "tp": 6,
+     "fp": 2,
+     "fn": 3,
+     "support": 9
+    },
+    "effect_claims": {
+     "precision": 1.0,
+     "recall": 0.5,
+     "f1": 0.6667,
+     "tp": 5,
+     "fp": 0,
+     "fn": 5,
+     "support": 10
+    },
+    "unsourced_data": {
+     "precision": 0.8333,
+     "recall": 0.625,
+     "f1": 0.7143,
+     "tp": 5,
+     "fp": 1,
+     "fn": 3,
+     "support": 8
+    },
+    "disparagement": {
+     "precision": 0.6667,
+     "recall": 0.4,
+     "f1": 0.5,
+     "tp": 2,
+     "fp": 1,
+     "fn": 3,
+     "support": 5
+    },
+    "guaranteed_returns": {
+     "precision": 1.0,
+     "recall": 0.375,
+     "f1": 0.5455,
+     "tp": 3,
+     "fp": 0,
+     "fn": 5,
+     "support": 8
+    },
+    "patent_claims": {
+     "precision": 0.5714,
+     "recall": 0.5714,
+     "f1": 0.5714,
+     "tp": 4,
+     "fp": 3,
+     "fn": 3,
+     "support": 7
+    },
+    "fact_mismatch": {
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "tp": 12,
+     "fp": 0,
+     "fn": 4,
+     "support": 16
+    }
+   }
+  },
+  "span_strict": {
+   "precision": 0.614,
+   "recall": 0.4487,
+   "f1": 0.5185,
+   "tp": 35,
+   "fp": 22,
+   "fn": 43
+  },
+  "localisation": {
+   "precision": 0.8246,
+   "recall": 0.6026,
+   "f1": 0.6963,
+   "tp": 47,
+   "fp": 10,
+   "fn": 31
+  },
+  "ablation": {
+   "rule": {
+    "precision": 0.8182,
+    "recall": 0.5769,
+    "f1": 0.6767,
+    "tp": 45,
+    "fp": 10,
+    "fn": 33
+   },
+   "model": {
+    "precision": 0.75,
+    "recall": 0.0385,
+    "f1": 0.0732,
+    "tp": 3,
+    "fp": 1,
+    "fn": 75
+   },
+   "both": {
+    "precision": 0.8246,
+    "recall": 0.6026,
+    "f1": 0.6963,
+    "tp": 47,
+    "fp": 10,
+    "fn": 31
+   }
+  },
+  "script_level": {
+   "violating": 40,
+   "detected": 31,
+   "detection_rate": 0.775,
+   "clean": 20,
+   "clean_flagged": 1,
+   "false_alarm_rate": 0.05
+  },
+  "disclosures": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 6,
+   "fp": 0,
+   "fn": 0
+  },
+  "rewrite": {
+   "scripts": 40,
+   "passed": 40,
+   "pass_rate": 1.0,
+   "gold_spans": 78,
+   "gold_eliminated": 53,
+   "elimination_rate": 0.6795
+  },
+  "evidence": {
+   "findings_checked": 57,
+   "findings_valid": 57,
+   "validity": 1.0,
+   "citations": 148,
+   "citations_verified": 148,
+   "citation_verified_rate": 1.0,
+   "pending_basis": 0,
+   "rejected_model_quotes": 0
+  },
+  "channels": {
+   "rule": 41,
+   "fact": 12,
+   "rule+llm": 2,
+   "llm": 2
+  },
+  "latency_ms": {
+   "p50": 0.6,
+   "p95": 1.0
+  }
+ },
+ "cases": [
+  {
+   "id": "bl-01",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 9,
+     "end": 12,
+     "text": "最好用"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 16,
+     "end": 19,
+     "text": "30%"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 9,
+     "end": 12,
+     "quote": "最好用",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-01"
+    },
+    {
+     "key": "F2",
+     "category": "fact_mismatch",
+     "start": 16,
+     "end": 19,
+     "quote": "30%",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-02",
+   "product": "IRIS-VC",
+   "product_category": "health_food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 16,
+     "end": 20,
+     "text": "临床验证"
+    },
+    {
+     "category": "medical_claims",
+     "start": 23,
+     "end": 27,
+     "text": "无副作用"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 41,
+     "end": 44,
+     "text": "69元"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 16,
+     "end": 20,
+     "quote": "临床验证",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-02"
+    },
+    {
+     "key": "F2",
+     "category": "medical_claims",
+     "start": 23,
+     "end": 27,
+     "quote": "无副作用",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-02"
+    },
+    {
+     "key": "F3",
+     "category": "fact_mismatch",
+     "start": 41,
+     "end": 44,
+     "quote": "69元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     2
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-01"
+    ],
+    "pred_missing": [
+     "DSC-01"
+    ]
+   }
+  },
+  {
+   "id": "bl-03",
+   "product": "MIA-SUNSCREEN",
+   "product_category": "cosmetics",
+   "input_type": "srt",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 20,
+     "end": 23,
+     "text": "79元"
+    },
+    {
+     "category": "absolute_terms",
+     "start": 24,
+     "end": 29,
+     "text": "全网最低价"
+    },
+    {
+     "category": "effect_claims",
+     "start": 33,
+     "end": 41,
+     "text": "一整天都不会晒黑"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 20,
+     "end": 23,
+     "quote": "79元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    },
+    {
+     "key": "F2",
+     "category": "absolute_terms",
+     "start": 24,
+     "end": 29,
+     "quote": "全网最低价",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-02"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [
+    2
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-04",
+   "product": "NOAH-OAT",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "effect_claims",
+     "start": 15,
+     "end": 20,
+     "text": "七天瘦十斤"
+    },
+    {
+     "category": "unsourced_data",
+     "start": 26,
+     "end": 32,
+     "text": "98%的姐妹"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "effect_claims",
+     "start": 15,
+     "end": 20,
+     "quote": "七天瘦十斤",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "EFF-02"
+    },
+    {
+     "key": "F2",
+     "category": "unsourced_data",
+     "start": 26,
+     "end": 32,
+     "quote": "98%的姐妹",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DAT-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-05",
+   "product": "JACK-EARBUDS",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 9,
+     "end": 13,
+     "text": "行业第一"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 18,
+     "end": 22,
+     "text": "12小时"
+    },
+    {
+     "category": "disparagement",
+     "start": 23,
+     "end": 30,
+     "text": "别家都是智商税"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 9,
+     "end": 13,
+     "quote": "行业第一",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-03"
+    },
+    {
+     "key": "F2",
+     "category": "fact_mismatch",
+     "start": 18,
+     "end": 22,
+     "quote": "12小时",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    },
+    {
+     "key": "F3",
+     "category": "disparagement",
+     "start": 23,
+     "end": 30,
+     "quote": "别家都是智商税",
+     "channels": [
+      "rule",
+      "llm"
+     ],
+     "rule_id": "DIS-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     2
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-06",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "guaranteed_returns",
+     "start": 24,
+     "end": 28,
+     "text": "稳赚不赔"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 29,
+     "end": 34,
+     "text": "三个月回本"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 40,
+     "end": 46,
+     "text": "19800元"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "guaranteed_returns",
+     "start": 24,
+     "end": 28,
+     "quote": "稳赚不赔",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "RET-01"
+    },
+    {
+     "key": "F2",
+     "category": "fact_mismatch",
+     "start": 40,
+     "end": 46,
+     "quote": "19800元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-02"
+    ],
+    "pred_missing": [
+     "DSC-02"
+    ]
+   }
+  },
+  {
+   "id": "bl-07",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "guaranteed_returns",
+     "start": 25,
+     "end": 32,
+     "text": "保证你月入过万"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-08",
+   "product": "EMMA-PILLOW",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 10,
+     "end": 14,
+     "text": "专利技术"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 21,
+     "end": 24,
+     "text": "95%"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 10,
+     "end": 14,
+     "quote": "专利技术",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    },
+    {
+     "key": "F2",
+     "category": "fact_mismatch",
+     "start": 21,
+     "end": 24,
+     "quote": "95%",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-09",
+   "product": "EMMA-TOWEL",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 10,
+     "end": 14,
+     "text": "专利织法"
+    },
+    {
+     "category": "authority_endorsement",
+     "start": 25,
+     "end": 32,
+     "text": "市政府指定用品"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 10,
+     "end": 12,
+     "quote": "专利",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    },
+    {
+     "key": "F2",
+     "category": "authority_endorsement",
+     "start": 26,
+     "end": 30,
+     "quote": "政府指定",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "AUT-01"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-10",
+   "product": "NOAH-TEA",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 15,
+     "end": 25,
+     "text": "喝了一个月血糖都稳了"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 15,
+     "end": 25,
+     "quote": "喝了一个月血糖都稳了",
+     "channels": [
+      "llm"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-11",
+   "product": "IRIS-PROBIOTIC",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 22,
+     "end": 27,
+     "text": "能治疗便秘"
+    },
+    {
+     "category": "unsourced_data",
+     "start": 28,
+     "end": 32,
+     "text": "实验证明"
+    },
+    {
+     "category": "effect_claims",
+     "start": 44,
+     "end": 48,
+     "text": "立竿见影"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 23,
+     "end": 25,
+     "quote": "治疗",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-01"
+    },
+    {
+     "key": "F2",
+     "category": "unsourced_data",
+     "start": 28,
+     "end": 32,
+     "quote": "实验证明",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DAT-01"
+    },
+    {
+     "key": "F3",
+     "category": "effect_claims",
+     "start": 44,
+     "end": 48,
+     "quote": "立竿见影",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "EFF-03"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     2
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-12",
+   "product": "JACK-CHARGER",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 12,
+     "end": 16,
+     "text": "100W"
+    },
+    {
+     "category": "absolute_terms",
+     "start": 17,
+     "end": 21,
+     "text": "史上最快"
+    },
+    {
+     "category": "disparagement",
+     "start": 22,
+     "end": 26,
+     "text": "吊打大牌"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 12,
+     "end": 16,
+     "quote": "100W",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    },
+    {
+     "key": "F2",
+     "category": "disparagement",
+     "start": 22,
+     "end": 26,
+     "quote": "吊打大牌",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DIS-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-13",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "authority_endorsement",
+     "start": 14,
+     "end": 20,
+     "text": "政府特供产品"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "authority_endorsement",
+     "start": 14,
+     "end": 18,
+     "quote": "政府特供",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "AUT-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-14",
+   "product": "JACK-EARBUDS",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "authority_endorsement",
+     "start": 17,
+     "end": 25,
+     "text": "国家机关指定用品"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "authority_endorsement",
+     "start": 19,
+     "end": 23,
+     "quote": "机关指定",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "AUT-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-15",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 8,
+     "end": 14,
+     "text": "专利选品系统"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 33,
+     "end": 36,
+     "text": "零风险"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 8,
+     "end": 10,
+     "quote": "专利",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    },
+    {
+     "key": "F2",
+     "category": "guaranteed_returns",
+     "start": 33,
+     "end": 36,
+     "quote": "零风险",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "RET-01"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-02"
+    ],
+    "pred_missing": [
+     "DSC-02"
+    ]
+   }
+  },
+  {
+   "id": "bl-16",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "unsourced_data",
+     "start": 10,
+     "end": 16,
+     "text": "90%的学员"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 26,
+     "end": 34,
+     "text": "学完保证接单变现"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "guaranteed_returns",
+     "start": 28,
+     "end": 32,
+     "quote": "保证接单",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "RET-02"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     0
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-17",
+   "product": "MIA-SUNSCREEN",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 8,
+     "end": 14,
+     "text": "专利防晒因子"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 8,
+     "end": 10,
+     "quote": "专利",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    }
+   ],
+   "matched": [],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-18",
+   "product": "IRIS-VC",
+   "product_category": "health_food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 10,
+     "end": 14,
+     "text": "专利配方"
+    },
+    {
+     "category": "effect_claims",
+     "start": 25,
+     "end": 29,
+     "text": "一周见效"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 10,
+     "end": 14,
+     "quote": "专利配方",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-01"
+    ],
+    "pred_missing": [
+     "DSC-01"
+    ]
+   }
+  },
+  {
+   "id": "bl-19",
+   "product": "NOAH-OAT",
+   "product_category": "food",
+   "input_type": "srt",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 20,
+     "end": 25,
+     "text": "300ml"
+    },
+    {
+     "category": "effect_claims",
+     "start": 34,
+     "end": 43,
+     "text": "保证一个月瘦十五斤"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 20,
+     "end": 25,
+     "quote": "300ml",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    },
+    {
+     "key": "F2",
+     "category": "effect_claims",
+     "start": 36,
+     "end": 43,
+     "quote": "一个月瘦十五斤",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "EFF-02"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-20",
+   "product": "EMMA-PILLOW",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 21,
+     "end": 26,
+     "text": "治疗颈椎病"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 21,
+     "end": 23,
+     "quote": "治疗",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-01"
+    }
+   ],
+   "matched": [],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-21",
+   "product": "EMMA-TOWEL",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 17,
+     "end": 22,
+     "text": "全网最柔软"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 33,
+     "end": 36,
+     "text": "69元"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 33,
+     "end": 36,
+     "quote": "69元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     1,
+     0
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-22",
+   "product": "NOAH-TEA",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "disparagement",
+     "start": 10,
+     "end": 15,
+     "text": "骗人的玩意"
+    },
+    {
+     "category": "unsourced_data",
+     "start": 26,
+     "end": 38,
+     "text": "调查显示九成人喝完都说好"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "disparagement",
+     "start": 0,
+     "end": 12,
+     "quote": "市面上那些祛湿茶全是骗人",
+     "channels": [
+      "rule",
+      "llm"
+     ],
+     "rule_id": "DIS-01"
+    },
+    {
+     "key": "F2",
+     "category": "unsourced_data",
+     "start": 26,
+     "end": 30,
+     "quote": "调查显示",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DAT-01"
+    },
+    {
+     "key": "F3",
+     "category": "unsourced_data",
+     "start": 30,
+     "end": 38,
+     "quote": "九成人喝完都说好",
+     "channels": [
+      "llm"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     1,
+     2
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0,
+    1
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-23",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 8,
+     "end": 11,
+     "text": "医用级"
+    },
+    {
+     "category": "effect_claims",
+     "start": 17,
+     "end": 21,
+     "text": "七天美白"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 8,
+     "end": 11,
+     "quote": "医用级",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-02"
+    },
+    {
+     "key": "F2",
+     "category": "effect_claims",
+     "start": 17,
+     "end": 21,
+     "quote": "七天美白",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "EFF-02"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-24",
+   "product": "IRIS-PROBIOTIC",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 9,
+     "end": 12,
+     "text": "30袋"
+    },
+    {
+     "category": "patent_claims",
+     "start": 25,
+     "end": 31,
+     "text": "国家专利产品"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 25,
+     "end": 31,
+     "quote": "国家专利产品",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     0
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-25",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "srt",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 19,
+     "end": 24,
+     "text": "9800元"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 32,
+     "end": 40,
+     "text": "每月保底收入两万"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 19,
+     "end": 24,
+     "quote": "9800元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-02"
+    ],
+    "pred_missing": [
+     "DSC-02"
+    ]
+   }
+  },
+  {
+   "id": "bl-26",
+   "product": "JACK-CHARGER",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "patent_claims",
+     "start": 10,
+     "end": 16,
+     "text": "专利散热技术"
+    },
+    {
+     "category": "unsourced_data",
+     "start": 17,
+     "end": 21,
+     "text": "实验证明"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "patent_claims",
+     "start": 10,
+     "end": 12,
+     "quote": "专利",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "PAT-01"
+    },
+    {
+     "key": "F2",
+     "category": "unsourced_data",
+     "start": 17,
+     "end": 21,
+     "quote": "实验证明",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DAT-01"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-27",
+   "product": "NOAH-OAT",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 14,
+     "end": 18,
+     "text": "能降血糖"
+    },
+    {
+     "category": "absolute_terms",
+     "start": 31,
+     "end": 37,
+     "text": "代餐第一品牌"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 15,
+     "end": 18,
+     "quote": "降血糖",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-01"
+    },
+    {
+     "key": "F2",
+     "category": "absolute_terms",
+     "start": 33,
+     "end": 37,
+     "quote": "第一品牌",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-03"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-28",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 15,
+     "end": 18,
+     "text": "20节"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 33,
+     "end": 39,
+     "text": "包你找到工作"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "fact_mismatch",
+     "start": 15,
+     "end": 18,
+     "quote": "20节",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-29",
+   "product": "MIA-SUNSCREEN",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 13,
+     "end": 16,
+     "text": "天花板"
+    },
+    {
+     "category": "effect_claims",
+     "start": 20,
+     "end": 24,
+     "text": "永不晒黑"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 13,
+     "end": 16,
+     "quote": "天花板",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-04"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-30",
+   "product": "IRIS-VC",
+   "product_category": "health_food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 2,
+     "end": 6,
+     "text": "100片"
+    },
+    {
+     "category": "medical_claims",
+     "start": 19,
+     "end": 25,
+     "text": "比吃药还管用"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "medical_claims",
+     "start": 19,
+     "end": 22,
+     "quote": "比吃药",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "MED-03"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     0
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [
+     "DSC-01"
+    ],
+    "pred_missing": [
+     "DSC-01"
+    ]
+   }
+  },
+  {
+   "id": "bl-31",
+   "product": "JACK-EARBUDS",
+   "product_category": "digital",
+   "input_type": "srt",
+   "gold": [
+    {
+     "category": "unsourced_data",
+     "start": 15,
+     "end": 21,
+     "text": "98%的用户"
+    },
+    {
+     "category": "absolute_terms",
+     "start": 34,
+     "end": 41,
+     "text": "同类产品中最强"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "unsourced_data",
+     "start": 15,
+     "end": 21,
+     "quote": "98%的用户",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "DAT-01"
+    },
+    {
+     "key": "F2",
+     "category": "absolute_terms",
+     "start": 39,
+     "end": 41,
+     "quote": "最强",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-01"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [
+    1
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-32",
+   "product": "EMMA-PILLOW",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "disparagement",
+     "start": 16,
+     "end": 27,
+     "text": "别人家的都是掺了海绵的"
+    },
+    {
+     "category": "unsourced_data",
+     "start": 34,
+     "end": 43,
+     "text": "第三方检测全部合格"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0,
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-33",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 7,
+     "end": 13,
+     "text": "行业第一品牌"
+    },
+    {
+     "category": "guaranteed_returns",
+     "start": 17,
+     "end": 25,
+     "text": "年入百万不是问题"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 7,
+     "end": 11,
+     "quote": "行业第一",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-03"
+    }
+   ],
+   "matched": [
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-34",
+   "product": "NOAH-TEA",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "fact_mismatch",
+     "start": 9,
+     "end": 12,
+     "text": "60袋"
+    },
+    {
+     "category": "effect_claims",
+     "start": 27,
+     "end": 32,
+     "text": "三天排水肿"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0,
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-35",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "disparagement",
+     "start": 8,
+     "end": 19,
+     "text": "成分全是水，纯属割韭菜"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-36",
+   "product": "JACK-CHARGER",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "effect_claims",
+     "start": 19,
+     "end": 25,
+     "text": "永远不会发热"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-37",
+   "product": "IRIS-PROBIOTIC",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 6,
+     "end": 11,
+     "text": "国内最好的"
+    },
+    {
+     "category": "authority_endorsement",
+     "start": 14,
+     "end": 20,
+     "text": "卫健部门推荐"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 8,
+     "end": 10,
+     "quote": "最好",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-01"
+    }
+   ],
+   "matched": [],
+   "missed": [
+    0,
+    1
+   ],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-38",
+   "product": "EMMA-TOWEL",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "unsourced_data",
+     "start": 9,
+     "end": 16,
+     "text": "回购率高达九成"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 19,
+     "end": 21,
+     "text": "5条"
+    }
+   ],
+   "pred": [],
+   "matched": [],
+   "missed": [
+    0,
+    1
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-39",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [
+    {
+     "category": "absolute_terms",
+     "start": 3,
+     "end": 11,
+     "text": "全网最好的剪辑课"
+    },
+    {
+     "category": "fact_mismatch",
+     "start": 15,
+     "end": 18,
+     "text": "99元"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 3,
+     "end": 7,
+     "quote": "全网最好",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-01"
+    },
+    {
+     "key": "F2",
+     "category": "fact_mismatch",
+     "start": 15,
+     "end": 18,
+     "quote": "99元",
+     "channels": [
+      "fact"
+     ],
+     "rule_id": null
+    }
+   ],
+   "matched": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-40",
+   "product": "IRIS-PROBIOTIC",
+   "product_category": "food",
+   "input_type": "srt",
+   "gold": [
+    {
+     "category": "medical_claims",
+     "start": 22,
+     "end": 26,
+     "text": "调理肠炎"
+    },
+    {
+     "category": "effect_claims",
+     "start": 30,
+     "end": 34,
+     "text": "当天见效"
+    }
+   ],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "effect_claims",
+     "start": 30,
+     "end": 34,
+     "quote": "当天见效",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "EFF-03"
+    }
+   ],
+   "matched": [
+    [
+     1,
+     0
+    ]
+   ],
+   "missed": [
+    0
+   ],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-41",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-42",
+   "product": "IRIS-VC",
+   "product_category": "health_food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-43",
+   "product": "MIA-SUNSCREEN",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-44",
+   "product": "NOAH-OAT",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-45",
+   "product": "JACK-EARBUDS",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-46",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-47",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-48",
+   "product": "EMMA-PILLOW",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-49",
+   "product": "EMMA-TOWEL",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-50",
+   "product": "NOAH-TEA",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-51",
+   "product": "IRIS-PROBIOTIC",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-52",
+   "product": "JACK-CHARGER",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-53",
+   "product": "MIA-SERUM",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-54",
+   "product": "IRIS-VC",
+   "product_category": "health_food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-55",
+   "product": "LEON-FRANCHISE",
+   "product_category": "franchise",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-56",
+   "product": "LEON-COURSE",
+   "product_category": "education",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-57",
+   "product": "JACK-EARBUDS",
+   "product_category": "digital",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-58",
+   "product": "NOAH-OAT",
+   "product_category": "food",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-59",
+   "product": "MIA-SUNSCREEN",
+   "product_category": "cosmetics",
+   "input_type": "text",
+   "gold": [],
+   "pred": [
+    {
+     "key": "F1",
+     "category": "absolute_terms",
+     "start": 65,
+     "end": 67,
+     "quote": "最好",
+     "channels": [
+      "rule"
+     ],
+     "rule_id": "ABS-01"
+    }
+   ],
+   "matched": [],
+   "missed": [],
+   "false_positives": [
+    0
+   ],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  },
+  {
+   "id": "bl-60",
+   "product": "EMMA-PILLOW",
+   "product_category": "home",
+   "input_type": "text",
+   "gold": [],
+   "pred": [],
+   "matched": [],
+   "missed": [],
+   "false_positives": [],
+   "disclosures": {
+    "gold_missing": [],
+    "pred_missing": []
+   }
+  }
+ ],
+ "_note": "First run of the blind set (backend/evals/blind.yaml, committed at d17ee02 before any reviewer ran on it), measured at commit 0ff7247 with the offline deterministic model on SYNTHETIC data. Kept unchanged; later numbers on this set are not blind."
+}

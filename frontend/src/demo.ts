@@ -266,7 +266,6 @@ async function findRecheck(review: Review, text: string): Promise<Recheck> {
 /** review_service.decide() */
 export async function decide(review: Review, body: { decision?: string; version?: string | null; final_text?: string | null; note?: string }, user: User): Promise<void> {
   requireDecider(user);
-  if (body.decision === "approve" && !body.version) throw new ApiError(422, "请选择通过原稿还是改写稿");
   if (review.status !== "pending") throw new ApiError(409, "该脚本不在待终审状态");
   if (review.created_by.id === user.id) throw new ApiError(403, "提交人不能终审自己的脚本（四眼原则）");
   const note = (body.note ?? "").trim();
@@ -290,9 +289,17 @@ export async function decide(review: Review, body: { decision?: string; version?
   } else if (body.decision === "revise") {
     if (!body.final_text?.trim()) throw new ApiError(422, "请提供修改后的脚本");
     const check = await findRecheck(review, body.final_text);
-    if (!check.passed) throw new ApiError(409, "修改稿复检仍有问题，请继续修改");
+    if (!check.passed) {
+      const detail = {
+        message: "修改稿复检仍有问题，请继续修改",
+        findings: check.findings.filter((f) => BLOCKING.includes(f.severity)).map((f) => ({ quote: f.quote, category_label: f.category_label })),
+        missing_disclosures: check.disclosures.filter((d) => !d.present).map((d) => d.id),
+      };
+      throw new ApiError(409, detail.message, detail);
+    }
     finalText = check.text;
     version = "edited";
+    review.final_check = { counts: check.counts, risk_level: check.risk_level, passed: check.passed, engine: check.engine };
   } else {
     throw new ApiError(422, "未知的终审决定");
   }

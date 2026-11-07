@@ -70,9 +70,12 @@ class EvidenceLocator:
         """
         ordered = sorted(candidates, key=lambda c: (c.start, CHANNEL_ORDER[c.channel], -c.length))
         groups: list[list[Candidate]] = []
-        for cand in ordered:
+        ends: list[int] = []  # furthest end in each group; candidates come in start order, so a
+        for cand in ordered:  # group that ends at or before this start cannot overlap it
             home = None
-            for group in groups:
+            for gi, group in enumerate(groups):
+                if ends[gi] <= cand.start:
+                    continue
                 for member in group:
                     inter = min(member.end, cand.end) - max(member.start, cand.start)
                     if inter <= 0:
@@ -84,8 +87,11 @@ class EvidenceLocator:
                     break
             if home is None:
                 groups.append([cand])
+                ends.append(cand.end)
             else:
                 home.append(cand)
+                gi = next(i for i, g in enumerate(groups) if g is home)
+                ends[gi] = max(ends[gi], cand.end)
         return groups
 
     def _primary(self, group: list[Candidate]) -> tuple[Candidate, list[str]]:

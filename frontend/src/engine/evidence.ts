@@ -166,9 +166,13 @@ export function locate(text: string, raw: RawModelFinding[]): [Candidate[], Reje
 export function merge(text: string, candidates: Candidate[]): Candidate[][] {
   const ordered = [...candidates].sort((a, b) => a.start - b.start || CHANNEL_ORDER[a.channel] - CHANNEL_ORDER[b.channel] || b.length - a.length);
   const groups: Candidate[][] = [];
+  const ends: number[] = []; // furthest end per group: in start order, a group ending before this start cannot overlap
   for (const cand of ordered) {
     let home: Candidate[] | null = null;
-    for (const group of groups) {
+    let homeIndex = -1;
+    for (let gi = 0; gi < groups.length; gi++) {
+      if (ends[gi] <= cand.start) continue;
+      const group = groups[gi];
       for (const member of group) {
         const inter = Math.min(member.end, cand.end) - Math.max(member.start, cand.start);
         if (inter <= 0) continue;
@@ -176,13 +180,19 @@ export function merge(text: string, candidates: Candidate[]): Candidate[][] {
         const overlap = cpLen(text, Math.max(member.start, cand.start), Math.min(member.end, cand.end));
         if (member.category === cand.category || overlap / Math.min(member.length, cand.length) >= 0.6) {
           home = group;
+          homeIndex = gi;
           break;
         }
       }
       if (home) break;
     }
-    if (home) home.push(cand);
-    else groups.push([cand]);
+    if (home) {
+      home.push(cand);
+      ends[homeIndex] = Math.max(ends[homeIndex], cand.end);
+    } else {
+      groups.push([cand]);
+      ends.push(cand.end);
+    }
   }
   return groups;
 }

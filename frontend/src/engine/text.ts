@@ -138,10 +138,32 @@ export interface Cue {
   char_end: number;
 }
 
-const TIMING = /(\d{1,2}):(\d{2}):(\d{2})[,.](\d{1,3})\s*-->\s*(\d{1,2}):(\d{2}):(\d{2})[,.](\d{1,3})/;
+const TIMING = pyRegex("(\\d{1,2}):(\\d{2}):(\\d{2})[,.](\\d{1,3})\\s*-->\\s*(\\d{1,2}):(\\d{2}):(\\d{2})[,.](\\d{1,3})");
+
+const ND = /\p{Nd}/u;
+/** int() of a run of Unicode decimal digits (each Nd block is ten consecutive code points from 0). */
+export function pyInt(digits: string): number {
+  let value = 0;
+  for (const ch of digits) {
+    let cp = ch.codePointAt(0)!;
+    let k = 0;
+    while (ND.test(String.fromCodePoint(cp - 1))) {
+      cp--;
+      k++;
+    }
+    value = value * 10 + (k % 10);
+  }
+  return value;
+}
+
+/** float() of digits with an optional ".digits" part. */
+export const pyFloat = (s: string) => {
+  const [whole, frac = ""] = s.split(".");
+  return pyInt(whole) + (frac ? pyInt(frac) / 10 ** [...frac].length : 0);
+};
 
 const ms = (h: string, m: string, s: string, frac: string) =>
-  ((Number(h) * 60 + Number(m)) * 60 + Number(s)) * 1000 + Number(frac.padEnd(3, "0").slice(0, 3));
+  ((pyInt(h) * 60 + pyInt(m)) * 60 + pyInt(s)) * 1000 + pyInt([...frac].concat(["0", "0", "0"]).slice(0, 3).join(""));
 
 export function formatMs(value: number): string {
   const h = Math.floor(value / 3_600_000);

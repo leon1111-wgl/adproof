@@ -160,6 +160,7 @@ export function rewriteLoop(original: ReviewPass, product: Product, tracer: Trac
   let current = original;
   const rounds: RewriteResult["rounds"] = [];
   let first: AppliedEdit[] = [];
+  const appliedRounds: AppliedEdit[][] = [];
   for (let round = 1; round <= MAX_ROUNDS; round++) {
     if (passed(current)) break;
     const todo = current.findings.filter((f) => BLOCKING.includes(f.severity));
@@ -171,13 +172,14 @@ export function rewriteLoop(original: ReviewPass, product: Product, tracer: Trac
       out.chars_after = result[0].length;
       return result;
     });
+    appliedRounds.push(applied);
     if (round === 1) first = applied;
     current = review(newText, product, tracer, { stage: `复审 ${round}` });
     rounds.push({ round, edits: applied.length, remaining: current.findings.length, remaining_blocking: blockingOf(current).length, missing_disclosures: missingOf(current).length });
   }
   return {
     text: current.text, changed: current.text !== text, edits: first, rounds, passed: passed(current),
-    remaining: current.findings, remaining_disclosures: missingOf(current), diff: charDiff(text, current.text),
+    remaining: current.findings, remaining_disclosures: missingOf(current), diff: charDiff(text, current.text, appliedRounds),
   };
 }
 

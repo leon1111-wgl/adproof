@@ -185,6 +185,7 @@ export interface Review {
   rejected?: { quote: string; category: string; reason: string; stage: string }[];
   validation?: { checked: number; valid: number; citations: number; citations_verified: number; pending_basis: number; errors: unknown[] };
   final_text?: string | null;
+  final_check?: { counts: Partial<Counts>; risk_level: Severity; passed: boolean; engine?: EngineInfo } | null;
   permissions?: { can_verdict: boolean; can_decide: boolean; reason: string };
   agents?: AgentSpan[];
   engine?: EngineInfo;

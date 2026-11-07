@@ -2,7 +2,7 @@
  * Conservative on purpose: a number is flagged only when its clause names an attribute from the
  * sheet, the units agree, and no fact with that unit carries the same value. */
 import { pack } from "./pack";
-import { finditer, normalize, pyRegex, toOriginal } from "./text";
+import { finditer, normalize, pyFloat, pyRegex, toOriginal } from "./text";
 
 const UNITS = pack.facts.units;
 const NUM_UNIT = pyRegex(pack.facts.num_unit);
@@ -43,7 +43,7 @@ function parseFacts(facts: ProductFact[]): Fact[] {
       if (before) keywords.add(before[0]);
       const kept = [...keywords].filter((k) => k && !SKIP_WORDS.has(k));
       if (unit === "元") kept.push(...PRICE_WORDS.filter((w) => !kept.includes(w)));
-      parsed.push({ key, value, number: Number(m[1]), unit, raw_number: m[1], keywords: kept });
+      parsed.push({ key, value, number: pyFloat(m[1]), unit, raw_number: m[1], keywords: kept });
     }
   }
   return parsed;
@@ -70,7 +70,7 @@ export function checkFacts(text: string, facts: ProductFact[]): FactMismatch[] {
     const unit = UNITS[m[2]];
     const sameUnit = known.filter((f) => f.unit === unit);
     if (!sameUnit.length) continue;
-    const value = Number(m[1]);
+    const value = pyFloat(m[1]);
     if (sameUnit.some((f) => Math.abs(f.number - value) < 1e-9)) continue;
     const s = m.index;
     const e = s + m[0].length;

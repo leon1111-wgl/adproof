@@ -197,8 +197,7 @@ export interface DiffOp {
   b: string;
 }
 
-/** rewriter.char_diff: difflib opcodes over code points. */
-export function charDiff(before: string, after: string): DiffOp[] {
+function opcodes(before: string, after: string): DiffOp[] {
   const a = Array.from(before);
   const b = Array.from(after);
   const ops: DiffOp[] = [];
@@ -213,6 +212,99 @@ export function charDiff(before: string, after: string): DiffOp[] {
     i = ai + size;
     j = bj + size;
     if (size) ops.push({ op: "equal", a: a.slice(ai, i).join(""), b: b.slice(bj, j).join("") });
+  }
+  return ops;
+}
+
+// rewriter.char_diff with the rounds' edits: linear in the text, difflib only per changed region
+// (difflib is quadratic or worse on repetitive text); a region over this many character pairs is
+// one replacement. Lengths are code points, as in the backend.
+export const LOCAL_DIFF_BUDGET = 40_000;
+
+type Piece = [number, number, number, number, boolean]; // a0, a1, b0, b1, equal (UTF-16 offsets)
+
+function local(before: string, after: string): DiffOp[] {
+  if (cpLen(before) * cpLen(after) <= LOCAL_DIFF_BUDGET) return opcodes(before, after);
+  return [{ op: before && after ? "replace" : before ? "delete" : "insert", a: before, b: after }];
+}
+
+function pieces(edits: AppliedEdit[], n: number): Piece[] {
+  const out: Piece[] = [];
+  let a = 0;
+  let b = 0;
+  for (const e of edits) {
+    if (e.start > a) {
+      out.push([a, e.start, b, b + e.start - a, true]);
+      b += e.start - a;
+    }
+    out.push([e.start, e.end, b, b + e.replacement.length, false]);
+    b += e.replacement.length;
+    a = e.end;
+  }
+  if (a < n || !out.length) out.push([a, n, b, b + n - a, true]);
+  return out;
+}
+
+function mapPos(ps: Piece[], x: number, side: 0 | 2, last: boolean): number {
+  const other = side === 0 ? 2 : 0;
+  const lo = (p: Piece) => p[side] as number;
+  const hi = (p: Piece) => p[side + 1] as number;
+  const hits = ps.filter((p) => p[4] && lo(p) <= x && x <= hi(p));
+  if (hits.length) {
+    const p = last ? hits[hits.length - 1] : hits[0];
+    return (p[other] as number) + (x - lo(p));
+  }
+  const inside = ps.filter((p) => lo(p) <= x && x <= hi(p));
+  const p = last ? inside[inside.length - 1] : inside[0];
+  return (last ? p[other + 1] : p[other]) as number;
+}
+
+function compose(p: Piece[], q: Piece[], n0: number, n2: number): Piece[] {
+  const spans = [...p.filter((x) => !x[4]).map((x) => [x[2], x[3]]), ...q.filter((x) => !x[4]).map((x) => [x[0], x[1]])]
+    .sort((u, v) => u[0] - v[0] || u[1] - v[1]);
+  const merged: number[][] = [];
+  for (const [x, y] of spans) {
+    if (merged.length && x <= merged[merged.length - 1][1]) merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], y);
+    else merged.push([x, y]);
+  }
+  const out: Piece[] = [];
+  let a = 0;
+  let b = 0;
+  for (const [x, y] of merged) {
+    const a0 = mapPos(p, x, 2, false);
+    const a1 = mapPos(p, y, 2, true);
+    const b0 = mapPos(q, x, 0, false);
+    const b1 = mapPos(q, y, 0, true);
+    if (a0 > a) out.push([a, a0, b, b0, true]);
+    out.push([a0, a1, b0, b1, false]);
+    a = a1;
+    b = b1;
+  }
+  if (a < n0 || b < n2 || !out.length) out.push([a, n0, b, n2, true]);
+  return out;
+}
+
+/** rewriter.char_diff: from the applied edits of each round, or plain difflib without them. */
+export function charDiff(before: string, after: string, rounds?: AppliedEdit[][]): DiffOp[] {
+  if (!rounds) return opcodes(before, after);
+  let ps: Piece[] | null = null;
+  let text = before;
+  for (const edits of rounds) {
+    const step = pieces(edits, text.length);
+    text = applyEdits(text, edits)[0];
+    ps = ps === null ? step : compose(ps, step, before.length, text.length);
+  }
+  if (text !== after) throw new Error("rewrite rounds do not lead to the rewritten text");
+  if (ps === null) return before ? [{ op: "equal", a: before, b: after }] : [];
+  const ops: DiffOp[] = [];
+  for (const [a0, a1, b0, b1, equal] of ps) {
+    const chunk = equal ? [{ op: "equal" as const, a: before.slice(a0, a1), b: after.slice(b0, b1) }] : local(before.slice(a0, a1), after.slice(b0, b1));
+    for (const op of chunk) {
+      if (!op.a && !op.b) continue;
+      const prev = ops[ops.length - 1];
+      if (prev && op.op === "equal" && prev.op === "equal") ops[ops.length - 1] = { op: "equal", a: prev.a + op.a, b: prev.b + op.b };
+      else ops.push(op);
+    }
   }
   return ops;
 }

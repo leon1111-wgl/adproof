@@ -51,3 +51,16 @@ describe("scope statement", () => {
     expect(s.verdict).toMatch(/发现 1 处问题、缺少 1 项必要声明/);
   });
 });
+
+describe("scope statement (review fixes)", () => {
+  it("findings in mostly non-Chinese text stay flagged, with a note", () => {
+    const s = scopeFor("This is the best serum in the world, truly amazing results, you will love it, 全网最低价");
+    expect(s.state).toBe("flagged");
+    expect(s.input_notes.join()).toContain("只来自其中的中文片段");
+  });
+
+  it("spacing and full-width letters do not hide an out-of-scope claim", () => {
+    const s = scopeFor("今天限 时活动，有ＳＧＳ检测。");
+    expect(s.signals.map((x) => x.quote)).toEqual(["限 时", "ＳＧＳ"]);
+  });
+});

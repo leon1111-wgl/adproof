@@ -9,7 +9,7 @@
  * This layer is the demo's own; it does not change a finding, and the backend has no equivalent yet. */
 import { pack } from "./pack";
 import { applicableDisclosures, applicableRules, CATEGORIES } from "./rules";
-import { clauseBounds, finditer, isCjk } from "./text";
+import { clauseBounds, finditer, isCjk, normalize, toOriginal } from "./text";
 
 export interface ScopeSignal {
   topic: string;
@@ -52,7 +52,8 @@ const TOPICS: Topic[] = [
 const NOT_CHECKED: { label: string; detail: string }[] = [
   { label: "规则词表之外的说法", detail: "规则按词表和句式匹配，换一种说法（同义词、谐音、缩写、长句里的隐含意思）可能漏检；离线语义模式只覆盖少数隐含句式。" },
   { label: "说法是否属实", detail: "销量、好评、检测、产地等事实是否真实，需要证明材料；只有填了商品资料的数字会被核对。" },
-  { label: "规则库之外的法规", detail: "只引用本地已核对的条款（广告法 15 条、食品安全法 2 条、化妆品监督管理条例 1 条）；其余依据标为待核对，不作为法条展示。" },
+  { label: "规则库之外的法规", detail: `只引用本地已核对的条款（${pack.laws.map((l) => `${l.short_title ?? l.title} ${l.articles.length} 条`).join("、")}）；其余依据标为待核对，不作为法条展示。` },
+  { label: "直播电商的新规定", detail: "《直播电商监督管理办法》（2026 年 2 月 1 日施行）等对数字人标识、直播间运营者义务的要求，没有纳入本地已核对的快照，待核对，规则库不检查。" },
   { label: "画面与直播现场", detail: "只审查文字。画面、商品实物、口播语气、弹幕和评论区互动都不在范围内。" },
   { label: "平台规则", detail: "各平台自己的直播与短视频规范不在规则库内。" },
 ];
@@ -87,14 +88,14 @@ export function scopeOf(text: string, product: { category: string; facts?: { key
     { label: "法条引用", detail: "每条结果只引用本地已核对的法条快照原文，并逐条复核引文与快照一致。" },
   ];
   const signals: ScopeSignal[] = [];
+  const norm = normalize(text); // "限 时" and "ＳＧＳ" read as 限时 and sgs
   for (const t of TOPICS) {
-    for (const m of finditer(t.re, text)) {
-      const start = m.index;
-      const end = start + m[0].length;
+    for (const m of finditer(t.re, norm.text)) {
+      const [start, end] = toOriginal(norm, m.index, m.index + m[0].length);
       const [a, b] = clauseBounds(text, start, end);
       // one entry per topic and clause
       if (signals.some((s) => s.topic === t.topic && s.start >= a && s.end <= b)) continue;
-      signals.push({ topic: t.topic, quote: m[0], sentence: text.slice(a, b), at: [start - a, end - a], start, end, note: t.note });
+      signals.push({ topic: t.topic, quote: text.slice(start, end), sentence: text.slice(a, b), at: [start - a, end - a], start, end, note: t.note });
     }
   }
   signals.sort((x, y) => x.start - y.start);
@@ -103,9 +104,11 @@ export function scopeOf(text: string, product: { category: string; facts?: { key
   const share = cjkShare(text);
   const length = [...text.replace(/\s/g, "")].length;
   let state: ScopeReport["state"] = result.findings.length || result.missing ? "flagged" : "no_hit";
-  if (share < 0.2) {
+  if (share < 0.2 && state === "no_hit") {
     notes.push("脚本里几乎没有中文。规则库只覆盖中文表述，这次审查不能说明任何问题。");
     state = "not_reviewable";
+  } else if (share < 0.2) {
+    notes.push("脚本里几乎没有中文：上面的结果只来自其中的中文片段，其余部分没有审查。");
   } else if (share < 0.5) {
     notes.push("脚本里中文不到一半，规则只检查中文部分。");
   }

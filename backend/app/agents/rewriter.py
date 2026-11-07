@@ -112,12 +112,104 @@ def apply_edits(text: str, edits: list[Edit]) -> tuple[str, list[dict]]:
     return "".join(out), applied
 
 
-def char_diff(before: str, after: str) -> list[dict]:
+# difflib's matcher is quadratic or worse on repetitive text: a 6000-character chant such as
+# "全网最好用，" x 1000 took over a minute. The rewrite diff is therefore built from the rewrite's
+# own edits (which characters changed is known exactly) and difflib only runs inside each changed
+# region, for the fine-grained redline; a region larger than this many character pairs is shown as
+# one replacement. The browser port (frontend/src/engine/rewrite.ts) does the same.
+LOCAL_DIFF_BUDGET = 40_000
+
+
+def _opcodes(before: str, after: str) -> list[dict]:
     matcher = difflib.SequenceMatcher(a=before, b=after, autojunk=False)
     return [
         {"op": op, "a": before[i1:i2], "b": after[j1:j2]}
         for op, i1, i2, j1, j2 in matcher.get_opcodes()
     ]
+
+
+def _local(before: str, after: str) -> list[dict]:
+    if len(before) * len(after) <= LOCAL_DIFF_BUDGET:
+        return _opcodes(before, after)
+    op = "replace" if before and after else ("delete" if before else "insert")
+    return [{"op": op, "a": before, "b": after}]
+
+
+def _pieces(edits: list[dict], n: int) -> list[tuple[int, int, int, int, bool]]:
+    """(a0, a1, b0, b1, equal) pieces covering a text of length n and its edited version."""
+    out, a, b = [], 0, 0
+    for e in edits:
+        if e["start"] > a:
+            out.append((a, e["start"], b, b + e["start"] - a, True))
+            b += e["start"] - a
+        out.append((e["start"], e["end"], b, b + len(e["replacement"]), False))
+        b += len(e["replacement"])
+        a = e["end"]
+    if a < n or not out:
+        out.append((a, n, b, b + n - a, True))
+    return out
+
+
+def _map(pieces, x: int, side: int, last: bool) -> int:
+    """Map position x on one side (0 = before, 2 = after) to the other side. Inside an equal
+    piece the offset carries over; inside a changed piece the mapping widens to its bounds."""
+    other = 2 if side == 0 else 0
+    hits = [p for p in pieces if p[4] and p[side] <= x <= p[side + 1]]
+    if hits:
+        piece = hits[-1] if last else hits[0]
+        return piece[other] + (x - piece[side])
+    inside = [p for p in pieces if p[side] <= x <= p[side + 1]]
+    piece = inside[-1] if last else inside[0]
+    return piece[other + 1] if last else piece[other]
+
+
+def _compose(p, q, n0: int, n2: int):
+    """Pieces text0 -> text1 and text1 -> text2 become pieces text0 -> text2."""
+    spans = sorted([(b0, b1) for _, _, b0, b1, eq in p if not eq] + [(a0, a1) for a0, a1, _, _, eq in q if not eq])
+    merged: list[list[int]] = []
+    for x, y in spans:
+        if merged and x <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], y)
+        else:
+            merged.append([x, y])
+    out, a, b = [], 0, 0
+    for x, y in merged:
+        a0, a1 = _map(p, x, 2, False), _map(p, y, 2, True)
+        b0, b1 = _map(q, x, 0, False), _map(q, y, 0, True)
+        if a0 > a:
+            out.append((a, a0, b, b0, True))
+        out.append((a0, a1, b0, b1, False))
+        a, b = a1, b1
+    if a < n0 or b < n2 or not out:
+        out.append((a, n0, b, n2, True))
+    return out
+
+
+def char_diff(before: str, after: str, rounds: list[list[dict]] | None = None) -> list[dict]:
+    """Character diff of a rewrite. Given the applied edits of each round it is linear in the text,
+    with difflib per changed region; without them it is plain difflib."""
+    if rounds is None:
+        return _opcodes(before, after)
+    pieces, text = None, before
+    for edits in rounds:
+        step = _pieces(edits, len(text))
+        text = apply_edits(text, [Edit(e["start"], e["end"], e["replacement"], [], "") for e in edits])[0]
+        pieces = step if pieces is None else _compose(pieces, step, len(before), len(text))
+    if text != after:
+        raise ValueError("rewrite rounds do not lead to the rewritten text")
+    if pieces is None:
+        return [{"op": "equal", "a": before, "b": after}] if before else []
+    ops: list[dict] = []
+    for a0, a1, b0, b1, equal in pieces:
+        chunk = [{"op": "equal", "a": before[a0:a1], "b": after[b0:b1]}] if equal else _local(before[a0:a1], after[b0:b1])
+        for op in chunk:
+            if not op["a"] and not op["b"]:
+                continue
+            if ops and op["op"] == "equal" and ops[-1]["op"] == "equal":
+                ops[-1] = {"op": "equal", "a": ops[-1]["a"] + op["a"], "b": ops[-1]["b"] + op["b"]}
+            else:
+                ops.append(op)
+    return ops
 
 
 class RewriteAgent:
