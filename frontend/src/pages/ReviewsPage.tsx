@@ -46,7 +46,7 @@ export default function ReviewsPage() {
                 <td className="nowrap">{r.product.brand} <span className="faint">{meta?.product_categories[r.product.category] ?? r.product.category}</span></td>
                 <td className="nowrap">{MODE_TEXT[r.mode]}{r.input_type === "srt" ? " · SRT" : ""}</td>
                 <td><StatusBadge status={r.status} /></td>
-                <td><RiskBadge level={r.risk_level} /></td>
+                <td><RiskBadge level={r.risk_level} scope={r.scope?.state} /></td>
                 <td className="mono">{r.counts?.total ?? "—"}{r.counts?.high ? <span className="faint"> · 高 {r.counts.high}</span> : null}</td>
                 <td className="nowrap">{r.created_by.name}</td>
                 <td className="nowrap">{r.decided_by ? `${r.decided_by.name} · ${r.decision === "reject" ? "驳回" : "通过"}` : <span className="faint">—</span>}</td>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FileUp, Play, Sparkles } from "lucide-react";
 import { DEMO, api } from "../api";
+import { CUSTOM_PRODUCTS } from "../demo";
 import { canDecide, useAuth } from "../auth";
 import { ErrorBanner, RiskBadge, StatusBadge, time, useLoad } from "../components/ui";
 import samples from "../samples.json";
@@ -40,7 +41,9 @@ export default function WorkbenchPage() {
     if (productId == null && products.data?.length) setProductId(products.data[0].id);
   }, [products.data, productId]);
 
-  const product = useMemo(() => products.data?.find((p) => p.id === productId) ?? null, [products.data, productId]);
+  const choices = useMemo(() => [...(products.data ?? []), ...(DEMO ? CUSTOM_PRODUCTS : [])], [products.data]);
+  const product = useMemo(() => choices.find((p) => p.id === productId) ?? null, [choices, productId]);
+  const custom = Boolean(product && product.id < 0);
   const sample = product ? SAMPLES[product.sku] : undefined;
 
   function fillSample() {
@@ -82,7 +85,7 @@ export default function WorkbenchPage() {
   }
 
   const categoryName = (c: string) => meta?.product_categories[c] ?? c;
-  const ready = product && (mode === "generate" || content.trim().length > 0);
+  const ready = product && (mode === "generate" ? !custom : content.trim().length > 0);
 
   return (
     <div className="page stack" style={{ gap: 16 }}>
@@ -106,9 +109,16 @@ export default function WorkbenchPage() {
             <label className="field">
               商品
               <select className="select" value={productId ?? ""} onChange={(e) => setProductId(Number(e.target.value))}>
-                {products.data?.map((p) => (
-                  <option key={p.id} value={p.id}>{p.brand} {p.name} · {categoryName(p.category)}</option>
-                ))}
+                <optgroup label="演示商品（SYNTHETIC，带商品资料）">
+                  {products.data?.map((p) => (
+                    <option key={p.id} value={p.id}>{p.brand} {p.name} · {categoryName(p.category)}</option>
+                  ))}
+                </optgroup>
+                {DEMO && mode === "review" && (
+                  <optgroup label="自己的商品：只选类目，不核对商品资料">
+                    {CUSTOM_PRODUCTS.map((p) => <option key={p.id} value={p.id}>不指定商品 · {categoryName(p.category)}</option>)}
+                  </optgroup>
+                )}
               </select>
             </label>
             {mode === "review" ? (
@@ -160,7 +170,9 @@ export default function WorkbenchPage() {
               </label>
             )}
             {DEMO && (
-              <div className="faint">静态演示：只能提交录制好的输入，即各商品的示例脚本（点“填入示例”）和生成选项；提交后回放当时的审查结果。</div>
+              <div className="faint">
+                静态演示：粘贴自己的脚本会在本页浏览器内审查（规则与后端相同，脚本不上传）；“填入示例”的脚本和“生成新脚本”回放后端的录制结果。每条结果都会标明出自哪个引擎。
+              </div>
             )}
             <div className="row">
               <span className="faint">{meta?.offline ? "当前使用离线确定性模型（无需 API Key）" : `当前模型：${meta?.model}`}</span>
@@ -176,7 +188,12 @@ export default function WorkbenchPage() {
           <div className="card">
             <div className="card-head"><h3>商品资料</h3><span className="faint">审查时用于核对价格、成分、规格</span></div>
             <div className="card-pad">
-              {product ? (
+              {product && custom ? (
+                <div className="stack" style={{ gap: 6 }}>
+                  <div style={{ fontWeight: 500 }}>不指定商品 · {categoryName(product.category)}</div>
+                  <div className="faint">没有商品资料：只按该类目适用的规则和必要声明审查，脚本里的价格、成分、规格等数字不会核对。</div>
+                </div>
+              ) : product ? (
                 <>
                   <div style={{ fontWeight: 500 }}>{product.brand} {product.name}</div>
                   <div className="faint" style={{ margin: "2px 0 8px" }}>{product.sku} · {categoryName(product.category)} · {product.description}</div>
@@ -204,7 +221,7 @@ export default function WorkbenchPage() {
               <tr key={r.id} className="clickable" onClick={() => navigate(`/reviews/${r.id}`)}>
                 <td>{r.title}</td>
                 <td><StatusBadge status={r.status} /></td>
-                <td><RiskBadge level={r.risk_level} /></td>
+                <td><RiskBadge level={r.risk_level} scope={r.scope?.state} /></td>
                 <td className="mono">{r.counts?.total ?? "—"}</td>
                 <td className="nowrap">{r.created_by?.name}</td>
                 <td className="faint nowrap">{time(r.created_at)}</td>

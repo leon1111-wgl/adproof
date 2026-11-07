@@ -38,10 +38,13 @@ export function Stamp({ status }: { status: string }) {
   return <span className={`stamp stamp-${status}`}>{STAMP[status] ?? STATUS[status]?.[0] ?? status}</span>;
 }
 
-export function RiskBadge({ level }: { level?: Severity | null }) {
+/** No rule hit is not a pass (default-deny): it gets a neutral badge, never a green one. */
+export function RiskBadge({ level, scope }: { level?: Severity | null; scope?: "flagged" | "no_hit" | "not_reviewable" }) {
+  if (scope === "not_reviewable") return <span className="badge" title="输入不是规则库能读懂的中文带货脚本">未能审查</span>;
   if (!level) return <span className="faint">—</span>;
-  const cls = { high: "badge-danger", medium: "badge-warning", low: "badge-success" }[level];
-  return <span className={`badge ${cls}`}>{level === "low" ? "未发现问题" : SEVERITY_TEXT[level]}</span>;
+  if (level === "low") return <span className="badge" title="规则库没有命中，不等于合规">规则未命中</span>;
+  const cls = { high: "badge-danger", medium: "badge-warning" }[level];
+  return <span className={`badge ${cls}`}>{SEVERITY_TEXT[level]}</span>;
 }
 
 export function SeverityDot({ level }: { level: Severity }) {

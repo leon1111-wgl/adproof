@@ -21,6 +21,8 @@ jobs:
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r requirements.txt
       - run: pytest -q
+      - name: Browser pack matches the rule library and law snapshots
+        run: python ../scripts/build_browser_pack.py --check
       - name: Span-level eval gate (offline model, synthetic data)
         run: python -m app.evals.cli --gate 0.80 --rewrite-gate 0.90 --report eval-report.json
       - uses: actions/upload-artifact@v4
@@ -29,13 +31,23 @@ jobs:
           path: backend/eval-report.json
 
   frontend:
-    name: Frontend type-check + build
+    name: Frontend type-check, browser engine tests, builds
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Export the backend's output for the parity test
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt
+          python ../scripts/export_parity_fixtures.py --include-blind
       - uses: pnpm/action-setup@v4
         with:
           package_json_file: frontend/package.json
@@ -45,7 +57,10 @@ jobs:
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
+      - name: Browser engine = backend pipeline (parity, coverage, scope, sign-off)
+        run: pnpm test
       - run: pnpm build
+      - run: pnpm build:demo
 
   docker:
     name: Docker image builds and serves

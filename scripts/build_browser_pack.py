@@ -1,0 +1,154 @@
+"""Build the data pack the browser reviewer runs on: frontend/src/engine/pack.json.
+
+The static demo reviews a visitor's own script in the tab with a TypeScript port of the
+backend pipeline (frontend/src/engine/). The port holds no rules or law text of its own:
+everything it matches, cites and rewrites with comes from this pack, which is exported from
+the same sources the backend loads:
+
+    backend/rules/adproof_rules.yaml   rules, categories, rewrite templates, disclosures
+                                       (validated by the backend's own RuleSet first)
+    backend/laws/*.json                the verified law snapshots, unchanged
+    backend/app/llm/mock.py            the offline model's context patterns
+    backend/app/rules/engine.py        negation window, regex macros
+    backend/app/rules/facts.py         units and words of the product-fact check
+    backend/app/agents/rewriter.py     scope prefixes stripped from rewrites
+
+    cd backend && python ../scripts/build_browser_pack.py           # write the pack
+    cd backend && python ../scripts/build_browser_pack.py --check   # CI: fail if it is stale
+
+frontend/tests/parity.test.ts then runs both pipelines on the same inputs and requires the
+same output, so a rule change that the port handles differently fails CI.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "backend"))
+
+from app.agents.reviewers import HALLUCINATED_QUOTE  # noqa: E402
+from app.agents.rewriter import SCOPE_PREFIXES  # noqa: E402
+from app.law.snapshot import LawLibrary  # noqa: E402
+from app.llm.mock import SEMANTIC_PATTERNS  # noqa: E402
+from app.rules import facts as facts_module  # noqa: E402
+from app.rules.engine import _NEGATION, RuleSet, expand_macros  # noqa: E402
+from app import textutil  # noqa: E402
+from app.textutil import normalize  # noqa: E402
+
+RULES = ROOT / "backend" / "rules" / "adproof_rules.yaml"
+LAWS = ROOT / "backend" / "laws"
+OUT = ROOT / "frontend" / "src" / "engine" / "pack.json"
+
+
+def law_ref(ref) -> dict:
+    return {"law": ref.law, "article": ref.article, "paragraph": ref.paragraph, "item": ref.item, "when": ref.when}
+
+
+def rewrite(spec) -> dict | None:
+    if spec is None:
+        return None
+    return {
+        "strategy": spec.strategy, "replacements": dict(spec.replacements),
+        "subs": [{"pattern": s.pattern, "replace": s.replace} for s in spec.subs],
+        "prefix_from": spec.prefix_from, "prefix_to": spec.prefix_to, "fallback": spec.fallback, "note": spec.note,
+    }
+
+
+def build() -> dict:
+    raw = RULES.read_text(encoding="utf-8")
+    ruleset = RuleSet.from_text(raw, RULES)  # the backend's own validation runs first
+    failures = ruleset.example_failures()
+    if failures:
+        raise SystemExit("规则自带的正反例没有通过：\n" + "\n".join(failures))
+    lib = ruleset.library
+    rules = []
+    for rule in lib.rules:
+        # same words as the backend alternation; ties sorted so the pack is reproducible
+        keywords = sorted({normalize(k).text for k in rule.keywords if k.strip()}, key=lambda w: (-len(w), w))
+        rules.append({
+            "id": rule.id, "name": rule.name, "category": rule.category, "severity": rule.severity,
+            "applies_to": list(rule.applies_to),
+            # macros expanded here, so the port never has to know them
+            "patterns": [expand_macros(p) for p in rule.patterns],
+            "keywords": keywords,
+            "exceptions": [expand_macros(p) for p in rule.exceptions],
+            "negation": rule.negation,
+            "unless_sentence": expand_macros(rule.unless_sentence) if rule.unless_sentence else None,
+            "law_refs": [law_ref(r) for r in rule.law_refs],
+            "penalty_refs": [law_ref(r) for r in rule.penalty_refs],
+            "references": [r.model_dump() for r in rule.references],
+            "reason": rule.reason, "rewrite": rewrite(rule.rewrite),
+            "examples": {"hit": list(rule.examples.hit), "pass": list(rule.examples.pass_)},
+            "enabled": rule.enabled,
+        })
+    categories = [{
+        "id": c.id, "label": c.label, "description": c.description, "severity": c.severity, "priority": c.priority,
+        "law_refs": [law_ref(r) for r in c.law_refs], "penalty_refs": [law_ref(r) for r in c.penalty_refs],
+        "references": [r.model_dump() for r in c.references], "rewrite": rewrite(c.rewrite),
+    } for c in lib.categories]
+    disclosures = [{
+        "id": d.id, "name": d.name, "applies_to": list(d.applies_to), "phrases": d.phrases, "severity": d.severity,
+        "law_refs": [law_ref(r) for r in d.law_refs], "suggestion": d.suggestion,
+    } for d in lib.disclosures]
+    laws = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(LAWS.glob("*.json"))]
+    LawLibrary(LAWS)  # the snapshots load in the backend too
+    return {
+        "_note": "Generated by scripts/build_browser_pack.py from backend/rules, backend/laws and the offline model. Do not edit.",
+        "ruleset": {"version": ruleset.version, "name": ruleset.name, "hash": ruleset.hash, "description": lib.description},
+        "provider": {"name": "mock", "model": "adproof-offline"},
+        "product_categories": dict(lib.product_categories),
+        "categories": categories,
+        "rules": rules,
+        "disclosures": disclosures,
+        "negation": _NEGATION.pattern,
+        "semantic_patterns": [{"category": c, "pattern": p, "reason": r} for c, p, r in SEMANTIC_PATTERNS],
+        "hallucinated_quote": HALLUCINATED_QUOTE,
+        "scope_prefixes": list(SCOPE_PREFIXES),
+        "facts": {
+            "units": facts_module._UNITS,
+            "num_unit": facts_module.NUM_UNIT.pattern,
+            "price_words": sorted(facts_module._PRICE_WORDS),
+            "self_describing": sorted(facts_module._SELF_DESCRIBING),
+            "skip_words": sorted(facts_module._SKIP_WORDS),
+        },
+        "text": {
+            "always_skip": sorted(textutil._ALWAYS_SKIP),
+            "decorative": sorted(textutil._DECORATIVE),
+            "sentence_end": textutil.SENTENCE_END,
+            "clause_end": textutil.CLAUSE_END,
+        },
+        "laws": laws,
+    }
+
+
+def render(pack: dict) -> str:
+    body = json.dumps(pack, ensure_ascii=False, indent=1, sort_keys=False)
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()[:12]
+    return body[:-1].rstrip() + f',\n "pack_hash": "{digest}"\n}}\n'
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--check", action="store_true", help="exit 1 if pack.json is not what the sources produce")
+    args = parser.parse_args()
+    text = render(build())
+    if args.check:
+        current = OUT.read_text(encoding="utf-8") if OUT.exists() else ""
+        if current != text:
+            print("frontend/src/engine/pack.json 已过期：请运行 cd backend && python ../scripts/build_browser_pack.py", file=sys.stderr)
+            return 1
+        print("pack.json 与规则库、法条快照一致")
+        return 0
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(text, encoding="utf-8")
+    print(f"wrote {OUT.relative_to(ROOT)} ({len(text) // 1024} KB)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

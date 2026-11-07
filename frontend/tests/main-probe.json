@@ -1,0 +1,235 @@
+{
+ "_note": "Scripts written by the main session to probe PR #1 at c773ff6, without reading the rules (S: should flag, C: clean, H: for a human). Kept as regression tests, not a measurement.",
+ "cases": [
+  {
+   "id": "S1",
+   "category": "cosmetics",
+   "text": "这款面霜是全网第一，用过的都说好。"
+  },
+  {
+   "id": "S2",
+   "category": "cosmetics",
+   "text": "宝宝们，这精华液能祛斑美白，三天淡化黄褐斑。"
+  },
+  {
+   "id": "S3",
+   "category": "cosmetics",
+   "text": "姐妹们闭眼入，用了痘痘全消，比去医院还管用。"
+  },
+  {
+   "id": "S4",
+   "category": "food",
+   "text": "这个蜂蜜水天天喝能降血糖，糖尿病人也能放心喝。"
+  },
+  {
+   "id": "S5",
+   "category": "food",
+   "text": "吃了这个酸奶，肠道问题统统解决，便秘一去不复返。"
+  },
+  {
+   "id": "S6",
+   "category": "health_food",
+   "text": "这款保健品保证三个月见效，无效退款。本品不能代替药物。"
+  },
+  {
+   "id": "S7",
+   "category": "health_food",
+   "text": "老专家都在吃，协和的主任亲自推荐。本品不能代替药物。"
+  },
+  {
+   "id": "S8",
+   "category": "health_food",
+   "text": "吃了它就不用吃降压药了。本品不能代替药物。"
+  },
+  {
+   "id": "S9",
+   "category": "digital",
+   "text": "这款手机是国家级品质，行业顶级。"
+  },
+  {
+   "id": "S10",
+   "category": "digital",
+   "text": "续航提升300%，95%的用户都说好。"
+  },
+  {
+   "id": "S11",
+   "category": "digital",
+   "text": "某米的充电宝就是垃圾，一用就鼓包，买我们的。"
+  },
+  {
+   "id": "S12",
+   "category": "home",
+   "text": "这个床垫能治疗腰椎间盘突出。"
+  },
+  {
+   "id": "S13",
+   "category": "home",
+   "text": "本产品已获得国家专利，专利还在申请中。"
+  },
+  {
+   "id": "S14",
+   "category": "apparel",
+   "text": "这件羽绒服是史上最保暖的，没有之一。"
+  },
+  {
+   "id": "S15",
+   "category": "franchise",
+   "text": "加盟我们，月入十万不是梦，稳赚不赔。投资有风险。"
+  },
+  {
+   "id": "S16",
+   "category": "franchise",
+   "text": "保底收益，年化20%，零风险。"
+  },
+  {
+   "id": "S17",
+   "category": "education",
+   "text": "报我们的班，保证考过教师资格证，不过全额退费。"
+  },
+  {
+   "id": "S18",
+   "category": "education",
+   "text": "名校教授亲自推荐，清华老师带你上岸。"
+  },
+  {
+   "id": "S19",
+   "category": "general",
+   "text": "全网最低价，错过再等一年。"
+  },
+  {
+   "id": "S20",
+   "category": "cosmetics",
+   "text": "国家药监局认证的效果，央视推荐品牌。"
+  },
+  {
+   "id": "S21",
+   "category": "food",
+   "text": "家人们这款燕窝吃了能抗癌，买它！"
+  },
+  {
+   "id": "S22",
+   "category": "health_food",
+   "text": "增强免疫力，还能预防新冠。本品不能代替药物。"
+  },
+  {
+   "id": "S23",
+   "category": "cosmetics",
+   "text": "药妆级配方，医用级修护，烂脸救星。"
+  },
+  {
+   "id": "S24",
+   "category": "digital",
+   "text": "全球唯一一款支持这个功能的手机。"
+  },
+  {
+   "id": "S25",
+   "category": "food",
+   "text": "这款茶喝了能减肥，一个月瘦二十斤。"
+  },
+  {
+   "id": "S26",
+   "category": "general",
+   "text": "This cream is the best in the world, 100% effective."
+  },
+  {
+   "id": "C1",
+   "category": "cosmetics",
+   "text": "这款面霜质地清爽，适合混油皮夏天使用，具体效果因人而异。"
+  },
+  {
+   "id": "C2",
+   "category": "food",
+   "text": "这款酸奶是我们最近卖得比较好的口味，第一次买的朋友可以先试小杯。"
+  },
+  {
+   "id": "C3",
+   "category": "digital",
+   "text": "这款手机支持65W快充，品牌实验室测试约30分钟充到80%，实际以使用环境为准。"
+  },
+  {
+   "id": "C4",
+   "category": "home",
+   "text": "床垫偏硬，适合喜欢硬床的朋友，睡感因人而异。"
+  },
+  {
+   "id": "C5",
+   "category": "apparel",
+   "text": "第一排的朋友看一下，这件外套有黑白两色。"
+  },
+  {
+   "id": "C6",
+   "category": "franchise",
+   "text": "加盟需要考察选址，收益受经营情况影响，投资有风险，请谨慎决策。"
+  },
+  {
+   "id": "C7",
+   "category": "education",
+   "text": "课程包含20节直播课，学习效果取决于个人投入。"
+  },
+  {
+   "id": "C8",
+   "category": "health_food",
+   "text": "本品不能代替药物。适宜人群：免疫力低下者，请按说明食用。"
+  },
+  {
+   "id": "C9",
+   "category": "general",
+   "text": "最后一单了，最后十秒上链接！"
+  },
+  {
+   "id": "C10",
+   "category": "cosmetics",
+   "text": "我最喜欢这个颜色，日常通勤很好搭。"
+  },
+  {
+   "id": "C11",
+   "category": "food",
+   "text": "这款饼干是全麦的，每100克含膳食纤维6克，具体以包装营养成分表为准。"
+  },
+  {
+   "id": "C12",
+   "category": "digital",
+   "text": "和去年的旧款比，屏幕大了一点，重量差不多。"
+  },
+  {
+   "id": "C13",
+   "category": "home",
+   "text": "板材按国家标准生产，甲醛释放量见检测报告。"
+  },
+  {
+   "id": "C14",
+   "category": "apparel",
+   "text": "这件T恤是纯棉的，第一次洗建议单独洗。"
+  },
+  {
+   "id": "C15",
+   "category": "general",
+   "text": "大家最关心的是发货时间，我们48小时内发货。"
+  },
+  {
+   "id": "C16",
+   "category": "cosmetics",
+   "text": "防晒霜每两小时补涂一次，户外记得多涂。"
+  },
+  {
+   "id": "H1",
+   "category": "cosmetics",
+   "text": "买二送一，前100名还送面膜。"
+  },
+  {
+   "id": "H2",
+   "category": "cosmetics",
+   "text": "我闺蜜用了一个月，皮肤状态好多了。"
+  },
+  {
+   "id": "H3",
+   "category": "home",
+   "text": "我们工厂有ISO9001认证。"
+  },
+  {
+   "id": "H4",
+   "category": "digital",
+   "text": "比某果的手机便宜一半，性能差不多。"
+  }
+ ]
+}

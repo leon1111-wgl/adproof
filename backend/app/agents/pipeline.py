@@ -17,7 +17,7 @@ from ..llm.base import LLMProvider
 from ..rules import RuleSet
 from .evidence import EvidenceLocator, validate_findings
 from .reviewers import ChannelResult, ModelReviewer, RuleReviewer
-from .rewriter import RewriteAgent, apply_edits, char_diff
+from .rewriter import RewriteAgent, apply_edits, char_diff, rewrite_problems
 from .tracing import Tracer
 from .writers import ScriptWriterAgent, SellingPointAgent
 
@@ -138,6 +138,7 @@ class ReviewPipeline:
         current = original
         rounds = []
         edits_first: list[dict] = []
+        applied_rounds: list[list[dict]] = []
         for round_no in range(1, self.max_rounds + 1):
             if current.passed():
                 break
@@ -149,6 +150,7 @@ class ReviewPipeline:
                 new_text, applied = apply_edits(current.text, edits)
                 span.set(edits=applied, chars_before=len(current.text), chars_after=len(new_text))
             tracer.flush()
+            applied_rounds.append(applied)
             if round_no == 1:
                 edits_first = applied
             current = self.review(new_text, product, tracer, stage=f"复审 {round_no}")
@@ -156,15 +158,22 @@ class ReviewPipeline:
                 "round": round_no, "edits": len(applied), "remaining": len(current.findings),
                 "remaining_blocking": len(current.blocking), "missing_disclosures": len(current.missing_disclosures),
             })
+        diff = char_diff(text, current.text, applied_rounds)
+        statements = [x for d in self.ruleset.disclosures for x in [*d.phrases, d.suggestion]]
+        problems = rewrite_problems(text, current.text, original.findings, applied_rounds, diff, statements) if current.text != text else []
         return {
             "text": current.text,
             "changed": current.text != text,
             "edits": edits_first,
             "rounds": rounds,
-            "passed": current.passed(),
+            "review_passed": current.passed(),
+            # withheld: the rewrite does not read as copy; it is not shown and cannot be approved
+            "withheld": bool(problems),
+            "withheld_reasons": problems,
+            "passed": current.passed() and not problems,
             "remaining": current.findings,
             "remaining_disclosures": current.missing_disclosures,
-            "diff": char_diff(text, current.text),
+            "diff": diff,
         }
 
     # ------------------------------------------------------------------ full run

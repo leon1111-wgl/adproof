@@ -19,7 +19,7 @@ export function DemoBanner() {
     <div className="demo-banner" role="note">
       <span className="demo-tag">静态演示</span>
       <span>
-        回放离线确定性模型在 SYNTHETIC 数据上的保存结果 · 判定与签发只在本页内存中生效 · 完整服务请按{" "}
+        自己的脚本在本页浏览器内审查，示例回放后端录制结果 · 数据均为 SYNTHETIC · 判定与签发为模拟，只在本页内存中生效 · 完整服务请按{" "}
         <a href="https://github.com/leon1111-wgl/adproof#快速开始" target="_blank" rel="noreferrer">
           README
         </a>{" "}
@@ -86,7 +86,7 @@ export default function Layout() {
             </span>
           )}
           <span className="tag mast-synthetic">SYNTHETIC</span>
-          {DEMO && <span className="tag tag-replay">回放</span>}
+          {DEMO && <span className="tag tag-replay">演示</span>}
           <ThemeButton />
           <span className="mast-user" title={`${user?.title} · ${ROLE_TEXT[user?.role ?? ""]}`}>
             <span className="avatar">{user?.name.slice(0, 1)}</span>
