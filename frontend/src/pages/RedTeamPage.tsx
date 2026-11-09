@@ -49,6 +49,7 @@ interface BlindRun {
 const REPORT = data as unknown as { rounds: Round[]; blind: { set: string; runs: BlindRun[] } | null };
 const REPO = "https://github.com/leon1111-wgl/adproof";
 const short = (sha?: string) => (sha ?? "").slice(0, 7);
+const sameCounts = (a?: BlindRun, b?: BlindRun) => Boolean(a && b && a.tp === b.tp && a.fp === b.fp && a.fn === b.fn && a.clean_flagged === b.clean_flagged);
 const catLabel = (id: string) => pack.categories.find((c) => c.id === id)?.label ?? id;
 const pcLabel = (id: string) => pack.product_categories[id] ?? id;
 
@@ -191,13 +192,13 @@ export default function RedTeamPage() {
         <div className="grid grid-4">
           {rounds.slice(0, 2).map((r) => (
             <Kpi key={r.id} label={`${r.id} 修复前标出（生成的违规说法）`} value={`${r.counts.caught}/${r.counts.violations}`}
-              sub={`${pct(r.counts.caught / r.counts.violations)} · 近似合规误报 ${r.counts.false_alarms}/${r.counts.near_misses} · 回合统计，不是质量指标`} />
+              sub={`${pct(r.counts.caught / r.counts.violations)} · 近似合规误报 ${r.counts.false_alarms}/${r.counts.near_misses}${r.rule_commits.length ? ` · 修复后 ${r.rule_commits[r.rule_commits.length - 1].caught}/${r.counts.violations}` : ""} · 回合统计，不是质量指标`} />
           ))}
           <Kpi label="模型审计：标签存疑" value={round.audit ? `${round.audit.disputed}/${round.audit.sampled}` : "—"}
             sub={round.audit ? `${round.id} 固定抽样 ${pct(round.audit.rate)} · ${round.auditor?.label?.split(" (")[0] ?? ""} · 不是人工复核` : "未运行"} />
           {firstBlind && (
             <Kpi label="盲测集 v2 片段 F1（唯一的质量数字）" value={pct(lastBlind.f1)}
-              sub={`P ${pct(lastBlind.precision)} · R ${pct(lastBlind.recall)} · 干净脚本误报 ${lastBlind.clean_flagged}/${lastBlind.clean} · ${short(lastBlind.commit)}；首跑 ${pct(firstBlind.f1)}`} />
+              sub={`P ${pct(lastBlind.precision)} · R ${pct(lastBlind.recall)} · 干净脚本误报 ${lastBlind.clean_flagged}/${lastBlind.clean} · ${short(lastBlind.commit)}；规则改动前首跑 ${pct(firstBlind.f1)}${sameCounts(firstBlind, lastBlind) && blind.length > 1 ? "，红队修复后没有变化" : ""}`} />
           )}
         </div>
       )}
@@ -207,6 +208,11 @@ export default function RedTeamPage() {
           <div className="card-head"><h3>盲测集 v2：唯一当作质量报告的数字</h3><span className="faint">{REPORT.blind?.set}</span></div>
           <div className="card-pad small muted stack">
             <span>60 条虚构脚本（18 条干净），由另一个模型家族（Claude Sonnet）只依据分类说明、标注口径和商品资料编写，在本轮任何规则改动之前提交；作者没有读过其中的脚本。指标是片段级 P / R / F1（同类型且 IoU ≥ 0.5），干净脚本误报写在旁边。</span>
+            {blind.length > 1 && sameCounts(firstBlind, lastBlind) && (
+              <span className="rt-finding">
+                <b>结论：</b>红队回合采纳的规则修改让生成说法的标出数明显上升，但在这个盲测集上一条预测都没有改变。规则学到的是生成模型的说法，没有学到另一位作者的说法；所以下面的回合统计不能当作质量提升来读。
+              </span>
+            )}
           </div>
           <div className="table-wrap">
             <table className="table metric-table rt-blind">
@@ -262,8 +268,8 @@ export default function RedTeamPage() {
                     return (
                       <tr key={c}>
                         <td>{catLabel(c)}</td>
-                        <td className="num nowrap">{x.caught}/{x.violations} → {caughtNow}</td>
-                        <td className="num nowrap">{x.false_alarms}/{x.near_misses} → {faNow}</td>
+                        <td className="num nowrap">{x.caught}/{x.violations} → {caughtNow}/{x.violations}</td>
+                        <td className="num nowrap">{x.false_alarms}/{x.near_misses} → {faNow}/{x.near_misses}</td>
                       </tr>
                     );
                   })}

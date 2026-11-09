@@ -603,3 +603,4 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
   .rt-try .btn { grid-column: 1 / -1; }
   .rt-item { padding: 12px; }
 }
+.rt-finding { display: block; padding: 8px 10px; border-left: 3px solid var(--warning); background: var(--warning-soft); color: var(--text); }

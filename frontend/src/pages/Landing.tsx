@@ -209,8 +209,12 @@ export default function Landing() {
                 {blindFirst && (
                   <tr>
                     <td>
-                      盲测集 v2 片段 P / R / F1（另一模型家族编写，规则改动前提交；首跑 <span className="mono">{blindFirst.commit.slice(0, 7)}</span>
-                      {blindLast !== blindFirst && <> → 红队修复后 <span className="mono">{blindLast.commit.slice(0, 7)}</span></>}；干净脚本误报 {blindLast.clean_flagged}/{blindLast.clean}）· <Link to="/redteam">红队回合</Link>
+                      盲测集 v2 片段 P / R / F1（干净脚本误报 {blindLast.clean_flagged}/{blindLast.clean}）
+                      <div className="faint">
+                        另一模型家族编写，规则改动前提交；首跑 <span className="mono">{blindFirst.commit.slice(0, 7)}</span>
+                        {blindLast !== blindFirst && <>，红队修复后 <span className="mono">{blindLast.commit.slice(0, 7)}</span></>}
+                      </div>
+                      <Link to="/redteam" className="small">查看红队回合 →</Link>
                     </td>
                     <td className="mono num">
                       {pct(blindFirst.precision)} / {pct(blindFirst.recall)} / {pct(blindFirst.f1)}
