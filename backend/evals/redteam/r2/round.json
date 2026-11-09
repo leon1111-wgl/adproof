@@ -1,0 +1,682 @@
+{
+ "round": "r2",
+ "created_at": "2026-11-09T21:05:24+00:00",
+ "seed": 2,
+ "per_product": 3,
+ "near_misses": 1,
+ "categories": [
+  "absolute_terms",
+  "authority_endorsement",
+  "medical_claims",
+  "effect_claims",
+  "unsourced_data",
+  "disparagement",
+  "guaranteed_returns",
+  "endorsement",
+  "patent_claims"
+ ],
+ "generator": {
+  "label": "GLM-4-9B-0414 Q4_K_M (zai-org, MIT; GGUF by unsloth)",
+  "url": "https://huggingface.co/unsloth/GLM-4-9B-0414-GGUF/resolve/40a17a0c8f24664ddd851dafd03935553c25a57e/GLM-4-9B-0414-Q4_K_M.gguf",
+  "sha256": "8027e1089273e8817b2df0d91c9aa17c5ea467246dcdacac34989f8919fe6540"
+ },
+ "throughput": {
+  "calls": 18,
+  "wall_s": 565.3,
+  "completion_tokens": 2023,
+  "prompt_tokens": 6948,
+  "generation_tok_s_median": 6.04,
+  "prompt_tok_s_median": 23.4
+ },
+ "items": [
+  {
+   "id": "r2-ABS-v1",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "这乳胶枕，用过的都说没比它更舒服的！",
+   "product_category": "home",
+   "sku": "EMMA-PILLOW"
+  },
+  {
+   "id": "r2-ABS-v2",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "每天睡这个，感觉我的颈椎都年轻了十岁呢。",
+   "product_category": "home",
+   "sku": "EMMA-PILLOW"
+  },
+  {
+   "id": "r2-ABS-v3",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "这可是我们测试过，能打满分的乳胶枕啊！",
+   "product_category": "home",
+   "sku": "EMMA-PILLOW"
+  },
+  {
+   "id": "r2-ABS-n1",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "near_miss",
+   "text": "我建议你们睡前用它，真的特别放松。",
+   "product_category": "home",
+   "sku": "EMMA-PILLOW"
+  },
+  {
+   "id": "r2-ABS-v4",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "用这个精华，皮肤亮到没朋友了，信我没错！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-ABS-v5",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "这烟酰胺浓度，绝对是市面上顶尖的那一批，不用试试？",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-ABS-v6",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "violation",
+   "text": "我闺蜜都夸我用了它，皮肤状态一天一个样，真的绝了！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-ABS-n2",
+   "source": "generated",
+   "category": "absolute_terms",
+   "kind": "near_miss",
+   "text": "建议晚上临睡前涂抹效果更佳哦~",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-AUT-v1",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "咱们这款高纤燕麦粉，可是卫生部的亲民之选哦！",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-AUT-v2",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "你听说了吗？专家说这个代餐粉，营养局都在偷偷囤！",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-AUT-v3",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "我妈说吃了这个，比部队食堂的早餐还健康呢！",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-AUT-n1",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "near_miss",
+   "text": "营养师建议每天早餐冲一杯，效果特别好哦。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-AUT-v4",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "这可是经过我们‘国家认证’的烟酰胺精华，用着放心！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-AUT-v5",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "听说专家都推荐这款烟酰胺精华，效果杠杠的！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-AUT-v6",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "violation",
+   "text": "我们家这款烟酰胺精华，‘国字头’品质，绝对靠谱！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-AUT-n2",
+   "source": "generated",
+   "category": "authority_endorsement",
+   "kind": "near_miss",
+   "text": "这款烟酰胺精华适合中性及混合性肌肤，建议晚上用。",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-MED-v1",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "这个红豆薏米茶，喝上几天，水肿小肚子都没了，简直是个小救星！",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-MED-v2",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "听说红豆薏米茶能‘排’掉湿气，我闺蜜喝了说感觉整个人都轻快了。",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-MED-v3",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "这个茶里都有芡实，对脾胃特别好，喝久了身体都暖和了。",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-MED-n1",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "near_miss",
+   "text": "建议晚上睡觉前喝一杯，助眠效果特别好。",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-MED-v4",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "用这条毛巾擦脸，皮肤过敏都好了，真神奇！",
+   "product_category": "home",
+   "sku": "EMMA-TOWEL"
+  },
+  {
+   "id": "r2-MED-v5",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "我奶奶说，这毛巾有‘去火气’的效果，亲测有效果。",
+   "product_category": "home",
+   "sku": "EMMA-TOWEL"
+  },
+  {
+   "id": "r2-MED-v6",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "violation",
+   "text": "听说这纯棉的能‘净化’毛孔，用了‘一小阵子’就感觉不一样了。",
+   "product_category": "home",
+   "sku": "EMMA-TOWEL"
+  },
+  {
+   "id": "r2-MED-n2",
+   "source": "generated",
+   "category": "medical_claims",
+   "kind": "near_miss",
+   "text": "建议晚上洁面后用它擦干，这样皮肤更好恢复。",
+   "product_category": "home",
+   "sku": "EMMA-TOWEL"
+  },
+  {
+   "id": "r2-EFF-v1",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "这65W充电器，用一次电都能充大半年，省心省力！",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-EFF-v2",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "跟你说个秘密，我这充电器速度，跟闪电似的，快到没话说。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-EFF-v3",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "我妈妈用了都说好，这充电器效率高，九成人都用习惯了。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-EFF-n1",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "near_miss",
+   "text": "晚上充电最好别用，容易发热，还是早上充效果好。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-EFF-v4",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "跟你说哦，我闺蜜喝了这代餐粉，小半年体重轻了二十斤呢！",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-EFF-v5",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "每次喝完感觉肚子暖暖的，膳食纤维促进肠道蠕动，三天就能看到变化。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-EFF-v6",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "violation",
+   "text": "这粉里奇亚籽超多，坚持喝九成能让你小肚子变小！",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-EFF-n2",
+   "source": "generated",
+   "category": "effect_claims",
+   "kind": "near_miss",
+   "text": "建议早上空腹冲泡，这样吸收效果更好哦。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-DAT-v1",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "这耳机降噪效果绝了，戴上后周围声音完全听不见，就像进了个无声世界，亲测有效果。",
+   "product_category": "digital",
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "r2-DAT-v2",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "咱们这款耳机续航超级给力，八个小时连续听歌一点不累，连我爸妈都用都说好。",
+   "product_category": "digital",
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "r2-DAT-v3",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "降噪深度达到35分贝，相当于在飞机上也能安心听歌，效果直接拉满。",
+   "product_category": "digital",
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "r2-DAT-n1",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "near_miss",
+   "text": "根据某科技媒体的评测，这款耳机续航表现优异，是同类产品中的佼佼者。",
+   "product_category": "digital",
+   "sku": "JACK-EARBUDS"
+  },
+  {
+   "id": "r2-DAT-v4",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "咱们这款红豆薏米茶，调理了超过80%的人，坚持喝都瘦了!",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-DAT-v5",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "听我妈说，她喝了这个茶，小半年体重轻了快10斤!",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-DAT-v6",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "violation",
+   "text": "每盒30袋，平均一天才一袋，性价比超高，九成人都能喝得起!",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-DAT-n2",
+   "source": "generated",
+   "category": "unsourced_data",
+   "kind": "near_miss",
+   "text": "根据《健康生活指南》2023年的数据，红豆薏米茶适合睡前饮用。",
+   "product_category": "food",
+   "sku": "NOAH-TEA"
+  },
+  {
+   "id": "r2-DIS-v1",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "这款充电器用过的都说比隔壁老王的强多了，都是119，但性能那叫一个天壤之别。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-DIS-v2",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "充电速度比市面上九成的充电器都快，你试试就知道谁好谁坏了，不骗你。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-DIS-v3",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "我爸妈用了别的牌子充电器，充电慢得像蜗牛，这65W快得像闪电一样，差距不是一点半点。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-DIS-n1",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "near_miss",
+   "text": "这个充电器最好睡前用，可以慢慢充，不容易醒。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-DIS-v4",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "跟隔壁那款比，人家才不是纯淀粉堆出来的，咱们这可是实打实的膳食纤维，吃了顶用多了。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-DIS-v5",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "我跟你说啊，我家楼下那家卖的根本不提营养，光会搞活动，哪有咱们这杯子里有料实在。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-DIS-v6",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "violation",
+   "text": "我闺蜜试过别家，说冲出来像泥水一样，跟咱们这顺滑细腻没法比，口感差远了去。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-DIS-n2",
+   "source": "generated",
+   "category": "disparagement",
+   "kind": "near_miss",
+   "text": "建议晚上吃完饭隔一会儿再喝，这样效果更明显哦。",
+   "product_category": "food",
+   "sku": "NOAH-OAT"
+  },
+  {
+   "id": "r2-RET-v1",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "跟完这套课，你收入最少翻三番，我亲戚都学完在接单了！",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-RET-v2",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "你只要认真学，小半年就能回本，去年学员平均就用了四个月。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-RET-v3",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "这门课学完，包你面试通过率提高一成，我同事家的孩子就靠它进了大厂。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-RET-n1",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "near_miss",
+   "text": "建议你每周都来答疑直播，这样学习效果最好。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-RET-v4",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "加入我们，轻松回本，让您的小店轻松月入过万！",
+   "product_category": "franchise",
+   "sku": "LEON-FRANCHISE"
+  },
+  {
+   "id": "r2-RET-v5",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "咱们这项目，一般人试个小半年就见红了，您放心！",
+   "product_category": "franchise",
+   "sku": "LEON-FRANCHISE"
+  },
+  {
+   "id": "r2-RET-v6",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "violation",
+   "text": "听我一位成功加盟商说，坚持经营一年，收益能翻倍呢！",
+   "product_category": "franchise",
+   "sku": "LEON-FRANCHISE"
+  },
+  {
+   "id": "r2-RET-n2",
+   "source": "generated",
+   "category": "guaranteed_returns",
+   "kind": "near_miss",
+   "text": "建议最好选择晚上客流大的时候开业，效果会更好。",
+   "product_category": "franchise",
+   "sku": "LEON-FRANCHISE"
+  },
+  {
+   "id": "r2-END-v1",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "听咱们大学营养学院的教授说，这维生素C咀嚼片是补维C的好帮手，小半年吃下来身体棒棒的。",
+   "product_category": "health_food",
+   "sku": "IRIS-VC"
+  },
+  {
+   "id": "r2-END-v2",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "我妈说，她认识个老中医，说这维C小助手对预防感冒挺管用，咱们每天一片就妥了。",
+   "product_category": "health_food",
+   "sku": "IRIS-VC"
+  },
+  {
+   "id": "r2-END-v3",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "上次听个字母头K教授讲座，提到补充维C对提升免疫力很有帮助，这瓶89块买不了吃亏买不了上当。",
+   "product_category": "health_food",
+   "sku": "IRIS-VC"
+  },
+  {
+   "id": "r2-END-n1",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "near_miss",
+   "text": "听说最好每天早上嚼一片，补充维C对提升活力很有帮助，就像早上喝杯牛奶一样简单。",
+   "product_category": "health_food",
+   "sku": "IRIS-VC"
+  },
+  {
+   "id": "r2-END-v4",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "这课程是X大退休教授亲自操刀的，包你学会!",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-END-v5",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "听我们这行业老专家说，这课学完至少赚九千块。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-END-v6",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "violation",
+   "text": "我表哥上完这课，直接进了XX公司当剪辑师。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-END-n2",
+   "source": "generated",
+   "category": "endorsement",
+   "kind": "near_miss",
+   "text": "这课程是官方认证的，第一次报名还能抽奖。",
+   "product_category": "education",
+   "sku": "LEON-COURSE"
+  },
+  {
+   "id": "r2-PAT-v1",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "这款充电器是特别研发的，大家都说用着特别快，像是加了什么特别的料一样。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-PAT-v2",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "我妈妈用后说，这款充电器充电速度跟别的充电器完全不一样，肯定是用到了什么独门绝技。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-PAT-v3",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "这款充电器充电速度那叫一个快，简直是九成九的充电器都比不上，不知道是用了什么高级技术。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-PAT-n1",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "near_miss",
+   "text": "晚上充电最好用这款，充电速度快，这样睡觉前就能充好。",
+   "product_category": "digital",
+   "sku": "JACK-CHARGER"
+  },
+  {
+   "id": "r2-PAT-v4",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "这烟酰胺焕亮精华是我们独创的，比市面上普通的提亮效果要好很多哦！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-PAT-v5",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "我妈妈用了一小段时间，皮肤真的变亮了，这可是我们家秘密配方！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-PAT-v6",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "violation",
+   "text": "这款精华的效果，大概能持续小半年呢，九成人用过后都有反馈！",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  },
+  {
+   "id": "r2-PAT-n2",
+   "source": "generated",
+   "category": "patent_claims",
+   "kind": "near_miss",
+   "text": "建议晚上睡前使用这款焕亮精华，效果更佳哦。",
+   "product_category": "cosmetics",
+   "sku": "MIA-SERUM"
+  }
+ ],
+ "dropped": []
+}
