@@ -40,20 +40,30 @@ describe("red-team rounds", () => {
         expect(lost.map((it) => it.id)).toEqual([]);
       });
 
-      it("every miss and false alarm has a decision; accepted ones are fixed", () => {
+      it("every miss and false alarm has a decision; accepted ones are fixed now", () => {
         const open = round.items.filter((it) => ["missed", "other", "false_alarm"].includes(it.outcome));
         for (const it of open) {
           expect(it.decision, `${it.id} has no decision`).not.toBeNull();
           expect(it.decision!.reason.length, `${it.id} reason`).toBeGreaterThan(3);
-          if (it.decision!.decision === "accept") expect(it.fixed_in, `${it.id} accepted but not fixed`).not.toBeNull();
+          if (it.decision!.decision === "accept") {
+            expect(it.fixed_in, `${it.id} accepted but not fixed`).not.toBeNull();
+            expect(it.now, `${it.id} accepted but not fixed by this build`).toBe(it.kind === "violation" ? "caught" : "clean");
+          }
         }
       });
 
-      it("a fix names its rule, and the rule cites only verified articles", () => {
+      it("whatever the page shows as fixed is fixed by this build", () => {
+        for (const it of round.items.filter((x) => x.fixed_in)) expect(it.now, it.id).toBe(it.kind === "violation" ? "caught" : "clean");
+      });
+
+      it("a fix names its rule, and the rule cites verified articles only", () => {
         for (const it of round.items.filter((x) => x.fixed_in && x.kind === "violation")) {
           expect(it.fixed_in!.rules.length, it.id).toBeGreaterThan(0);
           const s = score({ category: it.category, text: it.text, kind: "violation", product_category: it.product_category });
-          for (const f of s.findings.filter((f) => f.category === it.category)) expect(f.citations.length, it.id).toBeGreaterThan(0);
+          for (const f of s.findings.filter((f) => f.category === it.category)) {
+            expect(f.citations.length, it.id).toBeGreaterThan(0);
+            expect(f.pending, it.id).toEqual([]);
+          }
         }
       });
     });

@@ -195,5 +195,22 @@ def test_report_marks_which_rule_commit_fixed_which_miss(tmp_path):
     assert r["rule_commits"][0]["caught"] == 2 and r["rule_commits"][0]["false_alarms"] == 0
 
 
+def test_a_fix_undone_by_a_later_rule_commit_is_not_shown_as_fixed(tmp_path):
+    d = tmp_path / "r9"
+    write_json(d / "round.json", ROUND)
+    write_json(d / "scores.json", SCORES)
+    fixed = json.loads(json.dumps(SCORES))
+    fixed["engine"].update(commit="b" * 40, scored_at="2026-11-10T01:00:00Z")
+    fixed["items"]["r9-MED-v1"] = _score(True, True, [{"category": "medical_claims", "rule_id": "MED-06", "quote": "血压稳稳的", "citations": []}])
+    undone = json.loads(json.dumps(SCORES))
+    undone["engine"].update(commit="c" * 40, scored_at="2026-11-10T02:00:00Z")
+    # written out of time order on purpose: attribution follows scored_at, not file order
+    write_json(d / "rescores.json", [undone, fixed])
+    item = {i["id"]: i for i in report.build(tmp_path)["rounds"][0]["items"]}["r9-MED-v1"]
+    assert item["fixed_in"] is None and item["now"] == "missed"
+    write_json(d / "rescores.json", [fixed])
+    assert {i["id"]: i for i in report.build(tmp_path)["rounds"][0]["items"]}["r9-MED-v1"]["fixed_in"]["commit"] == "b" * 40
+
+
 def test_committed_page_data_is_current():
     assert report.check(), "run `python -m app.redteam report` and commit frontend/src/redteam-report.json"

@@ -30,7 +30,7 @@ export interface Score {
   caught: boolean | null;
   outcome: "caught" | "other" | "missed" | "clean" | "false_alarm";
   flagged: boolean;
-  findings: { category: string; rule_id: string | null; quote: string; citations: string[] }[];
+  findings: { category: string; rule_id: string | null; quote: string; citations: string[]; pending: string[] }[];
 }
 
 export function score(w: Wording): Score {
@@ -40,6 +40,7 @@ export function score(w: Wording): Score {
     rule_id: f.rule_id,
     quote: f.quote,
     citations: f.citations.filter((c) => c.status === "verified").map((c) => c.short_label),
+    pending: f.citations.filter((c) => c.status !== "verified").map((c) => c.short_label || c.label),
   }));
   const flagged = findings.length > 0;
   if ((w.kind ?? "violation") === "near_miss") return { caught: null, outcome: flagged ? "false_alarm" : "clean", flagged, findings };

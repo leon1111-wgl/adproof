@@ -25,17 +25,25 @@ def _maybe(path: Path):
     return read_json(path) if path.exists() else None
 
 
+def _ok(item: dict, s: dict) -> bool:
+    return bool(s["caught"]) if item["kind"] == "violation" else not s["flagged"]
+
+
 def fixed_in(item: dict, rescores: list[dict]) -> dict | None:
-    """The first rule commit after which a miss is caught (or a false alarm is no longer flagged)."""
-    for r in rescores:
+    """The rule commit from which a miss stays caught (or a false alarm stays unflagged) through the latest rescore.
+    A fix that a later rule commit undid is not a fix: then there is none. Rescores are taken in time order."""
+    ordered = sorted(rescores, key=lambda r: r["engine"].get("scored_at", ""))
+    found = None
+    for r in ordered:
         s = r["items"].get(item["id"])
         if s is None:
             continue
-        ok = s["caught"] if item["kind"] == "violation" else not s["flagged"]
-        if ok:
-            return {"commit": r["engine"]["commit"], "ruleset_version": r["engine"]["ruleset_version"],
-                    "rules": sorted({f["rule_id"] for f in s["findings"] if f["rule_id"] and f["category"] == item["category"]})}
-    return None
+        if not _ok(item, s):
+            found = None
+        elif found is None:
+            found = {"commit": r["engine"]["commit"], "ruleset_version": r["engine"]["ruleset_version"],
+                     "rules": sorted({f["rule_id"] for f in s["findings"] if f["rule_id"] and f["category"] == item["category"]})}
+    return found
 
 
 def build_round(d: Path) -> dict:
@@ -43,7 +51,7 @@ def build_round(d: Path) -> dict:
     scores = read_json(d / "scores.json")
     audit = _maybe(d / "audit.json")
     decisions = (_maybe(d / "decisions.json") or {}).get("items", {})
-    rescores = _maybe(d / "rescores.json") or []
+    rescores = sorted(_maybe(d / "rescores.json") or [], key=lambda r: r["engine"].get("scored_at", ""))
     run = _maybe(d / "run.json") or {}
     latest = rescores[-1] if rescores else None
     items = []

@@ -127,7 +127,7 @@ function TryOne() {
       </div>
       <p className="small muted">写一句你觉得规则会漏掉的带货话术。这里只按类目审查（不核对商品资料）；没被标出的说法就是一条漏检，规则修改要由作者单独提交。</p>
       <div className="rt-try">
-        <input className="input" aria-label="试一句话术" maxLength={200} value={text} placeholder="例如：喝了小半年，我爸体检单上的箭头都没了" onChange={(e) => { setText(e.target.value); setOut(null); }} />
+        <input className="input" aria-label="试一句话术" maxLength={200} value={text} placeholder="例如：喝了小半年，我爸体检单上的箭头都没了（这句目前就是一条漏检）" onChange={(e) => { setText(e.target.value); setOut(null); }} />
         <select className="select" aria-label="商品类目" value={pc} onChange={(e) => { setPc(e.target.value); setOut(null); }}>
           {Object.entries(pack.product_categories).filter(([k]) => k !== "general").map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
@@ -183,14 +183,16 @@ export default function RedTeamPage() {
       </div>
 
       <p className="rt-industry small">
-        业界做法：字节跳动巨量引擎的审核模型按条文给出结构化的拒审理由，自动修复的素材先交广告主确认才投放（
+        业界做法：字节跳动巨量引擎审核素材时按条文给出拒审理由和修改建议（
+        <a href="https://news.qq.com/rain/a/20251029A05SPO00" target="_blank" rel="noreferrer">腾讯新闻，2025-10-29</a>
+        ），其广告治理模型 Mamoda 2.5 自动修复的素材先交广告主确认才投放（
         <a href="https://news.sina.cn/ai/2026-07-09/detail-inihfpqs7466787.d.html" target="_blank" rel="noreferrer">新浪科技，2026-07-09</a>
         ）。本页的规则修复同样只是提案，逐条决定后单独提交。
       </p>
 
       {round && (
         <div className="grid grid-4">
-          {rounds.slice(0, 2).map((r) => (
+          {rounds.map((r) => (
             <Kpi key={r.id} label={`${r.id} 修复前标出（生成的违规说法）`} value={`${r.counts.caught}/${r.counts.violations}`}
               sub={`${pct(r.counts.caught / r.counts.violations)} · 近似合规误报 ${r.counts.false_alarms}/${r.counts.near_misses}${r.rule_commits.length ? ` · 修复后 ${r.rule_commits[r.rule_commits.length - 1].caught}/${r.counts.violations}` : ""} · 回合统计，不是质量指标`} />
           ))}
@@ -220,7 +222,7 @@ export default function RedTeamPage() {
               <tbody>
                 {blind.map((b) => (
                   <tr key={b.commit}>
-                    <td><Commit sha={b.commit} /></td>
+                    <td className="nowrap"><Commit sha={b.commit} /> <span className={`badge ${b.blind ? "badge-success" : "badge-warning"}`}>{b.blind ? "盲" : "非盲"}</span></td>
                     <td>{b.label}{b.blind ? "" : "（已看过，非盲）"}</td>
                     <td className="num">{pct(b.precision)}</td>
                     <td className="num">{pct(b.recall)}</td>
@@ -237,9 +239,9 @@ export default function RedTeamPage() {
       {!round ? <Empty>还没有录制的红队回合。</Empty> : (
         <>
           <div className="row row-wrap">
-            <div className="segmented" role="tablist" aria-label="回合">
+            <div className="segmented" role="group" aria-label="选择回合">
               {rounds.map((r) => (
-                <button key={r.id} role="tab" aria-selected={r.id === round.id} className={r.id === round.id ? "active" : ""} onClick={() => { setRid(r.id); setFilter("all"); }}>
+                <button key={r.id} aria-pressed={r.id === round.id} className={r.id === round.id ? "active" : ""} onClick={() => { setRid(r.id); setFilter("all"); }}>
                   {r.id} · {r.counts.caught}/{r.counts.violations}
                 </button>
               ))}
@@ -248,7 +250,7 @@ export default function RedTeamPage() {
 
           <div className="engine-note browser rt-provenance">
             <b>录制</b>
-            <span>回合 {round.id} · {round.created_at.slice(0, 10)} · 种子 {round.seed}</span>
+            <span>回合 {round.id} · 生成于 {round.created_at.slice(0, 16).replace("T", " ")} UTC · 种子 {round.seed}</span>
             <span>生成：{round.generator.label ?? "—"}</span>
             <span>引擎（修复前）：<Commit sha={round.engine.commit} /> · 规则库 {round.engine.ruleset_version}</span>
             {round.run.url && <a href={round.run.url} target="_blank" rel="noreferrer">Actions 运行 {round.run.id} <ExternalLink size={11} /></a>}
@@ -296,9 +298,9 @@ export default function RedTeamPage() {
           <div className="card">
             <div className="card-head rt-list-head">
               <h3>逐条（{items.length}）</h3>
-              <div className="segmented" aria-label="筛选">
+              <div className="segmented" role="group" aria-label="筛选">
                 {([["all", "全部"], ["missed", "漏检"], ["false_alarm", "误报"], ["fixed", "已修复"], ["rejected", "未采纳"]] as [Filter, string][]).map(([k, v]) => (
-                  <button key={k} className={filter === k ? "active" : ""} onClick={() => setFilter(k)}>{v}</button>
+                  <button key={k} aria-pressed={filter === k} className={filter === k ? "active" : ""} onClick={() => setFilter(k)}>{v}</button>
                 ))}
               </div>
             </div>

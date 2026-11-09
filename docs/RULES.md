@@ -5,7 +5,7 @@
 ### 顶层结构
 
 ```yaml
-version: "2026.11.07"
+version: "2026.11.10c"
 name: 广告合规基础规则库
 product_categories: {general: 通用, cosmetics: 美妆个护, food: 普通食品, health_food: 保健食品, ...}
 categories: [...]     # 违规分类：标签、默认风险、优先级、法律依据、罚则、默认改写方式
@@ -58,6 +58,14 @@ disclosures: [...]    # 必要声明（文档级）
 静态演示的浏览器引擎不带自己的规则：`cd backend && python ../scripts/build_browser_pack.py` 先用后端的 `RuleSet` 校验（含每条规则的正反例），再把规则、分类、必要声明、法条快照和离线语义模式导出成 `frontend/src/engine/pack.json`。改了 YAML 或快照之后要重建它，CI 的 `--check` 会在它过期时失败；`frontend/tests/parity.test.ts` 再确认浏览器和后端在 528 个输入上结果相同。
 
 写正则时注意：模式要同时在 Python `re` 和 JavaScript（`u` 标志）里成立。`\d` 会被翻译成 `\p{Nd}`；不要用 `\b`、`\w`、`(?P<name>)`、内联标志和占有量词。以数字开头的模式加 `(?<!\d)`，避免在长数字串上回溯（`frontend/tests/perf.test.ts` 会测）。
+
+### v1.2：红队回合带来的规则修改
+
+规则库 2026.11.10 / 2026.11.10b / 2026.11.10c 的改动来自两轮红队回合和一次发布审阅（逐条依据见 `backend/evals/redteam/r*/decisions.json` 与 [EVALUATION.md 第 7 节](EVALUATION.md#7-红队回合v12)）。约定：
+
+- 只进入已有分类，所以引用只来自已核对快照；没有核对过的规定（例如消费者协会不得推荐商品）对应的说法不采纳。
+- 新模式带正反例；`frontend/tests/lookalikes.json` 收录合规的近似说法（发布审阅、作者探测和回合里的近似说法），CI 要求一条都不标出。
+- 新增一条规则 **DAT-03**（“快一倍”类倍数说法无出处）：单独成规则，是为了在已经写了“测试显示”的句子、DAT-01 改写过的句子和物流时效的句子里不再标出。
 
 ### v1.1 新增分类：专业人士或代言人推荐
 

@@ -11,6 +11,7 @@ category policy and labels:
 
 from __future__ import annotations
 
+import hashlib
 import random
 
 from .common import TARGETS, LlamaServer, load_policy, policy_text
@@ -81,11 +82,13 @@ def audit_round(server: LlamaServer, round_data: dict, scores: dict, *, sample: 
             triage.append(item_id)
     todo = sorted(set(sampled) | set(triage))
     audited: dict[str, dict] = {}
-    for n, item_id in enumerate(todo):
+    for item_id in todo:
         item = items[item_id]
         pc = policy["product_categories"].get(item["product_category"], item["product_category"])
+        # the request for an item depends on the item only (not on which other items the engine missed)
+        seed = int(hashlib.sha256(item_id.encode()).hexdigest()[:8], 16)
         out = server.chat(system, USER.format(pc=pc, text=item["text"]), schema(categories), temperature=0.0,
-                          seed=7 + n, max_tokens=120)
+                          seed=seed, max_tokens=120)
         violates = [c for c in out.get("violates", []) if c in categories]
         audited[item_id] = {
             "kind": item["kind"], "category": item["category"], "violates": violates,

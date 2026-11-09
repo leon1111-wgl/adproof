@@ -10,7 +10,8 @@ name: Red-team round
 # law snapshot; the only number quoted as quality is span P/R/F1 on the sequestered blind set (evals/blind_v2.yaml).
 #
 # No key and no paid API: llama.cpp's server runs both models on the runner's CPU. Weights and the llama.cpp build are
-# pinned by URL and SHA-256, downloaded only on the runner and kept in the Actions cache.
+# pinned by URL and SHA-256, downloaded only on the runner and kept in the Actions cache (about 8.7 GB; caches are per
+# branch and the repository's cache limit is 10 GB, so a new redteam-run/* branch usually downloads again, ~13 min).
 #
 # Run it: Actions → Red-team round → Run workflow, or
 #   gh workflow run redteam.yml -f round=r9 -f seeds='[{"category":"medical_claims","text":"…","product_category":"food"}]'
@@ -119,7 +120,10 @@ jobs:
           bad = [c for c in cats.split(",") if c.strip() and c.strip() not in TARGETS]
           if bad:
               sys.exit(f"unknown categories: {bad}")
-          ints = {k: dflt if raw.get(k) in (None, "") else int(raw[k]) for k, dflt in (("seed", 1), ("per_product", 3), ("near_misses", 1), ("audit_sample", 24))}
+          try:
+              ints = {k: dflt if raw.get(k) in (None, "") else int(raw[k]) for k, dflt in (("seed", 1), ("per_product", 3), ("near_misses", 1), ("audit_sample", 24))}
+          except (TypeError, ValueError):
+              sys.exit("seed, per_product, near_misses and audit_sample must be whole numbers")
           if not (1 <= ints["per_product"] <= 6 and 0 <= ints["near_misses"] <= 3 and 0 <= ints["audit_sample"] <= 80):
               sys.exit("per_product 1–6, near_misses 0–3, audit_sample 0–80")
           seeds = parse_seeds(raw.get("seeds") or [], load_policy())
@@ -174,12 +178,13 @@ jobs:
           nproc; free -g
           nohup "$SERVER" -m ~/models/gen/"$GEN_FILE" -c 4096 -np 1 --host 127.0.0.1 --port 8080 --jinja > ../out/generator-server.log 2>&1 &
           echo $! > ../out/server.pid
+          trap 'kill "$(cat ../out/server.pid)" 2>/dev/null || true' EXIT  # free the port even if this step fails
           for i in $(seq 1 180); do curl -fs http://127.0.0.1:8080/health > /dev/null && { echo "ready after ${i}s"; break; }; sleep 1; done
           curl -fs http://127.0.0.1:8080/health
           python -m app.redteam generate --round "$ROUND" --seed "$SEED" --per-product "$PER" --near-misses "$NEAR" \
             --categories "$CATS" --seeds "$(cat ../out/seeds.json)" --model-label "$GEN_LABEL" --model-src "$GEN_URL" \
             --model-sha "$GEN_SHA256" --out ../out/round.json
-          kill "$(cat ../out/server.pid)"; sleep 2
+          kill "$(cat ../out/server.pid)"; sleep 2; trap - EXIT
 
       - name: Score with the browser engine at this commit (before any fix)
         working-directory: frontend
@@ -196,11 +201,12 @@ jobs:
           export LD_LIBRARY_PATH="$(dirname "$SERVER"):${LD_LIBRARY_PATH:-}"
           nohup "$SERVER" -m ~/models/aud/"$AUD_FILE" -c 4096 -np 1 --host 127.0.0.1 --port 8080 --jinja > ../out/auditor-server.log 2>&1 &
           echo $! > ../out/server.pid
+          trap 'kill "$(cat ../out/server.pid)" 2>/dev/null || true' EXIT  # free the port even if this step fails
           for i in $(seq 1 180); do curl -fs http://127.0.0.1:8080/health > /dev/null && { echo "ready after ${i}s"; break; }; sleep 1; done
           curl -fs http://127.0.0.1:8080/health
           python -m app.redteam audit --round-file ../out/round.json --scores ../out/scores.json --sample "$SAMPLE" \
             --model-label "$AUD_LABEL" --model-src "$AUD_URL" --model-sha "$AUD_SHA256" --out ../out/audit.json
-          kill "$(cat ../out/server.pid)"
+          kill "$(cat ../out/server.pid)"; trap - EXIT
 
       - name: Proposals and summary
         working-directory: backend
