@@ -7,6 +7,8 @@ By [Leon Wang](https://leon1111-wgl.github.io/)
 
 **Demo：<https://leon1111-wgl.github.io/adproof/>**（静态演示，打开即用：**粘贴自己的带货脚本或 SRT，在浏览器里直接审查**——标出片段、规则和已核对的法条原文，给出复审通过的改写稿，并按服务端规则模拟签发；不需要服务器、密钥或费用，脚本不上传。示例脚本回放后端的录制结果，每条结果都标明出自哪个引擎。完整服务按下文[快速开始](#快速开始)本地运行）
 
+**v1.2 · 红队回合**：开源模型（GLM-4-9B-0414，GitHub Actions 的 CPU 上运行，不需要密钥）每轮按违规分类写出新的规避说法和合规的近似说法，浏览器引擎在任何修复之前先审一遍；漏检变成规则提案，逐条决定后单独提交；另一家族的模型（Qwen3-4B）抽样审计生成标签；唯一当作质量报告的数字是另一个模型家族事先写好的盲测集。演示里的“红队回合”页展示每一轮的说法、标出与否、哪次规则提交修复了哪条漏检，也可以自己写一句试试。见 [评测第 7 节](docs/EVALUATION.md#7-红队回合v12)。
+
 **Code：<https://github.com/leon1111-wgl/adproof>** · 文档：[架构](docs/ARCHITECTURE.md) · [规则](docs/RULES.md) · [评测](docs/EVALUATION.md) · [部署](docs/DEPLOYMENT.md) · [前沿调研](docs/FRONTIER_REVIEW.md) · [更新记录](CHANGELOG.md)
 
 **每一处违规都能追溯到原文的第几个字、命中的哪条规则、哪部法律的哪一条原文；每一份改写稿都要再审一遍，最后由人签字。**
@@ -62,7 +64,7 @@ AdProof 面向抖音电商等短视频 / 直播带货场景：商家提交口播
 </tr>
 </table>
 
-另有深色模式（[截图](docs/assets/review-dark.png)）和登录页的四个演示账号。
+另有深色模式（[截图](docs/assets/review-dark.png)）和登录页的四个演示账号。v1.2 新增的“红队回合”页（控制台 §5）还没有截图。
 
 ## Multi-Agent 流水线
 
@@ -257,13 +259,14 @@ backend/
     review_service.py  审查生命周期：运行、逐条判定、复检、终审
   rules/          规则库 YAML
   laws/           已核对的法条快照（JSON）
-  evals/          评测集（YAML，内联字符级标注）
+  evals/          评测集（YAML，内联字符级标注）；blind_v2.yaml 是 v1.2 的盲测集；redteam/ 是每一轮的产物与决定
   seed/           虚构商品资料
   scripts/        法条快照在线复核脚本
   tests/          pytest
 frontend/src/     React 控制台（介绍页、工作台、批注稿与终审、规则库、评测报告、链路追踪）
 frontend/src/engine/  浏览器内审查引擎（后端流水线的移植）与 pack.json（由规则库和法条快照导出）
-frontend/tests/   vitest：与后端一致、覆盖用例、审查范围、模拟签发、恶意输入耗时
+frontend/tests/   vitest：与后端一致、覆盖用例、审查范围、模拟签发、恶意输入耗时、红队记录与引擎一致
+frontend/scripts/ redteam-score.ts：用浏览器引擎审一组说法（红队回合的打分，也可以审自己的说法）
 frontend/public/demo/  静态演示的录制数据（由 scripts/record_demo.py 生成）
 docs/             架构、评测、规则与法条、部署文档；截图；法条复核报告
 scripts/          静态演示录制、浏览器 pack 导出、一致性夹具导出、README 截图脚本（Playwright）
@@ -271,12 +274,13 @@ scripts/          静态演示录制、浏览器 pack 导出、一致性夹具�
 
 ## 技术栈
 
-Python 3.12 · FastAPI · SQLAlchemy 2 · SQLite · Pydantic · PyYAML · httpx · PyJWT · pytest · React 19 · TypeScript · Vite · Vitest · Playwright（截图）· Docker · GitHub Actions
+Python 3.12 · FastAPI · SQLAlchemy 2 · SQLite · Pydantic · PyYAML · httpx · PyJWT · pytest · React 19 · TypeScript · Vite · Vitest · Playwright（截图）· Docker · GitHub Actions · llama.cpp（红队回合，只在 Actions 上运行：GLM-4-9B-0414 生成、Qwen3-4B-Instruct-2507 审计，均为 Q4 GGUF）
 
 ## 路线图
 
 - [ ] 接入豆包 / 混元，在同一评测集上对比规则、模型、双通道的真实表现，并记录成本和延迟
-- [ ] 请第二个人独立标注 test 集，计算标注一致性（Cohen's κ）
+- [ ] 请第二个人独立标注 test 集，计算标注一致性（Cohen's κ）；红队回合的生成标签目前只有模型审计
+- [ ] 用已采纳的红队说法做样例，试浏览器内的“疑似”通道（bge-small-zh，只提示、不引法条），在新的盲测集上量收益
 - [ ] 视频画面与字幕对齐（OCR 贴片文字、口播 ASR），审查画面中的绝对化用语
 - [ ] 审核员误报标记自动生成规则修改建议（例外或否定语境），经评测门禁后再上线
 - [ ] 纳入平台商品发布规范和《广告绝对化用语执法指南》原文（核对后）
