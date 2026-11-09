@@ -1,0 +1,372 @@
+# SYNTHETIC blind set v2: written by a separate model from categories.md, format.md and products.json only; all brands, people and data fictional.
+items:
+  - id: b2-01
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      家人们这瓶精华我自己用了小半年，[[effect_claims|黑头毛孔全没了]]，用的还是[[patent_claims|专利提亮技术]]，素颜出门同事都问我是不是去做了项目。到手价129元。
+  - id: b2-02
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      烟酰胺含量[[fact_mismatch|10%]]的精华，今天到手价[[fact_mismatch|99元]]，30ml大瓶装，用一瓶[[effect_claims|斑点保证淡掉]]，中性混合皮闭眼入。
+  - id: b2-03
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      隔壁那个网红小瓶子，[[disparagement|成分表一半是水，根本就是智商税]]，我们这款才是真东西。据说[[unsourced_data|九成以上的用户用完一瓶都说提亮了]]。
+  - id: b2-04
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      第一次用的姐妹建议先在耳后试一下，晚上洗脸后取两三滴就够了。我们家这款是5%烟酰胺，30ml，到手价129元，好不好用你自己判断。
+  - id: b2-05
+    split: test
+    product: MIA-SERUM
+    marked: |-
+      皮肤敏感或者有伤口的话先别用，建议先在手腕内侧试用。我们这款含5%烟酰胺，不是什么神药，坚持用才可能看出变化。到手价129元，30ml。
+  - id: b2-06
+    split: test
+    product: MIA-SUNSCREEN
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      通勤防晒我们家就是[[absolute_terms|行业天花板]]
+
+      2
+      00:00:02,500 --> 00:00:05,000
+      SPF50+ PA++++，50ml的量很足
+
+      3
+      00:00:05,000 --> 00:00:07,500
+      今天直播间到手价[[fact_mismatch|69元]]
+  - id: b2-07
+    split: test
+    product: MIA-SUNSCREEN
+    marked: |-
+      涂上这个，[[effect_claims|暴晒一整天也不会黑]]，用的是[[patent_claims|专利防晒因子]]，海边玩一周回来照样白。
+  - id: b2-08
+    split: test
+    product: MIA-SUNSCREEN
+    marked: |-
+      通勤防晒指数是SPF50+ PA++++，质地轻薄，出汗多或者户外久待的话，最好每两小时补涂一次。50ml到手价89元。
+  - id: b2-09
+    split: test
+    product: MIA-SUNSCREEN
+    marked: |-
+      晒后红肿痒痛涂一层，[[medical_claims|跟药膏一样能消炎]]，宝宝也能用，50ml到手价89元。
+  - id: b2-10
+    split: test
+    product: MIA-SUNSCREEN
+    marked: |-
+      那个蓝胖子的防晒，[[disparagement|用了就烂脸，全是劣质货]]，我们这个才安全，通勤防晒[[absolute_terms|TOP1]]。
+  - id: b2-11
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      我爸有糖尿病，[[medical_claims|喝了两个月血糖就稳了]]，所以我说这是[[absolute_terms|全网最好喝的燕麦粉]]。
+  - id: b2-12
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      我们是[[patent_claims|专利配方]]，每份含膳食纤维[[fact_mismatch|12g]]，一袋500g，到手价59元。
+  - id: b2-13
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      每次30g加200ml温水，搅匀就能喝，每份含膳食纤维6g。这是代餐，不是药，别指望它替你解决所有问题，均衡饮食才是正事。500g一袋59元。
+  - id: b2-14
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      代餐粉用温水冲，水太烫容易结块，每次30g配200ml。第一次喝可能觉得有点粗糙，这是燕麦本身的口感。500g一袋，到手价59元。
+  - id: b2-15
+    split: test
+    product: NOAH-OAT
+    marked: |-
+      我同事早餐换成它，[[effect_claims|三周瘦了十斤]]，一袋500g冲30g就行，到手价59元。
+  - id: b2-16
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      喝一个月，[[medical_claims|脾胃虚寒的毛病就好了]]，还能[[effect_claims|保证一周肚子小一圈]]，三十袋一盒。
+  - id: b2-17
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      一盒[[fact_mismatch|60袋]]，红豆薏米芡实拼配，到手价39元。
+  - id: b2-18
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      红豆、薏米、芡实三样拼配，一盒30袋，到手价39元。口味偏淡，想浓一点可以多焖两分钟，仅作日常代用茶。
+  - id: b2-19
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      这款茶是[[authority_endorsement|某部委机关食堂的指定用茶]]，办公室一人一杯，红豆薏米芡实，三十袋一盒。
+  - id: b2-20
+    split: test
+    product: NOAH-TEA
+    marked: |-
+      [[unsourced_data|有研究表明，每天喝两袋的人睡眠质量提升了六成]]，所以我们才一直做这个茶，39元一盒。
+  - id: b2-21
+    split: test
+    product: IRIS-VC
+    marked: |-
+      [[endorsement|我们代言人Leon每天都吃它]]，[[effect_claims|吃完保证一整天不累]]，每日1片咀嚼食用。本品不能代替药物。
+  - id: b2-22
+    split: test
+    product: IRIS-VC
+    missing_disclosures: [DSC-01]
+    marked: |-
+      每日1片咀嚼，[[medical_claims|口腔溃疡吃几天就好了]]，[[endorsement|我们代言人Leon在剧组天天吃]]，60片一瓶。
+  - id: b2-23
+    split: test
+    product: IRIS-VC
+    missing_disclosures: [DSC-01]
+    marked: |-
+      一瓶[[fact_mismatch|120片]]，每日1片，[[effect_claims|保证三天见效]]，到手价89元。
+  - id: b2-24
+    split: test
+    product: IRIS-VC
+    marked: |-
+      补充维生素C，每日1片咀嚼食用，一瓶60片到手价89元。最好饭后吃，别空腹。本品不能代替药物，身体不舒服请去医院。
+  - id: b2-25
+    split: test
+    product: IRIS-VC
+    marked: |-
+      维C每日1片就够了，吃多了也不会更好，别当饭吃。咀嚼片，嚼碎了咽下去。60片一瓶，到手价89元。本品不能代替药物。
+  - id: b2-26
+    split: test
+    product: IRIS-PROBIOTIC
+    marked: |-
+      便秘多年的老粉喝了，[[medical_claims|一周就把便秘治好了]]，[[medical_claims|比吃药还管用]]，每天一袋温水冲服。
+  - id: b2-27
+    split: test
+    product: IRIS-PROBIOTIC
+    marked: |-
+      一盒[[fact_mismatch|30袋]]，每日1袋温水冲服，[[authority_endorsement|市场监管局给我们发过红榜推荐]]，今天[[fact_mismatch|99元]]带走。
+  - id: b2-28
+    split: test
+    product: IRIS-PROBIOTIC
+    marked: |-
+      每日1袋温水冲服，别用开水，太烫的水会影响口感。一盒20袋，到手价69元。它是普通食品，不能替代药品。
+  - id: b2-29
+    split: test
+    product: IRIS-PROBIOTIC
+    marked: |-
+      小绿瓶那家的益生菌，[[disparagement|就是糖粉加香精，喝了纯属交智商税]]，我们不玩这个，每日1袋就行。
+  - id: b2-30
+    split: test
+    product: IRIS-PROBIOTIC
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,000
+      益生菌我就认这款
+
+      2
+      00:00:02,000 --> 00:00:04,500
+      [[absolute_terms|全网活菌数第一]]
+
+      3
+      00:00:04,500 --> 00:00:07,000
+      每天一袋温水冲服，一盒20袋
+  - id: b2-31
+    split: test
+    product: JACK-EARBUDS
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      这款降噪耳机，降噪深度[[fact_mismatch|45dB]]
+
+      2
+      00:00:02,500 --> 00:00:05,500
+      单次续航[[fact_mismatch|12小时]]，配合充电盒30小时
+
+      3
+      00:00:05,500 --> 00:00:08,000
+      今天到手价299元
+  - id: b2-32
+    split: test
+    product: JACK-EARBUDS
+    marked: |-
+      戴上它，地铁里[[effect_claims|所有噪音都听不到]]，而且[[authority_endorsement|工信部给我们发过认证推荐]]，到手价299元。
+  - id: b2-33
+    split: test
+    product: JACK-EARBUDS
+    marked: |-
+      降噪深度35dB，单次续航8小时，配合充电盒能到30小时，到手价299元。降噪不是静音，路上过马路的时候记得摘一只耳机，注意安全。
+  - id: b2-34
+    split: test
+    product: JACK-EARBUDS
+    marked: |-
+      降噪这块，咱们用的是[[patent_claims|专利技术]]，[[absolute_terms|降噪效果全行业最强]]，到手价299元。
+  - id: b2-35
+    split: test
+    product: JACK-EARBUDS
+    marked: |-
+      降噪结构申请了实用新型专利，专利号ZL202520123456.7。入耳式戴太久耳朵会累，隔一两小时摘下来歇一歇。单次续航8小时。
+  - id: b2-36
+    split: test
+    product: JACK-CHARGER
+    marked: |-
+      最大输出功率65W，双口快充，笔记本和手机能一起充，到手价119元。具体充电速度还要看你设备本身支持的协议。
+  - id: b2-37
+    split: test
+    product: JACK-CHARGER
+    marked: |-
+      最大输出[[fact_mismatch|100W]]的氮化镓充电器，[[unsourced_data|调查显示八成数码博主都在用这款]]，还是[[absolute_terms|同价位最快]]的。
+  - id: b2-38
+    split: test
+    product: JACK-CHARGER
+    marked: |-
+      充电速度这块，我们是[[absolute_terms|史上最快]]的，靠的是[[patent_claims|专利快充技术]]，65W稳稳输出。
+  - id: b2-39
+    split: test
+    product: JACK-CHARGER
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      买充电器别只看价格
+
+      2
+      00:00:02,500 --> 00:00:06,000
+      [[unsourced_data|实测数据显示同样的手机比原装头快四成]]
+
+      3
+      00:00:06,000 --> 00:00:09,000
+      到手价119元，最大输出功率65W
+  - id: b2-40
+    split: test
+    product: JACK-CHARGER
+    marked: |-
+      之前那个黑砖头，[[disparagement|充一会就发烫，爆炸的新闻看过吧]]，我们这个65W稳稳的，到手价119元。
+  - id: b2-41
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      颈椎病的朋友睡一个月，[[medical_claims|颈椎就不疼了]]，靠的是[[patent_claims|专利波浪结构]]，到手价199元。
+  - id: b2-42
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      天然乳胶含量[[fact_mismatch|95%]]，睡过的人[[effect_claims|保证不再落枕]]，60cm×40cm的尺寸大多数人刚好。
+  - id: b2-43
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      乳胶含量85%，波浪形设计，尺寸60cm×40cm，到手价199元。每个人睡姿不同，高度合不合适，建议你自己躺着试一下。
+  - id: b2-44
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      护颈枕里的[[absolute_terms|天花板]]，[[effect_claims|保证一觉睡到天亮]]，到手价199元。
+  - id: b2-45
+    split: test
+    product: EMMA-PILLOW
+    marked: |-
+      这款枕头据说[[authority_endorsement|已经进了市政府办公室的采购清单]]，[[unsourced_data|做过测试，睡它的人入睡时间快了十五分钟]]。
+  - id: b2-46
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      3条装纯棉毛巾，材质100%棉，到手价49元。新毛巾第一次用前建议先洗一遍，吸水会更好。
+  - id: b2-47
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      我们邀请了[[authority_endorsement|社区民警同志穿着警服给大家推荐]]，100%棉，擦脸放心。
+  - id: b2-48
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      孩子红屁股、皮肤湿疹，用这条毛巾擦，[[medical_claims|湿疹两天就消]]，3条装49元。
+  - id: b2-49
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      纯棉毛巾一次给你[[fact_mismatch|5条]]，到手价才[[fact_mismatch|29元]]，[[effect_claims|洗一百次都不起球]]。
+  - id: b2-50
+    split: test
+    product: EMMA-TOWEL
+    marked: |-
+      三条装毛巾，100%棉，到手价49元。纯棉吸水好但是掉毛是正常的，前几次洗会有一点浮毛，洗两遍就好。
+  - id: b2-51
+    split: test
+    product: LEON-FRANCHISE
+    missing_disclosures: [DSC-02]
+    marked: |-
+      加盟我们的店，[[guaranteed_returns|半年之内保证回本]]，[[guaranteed_returns|亏了我们兜底]]，加盟费29800元。
+  - id: b2-52
+    split: test
+    product: LEON-FRANCHISE
+    marked: |-
+      加盟费29800元，门店建议40平方米以上。我们不承诺具体收益，收益受选址和经营情况影响，投资有风险，大家要量力而行。
+  - id: b2-53
+    split: test
+    product: LEON-FRANCHISE
+    marked: |-
+      加盟费只要[[fact_mismatch|19800元]]，门店[[fact_mismatch|20平方米]]就能开，[[guaranteed_returns|亏本我们赔]]。投资有风险，签约前请实地考察。
+  - id: b2-54
+    split: test
+    product: LEON-FRANCHISE
+    missing_disclosures: [DSC-02]
+    marked: |-
+      咱们是零食加盟的[[absolute_terms|行业第一品牌]]，跟着我们干，[[guaranteed_returns|躺着每个月赚一两万不是问题]]。
+  - id: b2-55
+    split: test
+    product: LEON-FRANCHISE
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      加盟费29800元
+
+      2
+      00:00:02,500 --> 00:00:05,500
+      门店建议40平方米以上
+
+      3
+      00:00:05,500 --> 00:00:09,000
+      收益受选址和经营情况影响，投资有风险
+  - id: b2-56
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      学完这32节课，[[guaranteed_returns|保证你月入过万]]，据统计[[unsourced_data|学员满意度高达98%]]，到手价199元。
+  - id: b2-57
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      这套课是[[endorsement|某传媒大学的教授亲自推荐的]]，学完[[guaranteed_returns|包你找到剪辑工作]]。
+  - id: b2-58
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      共32节录播课，每周1次直播答疑，到手价199元。能不能学出成果，要看你自己练多少，我们会按时更新课程内容。
+  - id: b2-59
+    split: test
+    product: LEON-COURSE
+    marked: |-
+      [[fact_mismatch|60节]]录播课，每周[[fact_mismatch|3次]]直播答疑，[[endorsement|某重点大学的讲师团联合出品]]，到手价199元。
+  - id: b2-60
+    split: test
+    product: LEON-COURSE
+    input_type: srt
+    marked: |-
+      1
+      00:00:00,000 --> 00:00:02,500
+      学完这套剪辑课
+
+      2
+      00:00:02,500 --> 00:00:06,000
+      [[guaranteed_returns|三个月内肯定接到商单变现]]
+
+      3
+      00:00:06,000 --> 00:00:09,500
+      比那些[[disparagement|拿着PPT割韭菜的野鸡培训班]]强太多，[[endorsement|业内知名导演都点赞推荐这套课]]
