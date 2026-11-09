@@ -36,6 +36,9 @@ importers:
       vite:
         specifier: ^6.3.5
         version: 6.4.4
+      vite-node:
+        specifier: 3.2.4
+        version: 3.2.4
       vitest:
         specifier: 3.2.4
         version: 3.2.4

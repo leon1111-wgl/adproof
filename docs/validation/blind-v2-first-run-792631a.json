@@ -1,0 +1,3441 @@
+{
+  "categories": [
+    "absolute_terms",
+    "authority_endorsement",
+    "medical_claims",
+    "effect_claims",
+    "unsourced_data",
+    "disparagement",
+    "guaranteed_returns",
+    "endorsement",
+    "patent_claims",
+    "fact_mismatch"
+  ],
+  "splits": {
+    "dev": {
+      "items": 0,
+      "span": {
+        "micro": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "macro_f1": 0.0,
+        "per_category": {
+          "absolute_terms": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "authority_endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "medical_claims": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "effect_claims": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "unsourced_data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "disparagement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "guaranteed_returns": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "patent_claims": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          },
+          "fact_mismatch": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "support": 0
+          }
+        }
+      },
+      "span_strict": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "localisation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "ablation": {
+        "rule": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "model": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "both": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "script_level": {
+        "violating": 0,
+        "detected": 0,
+        "detection_rate": null,
+        "clean": 0,
+        "clean_flagged": 0,
+        "false_alarm_rate": null
+      },
+      "disclosures": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "rewrite": {
+        "scripts": 0,
+        "passed": 0,
+        "withheld": 0,
+        "pass_rate": null,
+        "gold_spans": 0,
+        "gold_eliminated": 0,
+        "elimination_rate": null
+      },
+      "evidence": {
+        "findings_checked": 0,
+        "findings_valid": 0,
+        "validity": 1.0,
+        "citations": 0,
+        "citations_verified": 0,
+        "citation_verified_rate": 1.0,
+        "pending_basis": 0,
+        "rejected_model_quotes": 0
+      },
+      "channels": {},
+      "latency_ms": {
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test": {
+      "items": 60,
+      "span": {
+        "micro": {
+          "precision": 0.8378,
+          "recall": 0.3875,
+          "f1": 0.5299,
+          "tp": 31,
+          "fp": 6,
+          "fn": 49
+        },
+        "macro_f1": 0.3886,
+        "per_category": {
+          "absolute_terms": {
+            "precision": 1.0,
+            "recall": 0.7778,
+            "f1": 0.875,
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "support": 9
+          },
+          "authority_endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "support": 5
+          },
+          "medical_claims": {
+            "precision": 0.75,
+            "recall": 0.375,
+            "f1": 0.5,
+            "tp": 3,
+            "fp": 1,
+            "fn": 5,
+            "support": 8
+          },
+          "effect_claims": {
+            "precision": 1.0,
+            "recall": 0.1818,
+            "f1": 0.3077,
+            "tp": 2,
+            "fp": 0,
+            "fn": 9,
+            "support": 11
+          },
+          "unsourced_data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 4,
+            "fn": 6,
+            "support": 6
+          },
+          "disparagement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "support": 5
+          },
+          "guaranteed_returns": {
+            "precision": 1.0,
+            "recall": 0.2857,
+            "f1": 0.4444,
+            "tp": 2,
+            "fp": 0,
+            "fn": 5,
+            "support": 7
+          },
+          "endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 5,
+            "support": 5
+          },
+          "patent_claims": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "fact_mismatch": {
+            "precision": 1.0,
+            "recall": 0.6111,
+            "f1": 0.7586,
+            "tp": 11,
+            "fp": 0,
+            "fn": 7,
+            "support": 18
+          }
+        }
+      },
+      "span_strict": {
+        "precision": 0.6216,
+        "recall": 0.2875,
+        "f1": 0.3932,
+        "tp": 23,
+        "fp": 14,
+        "fn": 57
+      },
+      "localisation": {
+        "precision": 0.8378,
+        "recall": 0.3875,
+        "f1": 0.5299,
+        "tp": 31,
+        "fp": 6,
+        "fn": 49
+      },
+      "ablation": {
+        "rule": {
+          "precision": 0.8333,
+          "recall": 0.375,
+          "f1": 0.5172,
+          "tp": 30,
+          "fp": 6,
+          "fn": 50
+        },
+        "model": {
+          "precision": 1.0,
+          "recall": 0.0125,
+          "f1": 0.0247,
+          "tp": 1,
+          "fp": 0,
+          "fn": 79
+        },
+        "both": {
+          "precision": 0.8378,
+          "recall": 0.3875,
+          "f1": 0.5299,
+          "tp": 31,
+          "fp": 6,
+          "fn": 49
+        }
+      },
+      "script_level": {
+        "violating": 42,
+        "detected": 24,
+        "detection_rate": 0.5714,
+        "clean": 18,
+        "clean_flagged": 0,
+        "false_alarm_rate": 0.0
+      },
+      "disclosures": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 4,
+        "fp": 0,
+        "fn": 0
+      },
+      "rewrite": {
+        "scripts": 42,
+        "passed": 39,
+        "withheld": 3,
+        "pass_rate": 0.9286,
+        "gold_spans": 80,
+        "gold_eliminated": 37,
+        "elimination_rate": 0.4625
+      },
+      "evidence": {
+        "findings_checked": 37,
+        "findings_valid": 37,
+        "validity": 1.0,
+        "citations": 96,
+        "citations_verified": 96,
+        "citation_verified_rate": 1.0,
+        "pending_basis": 0,
+        "rejected_model_quotes": 0
+      },
+      "channels": {
+        "rule": 25,
+        "fact": 11,
+        "llm": 1
+      },
+      "latency_ms": {
+        "p50": 0.4,
+        "p95": 0.9
+      }
+    },
+    "all": {
+      "items": 60,
+      "span": {
+        "micro": {
+          "precision": 0.8378,
+          "recall": 0.3875,
+          "f1": 0.5299,
+          "tp": 31,
+          "fp": 6,
+          "fn": 49
+        },
+        "macro_f1": 0.3886,
+        "per_category": {
+          "absolute_terms": {
+            "precision": 1.0,
+            "recall": 0.7778,
+            "f1": 0.875,
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "support": 9
+          },
+          "authority_endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "support": 5
+          },
+          "medical_claims": {
+            "precision": 0.75,
+            "recall": 0.375,
+            "f1": 0.5,
+            "tp": 3,
+            "fp": 1,
+            "fn": 5,
+            "support": 8
+          },
+          "effect_claims": {
+            "precision": 1.0,
+            "recall": 0.1818,
+            "f1": 0.3077,
+            "tp": 2,
+            "fp": 0,
+            "fn": 9,
+            "support": 11
+          },
+          "unsourced_data": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 4,
+            "fn": 6,
+            "support": 6
+          },
+          "disparagement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "support": 5
+          },
+          "guaranteed_returns": {
+            "precision": 1.0,
+            "recall": 0.2857,
+            "f1": 0.4444,
+            "tp": 2,
+            "fp": 0,
+            "fn": 5,
+            "support": 7
+          },
+          "endorsement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 5,
+            "support": 5
+          },
+          "patent_claims": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "support": 6
+          },
+          "fact_mismatch": {
+            "precision": 1.0,
+            "recall": 0.6111,
+            "f1": 0.7586,
+            "tp": 11,
+            "fp": 0,
+            "fn": 7,
+            "support": 18
+          }
+        }
+      },
+      "span_strict": {
+        "precision": 0.6216,
+        "recall": 0.2875,
+        "f1": 0.3932,
+        "tp": 23,
+        "fp": 14,
+        "fn": 57
+      },
+      "localisation": {
+        "precision": 0.8378,
+        "recall": 0.3875,
+        "f1": 0.5299,
+        "tp": 31,
+        "fp": 6,
+        "fn": 49
+      },
+      "ablation": {
+        "rule": {
+          "precision": 0.8333,
+          "recall": 0.375,
+          "f1": 0.5172,
+          "tp": 30,
+          "fp": 6,
+          "fn": 50
+        },
+        "model": {
+          "precision": 1.0,
+          "recall": 0.0125,
+          "f1": 0.0247,
+          "tp": 1,
+          "fp": 0,
+          "fn": 79
+        },
+        "both": {
+          "precision": 0.8378,
+          "recall": 0.3875,
+          "f1": 0.5299,
+          "tp": 31,
+          "fp": 6,
+          "fn": 49
+        }
+      },
+      "script_level": {
+        "violating": 42,
+        "detected": 24,
+        "detection_rate": 0.5714,
+        "clean": 18,
+        "clean_flagged": 0,
+        "false_alarm_rate": 0.0
+      },
+      "disclosures": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 4,
+        "fp": 0,
+        "fn": 0
+      },
+      "rewrite": {
+        "scripts": 42,
+        "passed": 39,
+        "withheld": 3,
+        "pass_rate": 0.9286,
+        "gold_spans": 80,
+        "gold_eliminated": 37,
+        "elimination_rate": 0.4625
+      },
+      "evidence": {
+        "findings_checked": 37,
+        "findings_valid": 37,
+        "validity": 1.0,
+        "citations": 96,
+        "citations_verified": 96,
+        "citation_verified_rate": 1.0,
+        "pending_basis": 0,
+        "rejected_model_quotes": 0
+      },
+      "channels": {
+        "rule": 25,
+        "fact": 11,
+        "llm": 1
+      },
+      "latency_ms": {
+        "p50": 0.4,
+        "p95": 0.9
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "b2-01",
+      "split": "test",
+      "product": "MIA-SERUM",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "家人们这瓶精华我自己用了小半年，黑头毛孔全没了，用的还是专利提亮技术，素颜出门同事都问我是不是去做了项目。到手价129元。",
+      "gold": [
+        {
+          "category": "effect_claims",
+          "start": 16,
+          "end": 23,
+          "text": "黑头毛孔全没了"
+        },
+        {
+          "category": "patent_claims",
+          "start": 28,
+          "end": 34,
+          "text": "专利提亮技术"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "patent_claims",
+          "start": 28,
+          "end": 34,
+          "quote": "专利提亮技术",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "家人们这瓶精华我自己用了小半年，黑头毛孔全没了，素颜出门同事都问我是不是去做了项目。到手价129元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 3.02
+    },
+    {
+      "id": "b2-02",
+      "split": "test",
+      "product": "MIA-SERUM",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "烟酰胺含量10%的精华，今天到手价99元，30ml大瓶装，用一瓶斑点保证淡掉，中性混合皮闭眼入。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 5,
+          "end": 8,
+          "text": "10%"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 17,
+          "end": 20,
+          "text": "99元"
+        },
+        {
+          "category": "effect_claims",
+          "start": 32,
+          "end": 38,
+          "text": "斑点保证淡掉"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 5,
+          "end": 8,
+          "quote": "10%",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        },
+        {
+          "key": "F2",
+          "category": "fact_mismatch",
+          "start": 17,
+          "end": 20,
+          "quote": "99元",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "烟酰胺含量5%的精华，今天到手价129元，30ml大瓶装，用一瓶斑点保证淡掉，中性混合皮闭眼入。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.95
+    },
+    {
+      "id": "b2-03",
+      "split": "test",
+      "product": "MIA-SERUM",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "隔壁那个网红小瓶子，成分表一半是水，根本就是智商税，我们这款才是真东西。据说九成以上的用户用完一瓶都说提亮了。",
+      "gold": [
+        {
+          "category": "disparagement",
+          "start": 10,
+          "end": 25,
+          "text": "成分表一半是水，根本就是智商税"
+        },
+        {
+          "category": "unsourced_data",
+          "start": 38,
+          "end": 54,
+          "text": "九成以上的用户用完一瓶都说提亮了"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "unsourced_data",
+          "start": 38,
+          "end": 45,
+          "quote": "九成以上的用户",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "DAT-01"
+        }
+      ],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [
+        0
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": false,
+        "withheld": true,
+        "withheld_reasons": [
+          "改写后仍有贬低性的说法：智商税"
+        ],
+        "rounds": 1,
+        "text": "隔壁那个网红小瓶子，成分表一半是水，根本就是智商税，我们这款才是真东西。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.89
+    },
+    {
+      "id": "b2-04",
+      "split": "test",
+      "product": "MIA-SERUM",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "第一次用的姐妹建议先在耳后试一下，晚上洗脸后取两三滴就够了。我们家这款是5%烟酰胺，30ml，到手价129元，好不好用你自己判断。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "第一次用的姐妹建议先在耳后试一下，晚上洗脸后取两三滴就够了。我们家这款是5%烟酰胺，30ml，到手价129元，好不好用你自己判断。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.39
+    },
+    {
+      "id": "b2-05",
+      "split": "test",
+      "product": "MIA-SERUM",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "皮肤敏感或者有伤口的话先别用，建议先在手腕内侧试用。我们这款含5%烟酰胺，不是什么神药，坚持用才可能看出变化。到手价129元，30ml。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "皮肤敏感或者有伤口的话先别用，建议先在手腕内侧试用。我们这款含5%烟酰胺，不是什么神药，坚持用才可能看出变化。到手价129元，30ml。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.38
+    },
+    {
+      "id": "b2-06",
+      "split": "test",
+      "product": "MIA-SUNSCREEN",
+      "product_category": "cosmetics",
+      "input_type": "srt",
+      "tags": [],
+      "text": "通勤防晒我们家就是行业天花板\nSPF50+ PA++++，50ml的量很足\n今天直播间到手价69元",
+      "gold": [
+        {
+          "category": "absolute_terms",
+          "start": 9,
+          "end": 14,
+          "text": "行业天花板"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 46,
+          "end": 49,
+          "text": "69元"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "absolute_terms",
+          "start": 11,
+          "end": 14,
+          "quote": "天花板",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-04"
+        },
+        {
+          "key": "F2",
+          "category": "fact_mismatch",
+          "start": 46,
+          "end": 49,
+          "quote": "69元",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "通勤防晒我们家就是行业口碑款\nSPF50+ PA++++，50ml的量很足\n今天直播间到手价89元",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.94
+    },
+    {
+      "id": "b2-07",
+      "split": "test",
+      "product": "MIA-SUNSCREEN",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "涂上这个，暴晒一整天也不会黑，用的是专利防晒因子，海边玩一周回来照样白。",
+      "gold": [
+        {
+          "category": "effect_claims",
+          "start": 5,
+          "end": 14,
+          "text": "暴晒一整天也不会黑"
+        },
+        {
+          "category": "patent_claims",
+          "start": 18,
+          "end": 24,
+          "text": "专利防晒因子"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "patent_claims",
+          "start": 18,
+          "end": 24,
+          "quote": "专利防晒因子",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "涂上这个，暴晒一整天也不会黑，海边玩一周回来照样白。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.67
+    },
+    {
+      "id": "b2-08",
+      "split": "test",
+      "product": "MIA-SUNSCREEN",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "通勤防晒指数是SPF50+ PA++++，质地轻薄，出汗多或者户外久待的话，最好每两小时补涂一次。50ml到手价89元。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "通勤防晒指数是SPF50+ PA++++，质地轻薄，出汗多或者户外久待的话，最好每两小时补涂一次。50ml到手价89元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.35
+    },
+    {
+      "id": "b2-09",
+      "split": "test",
+      "product": "MIA-SUNSCREEN",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "晒后红肿痒痛涂一层，跟药膏一样能消炎，宝宝也能用，50ml到手价89元。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 10,
+          "end": 18,
+          "text": "跟药膏一样能消炎"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "medical_claims",
+          "start": 16,
+          "end": 18,
+          "quote": "消炎",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "MED-01"
+        }
+      ],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [
+        0
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "晒后红肿痒痛涂一层，跟药膏一样能舒缓，宝宝也能用，50ml到手价89元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.67
+    },
+    {
+      "id": "b2-10",
+      "split": "test",
+      "product": "MIA-SUNSCREEN",
+      "product_category": "cosmetics",
+      "input_type": "text",
+      "tags": [],
+      "text": "那个蓝胖子的防晒，用了就烂脸，全是劣质货，我们这个才安全，通勤防晒TOP1。",
+      "gold": [
+        {
+          "category": "disparagement",
+          "start": 9,
+          "end": 20,
+          "text": "用了就烂脸，全是劣质货"
+        },
+        {
+          "category": "absolute_terms",
+          "start": 33,
+          "end": 37,
+          "text": "TOP1"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "absolute_terms",
+          "start": 33,
+          "end": 37,
+          "quote": "TOP1",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-03"
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": false,
+        "withheld": true,
+        "withheld_reasons": [
+          "改写后仍有贬低性的说法：劣质"
+        ],
+        "rounds": 1,
+        "text": "那个蓝胖子的防晒，用了就烂脸，全是劣质货，我们这个才安全，通勤防晒人气款。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.67
+    },
+    {
+      "id": "b2-11",
+      "split": "test",
+      "product": "NOAH-OAT",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "我爸有糖尿病，喝了两个月血糖就稳了，所以我说这是全网最好喝的燕麦粉。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 7,
+          "end": 17,
+          "text": "喝了两个月血糖就稳了"
+        },
+        {
+          "category": "absolute_terms",
+          "start": 24,
+          "end": 33,
+          "text": "全网最好喝的燕麦粉"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "medical_claims",
+          "start": 7,
+          "end": 17,
+          "quote": "喝了两个月血糖就稳了",
+          "channels": [
+            "llm"
+          ],
+          "rule_id": null
+        },
+        {
+          "key": "F2",
+          "category": "absolute_terms",
+          "start": 24,
+          "end": 29,
+          "quote": "全网最好喝",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-01"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "我爸有糖尿病，所以我说这是很好喝的燕麦粉。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.87
+    },
+    {
+      "id": "b2-12",
+      "split": "test",
+      "product": "NOAH-OAT",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "我们是专利配方，每份含膳食纤维12g，一袋500g，到手价59元。",
+      "gold": [
+        {
+          "category": "patent_claims",
+          "start": 3,
+          "end": 7,
+          "text": "专利配方"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 15,
+          "end": 18,
+          "text": "12g"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "patent_claims",
+          "start": 3,
+          "end": 7,
+          "quote": "专利配方",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        },
+        {
+          "key": "F2",
+          "category": "fact_mismatch",
+          "start": 15,
+          "end": 18,
+          "quote": "12g",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "每份含膳食纤维6g，一袋500g，到手价59元。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.78
+    },
+    {
+      "id": "b2-13",
+      "split": "test",
+      "product": "NOAH-OAT",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "每次30g加200ml温水，搅匀就能喝，每份含膳食纤维6g。这是代餐，不是药，别指望它替你解决所有问题，均衡饮食才是正事。500g一袋59元。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "每次30g加200ml温水，搅匀就能喝，每份含膳食纤维6g。这是代餐，不是药，别指望它替你解决所有问题，均衡饮食才是正事。500g一袋59元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.39
+    },
+    {
+      "id": "b2-14",
+      "split": "test",
+      "product": "NOAH-OAT",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "代餐粉用温水冲，水太烫容易结块，每次30g配200ml。第一次喝可能觉得有点粗糙，这是燕麦本身的口感。500g一袋，到手价59元。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "代餐粉用温水冲，水太烫容易结块，每次30g配200ml。第一次喝可能觉得有点粗糙，这是燕麦本身的口感。500g一袋，到手价59元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.38
+    },
+    {
+      "id": "b2-15",
+      "split": "test",
+      "product": "NOAH-OAT",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "我同事早餐换成它，三周瘦了十斤，一袋500g冲30g就行，到手价59元。",
+      "gold": [
+        {
+          "category": "effect_claims",
+          "start": 9,
+          "end": 15,
+          "text": "三周瘦了十斤"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "effect_claims",
+          "start": 9,
+          "end": 15,
+          "quote": "三周瘦了十斤",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "EFF-02"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "我同事早餐换成它，一袋500g冲30g就行，到手价59元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.72
+    },
+    {
+      "id": "b2-16",
+      "split": "test",
+      "product": "NOAH-TEA",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "喝一个月，脾胃虚寒的毛病就好了，还能保证一周肚子小一圈，三十袋一盒。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 5,
+          "end": 15,
+          "text": "脾胃虚寒的毛病就好了"
+        },
+        {
+          "category": "effect_claims",
+          "start": 18,
+          "end": 27,
+          "text": "保证一周肚子小一圈"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "喝一个月，脾胃虚寒的毛病就好了，还能保证一周肚子小一圈，三十袋一盒。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.31
+    },
+    {
+      "id": "b2-17",
+      "split": "test",
+      "product": "NOAH-TEA",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "一盒60袋，红豆薏米芡实拼配，到手价39元。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 2,
+          "end": 5,
+          "text": "60袋"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "一盒60袋，红豆薏米芡实拼配，到手价39元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.29
+    },
+    {
+      "id": "b2-18",
+      "split": "test",
+      "product": "NOAH-TEA",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "红豆、薏米、芡实三样拼配，一盒30袋，到手价39元。口味偏淡，想浓一点可以多焖两分钟，仅作日常代用茶。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "红豆、薏米、芡实三样拼配，一盒30袋，到手价39元。口味偏淡，想浓一点可以多焖两分钟，仅作日常代用茶。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.31
+    },
+    {
+      "id": "b2-19",
+      "split": "test",
+      "product": "NOAH-TEA",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "这款茶是某部委机关食堂的指定用茶，办公室一人一杯，红豆薏米芡实，三十袋一盒。",
+      "gold": [
+        {
+          "category": "authority_endorsement",
+          "start": 4,
+          "end": 16,
+          "text": "某部委机关食堂的指定用茶"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "这款茶是某部委机关食堂的指定用茶，办公室一人一杯，红豆薏米芡实，三十袋一盒。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.3
+    },
+    {
+      "id": "b2-20",
+      "split": "test",
+      "product": "NOAH-TEA",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "有研究表明，每天喝两袋的人睡眠质量提升了六成，所以我们才一直做这个茶，39元一盒。",
+      "gold": [
+        {
+          "category": "unsourced_data",
+          "start": 0,
+          "end": 22,
+          "text": "有研究表明，每天喝两袋的人睡眠质量提升了六成"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "unsourced_data",
+          "start": 1,
+          "end": 5,
+          "quote": "研究表明",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "DAT-01"
+        }
+      ],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [
+        0
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "有从我们的使用体验看，每天喝两袋的人睡眠质量提升了六成，所以我们才一直做这个茶，39元一盒。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.77
+    },
+    {
+      "id": "b2-21",
+      "split": "test",
+      "product": "IRIS-VC",
+      "product_category": "health_food",
+      "input_type": "text",
+      "tags": [],
+      "text": "我们代言人Leon每天都吃它，吃完保证一整天不累，每日1片咀嚼食用。本品不能代替药物。",
+      "gold": [
+        {
+          "category": "endorsement",
+          "start": 0,
+          "end": 14,
+          "text": "我们代言人Leon每天都吃它"
+        },
+        {
+          "category": "effect_claims",
+          "start": 15,
+          "end": 24,
+          "text": "吃完保证一整天不累"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "我们代言人Leon每天都吃它，吃完保证一整天不累，每日1片咀嚼食用。本品不能代替药物。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.37
+    },
+    {
+      "id": "b2-22",
+      "split": "test",
+      "product": "IRIS-VC",
+      "product_category": "health_food",
+      "input_type": "text",
+      "tags": [],
+      "text": "每日1片咀嚼，口腔溃疡吃几天就好了，我们代言人Leon在剧组天天吃，60片一瓶。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 7,
+          "end": 17,
+          "text": "口腔溃疡吃几天就好了"
+        },
+        {
+          "category": "endorsement",
+          "start": 18,
+          "end": 33,
+          "text": "我们代言人Leon在剧组天天吃"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [
+          "DSC-01"
+        ],
+        "pred_missing": [
+          "DSC-01"
+        ]
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "每日1片咀嚼，口腔溃疡吃几天就好了，我们代言人Leon在剧组天天吃，60片一瓶。本品不能代替药物。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.76
+    },
+    {
+      "id": "b2-23",
+      "split": "test",
+      "product": "IRIS-VC",
+      "product_category": "health_food",
+      "input_type": "text",
+      "tags": [],
+      "text": "一瓶120片，每日1片，保证三天见效，到手价89元。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 2,
+          "end": 6,
+          "text": "120片"
+        },
+        {
+          "category": "effect_claims",
+          "start": 12,
+          "end": 18,
+          "text": "保证三天见效"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "effect_claims",
+          "start": 12,
+          "end": 18,
+          "quote": "保证三天见效",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "EFF-01"
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [
+          "DSC-01"
+        ],
+        "pred_missing": [
+          "DSC-01"
+        ]
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "一瓶120片，每日1片，到手价89元。本品不能代替药物。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.73
+    },
+    {
+      "id": "b2-24",
+      "split": "test",
+      "product": "IRIS-VC",
+      "product_category": "health_food",
+      "input_type": "text",
+      "tags": [],
+      "text": "补充维生素C，每日1片咀嚼食用，一瓶60片到手价89元。最好饭后吃，别空腹。本品不能代替药物，身体不舒服请去医院。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "补充维生素C，每日1片咀嚼食用，一瓶60片到手价89元。最好饭后吃，别空腹。本品不能代替药物，身体不舒服请去医院。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.38
+    },
+    {
+      "id": "b2-25",
+      "split": "test",
+      "product": "IRIS-VC",
+      "product_category": "health_food",
+      "input_type": "text",
+      "tags": [],
+      "text": "维C每日1片就够了，吃多了也不会更好，别当饭吃。咀嚼片，嚼碎了咽下去。60片一瓶，到手价89元。本品不能代替药物。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "维C每日1片就够了，吃多了也不会更好，别当饭吃。咀嚼片，嚼碎了咽下去。60片一瓶，到手价89元。本品不能代替药物。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.38
+    },
+    {
+      "id": "b2-26",
+      "split": "test",
+      "product": "IRIS-PROBIOTIC",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "便秘多年的老粉喝了，一周就把便秘治好了，比吃药还管用，每天一袋温水冲服。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 10,
+          "end": 19,
+          "text": "一周就把便秘治好了"
+        },
+        {
+          "category": "medical_claims",
+          "start": 20,
+          "end": 26,
+          "text": "比吃药还管用"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "medical_claims",
+          "start": 14,
+          "end": 19,
+          "quote": "便秘治好了",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "MED-04"
+        },
+        {
+          "key": "F2",
+          "category": "medical_claims",
+          "start": 20,
+          "end": 23,
+          "quote": "比吃药",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "MED-03"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "便秘多年的老粉喝了，每天一袋温水冲服。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.67
+    },
+    {
+      "id": "b2-27",
+      "split": "test",
+      "product": "IRIS-PROBIOTIC",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "一盒30袋，每日1袋温水冲服，市场监管局给我们发过红榜推荐，今天99元带走。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 2,
+          "end": 5,
+          "text": "30袋"
+        },
+        {
+          "category": "authority_endorsement",
+          "start": 15,
+          "end": 29,
+          "text": "市场监管局给我们发过红榜推荐"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 32,
+          "end": 35,
+          "text": "99元"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1,
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "一盒30袋，每日1袋温水冲服，市场监管局给我们发过红榜推荐，今天99元带走。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.37
+    },
+    {
+      "id": "b2-28",
+      "split": "test",
+      "product": "IRIS-PROBIOTIC",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "每日1袋温水冲服，别用开水，太烫的水会影响口感。一盒20袋，到手价69元。它是普通食品，不能替代药品。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "每日1袋温水冲服，别用开水，太烫的水会影响口感。一盒20袋，到手价69元。它是普通食品，不能替代药品。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.32
+    },
+    {
+      "id": "b2-29",
+      "split": "test",
+      "product": "IRIS-PROBIOTIC",
+      "product_category": "food",
+      "input_type": "text",
+      "tags": [],
+      "text": "小绿瓶那家的益生菌，就是糖粉加香精，喝了纯属交智商税，我们不玩这个，每日1袋就行。",
+      "gold": [
+        {
+          "category": "disparagement",
+          "start": 10,
+          "end": 26,
+          "text": "就是糖粉加香精，喝了纯属交智商税"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "小绿瓶那家的益生菌，就是糖粉加香精，喝了纯属交智商税，我们不玩这个，每日1袋就行。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.31
+    },
+    {
+      "id": "b2-30",
+      "split": "test",
+      "product": "IRIS-PROBIOTIC",
+      "product_category": "food",
+      "input_type": "srt",
+      "tags": [],
+      "text": "益生菌我就认这款\n全网活菌数第一\n每天一袋温水冲服，一盒20袋",
+      "gold": [
+        {
+          "category": "absolute_terms",
+          "start": 9,
+          "end": 16,
+          "text": "全网活菌数第一"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "益生菌我就认这款\n全网活菌数第一\n每天一袋温水冲服，一盒20袋",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.3
+    },
+    {
+      "id": "b2-31",
+      "split": "test",
+      "product": "JACK-EARBUDS",
+      "product_category": "digital",
+      "input_type": "srt",
+      "tags": [],
+      "text": "这款降噪耳机，降噪深度45dB\n单次续航12小时，配合充电盒30小时\n今天到手价299元",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 11,
+          "end": 15,
+          "text": "45dB"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 20,
+          "end": 24,
+          "text": "12小时"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 11,
+          "end": 15,
+          "quote": "45dB",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        },
+        {
+          "key": "F2",
+          "category": "fact_mismatch",
+          "start": 20,
+          "end": 24,
+          "quote": "12小时",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "这款降噪耳机，降噪深度35db\n单次续航8小时，配合充电盒30小时\n今天到手价299元",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.79
+    },
+    {
+      "id": "b2-32",
+      "split": "test",
+      "product": "JACK-EARBUDS",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "戴上它，地铁里所有噪音都听不到，而且工信部给我们发过认证推荐，到手价299元。",
+      "gold": [
+        {
+          "category": "effect_claims",
+          "start": 7,
+          "end": 15,
+          "text": "所有噪音都听不到"
+        },
+        {
+          "category": "authority_endorsement",
+          "start": 18,
+          "end": 30,
+          "text": "工信部给我们发过认证推荐"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "戴上它，地铁里所有噪音都听不到，而且工信部给我们发过认证推荐，到手价299元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.32
+    },
+    {
+      "id": "b2-33",
+      "split": "test",
+      "product": "JACK-EARBUDS",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "降噪深度35dB，单次续航8小时，配合充电盒能到30小时，到手价299元。降噪不是静音，路上过马路的时候记得摘一只耳机，注意安全。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "降噪深度35dB，单次续航8小时，配合充电盒能到30小时，到手价299元。降噪不是静音，路上过马路的时候记得摘一只耳机，注意安全。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.4
+    },
+    {
+      "id": "b2-34",
+      "split": "test",
+      "product": "JACK-EARBUDS",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "降噪这块，咱们用的是专利技术，降噪效果全行业最强，到手价299元。",
+      "gold": [
+        {
+          "category": "patent_claims",
+          "start": 10,
+          "end": 14,
+          "text": "专利技术"
+        },
+        {
+          "category": "absolute_terms",
+          "start": 15,
+          "end": 24,
+          "text": "降噪效果全行业最强"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "patent_claims",
+          "start": 10,
+          "end": 14,
+          "quote": "专利技术",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        },
+        {
+          "key": "F2",
+          "category": "absolute_terms",
+          "start": 19,
+          "end": 24,
+          "quote": "全行业最强",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-06"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "降噪这块，降噪效果很强，到手价299元。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.72
+    },
+    {
+      "id": "b2-35",
+      "split": "test",
+      "product": "JACK-EARBUDS",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "降噪结构申请了实用新型专利，专利号ZL202520123456.7。入耳式戴太久耳朵会累，隔一两小时摘下来歇一歇。单次续航8小时。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "降噪结构申请了实用新型专利，专利号ZL202520123456.7。入耳式戴太久耳朵会累，隔一两小时摘下来歇一歇。单次续航8小时。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.37
+    },
+    {
+      "id": "b2-36",
+      "split": "test",
+      "product": "JACK-CHARGER",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "最大输出功率65W，双口快充，笔记本和手机能一起充，到手价119元。具体充电速度还要看你设备本身支持的协议。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "最大输出功率65W，双口快充，笔记本和手机能一起充，到手价119元。具体充电速度还要看你设备本身支持的协议。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.31
+    },
+    {
+      "id": "b2-37",
+      "split": "test",
+      "product": "JACK-CHARGER",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "最大输出100W的氮化镓充电器，调查显示八成数码博主都在用这款，还是同价位最快的。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 4,
+          "end": 8,
+          "text": "100W"
+        },
+        {
+          "category": "unsourced_data",
+          "start": 16,
+          "end": 31,
+          "text": "调查显示八成数码博主都在用这款"
+        },
+        {
+          "category": "absolute_terms",
+          "start": 34,
+          "end": 39,
+          "text": "同价位最快"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 4,
+          "end": 8,
+          "quote": "100W",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        },
+        {
+          "key": "F2",
+          "category": "unsourced_data",
+          "start": 16,
+          "end": 20,
+          "quote": "调查显示",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "DAT-01"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1,
+        2
+      ],
+      "false_positives": [
+        1
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "最大输出65w的氮化镓充电器，从我们的使用体验看八成数码博主都在用这款，还是同价位最快的。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.74
+    },
+    {
+      "id": "b2-38",
+      "split": "test",
+      "product": "JACK-CHARGER",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "充电速度这块，我们是史上最快的，靠的是专利快充技术，65W稳稳输出。",
+      "gold": [
+        {
+          "category": "absolute_terms",
+          "start": 10,
+          "end": 14,
+          "text": "史上最快"
+        },
+        {
+          "category": "patent_claims",
+          "start": 19,
+          "end": 25,
+          "text": "专利快充技术"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "absolute_terms",
+          "start": 10,
+          "end": 14,
+          "quote": "史上最快",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-06"
+        },
+        {
+          "key": "F2",
+          "category": "patent_claims",
+          "start": 19,
+          "end": 25,
+          "quote": "专利快充技术",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "充电速度这块，我们是很快的，65W稳稳输出。",
+        "gold_eliminated": 2
+      },
+      "latency_ms": 0.84
+    },
+    {
+      "id": "b2-39",
+      "split": "test",
+      "product": "JACK-CHARGER",
+      "product_category": "digital",
+      "input_type": "srt",
+      "tags": [],
+      "text": "买充电器别只看价格\n实测数据显示同样的手机比原装头快四成\n到手价119元，最大输出功率65W",
+      "gold": [
+        {
+          "category": "unsourced_data",
+          "start": 10,
+          "end": 28,
+          "text": "实测数据显示同样的手机比原装头快四成"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "unsourced_data",
+          "start": 12,
+          "end": 16,
+          "quote": "数据显示",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "DAT-01"
+        }
+      ],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [
+        0
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "买充电器别只看价格\n实测从我们的使用体验看同样的手机比原装头快四成\n到手价119元，最大输出功率65W",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.71
+    },
+    {
+      "id": "b2-40",
+      "split": "test",
+      "product": "JACK-CHARGER",
+      "product_category": "digital",
+      "input_type": "text",
+      "tags": [],
+      "text": "之前那个黑砖头，充一会就发烫，爆炸的新闻看过吧，我们这个65W稳稳的，到手价119元。",
+      "gold": [
+        {
+          "category": "disparagement",
+          "start": 8,
+          "end": 23,
+          "text": "充一会就发烫，爆炸的新闻看过吧"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "之前那个黑砖头，充一会就发烫，爆炸的新闻看过吧，我们这个65W稳稳的，到手价119元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.3
+    },
+    {
+      "id": "b2-41",
+      "split": "test",
+      "product": "EMMA-PILLOW",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "颈椎病的朋友睡一个月，颈椎就不疼了，靠的是专利波浪结构，到手价199元。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 11,
+          "end": 17,
+          "text": "颈椎就不疼了"
+        },
+        {
+          "category": "patent_claims",
+          "start": 21,
+          "end": 27,
+          "text": "专利波浪结构"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "patent_claims",
+          "start": 21,
+          "end": 27,
+          "quote": "专利波浪结构",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "PAT-01"
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "颈椎病的朋友睡一个月，颈椎就不疼了，到手价199元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.65
+    },
+    {
+      "id": "b2-42",
+      "split": "test",
+      "product": "EMMA-PILLOW",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "天然乳胶含量95%，睡过的人保证不再落枕，60cm×40cm的尺寸大多数人刚好。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 6,
+          "end": 9,
+          "text": "95%"
+        },
+        {
+          "category": "effect_claims",
+          "start": 14,
+          "end": 20,
+          "text": "保证不再落枕"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 6,
+          "end": 9,
+          "quote": "95%",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "天然乳胶含量85%，睡过的人保证不再落枕，60cm×40cm的尺寸大多数人刚好。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.67
+    },
+    {
+      "id": "b2-43",
+      "split": "test",
+      "product": "EMMA-PILLOW",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "乳胶含量85%，波浪形设计，尺寸60cm×40cm，到手价199元。每个人睡姿不同，高度合不合适，建议你自己躺着试一下。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "乳胶含量85%，波浪形设计，尺寸60cm×40cm，到手价199元。每个人睡姿不同，高度合不合适，建议你自己躺着试一下。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.33
+    },
+    {
+      "id": "b2-44",
+      "split": "test",
+      "product": "EMMA-PILLOW",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "护颈枕里的天花板，保证一觉睡到天亮，到手价199元。",
+      "gold": [
+        {
+          "category": "absolute_terms",
+          "start": 5,
+          "end": 8,
+          "text": "天花板"
+        },
+        {
+          "category": "effect_claims",
+          "start": 9,
+          "end": 17,
+          "text": "保证一觉睡到天亮"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "absolute_terms",
+          "start": 5,
+          "end": 8,
+          "quote": "天花板",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-04"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "护颈枕里的口碑款，保证一觉睡到天亮，到手价199元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.71
+    },
+    {
+      "id": "b2-45",
+      "split": "test",
+      "product": "EMMA-PILLOW",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "这款枕头据说已经进了市政府办公室的采购清单，做过测试，睡它的人入睡时间快了十五分钟。",
+      "gold": [
+        {
+          "category": "authority_endorsement",
+          "start": 6,
+          "end": 21,
+          "text": "已经进了市政府办公室的采购清单"
+        },
+        {
+          "category": "unsourced_data",
+          "start": 22,
+          "end": 41,
+          "text": "做过测试，睡它的人入睡时间快了十五分钟"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "这款枕头据说已经进了市政府办公室的采购清单，做过测试，睡它的人入睡时间快了十五分钟。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.31
+    },
+    {
+      "id": "b2-46",
+      "split": "test",
+      "product": "EMMA-TOWEL",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "3条装纯棉毛巾，材质100%棉，到手价49元。新毛巾第一次用前建议先洗一遍，吸水会更好。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "3条装纯棉毛巾，材质100%棉，到手价49元。新毛巾第一次用前建议先洗一遍，吸水会更好。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.29
+    },
+    {
+      "id": "b2-47",
+      "split": "test",
+      "product": "EMMA-TOWEL",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "我们邀请了社区民警同志穿着警服给大家推荐，100%棉，擦脸放心。",
+      "gold": [
+        {
+          "category": "authority_endorsement",
+          "start": 5,
+          "end": 20,
+          "text": "社区民警同志穿着警服给大家推荐"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "我们邀请了社区民警同志穿着警服给大家推荐，100%棉，擦脸放心。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.27
+    },
+    {
+      "id": "b2-48",
+      "split": "test",
+      "product": "EMMA-TOWEL",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "孩子红屁股、皮肤湿疹，用这条毛巾擦，湿疹两天就消，3条装49元。",
+      "gold": [
+        {
+          "category": "medical_claims",
+          "start": 18,
+          "end": 24,
+          "text": "湿疹两天就消"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "孩子红屁股、皮肤湿疹，用这条毛巾擦，湿疹两天就消，3条装49元。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.3
+    },
+    {
+      "id": "b2-49",
+      "split": "test",
+      "product": "EMMA-TOWEL",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "纯棉毛巾一次给你5条，到手价才29元，洗一百次都不起球。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 8,
+          "end": 10,
+          "text": "5条"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 15,
+          "end": 18,
+          "text": "29元"
+        },
+        {
+          "category": "effect_claims",
+          "start": 19,
+          "end": 27,
+          "text": "洗一百次都不起球"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 15,
+          "end": 18,
+          "quote": "29元",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          1,
+          0
+        ]
+      ],
+      "missed": [
+        0,
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "纯棉毛巾一次给你5条，到手价才49元，洗一百次都不起球。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.61
+    },
+    {
+      "id": "b2-50",
+      "split": "test",
+      "product": "EMMA-TOWEL",
+      "product_category": "home",
+      "input_type": "text",
+      "tags": [],
+      "text": "三条装毛巾，100%棉，到手价49元。纯棉吸水好但是掉毛是正常的，前几次洗会有一点浮毛，洗两遍就好。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "三条装毛巾，100%棉，到手价49元。纯棉吸水好但是掉毛是正常的，前几次洗会有一点浮毛，洗两遍就好。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.35
+    },
+    {
+      "id": "b2-51",
+      "split": "test",
+      "product": "LEON-FRANCHISE",
+      "product_category": "franchise",
+      "input_type": "text",
+      "tags": [],
+      "text": "加盟我们的店，半年之内保证回本，亏了我们兜底，加盟费29800元。",
+      "gold": [
+        {
+          "category": "guaranteed_returns",
+          "start": 7,
+          "end": 15,
+          "text": "半年之内保证回本"
+        },
+        {
+          "category": "guaranteed_returns",
+          "start": 16,
+          "end": 22,
+          "text": "亏了我们兜底"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "guaranteed_returns",
+          "start": 11,
+          "end": 15,
+          "quote": "保证回本",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "RET-01"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [
+          "DSC-02"
+        ],
+        "pred_missing": [
+          "DSC-02"
+        ]
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "加盟我们的店，半年之内收益受选址和经营情况影响，存在亏损风险，亏了我们兜底，加盟费29800元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.78
+    },
+    {
+      "id": "b2-52",
+      "split": "test",
+      "product": "LEON-FRANCHISE",
+      "product_category": "franchise",
+      "input_type": "text",
+      "tags": [],
+      "text": "加盟费29800元，门店建议40平方米以上。我们不承诺具体收益，收益受选址和经营情况影响，投资有风险，大家要量力而行。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "加盟费29800元，门店建议40平方米以上。我们不承诺具体收益，收益受选址和经营情况影响，投资有风险，大家要量力而行。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.37
+    },
+    {
+      "id": "b2-53",
+      "split": "test",
+      "product": "LEON-FRANCHISE",
+      "product_category": "franchise",
+      "input_type": "text",
+      "tags": [],
+      "text": "加盟费只要19800元，门店20平方米就能开，亏本我们赔。投资有风险，签约前请实地考察。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 5,
+          "end": 11,
+          "text": "19800元"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 14,
+          "end": 19,
+          "text": "20平方米"
+        },
+        {
+          "category": "guaranteed_returns",
+          "start": 23,
+          "end": 28,
+          "text": "亏本我们赔"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 5,
+          "end": 11,
+          "quote": "19800元",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1,
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "加盟费只要29800元，门店20平方米就能开，亏本我们赔。投资有风险，签约前请实地考察。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.72
+    },
+    {
+      "id": "b2-54",
+      "split": "test",
+      "product": "LEON-FRANCHISE",
+      "product_category": "franchise",
+      "input_type": "text",
+      "tags": [],
+      "text": "咱们是零食加盟的行业第一品牌，跟着我们干，躺着每个月赚一两万不是问题。",
+      "gold": [
+        {
+          "category": "absolute_terms",
+          "start": 8,
+          "end": 14,
+          "text": "行业第一品牌"
+        },
+        {
+          "category": "guaranteed_returns",
+          "start": 21,
+          "end": 34,
+          "text": "躺着每个月赚一两万不是问题"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "absolute_terms",
+          "start": 8,
+          "end": 12,
+          "quote": "行业第一",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "ABS-03"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [
+          "DSC-02"
+        ],
+        "pred_missing": [
+          "DSC-02"
+        ]
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "跟着我们干，躺着每个月赚一两万不是问题。投资有风险，收益受选址和经营情况影响。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.77
+    },
+    {
+      "id": "b2-55",
+      "split": "test",
+      "product": "LEON-FRANCHISE",
+      "product_category": "franchise",
+      "input_type": "srt",
+      "tags": [],
+      "text": "加盟费29800元\n门店建议40平方米以上\n收益受选址和经营情况影响，投资有风险",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "加盟费29800元\n门店建议40平方米以上\n收益受选址和经营情况影响，投资有风险",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.39
+    },
+    {
+      "id": "b2-56",
+      "split": "test",
+      "product": "LEON-COURSE",
+      "product_category": "education",
+      "input_type": "text",
+      "tags": [],
+      "text": "学完这32节课，保证你月入过万，据统计学员满意度高达98%，到手价199元。",
+      "gold": [
+        {
+          "category": "guaranteed_returns",
+          "start": 8,
+          "end": 15,
+          "text": "保证你月入过万"
+        },
+        {
+          "category": "unsourced_data",
+          "start": 19,
+          "end": 29,
+          "text": "学员满意度高达98%"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "guaranteed_returns",
+          "start": 8,
+          "end": 13,
+          "quote": "保证你月入",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "RET-02"
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "学完这32节课，据统计学员满意度高达98%，到手价199元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.64
+    },
+    {
+      "id": "b2-57",
+      "split": "test",
+      "product": "LEON-COURSE",
+      "product_category": "education",
+      "input_type": "text",
+      "tags": [],
+      "text": "这套课是某传媒大学的教授亲自推荐的，学完包你找到剪辑工作。",
+      "gold": [
+        {
+          "category": "endorsement",
+          "start": 4,
+          "end": 17,
+          "text": "某传媒大学的教授亲自推荐的"
+        },
+        {
+          "category": "guaranteed_returns",
+          "start": 20,
+          "end": 28,
+          "text": "包你找到剪辑工作"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "endorsement",
+          "start": 10,
+          "end": 16,
+          "quote": "教授亲自推荐",
+          "channels": [
+            "rule"
+          ],
+          "rule_id": "END-01"
+        }
+      ],
+      "matched": [],
+      "missed": [
+        0,
+        1
+      ],
+      "false_positives": [
+        0
+      ],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": false,
+        "withheld": true,
+        "withheld_reasons": [
+          "改写删掉了大部分没有问题的内容（保留 10/21 字）"
+        ],
+        "rounds": 1,
+        "text": "学完包你找到剪辑工作。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.6
+    },
+    {
+      "id": "b2-58",
+      "split": "test",
+      "product": "LEON-COURSE",
+      "product_category": "education",
+      "input_type": "text",
+      "tags": [],
+      "text": "共32节录播课，每周1次直播答疑，到手价199元。能不能学出成果，要看你自己练多少，我们会按时更新课程内容。",
+      "gold": [],
+      "pred": [],
+      "matched": [],
+      "missed": [],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "共32节录播课，每周1次直播答疑，到手价199元。能不能学出成果，要看你自己练多少，我们会按时更新课程内容。",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.32
+    },
+    {
+      "id": "b2-59",
+      "split": "test",
+      "product": "LEON-COURSE",
+      "product_category": "education",
+      "input_type": "text",
+      "tags": [],
+      "text": "60节录播课，每周3次直播答疑，某重点大学的讲师团联合出品，到手价199元。",
+      "gold": [
+        {
+          "category": "fact_mismatch",
+          "start": 0,
+          "end": 3,
+          "text": "60节"
+        },
+        {
+          "category": "fact_mismatch",
+          "start": 9,
+          "end": 11,
+          "text": "3次"
+        },
+        {
+          "category": "endorsement",
+          "start": 16,
+          "end": 29,
+          "text": "某重点大学的讲师团联合出品"
+        }
+      ],
+      "pred": [
+        {
+          "key": "F1",
+          "category": "fact_mismatch",
+          "start": 0,
+          "end": 3,
+          "quote": "60节",
+          "channels": [
+            "fact"
+          ],
+          "rule_id": null
+        }
+      ],
+      "matched": [
+        [
+          0,
+          0
+        ]
+      ],
+      "missed": [
+        1,
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 1,
+        "text": "32节录播课，每周3次直播答疑，某重点大学的讲师团联合出品，到手价199元。",
+        "gold_eliminated": 1
+      },
+      "latency_ms": 0.72
+    },
+    {
+      "id": "b2-60",
+      "split": "test",
+      "product": "LEON-COURSE",
+      "product_category": "education",
+      "input_type": "srt",
+      "tags": [],
+      "text": "学完这套剪辑课\n三个月内肯定接到商单变现\n比那些拿着PPT割韭菜的野鸡培训班强太多，业内知名导演都点赞推荐这套课",
+      "gold": [
+        {
+          "category": "guaranteed_returns",
+          "start": 8,
+          "end": 20,
+          "text": "三个月内肯定接到商单变现"
+        },
+        {
+          "category": "disparagement",
+          "start": 24,
+          "end": 38,
+          "text": "拿着PPT割韭菜的野鸡培训班"
+        },
+        {
+          "category": "endorsement",
+          "start": 42,
+          "end": 56,
+          "text": "业内知名导演都点赞推荐这套课"
+        }
+      ],
+      "pred": [],
+      "matched": [],
+      "missed": [
+        0,
+        1,
+        2
+      ],
+      "false_positives": [],
+      "disclosures": {
+        "gold_missing": [],
+        "pred_missing": []
+      },
+      "rewrite": {
+        "passed": true,
+        "withheld": false,
+        "withheld_reasons": [],
+        "rounds": 0,
+        "text": "学完这套剪辑课\n三个月内肯定接到商单变现\n比那些拿着PPT割韭菜的野鸡培训班强太多，业内知名导演都点赞推荐这套课",
+        "gold_eliminated": 0
+      },
+      "latency_ms": 0.35
+    }
+  ],
+  "meta": {
+    "provider": "mock",
+    "model": "adproof-offline",
+    "ruleset_version": "2026.11.07",
+    "ruleset_hash": "68ead7161d01",
+    "dataset_hash": "a6964be48ac5",
+    "items": 60,
+    "elapsed_ms": 67,
+    "offline": true
+  }
+}

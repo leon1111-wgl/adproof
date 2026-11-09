@@ -1,0 +1,9 @@
+{
+ "round": "r0",
+ "seed": 1,
+ "per_product": 2,
+ "near_misses": 1,
+ "categories": "absolute_terms,medical_claims",
+ "seeds": [],
+ "audit_sample": 4
+}
