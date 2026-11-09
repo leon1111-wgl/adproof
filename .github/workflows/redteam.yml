@@ -14,8 +14,8 @@ name: Red-team round
 #
 # Run it: Actions → Red-team round → Run workflow, or
 #   gh workflow run redteam.yml -f round=r9 -f seeds='[{"category":"medical_claims","text":"…","product_category":"food"}]'
-# Before this file is on main, push a branch named redteam-run/<anything> that changes backend/evals/redteam/dispatch.json
-# (same fields as the inputs below). Results: the job summary and the artifact redteam-<round>.
+# Or push a branch named redteam-run/<anything>: the round then reads backend/evals/redteam/dispatch.json (same fields
+# as the inputs below); this also works before this file is on main. Results: the job summary and the artifact redteam-<round>.
 on:
   workflow_dispatch:
     inputs:
@@ -42,7 +42,6 @@ on:
         default: "24"
   push:
     branches: ["redteam-run/**"]
-    paths: ["backend/evals/redteam/dispatch.json"]
 
 permissions:
   contents: read
