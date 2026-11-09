@@ -56,7 +56,7 @@ def render(round_data: dict, scores: dict, audit: dict | None) -> str:
         f"- 违规说法 {violations} 条，标出 {caught} 条；近似合规说法 {near} 条，误报 {len(alarms)} 条",
         f"- 模型审计（不是人工复核）：{(audit or {}).get('auditor', {}).get('label', '未运行')}",
         "",
-        "每条由作者在 `decisions.json` 里决定 accept / reject 并写明理由。采纳的改动只引用下面列出的已核对条款，"
+        "每条在 `decisions.json` 里判定 accept / reject 并写明理由（未经人工复核）。采纳的改动只引用下面列出的已核对条款，"
         "规则修改单独提交；之后用 `score --append` 记录哪次提交标出了哪条漏检。",
         "",
         "## 漏检",

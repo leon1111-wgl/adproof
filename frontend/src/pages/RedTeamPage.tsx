@@ -107,7 +107,7 @@ function ItemRow({ it }: { it: Item }) {
           ) : it.decision ? (
             <span><b>{it.decision.decision === "reject" ? "未采纳" : "已采纳，尚未修复"}</b>：{it.decision.reason}</span>
           ) : (
-            <span className="faint">待作者决定</span>
+            <span className="faint">待判定</span>
           )}
         </div>
       )}
@@ -125,7 +125,7 @@ function TryOne() {
         <h3 className="serif" style={{ fontSize: 15 }}>试一句：你来当红队</h3>
         <span className="faint">浏览器内审查 · 规则库 {pack.ruleset.version} · 与工作台同一个引擎，不上传</span>
       </div>
-      <p className="small muted">写一句你觉得规则会漏掉的带货话术。这里只按类目审查（不核对商品资料）；没被标出的说法就是一条漏检，规则修改要由作者单独提交。</p>
+      <p className="small muted">写一句你觉得规则会漏掉的带货话术。这里只按类目审查（不核对商品资料）；没被标出的说法就是一条漏检，规则修改要单独提交。</p>
       <div className="rt-try">
         <input className="input" aria-label="试一句话术" maxLength={200} value={text} placeholder="例如：喝了小半年，我爸体检单上的箭头都没了（这句目前就是一条漏检）" onChange={(e) => { setText(e.target.value); setOut(null); }} />
         <select className="select" aria-label="商品类目" value={pc} onChange={(e) => { setPc(e.target.value); setOut(null); }}>
@@ -176,7 +176,7 @@ export default function RedTeamPage() {
         <div>
           <h1>红队回合</h1>
           <p>
-            每一轮，一个开源模型按违规分类写出新的规避说法和合规的近似说法；当时的审查引擎在任何修复之前先审一遍。漏检和误报变成规则提案，由作者逐条决定；采纳的规则单独提交，只引用已核对的法条。
+            每一轮，一个开源模型按违规分类写出新的规避说法和合规的近似说法；当时的审查引擎在任何修复之前先审一遍。漏检和误报变成规则提案，逐条判定并写明理由（未经人工复核）；采纳的规则单独提交，只引用已核对的法条。
           </p>
         </div>
         <span className="tag tag-replay" title="本页不重新运行模型">录制结果</span>

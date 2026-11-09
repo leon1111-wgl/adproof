@@ -5,7 +5,7 @@
 - 违规说法 54 条，标出 4 条；近似合规说法 18 条，误报 3 条
 - 模型审计（不是人工复核）：Qwen3-4B-Instruct-2507 Q4_K_M (Qwen, Apache-2.0; GGUF by unsloth)
 
-每条由作者在 `decisions.json` 里决定 accept / reject 并写明理由。采纳的改动只引用下面列出的已核对条款，规则修改单独提交；之后用 `score --append` 记录哪次提交标出了哪条漏检。
+每条在 `decisions.json` 里判定 accept / reject 并写明理由（未经人工复核）。采纳的改动只引用下面列出的已核对条款，规则修改单独提交；之后用 `score --append` 记录哪次提交标出了哪条漏检。
 
 ## 漏检
 
