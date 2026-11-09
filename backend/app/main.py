@@ -43,7 +43,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="AdProof API",
-        version="1.0.0",
+        version="1.2.0",
         description="带货素材合规审查 Multi-Agent：每条违规都能追溯到原文片段和法条原文",
     )
     app.add_middleware(

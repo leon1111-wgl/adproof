@@ -1,0 +1,233 @@
+name: Red-team round
+
+# One round of the red-team loop (backend/app/redteam, docs/EVALUATION.md section 7):
+#   1. an open-weight model (GLM-4-9B-0414) writes new evasive wordings per violation category, plus clean near-misses;
+#   2. the browser engine at this commit reviews every wording before anyone fixes anything (the pre-fix catch rate);
+#   3. a model of a third family (Qwen3-4B-Instruct-2507) labels a fixed random sample (label noise, reported as a
+#      model audit; nobody audits these labels by hand) and every miss for triage;
+#   4. misses and false alarms become rule proposals (proposals.md).
+# Nothing is committed by this workflow. Rule changes are the author's, one commit at a time, citing only the verified
+# law snapshot; the only number quoted as quality is span P/R/F1 on the sequestered blind set (evals/blind_v2.yaml).
+#
+# No key and no paid API: llama.cpp's server runs both models on the runner's CPU. Weights and the llama.cpp build are
+# pinned by URL and SHA-256, downloaded only on the runner and kept in the Actions cache (about 8.7 GB; caches are per
+# branch and the repository's cache limit is 10 GB, so a new redteam-run/* branch usually downloads again, ~13 min).
+#
+# Run it: Actions → Red-team round → Run workflow, or
+#   gh workflow run redteam.yml -f round=r9 -f seeds='[{"category":"medical_claims","text":"…","product_category":"food"}]'
+# Or push a branch named redteam-run/<anything>: the round then reads backend/evals/redteam/dispatch.json (same fields
+# as the inputs below); this also works before this file is on main. Results: the job summary and the artifact redteam-<round>.
+on:
+  workflow_dispatch:
+    inputs:
+      round:
+        description: "Round id: r1, r2 …"
+        required: true
+      seed:
+        description: Generator seed
+        default: "1"
+      per_product:
+        description: Violating wordings per product (two products per category)
+        default: "3"
+      near_misses:
+        description: Clean near-misses per product
+        default: "1"
+      categories:
+        description: "Only these categories (comma-separated), or empty for all nine"
+        default: ""
+      seeds:
+        description: "Your own wordings as JSON: [{\"category\": \"…\", \"text\": \"…\", \"kind\": \"violation|near_miss\", \"product_category\": \"…\"}]"
+        default: ""
+      audit_sample:
+        description: Size of the fixed random sample the auditor labels
+        default: "24"
+  push:
+    branches: ["redteam-run/**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: redteam-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  LLAMA_URL: https://github.com/ggml-org/llama.cpp/releases/download/b11899/llama-b11899-bin-ubuntu-x64.tar.gz
+  LLAMA_SHA256: 464e0dfdd70d18a3b758074ac58e04fa27f892a771805dd883b2d0f3c5ca0289
+  GEN_URL: https://huggingface.co/unsloth/GLM-4-9B-0414-GGUF/resolve/40a17a0c8f24664ddd851dafd03935553c25a57e/GLM-4-9B-0414-Q4_K_M.gguf
+  GEN_SHA256: 8027e1089273e8817b2df0d91c9aa17c5ea467246dcdacac34989f8919fe6540
+  GEN_FILE: GLM-4-9B-0414-Q4_K_M.gguf
+  GEN_LABEL: GLM-4-9B-0414 Q4_K_M (zai-org, MIT; GGUF by unsloth)
+  AUD_URL: https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf
+  AUD_SHA256: 3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597
+  AUD_FILE: Qwen3-4B-Instruct-2507-Q4_K_M.gguf
+  AUD_LABEL: Qwen3-4B-Instruct-2507 Q4_K_M (Qwen, Apache-2.0; GGUF by unsloth)
+
+jobs:
+  round:
+    name: Generate, score before any fix, audit, propose
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r backend/requirements.txt
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+
+      - name: Parameters (inputs, or dispatch.json on a redteam-run/* push)
+        id: p
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_ROUND: ${{ inputs.round }}
+          IN_SEED: ${{ inputs.seed }}
+          IN_PER: ${{ inputs.per_product }}
+          IN_NEAR: ${{ inputs.near_misses }}
+          IN_CATS: ${{ inputs.categories }}
+          IN_SEEDS: ${{ inputs.seeds }}
+          IN_SAMPLE: ${{ inputs.audit_sample }}
+        working-directory: backend
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from app.redteam.common import ROUND_ID, TARGETS, load_policy
+          from app.redteam.generate import parse_seeds
+          e = os.environ
+          if e["EVENT"] == "push":
+              given = json.load(open("evals/redteam/dispatch.json", encoding="utf-8"))
+              raw = {k: given.get(k) for k in ("round", "seed", "per_product", "near_misses", "categories", "seeds", "audit_sample")}
+          else:
+              raw = {"round": e["IN_ROUND"], "seed": e["IN_SEED"], "per_product": e["IN_PER"], "near_misses": e["IN_NEAR"],
+                     "categories": e["IN_CATS"], "seeds": json.loads(e["IN_SEEDS"]) if e["IN_SEEDS"].strip() else [],
+                     "audit_sample": e["IN_SAMPLE"]}
+          rnd = str(raw["round"] or "")
+          if not ROUND_ID.match(rnd):
+              sys.exit(f"round must look like r1, r2 …: {rnd!r}")
+          cats = raw.get("categories") or ""
+          cats = cats if isinstance(cats, str) else ",".join(cats)
+          bad = [c for c in cats.split(",") if c.strip() and c.strip() not in TARGETS]
+          if bad:
+              sys.exit(f"unknown categories: {bad}")
+          try:
+              ints = {k: dflt if raw.get(k) in (None, "") else int(raw[k]) for k, dflt in (("seed", 1), ("per_product", 3), ("near_misses", 1), ("audit_sample", 24))}
+          except (TypeError, ValueError):
+              sys.exit("seed, per_product, near_misses and audit_sample must be whole numbers")
+          if not (1 <= ints["per_product"] <= 6 and 0 <= ints["near_misses"] <= 3 and 0 <= ints["audit_sample"] <= 80):
+              sys.exit("per_product 1–6, near_misses 0–3, audit_sample 0–80")
+          seeds = parse_seeds(raw.get("seeds") or [], load_policy())
+          os.makedirs("../out", exist_ok=True)
+          json.dump(seeds, open("../out/seeds.json", "w", encoding="utf-8"), ensure_ascii=False)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"round={rnd}\ncategories={cats.replace(' ', '')}\n")
+              for k, v in ints.items():
+                  f.write(f"{k}={v}\n")
+          print(rnd, cats or "all", ints, f"{len(seeds)} seeds")
+          PY
+
+      - id: cache-gen
+        uses: actions/cache@v4
+        with:
+          path: ~/models/gen
+          key: redteam-gen-${{ env.GEN_SHA256 }}-${{ env.LLAMA_SHA256 }}
+      - name: Download llama.cpp and the generator (checked by SHA-256)
+        if: steps.cache-gen.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/models/gen
+          curl -fsSL --retry 3 -o ~/models/gen/llama.tar.gz "$LLAMA_URL"
+          echo "$LLAMA_SHA256  $HOME/models/gen/llama.tar.gz" | sha256sum -c -
+          curl -fsSL --retry 3 -o ~/models/gen/"$GEN_FILE" "$GEN_URL"
+          echo "$GEN_SHA256  $HOME/models/gen/$GEN_FILE" | sha256sum -c -
+      - id: cache-aud
+        uses: actions/cache@v4
+        with:
+          path: ~/models/aud
+          key: redteam-aud-${{ env.AUD_SHA256 }}
+      - name: Download the auditor (checked by SHA-256)
+        if: steps.cache-aud.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/models/aud
+          curl -fsSL --retry 3 -o ~/models/aud/"$AUD_FILE" "$AUD_URL"
+          echo "$AUD_SHA256  $HOME/models/aud/$AUD_FILE" | sha256sum -c -
+
+      - name: Generate
+        shell: bash
+        working-directory: backend
+        env:
+          ROUND: ${{ steps.p.outputs.round }}
+          SEED: ${{ steps.p.outputs.seed }}
+          PER: ${{ steps.p.outputs.per_product }}
+          NEAR: ${{ steps.p.outputs.near_misses }}
+          CATS: ${{ steps.p.outputs.categories }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/llama && tar -xzf ~/models/gen/llama.tar.gz -C ~/llama
+          SERVER=$(find ~/llama -name llama-server -type f | head -1)
+          export LD_LIBRARY_PATH="$(dirname "$SERVER"):${LD_LIBRARY_PATH:-}"
+          nproc; free -g
+          nohup "$SERVER" -m ~/models/gen/"$GEN_FILE" -c 4096 -np 1 --host 127.0.0.1 --port 8080 --jinja > ../out/generator-server.log 2>&1 &
+          echo $! > ../out/server.pid
+          trap 'kill "$(cat ../out/server.pid)" 2>/dev/null || true' EXIT  # free the port even if this step fails
+          for i in $(seq 1 180); do curl -fs http://127.0.0.1:8080/health > /dev/null && { echo "ready after ${i}s"; break; }; sleep 1; done
+          curl -fs http://127.0.0.1:8080/health
+          python -m app.redteam generate --round "$ROUND" --seed "$SEED" --per-product "$PER" --near-misses "$NEAR" \
+            --categories "$CATS" --seeds "$(cat ../out/seeds.json)" --model-label "$GEN_LABEL" --model-src "$GEN_URL" \
+            --model-sha "$GEN_SHA256" --out ../out/round.json
+          kill "$(cat ../out/server.pid)"; sleep 2; trap - EXIT
+
+      - name: Score with the browser engine at this commit (before any fix)
+        working-directory: frontend
+        run: pnpm exec vite-node scripts/redteam-score.ts -- ../out/round.json ../out/scores.json
+
+      - name: Model audit (fixed random sample) and triage of misses
+        shell: bash
+        working-directory: backend
+        env:
+          SAMPLE: ${{ steps.p.outputs.audit_sample }}
+        run: |
+          set -euo pipefail
+          SERVER=$(find ~/llama -name llama-server -type f | head -1)
+          export LD_LIBRARY_PATH="$(dirname "$SERVER"):${LD_LIBRARY_PATH:-}"
+          nohup "$SERVER" -m ~/models/aud/"$AUD_FILE" -c 4096 -np 1 --host 127.0.0.1 --port 8080 --jinja > ../out/auditor-server.log 2>&1 &
+          echo $! > ../out/server.pid
+          trap 'kill "$(cat ../out/server.pid)" 2>/dev/null || true' EXIT  # free the port even if this step fails
+          for i in $(seq 1 180); do curl -fs http://127.0.0.1:8080/health > /dev/null && { echo "ready after ${i}s"; break; }; sleep 1; done
+          curl -fs http://127.0.0.1:8080/health
+          python -m app.redteam audit --round-file ../out/round.json --scores ../out/scores.json --sample "$SAMPLE" \
+            --model-label "$AUD_LABEL" --model-src "$AUD_URL" --model-sha "$AUD_SHA256" --out ../out/audit.json
+          kill "$(cat ../out/server.pid)"; trap - EXIT
+
+      - name: Proposals and summary
+        working-directory: backend
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_ID: ${{ github.run_id }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          python - <<'PY'
+          import json, os
+          json.dump({"id": int(os.environ["RUN_ID"]), "url": os.environ["RUN_URL"], "commit": os.environ["GITHUB_SHA"],
+                     "event": os.environ["EVENT"], "llama_cpp": os.environ["LLAMA_URL"]},
+                    open("../out/run.json", "w"), indent=1)
+          PY
+          python -m app.redteam proposals --dir ../out
+          python -m app.redteam summary --dir ../out >> "$GITHUB_STEP_SUMMARY"
+          rm -f ../out/server.pid ../out/seeds.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: redteam-${{ steps.p.outputs.round || 'failed' }}
+          path: out/
+          if-no-files-found: error

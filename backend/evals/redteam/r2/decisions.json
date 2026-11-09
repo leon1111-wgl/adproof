@@ -1,0 +1,243 @@
+{
+ "round": "r2",
+ "decided_by": "仓库作者（逐条阅读 proposals.md；模型审计只作参考）",
+ "decided_at": "2026-11-10",
+ "rule": "采纳的改动只进入已有分类，只引用已核对快照；新规则带正反例；每条采纳的漏检都要在单独的规则提交后被标出",
+ "items": {
+  "r2-ABS-v1": {
+   "decision": "accept",
+   "reason": "“没比它更舒服的”是无可比拟的最高级说法",
+   "rules": [
+    "ABS-03"
+   ]
+  },
+  "r2-ABS-v2": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：“颈椎都年轻了十岁”是效果说法，不是最高级"
+  },
+  "r2-ABS-v3": {
+   "decision": "reject",
+   "reason": "“能打满分”是主观评分，是否构成绝对化用语需要人判断"
+  },
+  "r2-ABS-v4": {
+   "decision": "accept",
+   "reason": "“亮到没朋友”是口语里的无可比拟（没有能比的）",
+   "rules": [
+    "ABS-04"
+   ]
+  },
+  "r2-ABS-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误；主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+  },
+  "r2-AUT-v1": {
+   "decision": "accept",
+   "reason": "“卫生部的亲民之选”借用部委名义背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r2-AUT-v2": {
+   "decision": "accept",
+   "reason": "“营养局都在偷偷囤”虚构政府部门的使用作背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r2-AUT-v3": {
+   "decision": "reject",
+   "reason": "与部队食堂比较健康程度，没有借用机关的名义作背书"
+  },
+  "r2-AUT-v5": {
+   "decision": "reject",
+   "reason": "美妆里的“专家都推荐”按标注口径第 4 条属于医疗用语，引擎已按 MED-02 标出；不是国家机关名义"
+  },
+  "r2-AUT-v6": {
+   "decision": "accept",
+   "reason": "“国字头品质”暗示国家级的身份背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r2-MED-v1": {
+   "decision": "reject",
+   "reason": "“水肿小肚子都没了”已按效果保证标出（EFF-04），这一判断也成立；水肿是症状，不另按疾病宣称"
+  },
+  "r2-MED-v2": {
+   "decision": "reject",
+   "reason": "“排湿气”是中医养生说法，没有具体疾病；是否属于功能宣称需要人判断"
+  },
+  "r2-MED-v3": {
+   "decision": "reject",
+   "reason": "“对脾胃特别好”没有具体疾病，属于泛泛的养生说法；需要人判断"
+  },
+  "r2-MED-v4": {
+   "decision": "accept",
+   "reason": "“皮肤过敏都好了”宣称治好过敏",
+   "rules": [
+    "MED-04"
+   ]
+  },
+  "r2-MED-v5": {
+   "decision": "reject",
+   "reason": "“去火气”是中医养生说法，没有具体疾病"
+  },
+  "r2-MED-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：“净化毛孔”不是疾病或医疗宣称"
+  },
+  "r2-EFF-v1": {
+   "decision": "reject",
+   "reason": "“充一次用大半年”对充电器不可能成立，属于生成模型的瑕疵"
+  },
+  "r2-EFF-v2": {
+   "decision": "reject",
+   "reason": "主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+  },
+  "r2-EFF-v3": {
+   "decision": "reject",
+   "reason": "“九成人都用习惯了”已按数据无出处标出（DAT-01），这一判断成立"
+  },
+  "r2-EFF-v4": {
+   "decision": "accept",
+   "reason": "“小半年体重轻了二十斤”是量化的减重承诺",
+   "rules": [
+    "EFF-02"
+   ]
+  },
+  "r2-EFF-v5": {
+   "decision": "accept",
+   "reason": "“三天就能看到变化”是限期见效的承诺",
+   "rules": [
+    "EFF-02"
+   ]
+  },
+  "r2-EFF-v6": {
+   "decision": "accept",
+   "reason": "“九成能让你小肚子变小”是带概率的效果承诺；r1-EFF-v4 留到这一轮的同类说法一并处理",
+   "rules": [
+    "EFF-02"
+   ]
+  },
+  "r2-DAT-v1": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：降噪效果的夸张描述，没有数据"
+  },
+  "r2-DAT-v2": {
+   "decision": "reject",
+   "reason": "“续航八个小时”是商品规格，由商品资料核对，不是无出处的调查数据"
+  },
+  "r2-DAT-v3": {
+   "decision": "reject",
+   "reason": "“降噪深度35分贝”与商品资料一致，是规格，不是无出处的调查数据"
+  },
+  "r2-DAT-v5": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：减重说法属于效果保证，改动后由 EFF-02 标出"
+  },
+  "r2-DIS-v1": {
+   "decision": "reject",
+   "reason": "与“隔壁老王”的性能比较（天壤之别），是比较广告还是贬低需要人判断"
+  },
+  "r2-DIS-v2": {
+   "decision": "reject",
+   "reason": "与“市面上九成的充电器”比较速度，属于无出处的比较，是否构成贬低需要人判断"
+  },
+  "r2-DIS-v3": {
+   "decision": "reject",
+   "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+  },
+  "r2-DIS-v4": {
+   "decision": "reject",
+   "reason": "句意自相矛盾（说对方“不是纯淀粉堆出来的”），属于生成模型的瑕疵"
+  },
+  "r2-DIS-v5": {
+   "decision": "reject",
+   "reason": "批评楼下那家“光会搞活动”，是否构成贬低需要人判断"
+  },
+  "r2-DIS-v6": {
+   "decision": "reject",
+   "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+  },
+  "r2-RET-v1": {
+   "decision": "accept",
+   "reason": "培训广告承诺“收入最少翻三番”",
+   "rules": [
+    "RET-02"
+   ]
+  },
+  "r2-RET-v3": {
+   "decision": "accept",
+   "reason": "培训广告“包你面试通过率提高”是结果保证",
+   "rules": [
+    "RET-02"
+   ]
+  },
+  "r2-RET-v5": {
+   "decision": "accept",
+   "reason": "招商广告承诺“小半年就见红”（开始盈利）",
+   "rules": [
+    "RET-01"
+   ]
+  },
+  "r2-RET-v6": {
+   "decision": "accept",
+   "reason": "招商广告借加盟商之口承诺“收益能翻倍”",
+   "rules": [
+    "RET-01"
+   ]
+  },
+  "r2-END-v1": {
+   "decision": "reject",
+   "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+  },
+  "r2-END-v2": {
+   "decision": "reject",
+   "reason": "同一句里的“预防感冒”已按疾病宣称标出（MED-04），这句话已经不能发布；老中医的推荐与它在同一分句之外"
+  },
+  "r2-END-v3": {
+   "decision": "reject",
+   "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+  },
+  "r2-END-v4": {
+   "decision": "reject",
+   "reason": "“退休教授亲自操刀”是讲师资历，不一定是第三方的推荐、证明；其中的“包你学会”已按结果保证标出（RET-02）"
+  },
+  "r2-END-v5": {
+   "decision": "reject",
+   "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮；其中的“学完至少赚九千块”改动后由 RET-02 标出"
+  },
+  "r2-END-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：学员个人经历，不是专业人士的推荐"
+  },
+  "r2-PAT-v1": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+  },
+  "r2-PAT-v2": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+  },
+  "r2-PAT-v3": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+  },
+  "r2-PAT-v4": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：“独创”不是专利宣称"
+  },
+  "r2-PAT-v5": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：“秘密配方”不是专利宣称"
+  },
+  "r2-PAT-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误：引擎按数据无出处标出（DAT-01），这一判断成立"
+  },
+  "r2-PAT-n1": {
+   "decision": "reject",
+   "reason": "“晚上充电最好用这款”既可读成建议（最好用这一款），也可读成最高级（最好用）；有歧义时留给人判断，误报比漏检代价小"
+  }
+ }
+}

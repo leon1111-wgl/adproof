@@ -1,0 +1,4167 @@
+{
+ "rounds": [
+  {
+   "id": "r1",
+   "created_at": "2026-11-09T20:34:08+00:00",
+   "seed": 1,
+   "run": {
+    "id": 42690802391,
+    "url": "https://github.com/leon1111-wgl/adproof/actions/runs/42690802391",
+    "commit": "be8074b2783c36c33c6448c78d74149c7ab4f4fc",
+    "event": "push",
+    "llama_cpp": "https://github.com/ggml-org/llama.cpp/releases/download/b11899/llama-b11899-bin-ubuntu-x64.tar.gz"
+   },
+   "generator": {
+    "label": "GLM-4-9B-0414 Q4_K_M (zai-org, MIT; GGUF by unsloth)",
+    "url": "https://huggingface.co/unsloth/GLM-4-9B-0414-GGUF/resolve/40a17a0c8f24664ddd851dafd03935553c25a57e/GLM-4-9B-0414-Q4_K_M.gguf",
+    "sha256": "8027e1089273e8817b2df0d91c9aa17c5ea467246dcdacac34989f8919fe6540"
+   },
+   "auditor": {
+    "label": "Qwen3-4B-Instruct-2507 Q4_K_M (Qwen, Apache-2.0; GGUF by unsloth)",
+    "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597"
+   },
+   "engine": {
+    "commit": "be8074b2783c36c33c6448c78d74149c7ab4f4fc",
+    "ruleset_version": "2026.11.07",
+    "ruleset_hash": "68ead7161d01",
+    "scored_at": "2026-11-09T20:34:11Z"
+   },
+   "throughput": {
+    "generator": {
+     "calls": 18,
+     "wall_s": 1143.5,
+     "completion_tokens": 1875,
+     "prompt_tokens": 6921,
+     "generation_tok_s_median": 2.62,
+     "prompt_tok_s_median": 12.55
+    },
+    "auditor": {
+     "calls": 58,
+     "wall_s": 612.2,
+     "completion_tokens": 2916,
+     "prompt_tokens": 23299,
+     "generation_tok_s_median": 5.6,
+     "prompt_tok_s_median": 24.75
+    }
+   },
+   "counts": {
+    "violations": 54,
+    "caught": 4,
+    "other": 2,
+    "missed": 48,
+    "near_misses": 18,
+    "false_alarms": 3,
+    "seeds": 0
+   },
+   "per_category": {
+    "absolute_terms": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 1
+    },
+    "authority_endorsement": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "medical_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "effect_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "unsourced_data": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "disparagement": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "guaranteed_returns": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 1
+    },
+    "endorsement": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 1
+    },
+    "patent_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    }
+   },
+   "audit": {
+    "sampled": 24,
+    "disputed": 12,
+    "rate": 0.5,
+    "by_kind": {
+     "violation": {
+      "sampled": 21,
+      "disputed": 11
+     },
+     "near_miss": {
+      "sampled": 3,
+      "disputed": 1
+     }
+    },
+    "by_verdict": {
+     "agree": 12,
+     "other": 8,
+     "none": 3,
+     "disagree": 1
+    }
+   },
+   "rule_commits": [
+    {
+     "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+     "ruleset_version": "2026.11.10",
+     "ruleset_hash": "fbc867f55147",
+     "scored_at": "2026-11-09T20:52:57Z",
+     "caught": 23,
+     "false_alarms": 0
+    },
+    {
+     "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+     "ruleset_version": "2026.11.10b",
+     "ruleset_hash": "11e418db7136",
+     "scored_at": "2026-11-09T21:13:01Z",
+     "caught": 24,
+     "false_alarms": 0
+    },
+    {
+     "commit": "3f4452471b0a4b63b23a43ac711172ff327518d0",
+     "ruleset_version": "2026.11.10c",
+     "ruleset_hash": "fc3294e7f37b",
+     "scored_at": "2026-11-09T21:35:56Z",
+     "caught": 24,
+     "false_alarms": 0
+    }
+   ],
+   "items": [
+    {
+     "id": "r1-ABS-v1",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这款益生菌，冲一次肚子立马舒服得不得了，谁喝谁知道。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不是绝对化用语，而是“立马舒服”式的即时效果说法；按分类不采纳，效果类的即时说法需要语义判断，词表会误伤"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-ABS-v2",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "food",
+     "source": "generated",
+     "text": "益生菌里这一款，我试了无数款都说它没得比，绝对排第一。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "absolute_terms"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“没得比”“排第一”是排名和无可比拟的说法",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-ABS-v3",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我妈天天念叨，这益生菌是她喝过最舒服的，没得说，真的没得说。",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "ABS-01",
+       "category": "absolute_terms",
+       "quote": "最舒服"
+      }
+     ],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r1-ABS-n1",
+     "kind": "near_miss",
+     "category": "absolute_terms",
+     "product_category": "food",
+     "source": "generated",
+     "text": "益生菌这种，最好晚上喝效果最好，睡前冲一杯，肚子舒坦一整晚。",
+     "outcome": "false_alarm",
+     "findings": [
+      {
+       "rule_id": "ABS-01",
+       "category": "absolute_terms",
+       "quote": "最好"
+      }
+     ],
+     "audit": {
+      "verdict": "disagree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "用法建议里的“效果最好”（晚上喝效果最好）不是商品的最高级；加例外",
+      "rules": [
+       "ABS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": []
+     },
+     "now": "clean"
+    },
+    {
+     "id": "r1-ABS-v4",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这充电器快充没对手，绝对稳居第一档位。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "absolute_terms"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“没对手”“稳居第一”是排名和无可比拟的说法",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-ABS-v5",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "充电速度顶呱呱，家人们都说绝了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "absolute_terms"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“顶呱呱”“绝了”是夸奖，不是最高级或排名；主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-ABS-v6",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "双口充电就是牛，双倍效率没商量。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "absolute_terms",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“就是牛”是夸奖；“双倍效率”是性能比例，属于另一分类，且这句没有给出可核对的对象"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-ABS-n2",
+     "kind": "near_miss",
+     "category": "absolute_terms",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "建议晚上睡前用，充电更安心。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-AUT-v1",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "咱们这红豆薏米茶，可是经过上面部门特别审批的，安全放心。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "authority_endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“上面部门特别审批”变相借用国家机关的名义背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-AUT-v2",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我家老人说这茶好，说是跟社区卫生站的一样，调理效果好。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；社区卫生站的比较也不构成机关背书"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-AUT-v3",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这款红豆薏米茶，是咱们市消费者协会重点推荐的选择，值得信赖。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "authority_endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "消费者协会不是国家机关；禁止消协推荐商品的规定（消费者权益保护法）不在已核对快照里，不能引用：引错条款比不引更糟"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-AUT-n1",
+     "kind": "near_miss",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "睡前喝一杯红豆薏米茶，有助于睡眠，我试了效果不错。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-AUT-v4",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "咱们这款维生素C，是经过上面严格审批的，九成人都推荐！",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "九成人"
+      }
+     ],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "unsourced_data",
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“经过上面严格审批”变相借用国家机关的名义背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-AUT-v5",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "听说咱们这款是XX健康部门特选的，家人都在吃呢。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“健康部门特选”借用政府部门的名义背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-AUT-v6",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "这款维生素C，官方认证的好吸收，每天一片，妥妥的！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“官方认证”里的“官方”可能是品牌自己的官方渠道，需要人判断；词表会误伤"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-AUT-n2",
+     "kind": "near_miss",
+     "category": "authority_endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "这款维生素C咀嚼片，每天一片，效果挺好的，最好睡前用。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-MED-v1",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "用这毛巾洗洗，烦心事没影儿了，比啥都管用。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有疾病或治疗宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-MED-v2",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "我婆婆说这毛巾用了，皮肤问题好多了，神了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“皮肤问题好多了”没有具体疾病，主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-MED-v3",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "这纯棉的，擦擦脸，三分钟感觉清爽，像医生说的那种‘内调外养’似的。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "medical_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "比喻（“像医生说的内调外养”），没有疾病或治疗宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-MED-n1",
+     "kind": "near_miss",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "睡前用这毛巾擦脸，皮肤第二天又嫩又滑，专家都说好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-MED-v4",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这款代餐粉，喝下去肚子里的‘小垃圾’都跑光了，便秘问题改善明显。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "medical_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "普通食品宣称改善便秘（疾病名称 + 改善）",
+      "rules": [
+       "MED-05"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "MED-05"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-MED-v5",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "听说坚持吃，三高问题慢慢就稳住了，邻居王阿姨都靠这个。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "普通食品宣称“三高问题稳住了”（疾病名称 + 控制）",
+      "rules": [
+       "MED-05"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "MED-05"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-MED-v6",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "每天一杯，感觉像给肠胃做了个SPA，身体轻松多了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；“给肠胃做 SPA”是比喻"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-MED-n2",
+     "kind": "near_miss",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "早上空着肚子冲一杯，一天都感觉神清气爽，适合第一次起床时喝。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-EFF-v1",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "戴上立马就不吵了，邻居的狗叫都能听不见！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "降噪效果的夸张描述，是否可证明要看产品实测；“立马”这类词放进词表会大量误伤"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-EFF-v2",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这降噪效果，比你家空调还安静，听个几年都不累。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "与空调比较安静程度，属于需要实测数据判断的性能描述，不适合词表"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-EFF-v3",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "我妈用了说比她年轻了小半年，这个牌子真不一般。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "耳机让人“年轻了小半年”不是可理解的效果宣称，属于生成模型的瑕疵"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-EFF-n1",
+     "kind": "near_miss",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "最好睡前用，助眠效果杠杠的。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-EFF-v4",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "坚持喝这个，九成能看见水肿往下走。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "r1 时留到下一轮（“九成能看见”同时是无出处比例和效果宣称）；r2 采纳同类说法（r2-EFF-v6）时一并处理，由 EFF-02 标出",
+      "rules": [
+       "EFF-02"
+      ],
+      "revised": "2026-11-10，r2 决定时改为采纳"
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-EFF-v5",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "听我奶奶说，喝个把月肚子会小一圈。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“喝个把月肚子会小一圈”是量化的身体变化承诺",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-EFF-v6",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这茶很特别，喝完后感觉身体轻快许多。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-EFF-n2",
+     "kind": "near_miss",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "建议睡前喝，这样效果会更好一些。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-DAT-v1",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "连续三个月销量破万，大家都说好，不信你试试！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "unsourced_data",
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“销量破万”用销量数据作证明但没有出处",
+      "rules": [
+       "DAT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "DAT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-DAT-v2",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "专家私下说，这种搭配喝着喝着就感觉不一样了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "unsourced_data",
+       "endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有数据"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DAT-v3",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我婆婆喝了两周，肠胃舒服多了，这是真的！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；个人使用经历，没有数据"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DAT-n1",
+     "kind": "near_miss",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "建议每天早上空腹喝，效果会更好些。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-DAT-v4",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这课程，听我们老师讲，有九成学员都说每周答疑特别顶用。",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "九成学员"
+      }
+     ],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r1-DAT-v5",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "education",
+     "source": "generated",
+     "text": "我闺蜜去年学完这套课，剪的视频上手速度，比没学的前小半年快一倍不止。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“快一倍不止”是没有出处的性能倍数",
+      "rules": [
+       "DAT-03"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "DAT-03"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-DAT-v6",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "education",
+     "source": "generated",
+     "text": "内部测试嘛，这32节课内容，听完直接上手率，大概能到八成以上水平。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "比例（“八成以上”）和指标（“上手率”）被逗号拆在两个分句里，按分句匹配的词表连不起来；留到下一轮"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DAT-n2",
+     "kind": "near_miss",
+     "category": "unsourced_data",
+     "product_category": "education",
+     "source": "generated",
+     "text": "根据《剪辑爱好者》杂志今年5月的调查，坚持每周答疑能提升效率。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-DIS-v1",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "跟他们那些添加剂一堆的比，咱们这个才真材实料，喝着都踏实。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“他们那些添加剂一堆的”贬低其他经营者的商品",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-DIS-v2",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我闺蜜之前买的那种，吃了小半年都没感觉，咱们这个一天就有效果。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“之前买的那种”没有指向可识别的经营者，主要问题是效果宣称；不按贬低处理"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DIS-v3",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "听我家人说，他们那个牌子的是凑数的，咱们这个每份6g纤维是真材实料。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“他们那个牌子的是凑数的”贬低其他经营者的商品",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-DIS-n1",
+     "kind": "near_miss",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "最好早上用，补充能量一整天。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-DIS-v4",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "home",
+     "source": "generated",
+     "text": "跟那谁家卖的比，咱这85%天然乳胶的含量，人家那估计连5%都不到吧。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“人家那估计连5%都不到”无依据地贬低其他经营者的商品",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "DIS-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-DIS-v5",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "home",
+     "source": "generated",
+     "text": "我妈用了一小半年，她说这个波浪形的舒服，不像别家那个硬邦邦的。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "对软硬的比较描述，是否构成贬低需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DIS-v6",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "home",
+     "source": "generated",
+     "text": "听直播间的姐妹说，那个199块钱的乳胶枕，用着用着脖子都僵硬了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "只用价格指代竞品（“那个199块钱的”），词表无法区分是不是自家商品；需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-DIS-n2",
+     "kind": "near_miss",
+     "category": "disparagement",
+     "product_category": "home",
+     "source": "generated",
+     "text": "这个乳胶枕最好睡前用，放松效果好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-RET-v1",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "只要跟着我们的指导，九成以上的加盟商小半年就能回本！",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "RET-01",
+       "category": "guaranteed_returns",
+       "quote": "半年就能回本"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r1-RET-v2",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "我们保证，只要你用心经营，一年左右就能把加盟费赚回来。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "招商广告承诺“一年左右就能把加盟费赚回来”",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-RET-v3",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "听说隔壁用我们课程的，家人都说考试通过率特别高。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "招商商品下写的是考试通过率，生成模型把类目写混了；也不是保证性承诺"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-RET-n1",
+     "kind": "near_miss",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "建议晚上使用效果更佳哦。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-RET-v4",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "学完这课，小半年你就能回本，我同事都这么说的！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告承诺“小半年你就能回本”",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-RET-v5",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "跟完我们课，就业不成问题，保你找对人！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告承诺“就业不成问题”",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-RET-v6",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "32节课学完，接单率至少九成，亲测有效！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告用“接单率至少九成”暗示结果保证",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-RET-n2",
+     "kind": "near_miss",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "建议晚上有时间再学，效率最好。",
+     "outcome": "false_alarm",
+     "findings": [
+      {
+       "rule_id": "ABS-01",
+       "category": "absolute_terms",
+       "quote": "最好"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "用法建议里的“效率最好”不是最高级；加例外",
+      "rules": [
+       "ABS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": []
+     },
+     "now": "clean"
+    },
+    {
+     "id": "r1-END-v1",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "我家人都说这维生素C好，就像医生常说的那个样子，补起来特别快。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专业人士作推荐"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-END-v2",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "听说是北大教授悄悄推荐的，补维C，效果跟小半年吃一样的。",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "END-01",
+       "category": "endorsement",
+       "quote": "北大教授悄悄推荐"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r1-END-v3",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "每次吃这维C，都像听了专家讲座一样，心里特别踏实。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "比喻（“像听了专家讲座”），没有专业人士作推荐"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-END-n1",
+     "kind": "near_miss",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "根据维生素C每日推荐摄入量，最好每天一片，这样效果最好。",
+     "outcome": "false_alarm",
+     "findings": [
+      {
+       "rule_id": "ABS-01",
+       "category": "absolute_terms",
+       "quote": "最好"
+      }
+     ],
+     "audit": {
+      "verdict": "disagree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "用法建议里的“这样效果最好”不是最高级；加例外",
+      "rules": [
+       "ABS-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": []
+     },
+     "now": "clean"
+    },
+    {
+     "id": "r1-END-v4",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这课程连清华教授都自曝在小半年内都在学这个，你学完绝对不后悔！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data",
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告用“清华教授都在学”作推荐、证明",
+      "rules": [
+       "END-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "END-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-END-v5",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "上周连我隔壁的诊所李医生都对这录播课赞不绝口，真的超级实用。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement",
+       "endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告用医生的名义作推荐（“李医生都赞不绝口”）",
+      "rules": [
+       "END-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "6e42efb502837a5ec0595318f4f69ad8ac7c1c3e",
+      "ruleset_version": "2026.11.10",
+      "rules": [
+       "END-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r1-END-v6",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这32节视频课，我亲妈连着看说是比得上北大教授的公开课了，值！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data",
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "与教授公开课作比较，不是专业人士作推荐、证明"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-END-n2",
+     "kind": "near_miss",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "建议每周的直播答疑最好提前准备问题，这样效果更好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-PAT-v1",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这款精华是特别研究出来的，效果就是不一样，不信你试试看。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-PAT-v2",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "我妈妈都用这个了，她说用着用着皮肤就亮了，特别神奇。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-PAT-v3",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这个配方，我们用了很久，效果一直很稳定，是精心调配的。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-PAT-n1",
+     "kind": "near_miss",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "建议晚上用这个，皮肤吸收快，第二天脸亮亮的。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "disagree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r1-PAT-v4",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这款充电器用的是独门秘方，绝对比别家快，不告诉你是什么小秘诀。",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "MED-02",
+       "category": "medical_claims",
+       "quote": "秘方"
+      }
+     ],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "absolute_terms",
+       "unsourced_data",
+       "disparagement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“独门秘方”不是专利宣称；引擎按医疗用语标出（MED-02），对充电器是否算医疗用语需要人判断，本轮不改"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r1-PAT-v5",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "我婆婆都说这充电器真厉害，用起来像变戏法一样，快得不像话。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-PAT-v6",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这65W充电器是我们家研发的，用了不到半年就成爆款了，效果杠杠的。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r1-PAT-n2",
+     "kind": "near_miss",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "建议晚上充电的时候用这个，这样第二天起来电量正好，生活就方便多了。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    }
+   ]
+  },
+  {
+   "id": "r2",
+   "created_at": "2026-11-09T21:05:24+00:00",
+   "seed": 2,
+   "run": {
+    "id": 42697220263,
+    "url": "https://github.com/leon1111-wgl/adproof/actions/runs/42697220263",
+    "commit": "12813e67eb7137c9ef8f2c936f06e17f4167ad38",
+    "event": "push",
+    "llama_cpp": "https://github.com/ggml-org/llama.cpp/releases/download/b11899/llama-b11899-bin-ubuntu-x64.tar.gz"
+   },
+   "generator": {
+    "label": "GLM-4-9B-0414 Q4_K_M (zai-org, MIT; GGUF by unsloth)",
+    "url": "https://huggingface.co/unsloth/GLM-4-9B-0414-GGUF/resolve/40a17a0c8f24664ddd851dafd03935553c25a57e/GLM-4-9B-0414-Q4_K_M.gguf",
+    "sha256": "8027e1089273e8817b2df0d91c9aa17c5ea467246dcdacac34989f8919fe6540"
+   },
+   "auditor": {
+    "label": "Qwen3-4B-Instruct-2507 Q4_K_M (Qwen, Apache-2.0; GGUF by unsloth)",
+    "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597"
+   },
+   "engine": {
+    "commit": "12813e67eb7137c9ef8f2c936f06e17f4167ad38",
+    "ruleset_version": "2026.11.10",
+    "ruleset_hash": "fbc867f55147",
+    "scored_at": "2026-11-09T21:05:26Z"
+   },
+   "throughput": {
+    "generator": {
+     "calls": 18,
+     "wall_s": 565.3,
+     "completion_tokens": 2023,
+     "prompt_tokens": 6948,
+     "generation_tok_s_median": 6.04,
+     "prompt_tok_s_median": 23.4
+    },
+    "auditor": {
+     "calls": 56,
+     "wall_s": 247.2,
+     "completion_tokens": 2874,
+     "prompt_tokens": 22608,
+     "generation_tok_s_median": 14.7,
+     "prompt_tok_s_median": 47.59
+    }
+   },
+   "counts": {
+    "violations": 54,
+    "caught": 6,
+    "other": 6,
+    "missed": 42,
+    "near_misses": 18,
+    "false_alarms": 1,
+    "seeds": 0
+   },
+   "per_category": {
+    "absolute_terms": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "authority_endorsement": {
+     "violations": 6,
+     "caught": 1,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "medical_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "effect_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "unsourced_data": {
+     "violations": 6,
+     "caught": 2,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "disparagement": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "guaranteed_returns": {
+     "violations": 6,
+     "caught": 2,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "endorsement": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 0
+    },
+    "patent_claims": {
+     "violations": 6,
+     "caught": 0,
+     "near_misses": 2,
+     "false_alarms": 1
+    }
+   },
+   "audit": {
+    "sampled": 24,
+    "disputed": 7,
+    "rate": 0.2917,
+    "by_kind": {
+     "violation": {
+      "sampled": 16,
+      "disputed": 5
+     },
+     "near_miss": {
+      "sampled": 8,
+      "disputed": 2
+     }
+    },
+    "by_verdict": {
+     "agree": 17,
+     "other": 4,
+     "none": 1,
+     "disagree": 2
+    }
+   },
+   "rule_commits": [
+    {
+     "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+     "ruleset_version": "2026.11.10b",
+     "ruleset_hash": "11e418db7136",
+     "scored_at": "2026-11-09T21:13:02Z",
+     "caught": 19,
+     "false_alarms": 1
+    },
+    {
+     "commit": "3f4452471b0a4b63b23a43ac711172ff327518d0",
+     "ruleset_version": "2026.11.10c",
+     "ruleset_hash": "fc3294e7f37b",
+     "scored_at": "2026-11-09T21:35:57Z",
+     "caught": 19,
+     "false_alarms": 1
+    }
+   ],
+   "items": [
+    {
+     "id": "r2-ABS-v1",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "home",
+     "source": "generated",
+     "text": "这乳胶枕，用过的都说没比它更舒服的！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "absolute_terms"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“没比它更舒服的”是无可比拟的最高级说法",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "ABS-03"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-ABS-v2",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "home",
+     "source": "generated",
+     "text": "每天睡这个，感觉我的颈椎都年轻了十岁呢。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：“颈椎都年轻了十岁”是效果说法，不是最高级"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-ABS-v3",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "home",
+     "source": "generated",
+     "text": "这可是我们测试过，能打满分的乳胶枕啊！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“能打满分”是主观评分，是否构成绝对化用语需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-ABS-n1",
+     "kind": "near_miss",
+     "category": "absolute_terms",
+     "product_category": "home",
+     "source": "generated",
+     "text": "我建议你们睡前用它，真的特别放松。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-ABS-v4",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "用这个精华，皮肤亮到没朋友了，信我没错！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "absolute_terms"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“亮到没朋友”是口语里的无可比拟（没有能比的）",
+      "rules": [
+       "ABS-04"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "ABS-04"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-ABS-v5",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这烟酰胺浓度，绝对是市面上顶尖的那一批，不用试试？",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "ABS-04",
+       "category": "absolute_terms",
+       "quote": "顶尖"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-ABS-v6",
+     "kind": "violation",
+     "category": "absolute_terms",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "我闺蜜都夸我用了它，皮肤状态一天一个样，真的绝了！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误；主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-ABS-n2",
+     "kind": "near_miss",
+     "category": "absolute_terms",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "建议晚上临睡前涂抹效果更佳哦~",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-AUT-v1",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "咱们这款高纤燕麦粉，可是卫生部的亲民之选哦！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "authority_endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“卫生部的亲民之选”借用部委名义背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-AUT-v2",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "你听说了吗？专家说这个代餐粉，营养局都在偷偷囤！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "medical_claims",
+       "unsourced_data",
+       "authority_endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“营养局都在偷偷囤”虚构政府部门的使用作背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-AUT-v3",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我妈说吃了这个，比部队食堂的早餐还健康呢！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "与部队食堂比较健康程度，没有借用机关的名义作背书"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-AUT-n1",
+     "kind": "near_miss",
+     "category": "authority_endorsement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "营养师建议每天早餐冲一杯，效果特别好哦。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-AUT-v4",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这可是经过我们‘国家认证’的烟酰胺精华，用着放心！",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "AUT-01",
+       "category": "authority_endorsement",
+       "quote": "国家认证"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-AUT-v5",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "听说专家都推荐这款烟酰胺精华，效果杠杠的！",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "MED-02",
+       "category": "medical_claims",
+       "quote": "专家都推荐"
+      }
+     ],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "endorsement",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "美妆里的“专家都推荐”按标注口径第 4 条属于医疗用语，引擎已按 MED-02 标出；不是国家机关名义"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-AUT-v6",
+     "kind": "violation",
+     "category": "authority_endorsement",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "我们家这款烟酰胺精华，‘国字头’品质，绝对靠谱！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "authority_endorsement",
+       "absolute_terms"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“国字头品质”暗示国家级的身份背书",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "AUT-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-AUT-n2",
+     "kind": "near_miss",
+     "category": "authority_endorsement",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这款烟酰胺精华适合中性及混合性肌肤，建议晚上用。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-MED-v1",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这个红豆薏米茶，喝上几天，水肿小肚子都没了，简直是个小救星！",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "EFF-04",
+       "category": "effect_claims",
+       "quote": "小肚子都没了"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "medical_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“水肿小肚子都没了”已按效果保证标出（EFF-04），这一判断也成立；水肿是症状，不另按疾病宣称"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-MED-v2",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "听说红豆薏米茶能‘排’掉湿气，我闺蜜喝了说感觉整个人都轻快了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“排湿气”是中医养生说法，没有具体疾病；是否属于功能宣称需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-MED-v3",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这个茶里都有芡实，对脾胃特别好，喝久了身体都暖和了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "medical_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“对脾胃特别好”没有具体疾病，属于泛泛的养生说法；需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-MED-n1",
+     "kind": "near_miss",
+     "category": "medical_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "建议晚上睡觉前喝一杯，助眠效果特别好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-MED-v4",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "用这条毛巾擦脸，皮肤过敏都好了，真神奇！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "medical_claims",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“皮肤过敏都好了”宣称治好过敏",
+      "rules": [
+       "MED-04"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "MED-04"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-MED-v5",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "我奶奶说，这毛巾有‘去火气’的效果，亲测有效果。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“去火气”是中医养生说法，没有具体疾病"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-MED-v6",
+     "kind": "violation",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "听说这纯棉的能‘净化’毛孔，用了‘一小阵子’就感觉不一样了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "medical_claims",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：“净化毛孔”不是疾病或医疗宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-MED-n2",
+     "kind": "near_miss",
+     "category": "medical_claims",
+     "product_category": "home",
+     "source": "generated",
+     "text": "建议晚上洁面后用它擦干，这样皮肤更好恢复。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-EFF-v1",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这65W充电器，用一次电都能充大半年，省心省力！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“充一次用大半年”对充电器不可能成立，属于生成模型的瑕疵"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-EFF-v2",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "跟你说个秘密，我这充电器速度，跟闪电似的，快到没话说。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-EFF-v3",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "我妈妈用了都说好，这充电器效率高，九成人都用习惯了。",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "九成人"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“九成人都用习惯了”已按数据无出处标出（DAT-01），这一判断成立"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-EFF-n1",
+     "kind": "near_miss",
+     "category": "effect_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "晚上充电最好别用，容易发热，还是早上充效果好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-EFF-v4",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "跟你说哦，我闺蜜喝了这代餐粉，小半年体重轻了二十斤呢！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“小半年体重轻了二十斤”是量化的减重承诺",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-EFF-v5",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "每次喝完感觉肚子暖暖的，膳食纤维促进肠道蠕动，三天就能看到变化。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "medical_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“三天就能看到变化”是限期见效的承诺",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-EFF-v6",
+     "kind": "violation",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "这粉里奇亚籽超多，坚持喝九成能让你小肚子变小！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "“九成能让你小肚子变小”是带概率的效果承诺；r1-EFF-v4 留到这一轮的同类说法一并处理",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "EFF-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-EFF-n2",
+     "kind": "near_miss",
+     "category": "effect_claims",
+     "product_category": "food",
+     "source": "generated",
+     "text": "建议早上空腹冲泡，这样吸收效果更好哦。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-DAT-v1",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这耳机降噪效果绝了，戴上后周围声音完全听不见，就像进了个无声世界，亲测有效果。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "absolute_terms"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：降噪效果的夸张描述，没有数据"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DAT-v2",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "咱们这款耳机续航超级给力，八个小时连续听歌一点不累，连我爸妈都用都说好。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“续航八个小时”是商品规格，由商品资料核对，不是无出处的调查数据"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DAT-v3",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "降噪深度达到35分贝，相当于在飞机上也能安心听歌，效果直接拉满。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“降噪深度35分贝”与商品资料一致，是规格，不是无出处的调查数据"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DAT-n1",
+     "kind": "near_miss",
+     "category": "unsourced_data",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "根据某科技媒体的评测，这款耳机续航表现优异，是同类产品中的佼佼者。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-DAT-v4",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "咱们这款红豆薏米茶，调理了超过80%的人，坚持喝都瘦了!",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "80%的人"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-DAT-v5",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "听我妈说，她喝了这个茶，小半年体重轻了快10斤!",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：减重说法属于效果保证，改动后由 EFF-02 标出"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-DAT-v6",
+     "kind": "violation",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "每盒30袋，平均一天才一袋，性价比超高，九成人都能喝得起!",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "九成人"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-DAT-n2",
+     "kind": "near_miss",
+     "category": "unsourced_data",
+     "product_category": "food",
+     "source": "generated",
+     "text": "根据《健康生活指南》2023年的数据，红豆薏米茶适合睡前饮用。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-DIS-v1",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这款充电器用过的都说比隔壁老王的强多了，都是119，但性能那叫一个天壤之别。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "与“隔壁老王”的性能比较（天壤之别），是比较广告还是贬低需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-v2",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "充电速度比市面上九成的充电器都快，你试试就知道谁好谁坏了，不骗你。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "与“市面上九成的充电器”比较速度，属于无出处的比较，是否构成贬低需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-v3",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "我爸妈用了别的牌子充电器，充电慢得像蜗牛，这65W快得像闪电一样，差距不是一点半点。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement",
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-n1",
+     "kind": "near_miss",
+     "category": "disparagement",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这个充电器最好睡前用，可以慢慢充，不容易醒。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-DIS-v4",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "跟隔壁那款比，人家才不是纯淀粉堆出来的，咱们这可是实打实的膳食纤维，吃了顶用多了。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement",
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "句意自相矛盾（说对方“不是纯淀粉堆出来的”），属于生成模型的瑕疵"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-v5",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我跟你说啊，我家楼下那家卖的根本不提营养，光会搞活动，哪有咱们这杯子里有料实在。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "none",
+      "violates": [],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "批评楼下那家“光会搞活动”，是否构成贬低需要人判断"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-v6",
+     "kind": "violation",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "我闺蜜试过别家，说冲出来像泥水一样，跟咱们这顺滑细腻没法比，口感差远了去。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "disparagement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-DIS-n2",
+     "kind": "near_miss",
+     "category": "disparagement",
+     "product_category": "food",
+     "source": "generated",
+     "text": "建议晚上吃完饭隔一会儿再喝，这样效果更明显哦。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-RET-v1",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "跟完这套课，你收入最少翻三番，我亲戚都学完在接单了！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "guaranteed_returns"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告承诺“收入最少翻三番”",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-v2",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "你只要认真学，小半年就能回本，去年学员平均就用了四个月。",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "RET-02",
+       "category": "guaranteed_returns",
+       "quote": "就能回本"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-v3",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这门课学完，包你面试通过率提高一成，我同事家的孩子就靠它进了大厂。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "培训广告“包你面试通过率提高”是结果保证",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "RET-02"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-n1",
+     "kind": "near_miss",
+     "category": "guaranteed_returns",
+     "product_category": "education",
+     "source": "generated",
+     "text": "建议你每周都来答疑直播，这样学习效果最好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "disagree",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-RET-v4",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "加入我们，轻松回本，让您的小店轻松月入过万！",
+     "outcome": "caught",
+     "findings": [
+      {
+       "rule_id": "RET-01",
+       "category": "guaranteed_returns",
+       "quote": "月入过万"
+      }
+     ],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-v5",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "咱们这项目，一般人试个小半年就见红了，您放心！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "招商广告承诺“小半年就见红”（开始盈利）",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-v6",
+     "kind": "violation",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "听我一位成功加盟商说，坚持经营一年，收益能翻倍呢！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "accept",
+      "reason": "招商广告借加盟商之口承诺“收益能翻倍”",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "fixed_in": {
+      "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+      "ruleset_version": "2026.11.10b",
+      "rules": [
+       "RET-01"
+      ]
+     },
+     "now": "caught"
+    },
+    {
+     "id": "r2-RET-n2",
+     "kind": "near_miss",
+     "category": "guaranteed_returns",
+     "product_category": "franchise",
+     "source": "generated",
+     "text": "建议最好选择晚上客流大的时候开业，效果会更好。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-END-v1",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "听咱们大学营养学院的教授说，这维生素C咀嚼片是补维C的好帮手，小半年吃下来身体棒棒的。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-END-v2",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "我妈说，她认识个老中医，说这维C小助手对预防感冒挺管用，咱们每天一片就妥了。",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "MED-04",
+       "category": "medical_claims",
+       "quote": "预防感冒"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "同一句里的“预防感冒”已按疾病宣称标出（MED-04），这句话已经不能发布；老中医的推荐与它在同一分句之外"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-END-v3",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "上次听个字母头K教授讲座，提到补充维C对提升免疫力很有帮助，这瓶89块买不了吃亏买不了上当。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-END-n1",
+     "kind": "near_miss",
+     "category": "endorsement",
+     "product_category": "health_food",
+     "source": "generated",
+     "text": "听说最好每天早上嚼一片，补充维C对提升活力很有帮助，就像早上喝杯牛奶一样简单。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": null,
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-END-v4",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这课程是X大退休教授亲自操刀的，包你学会!",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "RET-02",
+       "category": "guaranteed_returns",
+       "quote": "包你学会"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "endorsement",
+       "guaranteed_returns"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“退休教授亲自操刀”是讲师资历，不一定是第三方的推荐、证明；其中的“包你学会”已按结果保证标出（RET-02）"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-END-v5",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "听我们这行业老专家说，这课学完至少赚九千块。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [
+       "effect_claims",
+       "endorsement"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "宣称和对象被逗号拆在两个分句里，按分句匹配的词表连不起来（与 r1-DAT-v6 同类）；放宽到跨分句会明显增加误报，留到下一轮；其中的“学完至少赚九千块”改动后由 RET-02 标出"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-END-v6",
+     "kind": "violation",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "我表哥上完这课，直接进了XX公司当剪辑师。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "disparagement",
+       "effect_claims"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：学员个人经历，不是专业人士的推荐"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-END-n2",
+     "kind": "near_miss",
+     "category": "endorsement",
+     "product_category": "education",
+     "source": "generated",
+     "text": "这课程是官方认证的，第一次报名还能抽奖。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "disagree",
+      "violates": [
+       "endorsement",
+       "guaranteed_returns"
+      ],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    },
+    {
+     "id": "r2-PAT-v1",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这款充电器是特别研发的，大家都说用着特别快，像是加了什么特别的料一样。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-PAT-v2",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "我妈妈用后说，这款充电器充电速度跟别的充电器完全不一样，肯定是用到了什么独门绝技。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-PAT-v3",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "这款充电器充电速度那叫一个快，简直是九成九的充电器都比不上，不知道是用了什么高级技术。",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "absolute_terms",
+       "unsourced_data"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：没有专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-PAT-n1",
+     "kind": "near_miss",
+     "category": "patent_claims",
+     "product_category": "digital",
+     "source": "generated",
+     "text": "晚上充电最好用这款，充电速度快，这样睡觉前就能充好。",
+     "outcome": "false_alarm",
+     "findings": [
+      {
+       "rule_id": "ABS-01",
+       "category": "absolute_terms",
+       "quote": "最好用"
+      }
+     ],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "“晚上充电最好用这款”既可读成建议（最好用这一款），也可读成最高级（最好用）；有歧义时留给人判断，误报比漏检代价小"
+     },
+     "fixed_in": null,
+     "now": "false_alarm"
+    },
+    {
+     "id": "r2-PAT-v4",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这烟酰胺焕亮精华是我们独创的，比市面上普通的提亮效果要好很多哦！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims"
+      ],
+      "sampled": false,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：“独创”不是专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-PAT-v5",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "我妈妈用了一小段时间，皮肤真的变亮了，这可是我们家秘密配方！",
+     "outcome": "missed",
+     "findings": [],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：“秘密配方”不是专利宣称"
+     },
+     "fixed_in": null,
+     "now": "missed"
+    },
+    {
+     "id": "r2-PAT-v6",
+     "kind": "violation",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "这款精华的效果，大概能持续小半年呢，九成人用过后都有反馈！",
+     "outcome": "other",
+     "findings": [
+      {
+       "rule_id": "DAT-01",
+       "category": "unsourced_data",
+       "quote": "九成人"
+      }
+     ],
+     "audit": {
+      "verdict": "other",
+      "violates": [
+       "effect_claims",
+       "unsourced_data"
+      ],
+      "sampled": true,
+      "triage": true
+     },
+     "decision": {
+      "decision": "reject",
+      "reason": "不属于这一分类：生成标签有误：引擎按数据无出处标出（DAT-01），这一判断成立"
+     },
+     "fixed_in": null,
+     "now": "other"
+    },
+    {
+     "id": "r2-PAT-n2",
+     "kind": "near_miss",
+     "category": "patent_claims",
+     "product_category": "cosmetics",
+     "source": "generated",
+     "text": "建议晚上睡前使用这款焕亮精华，效果更佳哦。",
+     "outcome": "clean",
+     "findings": [],
+     "audit": {
+      "verdict": "agree",
+      "violates": [],
+      "sampled": true,
+      "triage": false
+     },
+     "decision": null,
+     "fixed_in": null,
+     "now": "clean"
+    }
+   ]
+  }
+ ],
+ "blind": {
+  "set": "backend/evals/blind_v2.yaml",
+  "runs": [
+   {
+    "commit": "792631a5dbd87d651a5251a4c122d5e5c565244a",
+    "label": "盲测首跑：v1.2 任何规则改动之前（规则库 2026.11.07，与 main 相同）",
+    "blind": true,
+    "ruleset_version": "2026.11.07",
+    "ruleset_hash": "68ead7161d01",
+    "dataset_hash": "a6964be48ac5",
+    "scripts": 60,
+    "precision": 0.8378,
+    "recall": 0.3875,
+    "f1": 0.5299,
+    "tp": 31,
+    "fp": 6,
+    "fn": 49,
+    "strict_f1": 0.3932,
+    "clean": 18,
+    "clean_flagged": 0,
+    "per_category": {
+     "absolute_terms": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 2,
+      "support": 9
+     },
+     "authority_endorsement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "medical_claims": {
+      "tp": 3,
+      "fp": 1,
+      "fn": 5,
+      "support": 8
+     },
+     "effect_claims": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 9,
+      "support": 11
+     },
+     "unsourced_data": {
+      "tp": 0,
+      "fp": 4,
+      "fn": 6,
+      "support": 6
+     },
+     "disparagement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "guaranteed_returns": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 5,
+      "support": 7
+     },
+     "endorsement": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 5,
+      "support": 5
+     },
+     "patent_claims": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "support": 6
+     },
+     "fact_mismatch": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 7,
+      "support": 18
+     }
+    },
+    "rewrite": {
+     "scripts": 42,
+     "passed": 39,
+     "withheld": 3
+    },
+    "evidence": {
+     "findings_checked": 37,
+     "findings_valid": 37,
+     "citations": 96,
+     "citations_verified": 96
+    }
+   },
+   {
+    "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+    "label": "红队修复后：r1、r2 的规则提交之后（规则库 2026.11.10b）；作者仍未读过盲测脚本",
+    "blind": true,
+    "ruleset_version": "2026.11.10b",
+    "ruleset_hash": "11e418db7136",
+    "dataset_hash": "a6964be48ac5",
+    "scripts": 60,
+    "precision": 0.8378,
+    "recall": 0.3875,
+    "f1": 0.5299,
+    "tp": 31,
+    "fp": 6,
+    "fn": 49,
+    "strict_f1": 0.3932,
+    "clean": 18,
+    "clean_flagged": 0,
+    "per_category": {
+     "absolute_terms": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 2,
+      "support": 9
+     },
+     "authority_endorsement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "medical_claims": {
+      "tp": 3,
+      "fp": 1,
+      "fn": 5,
+      "support": 8
+     },
+     "effect_claims": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 9,
+      "support": 11
+     },
+     "unsourced_data": {
+      "tp": 0,
+      "fp": 4,
+      "fn": 6,
+      "support": 6
+     },
+     "disparagement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "guaranteed_returns": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 5,
+      "support": 7
+     },
+     "endorsement": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 5,
+      "support": 5
+     },
+     "patent_claims": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "support": 6
+     },
+     "fact_mismatch": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 7,
+      "support": 18
+     }
+    },
+    "rewrite": {
+     "scripts": 42,
+     "passed": 39,
+     "withheld": 3
+    },
+    "evidence": {
+     "findings_checked": 37,
+     "findings_valid": 37,
+     "citations": 96,
+     "citations_verified": 96
+    }
+   },
+   {
+    "commit": "3f4452471b0a4b63b23a43ac711172ff327518d0",
+    "label": "发布审阅修复后（规则库 2026.11.10c，收紧红队规则的误报）；作者仍未读过盲测脚本",
+    "blind": true,
+    "ruleset_version": "2026.11.10c",
+    "ruleset_hash": "fc3294e7f37b",
+    "dataset_hash": "a6964be48ac5",
+    "scripts": 60,
+    "precision": 0.8378,
+    "recall": 0.3875,
+    "f1": 0.5299,
+    "tp": 31,
+    "fp": 6,
+    "fn": 49,
+    "strict_f1": 0.3932,
+    "clean": 18,
+    "clean_flagged": 0,
+    "per_category": {
+     "absolute_terms": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 2,
+      "support": 9
+     },
+     "authority_endorsement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "medical_claims": {
+      "tp": 3,
+      "fp": 1,
+      "fn": 5,
+      "support": 8
+     },
+     "effect_claims": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 9,
+      "support": 11
+     },
+     "unsourced_data": {
+      "tp": 0,
+      "fp": 4,
+      "fn": 6,
+      "support": 6
+     },
+     "disparagement": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "support": 5
+     },
+     "guaranteed_returns": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 5,
+      "support": 7
+     },
+     "endorsement": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 5,
+      "support": 5
+     },
+     "patent_claims": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "support": 6
+     },
+     "fact_mismatch": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 7,
+      "support": 18
+     }
+    },
+    "rewrite": {
+     "scripts": 42,
+     "passed": 39,
+     "withheld": 3
+    },
+    "evidence": {
+     "findings_checked": 37,
+     "findings_valid": 37,
+     "citations": 96,
+     "citations_verified": 96
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,534 @@
+{
+ "engine": {
+  "commit": "be8074b2783c36c33c6448c78d74149c7ab4f4fc",
+  "ruleset_version": "2026.11.07",
+  "ruleset_hash": "68ead7161d01",
+  "scored_at": "2026-11-09T20:34:11Z"
+ },
+ "items": {
+  "r1-ABS-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-ABS-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-ABS-v3": {
+   "caught": true,
+   "outcome": "caught",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "absolute_terms",
+     "rule_id": "ABS-01",
+     "quote": "最舒服",
+     "citations": [
+      "广告法第九条第三项",
+      "广告法第五十七条第一项"
+     ]
+    }
+   ]
+  },
+  "r1-ABS-n1": {
+   "caught": null,
+   "outcome": "false_alarm",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "absolute_terms",
+     "rule_id": "ABS-01",
+     "quote": "最好",
+     "citations": [
+      "广告法第九条第三项",
+      "广告法第五十七条第一项"
+     ]
+    }
+   ]
+  },
+  "r1-ABS-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-ABS-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-ABS-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-ABS-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-v4": {
+   "caught": false,
+   "outcome": "other",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "unsourced_data",
+     "rule_id": "DAT-01",
+     "quote": "九成人",
+     "citations": [
+      "广告法第十一条第二款",
+      "广告法第二十八条第二款第三项",
+      "广告法第五十九条第一款第二项"
+     ]
+    }
+   ]
+  },
+  "r1-AUT-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-AUT-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-MED-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-EFF-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-v4": {
+   "caught": true,
+   "outcome": "caught",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "unsourced_data",
+     "rule_id": "DAT-01",
+     "quote": "九成学员",
+     "citations": [
+      "广告法第十一条第二款",
+      "广告法第二十八条第二款第三项",
+      "广告法第五十九条第一款第二项"
+     ]
+    }
+   ]
+  },
+  "r1-DAT-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DAT-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-DIS-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-v1": {
+   "caught": true,
+   "outcome": "caught",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "guaranteed_returns",
+     "rule_id": "RET-01",
+     "quote": "半年就能回本",
+     "citations": [
+      "广告法第二十五条第一项",
+      "广告法第五十八条第一款第七项"
+     ]
+    }
+   ]
+  },
+  "r1-RET-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-RET-n2": {
+   "caught": null,
+   "outcome": "false_alarm",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "absolute_terms",
+     "rule_id": "ABS-01",
+     "quote": "最好",
+     "citations": [
+      "广告法第九条第三项",
+      "广告法第五十七条第一项"
+     ]
+    }
+   ]
+  },
+  "r1-END-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-END-v2": {
+   "caught": true,
+   "outcome": "caught",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "endorsement",
+     "rule_id": "END-01",
+     "quote": "北大教授悄悄推荐",
+     "citations": [
+      "广告法第十八条第一款第五项",
+      "广告法第五十八条第一款第三项"
+     ]
+    }
+   ]
+  },
+  "r1-END-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-END-n1": {
+   "caught": null,
+   "outcome": "false_alarm",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "absolute_terms",
+     "rule_id": "ABS-01",
+     "quote": "最好",
+     "citations": [
+      "广告法第九条第三项",
+      "广告法第五十七条第一项"
+     ]
+    }
+   ]
+  },
+  "r1-END-v4": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-END-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-END-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-END-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-v1": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-v2": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-v3": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-n1": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-v4": {
+   "caught": false,
+   "outcome": "other",
+   "flagged": true,
+   "findings": [
+    {
+     "category": "medical_claims",
+     "rule_id": "MED-02",
+     "quote": "秘方",
+     "citations": [
+      "广告法第十七条",
+      "广告法第五十八条第一款第二项"
+     ]
+    }
+   ]
+  },
+  "r1-PAT-v5": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-v6": {
+   "caught": false,
+   "outcome": "missed",
+   "flagged": false,
+   "findings": []
+  },
+  "r1-PAT-n2": {
+   "caught": null,
+   "outcome": "clean",
+   "flagged": false,
+   "findings": []
+  }
+ }
+}

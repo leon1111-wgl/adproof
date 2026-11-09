@@ -1,0 +1,290 @@
+{
+ "round": "r1",
+ "decided_by": "仓库作者（逐条阅读 proposals.md；模型审计只作参考）",
+ "decided_at": "2026-11-10",
+ "rule": "采纳的改动只进入已有分类，只引用已核对快照；新规则带正反例；每条采纳的漏检都要在单独的规则提交后被标出",
+ "items": {
+  "r1-ABS-v1": {
+   "decision": "reject",
+   "reason": "不是绝对化用语，而是“立马舒服”式的即时效果说法；按分类不采纳，效果类的即时说法需要语义判断，词表会误伤"
+  },
+  "r1-ABS-v2": {
+   "decision": "accept",
+   "reason": "“没得比”“排第一”是排名和无可比拟的说法",
+   "rules": [
+    "ABS-03"
+   ]
+  },
+  "r1-ABS-v4": {
+   "decision": "accept",
+   "reason": "“没对手”“稳居第一”是排名和无可比拟的说法",
+   "rules": [
+    "ABS-03"
+   ]
+  },
+  "r1-ABS-v5": {
+   "decision": "reject",
+   "reason": "“顶呱呱”“绝了”是夸奖，不是最高级或排名；主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+  },
+  "r1-ABS-v6": {
+   "decision": "reject",
+   "reason": "“就是牛”是夸奖；“双倍效率”是性能比例，属于另一分类，且这句没有给出可核对的对象"
+  },
+  "r1-AUT-v1": {
+   "decision": "accept",
+   "reason": "“上面部门特别审批”变相借用国家机关的名义背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r1-AUT-v2": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；社区卫生站的比较也不构成机关背书"
+  },
+  "r1-AUT-v3": {
+   "decision": "reject",
+   "reason": "消费者协会不是国家机关；禁止消协推荐商品的规定（消费者权益保护法）不在已核对快照里，不能引用：引错条款比不引更糟"
+  },
+  "r1-AUT-v4": {
+   "decision": "accept",
+   "reason": "“经过上面严格审批”变相借用国家机关的名义背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r1-AUT-v5": {
+   "decision": "accept",
+   "reason": "“健康部门特选”借用政府部门的名义背书",
+   "rules": [
+    "AUT-01"
+   ]
+  },
+  "r1-AUT-v6": {
+   "decision": "reject",
+   "reason": "“官方认证”里的“官方”可能是品牌自己的官方渠道，需要人判断；词表会误伤"
+  },
+  "r1-MED-v1": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有疾病或治疗宣称"
+  },
+  "r1-MED-v2": {
+   "decision": "reject",
+   "reason": "“皮肤问题好多了”没有具体疾病，主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+  },
+  "r1-MED-v3": {
+   "decision": "reject",
+   "reason": "比喻（“像医生说的内调外养”），没有疾病或治疗宣称"
+  },
+  "r1-MED-v4": {
+   "decision": "accept",
+   "reason": "普通食品宣称改善便秘（疾病名称 + 改善）",
+   "rules": [
+    "MED-05"
+   ]
+  },
+  "r1-MED-v5": {
+   "decision": "accept",
+   "reason": "普通食品宣称“三高问题稳住了”（疾病名称 + 控制）",
+   "rules": [
+    "MED-05"
+   ]
+  },
+  "r1-MED-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；“给肠胃做 SPA”是比喻"
+  },
+  "r1-EFF-v1": {
+   "decision": "reject",
+   "reason": "降噪效果的夸张描述，是否可证明要看产品实测；“立马”这类词放进词表会大量误伤"
+  },
+  "r1-EFF-v2": {
+   "decision": "reject",
+   "reason": "与空调比较安静程度，属于需要实测数据判断的性能描述，不适合词表"
+  },
+  "r1-EFF-v3": {
+   "decision": "reject",
+   "reason": "耳机让人“年轻了小半年”不是可理解的效果宣称，属于生成模型的瑕疵"
+  },
+  "r1-EFF-v4": {
+   "decision": "accept",
+   "reason": "r1 时留到下一轮（“九成能看见”同时是无出处比例和效果宣称）；r2 采纳同类说法（r2-EFF-v6）时一并处理，由 EFF-02 标出",
+   "rules": [
+    "EFF-02"
+   ],
+   "revised": "2026-11-10，r2 决定时改为采纳"
+  },
+  "r1-EFF-v5": {
+   "decision": "accept",
+   "reason": "“喝个把月肚子会小一圈”是量化的身体变化承诺",
+   "rules": [
+    "EFF-02"
+   ]
+  },
+  "r1-EFF-v6": {
+   "decision": "reject",
+   "reason": "主观夸张或使用感受，不构成可证明的违规表述（标注口径第 5 条）"
+  },
+  "r1-DAT-v1": {
+   "decision": "accept",
+   "reason": "“销量破万”用销量数据作证明但没有出处",
+   "rules": [
+    "DAT-01"
+   ]
+  },
+  "r1-DAT-v2": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有数据"
+  },
+  "r1-DAT-v3": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；个人使用经历，没有数据"
+  },
+  "r1-DAT-v5": {
+   "decision": "accept",
+   "reason": "“快一倍不止”是没有出处的性能倍数",
+   "rules": [
+    "DAT-03"
+   ]
+  },
+  "r1-DAT-v6": {
+   "decision": "reject",
+   "reason": "比例（“八成以上”）和指标（“上手率”）被逗号拆在两个分句里，按分句匹配的词表连不起来；留到下一轮"
+  },
+  "r1-DIS-v1": {
+   "decision": "accept",
+   "reason": "“他们那些添加剂一堆的”贬低其他经营者的商品",
+   "rules": [
+    "DIS-01"
+   ]
+  },
+  "r1-DIS-v2": {
+   "decision": "reject",
+   "reason": "“之前买的那种”没有指向可识别的经营者，主要问题是效果宣称；不按贬低处理"
+  },
+  "r1-DIS-v3": {
+   "decision": "accept",
+   "reason": "“他们那个牌子的是凑数的”贬低其他经营者的商品",
+   "rules": [
+    "DIS-01"
+   ]
+  },
+  "r1-DIS-v4": {
+   "decision": "accept",
+   "reason": "“人家那估计连5%都不到”无依据地贬低其他经营者的商品",
+   "rules": [
+    "DIS-01"
+   ]
+  },
+  "r1-DIS-v5": {
+   "decision": "reject",
+   "reason": "对软硬的比较描述，是否构成贬低需要人判断"
+  },
+  "r1-DIS-v6": {
+   "decision": "reject",
+   "reason": "只用价格指代竞品（“那个199块钱的”），词表无法区分是不是自家商品；需要人判断"
+  },
+  "r1-RET-v2": {
+   "decision": "accept",
+   "reason": "招商广告承诺“一年左右就能把加盟费赚回来”",
+   "rules": [
+    "RET-01"
+   ]
+  },
+  "r1-RET-v3": {
+   "decision": "reject",
+   "reason": "招商商品下写的是考试通过率，生成模型把类目写混了；也不是保证性承诺"
+  },
+  "r1-RET-v4": {
+   "decision": "accept",
+   "reason": "培训广告承诺“小半年你就能回本”",
+   "rules": [
+    "RET-02"
+   ]
+  },
+  "r1-RET-v5": {
+   "decision": "accept",
+   "reason": "培训广告承诺“就业不成问题”",
+   "rules": [
+    "RET-02"
+   ]
+  },
+  "r1-RET-v6": {
+   "decision": "accept",
+   "reason": "培训广告用“接单率至少九成”暗示结果保证",
+   "rules": [
+    "RET-02"
+   ]
+  },
+  "r1-END-v1": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专业人士作推荐"
+  },
+  "r1-END-v3": {
+   "decision": "reject",
+   "reason": "比喻（“像听了专家讲座”），没有专业人士作推荐"
+  },
+  "r1-END-v4": {
+   "decision": "accept",
+   "reason": "培训广告用“清华教授都在学”作推荐、证明",
+   "rules": [
+    "END-01"
+   ]
+  },
+  "r1-END-v5": {
+   "decision": "accept",
+   "reason": "培训广告用医生的名义作推荐（“李医生都赞不绝口”）",
+   "rules": [
+    "END-01"
+   ]
+  },
+  "r1-END-v6": {
+   "decision": "reject",
+   "reason": "与教授公开课作比较，不是专业人士作推荐、证明"
+  },
+  "r1-PAT-v1": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+  },
+  "r1-PAT-v2": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+  },
+  "r1-PAT-v3": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+  },
+  "r1-PAT-v4": {
+   "decision": "reject",
+   "reason": "“独门秘方”不是专利宣称；引擎按医疗用语标出（MED-02），对充电器是否算医疗用语需要人判断，本轮不改"
+  },
+  "r1-PAT-v5": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+  },
+  "r1-PAT-v6": {
+   "decision": "reject",
+   "reason": "不属于这一分类：生成标签有误（模型审计也没有同意这一分类）；没有专利宣称"
+  },
+  "r1-ABS-n1": {
+   "decision": "accept",
+   "reason": "用法建议里的“效果最好”（晚上喝效果最好）不是商品的最高级；加例外",
+   "rules": [
+    "ABS-01"
+   ]
+  },
+  "r1-RET-n2": {
+   "decision": "accept",
+   "reason": "用法建议里的“效率最好”不是最高级；加例外",
+   "rules": [
+    "ABS-01"
+   ]
+  },
+  "r1-END-n1": {
+   "decision": "accept",
+   "reason": "用法建议里的“这样效果最好”不是最高级；加例外",
+   "rules": [
+    "ABS-01"
+   ]
+  }
+ }
+}

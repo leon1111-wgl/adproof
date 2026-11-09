@@ -1,0 +1,7 @@
+{
+ "id": 42690802391,
+ "url": "https://github.com/leon1111-wgl/adproof/actions/runs/42690802391",
+ "commit": "be8074b2783c36c33c6448c78d74149c7ab4f4fc",
+ "event": "push",
+ "llama_cpp": "https://github.com/ggml-org/llama.cpp/releases/download/b11899/llama-b11899-bin-ubuntu-x64.tar.gz"
+}

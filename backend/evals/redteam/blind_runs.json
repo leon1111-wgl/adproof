@@ -1,0 +1,278 @@
+{
+ "set": "backend/evals/blind_v2.yaml",
+ "runs": [
+  {
+   "commit": "792631a5dbd87d651a5251a4c122d5e5c565244a",
+   "label": "盲测首跑：v1.2 任何规则改动之前（规则库 2026.11.07，与 main 相同）",
+   "blind": true,
+   "ruleset_version": "2026.11.07",
+   "ruleset_hash": "68ead7161d01",
+   "dataset_hash": "a6964be48ac5",
+   "scripts": 60,
+   "precision": 0.8378,
+   "recall": 0.3875,
+   "f1": 0.5299,
+   "tp": 31,
+   "fp": 6,
+   "fn": 49,
+   "strict_f1": 0.3932,
+   "clean": 18,
+   "clean_flagged": 0,
+   "per_category": {
+    "absolute_terms": {
+     "tp": 7,
+     "fp": 0,
+     "fn": 2,
+     "support": 9
+    },
+    "authority_endorsement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "medical_claims": {
+     "tp": 3,
+     "fp": 1,
+     "fn": 5,
+     "support": 8
+    },
+    "effect_claims": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 9,
+     "support": 11
+    },
+    "unsourced_data": {
+     "tp": 0,
+     "fp": 4,
+     "fn": 6,
+     "support": 6
+    },
+    "disparagement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "guaranteed_returns": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 5,
+     "support": 7
+    },
+    "endorsement": {
+     "tp": 0,
+     "fp": 1,
+     "fn": 5,
+     "support": 5
+    },
+    "patent_claims": {
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "support": 6
+    },
+    "fact_mismatch": {
+     "tp": 11,
+     "fp": 0,
+     "fn": 7,
+     "support": 18
+    }
+   },
+   "rewrite": {
+    "scripts": 42,
+    "passed": 39,
+    "withheld": 3
+   },
+   "evidence": {
+    "findings_checked": 37,
+    "findings_valid": 37,
+    "citations": 96,
+    "citations_verified": 96
+   }
+  },
+  {
+   "commit": "e19f2fa0cd43ed8e36bed5beb0c4b8487b9c3e39",
+   "label": "红队修复后：r1、r2 的规则提交之后（规则库 2026.11.10b）；作者仍未读过盲测脚本",
+   "blind": true,
+   "ruleset_version": "2026.11.10b",
+   "ruleset_hash": "11e418db7136",
+   "dataset_hash": "a6964be48ac5",
+   "scripts": 60,
+   "precision": 0.8378,
+   "recall": 0.3875,
+   "f1": 0.5299,
+   "tp": 31,
+   "fp": 6,
+   "fn": 49,
+   "strict_f1": 0.3932,
+   "clean": 18,
+   "clean_flagged": 0,
+   "per_category": {
+    "absolute_terms": {
+     "tp": 7,
+     "fp": 0,
+     "fn": 2,
+     "support": 9
+    },
+    "authority_endorsement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "medical_claims": {
+     "tp": 3,
+     "fp": 1,
+     "fn": 5,
+     "support": 8
+    },
+    "effect_claims": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 9,
+     "support": 11
+    },
+    "unsourced_data": {
+     "tp": 0,
+     "fp": 4,
+     "fn": 6,
+     "support": 6
+    },
+    "disparagement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "guaranteed_returns": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 5,
+     "support": 7
+    },
+    "endorsement": {
+     "tp": 0,
+     "fp": 1,
+     "fn": 5,
+     "support": 5
+    },
+    "patent_claims": {
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "support": 6
+    },
+    "fact_mismatch": {
+     "tp": 11,
+     "fp": 0,
+     "fn": 7,
+     "support": 18
+    }
+   },
+   "rewrite": {
+    "scripts": 42,
+    "passed": 39,
+    "withheld": 3
+   },
+   "evidence": {
+    "findings_checked": 37,
+    "findings_valid": 37,
+    "citations": 96,
+    "citations_verified": 96
+   }
+  },
+  {
+   "commit": "3f4452471b0a4b63b23a43ac711172ff327518d0",
+   "label": "发布审阅修复后（规则库 2026.11.10c，收紧红队规则的误报）；作者仍未读过盲测脚本",
+   "blind": true,
+   "ruleset_version": "2026.11.10c",
+   "ruleset_hash": "fc3294e7f37b",
+   "dataset_hash": "a6964be48ac5",
+   "scripts": 60,
+   "precision": 0.8378,
+   "recall": 0.3875,
+   "f1": 0.5299,
+   "tp": 31,
+   "fp": 6,
+   "fn": 49,
+   "strict_f1": 0.3932,
+   "clean": 18,
+   "clean_flagged": 0,
+   "per_category": {
+    "absolute_terms": {
+     "tp": 7,
+     "fp": 0,
+     "fn": 2,
+     "support": 9
+    },
+    "authority_endorsement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "medical_claims": {
+     "tp": 3,
+     "fp": 1,
+     "fn": 5,
+     "support": 8
+    },
+    "effect_claims": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 9,
+     "support": 11
+    },
+    "unsourced_data": {
+     "tp": 0,
+     "fp": 4,
+     "fn": 6,
+     "support": 6
+    },
+    "disparagement": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "support": 5
+    },
+    "guaranteed_returns": {
+     "tp": 2,
+     "fp": 0,
+     "fn": 5,
+     "support": 7
+    },
+    "endorsement": {
+     "tp": 0,
+     "fp": 1,
+     "fn": 5,
+     "support": 5
+    },
+    "patent_claims": {
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "support": 6
+    },
+    "fact_mismatch": {
+     "tp": 11,
+     "fp": 0,
+     "fn": 7,
+     "support": 18
+    }
+   },
+   "rewrite": {
+    "scripts": 42,
+    "passed": 39,
+    "withheld": 3
+   },
+   "evidence": {
+    "findings_checked": 37,
+    "findings_valid": 37,
+    "citations": 96,
+    "citations_verified": 96
+   }
+  }
+ ]
+}

@@ -850,8 +850,8 @@
   "withheld": false
  },
  "ruleset": {
-  "version": "2026.11.07",
-  "hash": "68ead7161d01",
+  "version": "2026.11.10c",
+  "hash": "fc3294e7f37b",
   "name": "广告合规基础规则库"
  },
  "model": "adproof-offline",

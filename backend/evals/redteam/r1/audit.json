@@ -1,0 +1,697 @@
+{
+ "round": "r1",
+ "auditor": {
+  "label": "Qwen3-4B-Instruct-2507 Q4_K_M (Qwen, Apache-2.0; GGUF by unsloth)",
+  "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597"
+ },
+ "sample_size": 24,
+ "sample": [
+  "r1-ABS-v3",
+  "r1-ABS-v5",
+  "r1-AUT-n1",
+  "r1-AUT-v2",
+  "r1-AUT-v3",
+  "r1-AUT-v4",
+  "r1-AUT-v5",
+  "r1-DAT-v1",
+  "r1-DAT-v2",
+  "r1-DAT-v4",
+  "r1-DAT-v5",
+  "r1-DIS-n2",
+  "r1-DIS-v2",
+  "r1-DIS-v3",
+  "r1-EFF-v3",
+  "r1-END-v3",
+  "r1-MED-v3",
+  "r1-PAT-n1",
+  "r1-PAT-v1",
+  "r1-PAT-v4",
+  "r1-RET-v2",
+  "r1-RET-v3",
+  "r1-RET-v4",
+  "r1-RET-v6"
+ ],
+ "noise": {
+  "sampled": 24,
+  "disputed": 12,
+  "rate": 0.5,
+  "by_kind": {
+   "violation": {
+    "sampled": 21,
+    "disputed": 11
+   },
+   "near_miss": {
+    "sampled": 3,
+    "disputed": 1
+   }
+  },
+  "by_verdict": {
+   "agree": 12,
+   "other": 8,
+   "none": 3,
+   "disagree": 1
+  }
+ },
+ "items": {
+  "r1-ABS-n1": {
+   "kind": "near_miss",
+   "category": "absolute_terms",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "disagree",
+   "reason": "话术中‘最好晚上喝效果最好’‘肚子舒坦一整晚’属于对使用效果作出无法证明的量化或主观效果承诺，属于‘",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-ABS-v1": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘冲一次肚子立马舒服得不得了’属于对使用效果作出无法证明的量化或即时性保证，属于虚构或夸大效果",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-ABS-v2": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [
+    "absolute_terms"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘没得比’‘绝对排第一’属于无法证明的极限表述，构成绝对化用语，违反‘absolute_ter",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-ABS-v3": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘她喝过最舒服的’属于主观体验表达，未使用绝对化用语、未涉及国家机关名义、未宣称疾病治疗功能、",
+   "sampled": true,
+   "triage": false
+  },
+  "r1-ABS-v4": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [
+    "absolute_terms"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘快充没对手’‘绝对稳居第一档位’属于最高级、排名第一的极限表述，无法证明，构成绝对化用语，违",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-ABS-v5": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [
+    "absolute_terms"
+   ],
+   "verdict": "agree",
+   "reason": "‘顶呱呱’‘绝了’属于无法证明的极限表述，属于‘绝对化用语’，违反‘absolute_terms’类",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-ABS-v6": {
+   "kind": "violation",
+   "category": "absolute_terms",
+   "violates": [
+    "absolute_terms",
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "‘牛’属于最高级、无法证明的极限表述，属于绝对化用语；‘双倍效率没商量’对充电效率作出无法证明的量化",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-AUT-n1": {
+   "kind": "near_miss",
+   "category": "authority_endorsement",
+   "violates": [],
+   "verdict": "agree",
+   "reason": "话术中提到‘有助于睡眠’属于一般性健康建议，未宣称疾病治疗功能，不构成医疗用语；‘我试了效果不错’为",
+   "sampled": true,
+   "triage": false
+  },
+  "r1-AUT-v1": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [
+    "authority_endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中提到‘经过上面部门特别审批’，属于变相使用国家机关或其部门的名义进行背书，构成‘国家机关名义’",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-AUT-v2": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中提到‘我家老人说’属于个人体验分享，未使用绝对化用语、国家机关名义、医疗用语、效果保证、无出处",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-AUT-v3": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [
+    "authority_endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中提到‘市消费者协会重点推荐’，属于使用国家机关或其下属机构（消费者协会具有行政管理职能，属于公",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-AUT-v4": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [
+    "unsourced_data",
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "1. '九成人都推荐'属于无法证明的量化效果，且未说明数据来源，构成无出处的数据使用（unsourc",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-AUT-v5": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [
+    "endorsement"
+   ],
+   "verdict": "other",
+   "reason": "话术中提到‘XX健康部门特选’，属于利用国家机关或其下属部门的名义进行背书，尽管‘健康部门’可能被误",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-AUT-v6": {
+   "kind": "violation",
+   "category": "authority_endorsement",
+   "violates": [
+    "effect_claims",
+    "unsourced_data"
+   ],
+   "verdict": "other",
+   "reason": "1. '妥妥的'属于无法证明的绝对化效果表述，构成效果保证与虚构效果，属于effect_claims",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DAT-v1": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "unsourced_data",
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "1. '连续三个月销量破万'属于具体数据陈述，但未标明数据来源，构成无出处的数据使用，违反'unsờ",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-DAT-v2": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "unsourced_data",
+    "endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "1. '专家私下说'属于未标明出处的专家意见，构成无出处的数据或言论，违反'unsourced_数据",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-DAT-v3": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘肠胃舒服多了’属于对使用效果的主观描述，虽未明确量化，但暗示了具体改善效果，属于对使用效果的",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DAT-v4": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中提到‘九成学员都说每周答疑特别顶用’，对学员学习效果作出主观评价并量化（‘九成’），属于对使用",
+   "sampled": true,
+   "triage": false
+  },
+  "r1-DAT-v5": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘上手速度比没学的前小半年快一倍不止’属于对学习效果作出无法证明的量化承诺，属于虚构或夸大使用",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-DAT-v6": {
+   "kind": "violation",
+   "category": "unsourced_data",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中提到‘听完直接上手率，大概能到八成以上水平’，对学习效果作出了具体且无法直接证明的量化承诺（‘",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DIS-n2": {
+   "kind": "near_miss",
+   "category": "disparagement",
+   "violates": [],
+   "verdict": "agree",
+   "reason": "话术中‘最好睡前用’属于主观体验描述，未使用绝对化用语、未涉及国家机关名义、未宣称疾病治疗功能、未作",
+   "sampled": true,
+   "triage": false
+  },
+  "r1-DIS-v1": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [
+    "disparagement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中通过对比‘他们那些添加剂一堆的’来贬低其他经营者商品的添加剂使用情况，属于贬低其他生产经营者，",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DIS-v2": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘一天就有效果’对使用效果作出了无法证明的量化承诺，属于虚构或夸大使用效果，违反‘效果保证与虚",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-DIS-v3": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘听我家人说’属于个人经验分享，未构成绝对化用语、国家机关名义、疾病治疗用语、效果保证、无出处",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-DIS-v4": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [
+    "disparagement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中通过对比‘那谁家’的产品，声称‘人家那估计连5%都不到’，属于贬低其他经营者商品的含量，构成对",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DIS-v5": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [],
+   "verdict": "none",
+   "reason": "该话术为消费者个人体验分享，使用‘我妈用了一小半年’‘舒服’‘不像别家那个硬邦邦的’等表述，属于主观",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-DIS-v6": {
+   "kind": "violation",
+   "category": "disparagement",
+   "violates": [],
+   "verdict": "none",
+   "reason": "该话术为用户口耳相传的体验分享，提及‘199块钱的乳胶枕’和‘用着用着脖子都僵硬了’属于个人使用感受",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-EFF-v1": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘戴上立马就不吵了’‘邻居的狗叫都能听不见’属于对使用效果作出无法证明的绝对化、量化承诺，属于",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-EFF-v2": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [
+    "effect_claims",
+    "disparagement"
+   ],
+   "verdict": "agree",
+   "reason": "1. '比你家空调还安静'属于贬低其他经营者（空调）的商品性能，构成贬低其他经营者，违反'dispr",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-EFF-v3": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘比她年轻了小半年’属于对使用效果的主观夸大，且无法提供可验证的量化效果或科学依据，构成对产品",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-EFF-v4": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘九成能看见水肿往下走’是对使用效果作出的量化保证，且‘九成’属于无法证明的高概率表述，属于对",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-EFF-v5": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘喝个把月肚子会小一圈’对饮用效果作出了无法证明的量化效果承诺，属于对使用效果的保证，构成‘效",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-EFF-v6": {
+   "kind": "violation",
+   "category": "effect_claims",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘很特别’‘身体轻快许多’属于主观感受描述，未使用绝对化用语、未涉及疾病治疗、未作出可量化效果",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-END-n1": {
+   "kind": "near_miss",
+   "category": "endorsement",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "disagree",
+   "reason": "话术中‘这样效果最好’属于对使用效果作出保证，且未提供可验证的科学依据，构成无法证明的量化效果承诺，",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-END-v1": {
+   "kind": "violation",
+   "category": "endorsement",
+   "violates": [
+    "endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中提到‘就像医生常说的那个样子’，将医生的言论作为对产品效果的隐含推荐，属于利用医生名义进行推荐",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-END-v3": {
+   "kind": "violation",
+   "category": "endorsement",
+   "violates": [
+    "endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "话术中提到‘像听了专家讲座一样’，暗示专家推荐或背书，属于保健食品利用专家名义作推荐、证明，符合‘端",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-END-v4": {
+   "kind": "violation",
+   "category": "endorsement",
+   "violates": [
+    "effect_claims",
+    "unsourced_data",
+    "disparagement"
+   ],
+   "verdict": "other",
+   "reason": "1. '绝对不后悔'属于对学习效果的保证，构成'效果保证与虚构效果'（effect_claims）；",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-END-v5": {
+   "kind": "violation",
+   "category": "endorsement",
+   "violates": [
+    "disparagement",
+    "endorsement"
+   ],
+   "verdict": "agree",
+   "reason": "1. '隔壁的诊所李医生'属于具体个人，且在课程培训类目中，若未明确其专业资质或身份，使用医生名义作",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-END-v6": {
+   "kind": "violation",
+   "category": "endorsement",
+   "violates": [
+    "effect_claims",
+    "unsourced_data",
+    "disparagement"
+   ],
+   "verdict": "other",
+   "reason": "1. '比得上北大教授的公开课了'属于对学习效果的虚构比较，构成效果保证与虚构效果，属于effect",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-MED-v1": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘烦心事没影儿了’‘比啥都管用’属于对使用效果作出无法证明的夸大表述，属于虚构或过度承诺使用后",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-MED-v2": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘皮肤问题好多了，神了’属于对使用效果作出无法证明的主观描述，‘神了’属于夸大效果的表述，构成",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-MED-v3": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [
+    "effect_claims",
+    "medical_claims"
+   ],
+   "verdict": "agree",
+   "reason": "1. '三分钟感觉清爽'是对使用效果作出无法证明的量化效果保证，属于效果保证与虚构效果（effect",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-MED-v4": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [
+    "effect_claims",
+    "medical_claims"
+   ],
+   "verdict": "agree",
+   "reason": "1. '肚子里的'小垃圾'都跑光了'属于对体内代谢过程的虚构描述，属于无法证明的生理效果，构成效果虚",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-MED-v5": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘三高问题慢慢就稳住了’属于对食用效果的模糊承诺，虽未直接使用‘保证’等强词，但‘慢慢就稳住’",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-MED-v6": {
+   "kind": "violation",
+   "category": "medical_claims",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘像给肠胃做了个SPA’属于比喻性表达，未使用绝对化用语、未涉及疾病治疗、未作出可验证的效果或",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-PAT-n1": {
+   "kind": "near_miss",
+   "category": "patent_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "disagree",
+   "reason": "话术中‘皮肤吸收快’‘第二天脸亮亮的’属于对使用效果的主观描述，且‘脸亮亮的’属于无法量化、无法证明",
+   "sampled": true,
+   "triage": false
+  },
+  "r1-PAT-v1": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [
+    "effect_claims"
+   ],
+   "verdict": "other",
+   "reason": "话术中‘效果就是不一样’属于对使用效果的主观夸大，未提供可验证的量化或具体效果保证，属于无法证明的‘",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-PAT-v2": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中提到‘我妈妈都用这个了’属于个人体验分享，未使用绝对化用语、国家机关名义、医疗用语、效果保证、",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-PAT-v3": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘用了很久’‘效果一直很稳定’属于主观描述，未使用绝对化用语、未涉及国家机关名义、未宣称疾病或",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-PAT-v4": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [
+    "absolute_terms",
+    "unsourced_data",
+    "disparagement"
+   ],
+   "verdict": "other",
+   "reason": "1. '绝对比别家快'属于最高级、无法证明的极限表述，构成绝对化用语（absolute_terms）",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-PAT-v5": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [],
+   "verdict": "none",
+   "reason": "话术中‘真厉害’‘像变戏法一样’‘快得不像话’属于主观描述，未使用绝对化用语、未涉及国家机关名义、未",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-PAT-v6": {
+   "kind": "violation",
+   "category": "patent_claims",
+   "violates": [
+    "effect_claims",
+    "unsourced_data"
+   ],
+   "verdict": "other",
+   "reason": "1. '效果杠杠的'属于无法证明的极限表述，构成效果保证与虚构效果，属于effect_claims；",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-RET-n2": {
+   "kind": "near_miss",
+   "category": "guaranteed_returns",
+   "violates": [],
+   "verdict": "agree",
+   "reason": "话术中‘建议晚上有时间再学，效率最好’属于一般性学习建议，未涉及绝对化用语、国家机关名义、疾病治疗、",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-RET-v2": {
+   "kind": "violation",
+   "category": "guaranteed_returns",
+   "violates": [
+    "guaranteed_returns"
+   ],
+   "verdict": "agree",
+   "reason": "话术中承诺‘一年左右就能把加盟费赚回来’，属于对加盟经营结果的保证，符合‘招商加盟承诺收益、保本’的",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-RET-v3": {
+   "kind": "violation",
+   "category": "guaranteed_returns",
+   "violates": [
+    "guaranteed_returns"
+   ],
+   "verdict": "agree",
+   "reason": "话术中提到‘考试通过率特别高’，属于对教育培训结果的承诺，且‘特别高’属于无法证明的量化效果，构成对",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-RET-v4": {
+   "kind": "violation",
+   "category": "guaranteed_returns",
+   "violates": [
+    "guaranteed_returns"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘学完这课，小半年你就能回本’属于对学习结果的收益保证，即承诺了具体时间内的投资回报，属于课程",
+   "sampled": true,
+   "triage": true
+  },
+  "r1-RET-v5": {
+   "kind": "violation",
+   "category": "guaranteed_returns",
+   "violates": [
+    "guaranteed_returns",
+    "effect_claims"
+   ],
+   "verdict": "agree",
+   "reason": "话术中‘就业不成问题’‘保你找对人’属于对就业结果的保证，违反了‘guaranteed_return",
+   "sampled": false,
+   "triage": true
+  },
+  "r1-RET-v6": {
+   "kind": "violation",
+   "category": "guaranteed_returns",
+   "violates": [
+    "effect_claims",
+    "unsourced_data"
+   ],
+   "verdict": "other",
+   "reason": "1. '接单率至少九成'是对使用效果作出的量化保证，属于无法证明的虚构效果，违反'effect_cl",
+   "sampled": true,
+   "triage": true
+  }
+ },
+ "throughput": {
+  "calls": 58,
+  "wall_s": 612.2,
+  "completion_tokens": 2916,
+  "prompt_tokens": 23299,
+  "generation_tok_s_median": 5.6,
+  "prompt_tok_s_median": 24.75
+ },
+ "note": "模型审计：由另一家族的模型按分类口径标注，不是人工复核。抽样不看引擎结果；漏检与误报另行送审，只用于分诊，不计入噪声率。"
+}

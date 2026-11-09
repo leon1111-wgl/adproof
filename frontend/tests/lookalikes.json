@@ -1,0 +1,167 @@
+{
+ "about": "Compliant look-alikes of the v1.2 red-team patterns: none may be flagged. Written after the rules were read — by the release review (another model), by the author's own probe and from r1's near-misses — so this is a regression set, not a measurement.",
+ "cases": [
+  {
+   "text": "今天排第一的订单已经在打包了",
+   "product_category": "cosmetics",
+   "near": "absolute_terms",
+   "by": "reviewer"
+  },
+  {
+   "text": "这个价格跟双十一没得比",
+   "product_category": "digital",
+   "near": "absolute_terms",
+   "by": "reviewer"
+  },
+  {
+   "text": "这价格贵到没朋友，但用料对得起",
+   "product_category": "cosmetics",
+   "near": "absolute_terms",
+   "by": "author"
+  },
+  {
+   "text": "排第一个的宝子先拍，后面的稍等一下",
+   "product_category": "cosmetics",
+   "near": "absolute_terms",
+   "by": "author"
+  },
+  {
+   "text": "疾控中心都推荐勤洗手，咱们这款洗手液按包装用量用",
+   "product_category": "home",
+   "near": "authority_endorsement",
+   "by": "reviewer"
+  },
+  {
+   "text": "这不是什么国字头单位出的，就是我们自己的小工厂",
+   "product_category": "food",
+   "near": "authority_endorsement",
+   "by": "reviewer"
+  },
+  {
+   "text": "包装上面批准文号清清楚楚，大家可以自己查",
+   "product_category": "health_food",
+   "near": "authority_endorsement",
+   "by": "author"
+  },
+  {
+   "text": "如果皮肤过敏了先停用，等过敏好了再接着用",
+   "product_category": "cosmetics",
+   "near": "medical_claims",
+   "by": "reviewer"
+  },
+  {
+   "text": "感冒症状缓解之后再喝，生病期间不建议喝",
+   "product_category": "food",
+   "near": "medical_claims",
+   "by": "reviewer"
+  },
+  {
+   "text": "高血压控制住之前别喝我们这个茶",
+   "product_category": "food",
+   "near": "medical_claims",
+   "by": "reviewer"
+  },
+  {
+   "text": "便秘问题请先咨询医生，我们这个只是普通代餐",
+   "product_category": "food",
+   "near": "medical_claims",
+   "by": "author"
+  },
+  {
+   "text": "新款比老款轻了两斤，拎着不累",
+   "product_category": "home",
+   "near": "effect_claims",
+   "by": "reviewer"
+  },
+  {
+   "text": "下单后三天就能看到效果图，设计师会发到你微信",
+   "product_category": "home",
+   "near": "effect_claims",
+   "by": "reviewer"
+  },
+  {
+   "text": "这件卫衣上身显瘦，腰围看着小一码",
+   "product_category": "apparel",
+   "near": "effect_claims",
+   "by": "author"
+  },
+  {
+   "text": "今天直播间销量突破一千单了",
+   "product_category": "cosmetics",
+   "near": "unsourced_data",
+   "by": "reviewer"
+  },
+  {
+   "text": "销量破万的那款已经卖完了，今天上新款",
+   "product_category": "cosmetics",
+   "near": "unsourced_data",
+   "by": "author"
+  },
+  {
+   "text": "下单后物流比平时快一倍，因为换了顺丰",
+   "product_category": "home",
+   "near": "unsourced_data",
+   "by": "reviewer"
+  },
+  {
+   "text": "市面上同类产品的价格连我们的一半都不到，我们贵在用料",
+   "product_category": "home",
+   "near": "disparagement",
+   "by": "reviewer"
+  },
+  {
+   "text": "人家那边连三天都不到就发货了，我们也在加快",
+   "product_category": "home",
+   "near": "disparagement",
+   "by": "author"
+  },
+  {
+   "text": "开店第一个月就见红了？不可能的",
+   "product_category": "franchise",
+   "near": "guaranteed_returns",
+   "by": "reviewer"
+  },
+  {
+   "text": "考证没问题的同学可以直接跳到第三章",
+   "product_category": "education",
+   "near": "guaranteed_returns",
+   "by": "reviewer"
+  },
+  {
+   "text": "去年班级通过率62%，数据来源：学校教务处2025年统计",
+   "product_category": "education",
+   "near": "guaranteed_returns",
+   "by": "reviewer"
+  },
+  {
+   "text": "就业没问题吗？课程本身不承诺就业，看个人投入",
+   "product_category": "education",
+   "near": "guaranteed_returns",
+   "by": "author"
+  },
+  {
+   "text": "医生都说冬天要多补充维生素",
+   "product_category": "health_food",
+   "near": "endorsement",
+   "by": "author"
+  },
+  {
+   "text": "最好晚上喝效果最好，睡前冲一杯",
+   "product_category": "food",
+   "near": "absolute_terms",
+   "by": "redteam-r1"
+  },
+  {
+   "text": "建议晚上有时间再学，效率最好",
+   "product_category": "education",
+   "near": "absolute_terms",
+   "by": "redteam-r1"
+  },
+  {
+   "text": "最好每天一片，这样效果最好",
+   "product_category": "health_food",
+   "near": "absolute_terms",
+   "by": "redteam-r1"
+  }
+ ]
+}
