@@ -5,6 +5,7 @@ import Layout, { DemoBanner } from "./components/Layout";
 import EvalsPage from "./pages/EvalsPage";
 import Landing from "./pages/Landing";
 import LoginPage from "./pages/LoginPage";
+import RedTeamPage from "./pages/RedTeamPage";
 import ReviewPage from "./pages/ReviewPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import RulesPage from "./pages/RulesPage";
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/reviews/:reviewId" element={<ReviewPage />} />
               <Route path="/rules" element={<RulesPage />} />
               <Route path="/evals" element={<EvalsPage />} />
+              <Route path="/redteam" element={<RedTeamPage />} />
               <Route path="/traces" element={<TracesPage />} />
               <Route path="/traces/:runId" element={<TracesPage />} />
             </Route>

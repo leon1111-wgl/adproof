@@ -132,3 +132,23 @@ Agent 之间传递的是普通的 dict / dataclass，每个字段在代码中有
 - **审查范围**：`src/engine/scope.ts` 生成默认不放行的说明，是演示层自己的内容，不改变任何结果。
 - **模拟签发**：逐条判定和终审只改页面内存，规则与第 6 节相同（`tests/signoff.test.ts`）；提交人可以一键切换为审核员继续。
 - **不包含**：浏览器端语言模型（理由见 [FRONTIER_REVIEW.md](FRONTIER_REVIEW.md)）。
+
+## 11. 红队回合（v1.2）
+
+```
+.github/workflows/redteam.yml（Actions，4 核 CPU，llama.cpp；只读权限，不提交任何东西）
+  生成  GLM-4-9B-0414 ──► round.json（每类违规说法 + 合规近似说法；JSON Schema 约束）
+  打分  frontend/scripts/redteam-score.ts（这次提交的浏览器引擎）──► scores.json（修复前）
+  审计  Qwen3-4B-Instruct-2507 ──► audit.json（固定随机抽样 → 标签噪声；漏检 / 误报 → 分诊）
+  提案  python -m app.redteam proposals ──► proposals.md（每条漏检可引用的已核对条款）
+                     │ 下载产物，提交到 backend/evals/redteam/rN/
+作者（单线程写入）    decisions.json ──► 规则库单独提交 ──► score --append ──► rescores.json
+                     │
+python -m app.redteam report ──► frontend/src/redteam-report.json ──► 页面“红队回合”
+python -m app.redteam blind  ──► blind_runs.json（盲测集 v2 的片段指标，不含脚本原文）
+```
+
+- **谁写什么**：生成模型和审计模型只产出文本和标签，进不了规则库；规则库只由作者的单独提交修改，新规则只进入已有分类，所以引用只来自已核对快照。
+- **可复现**：权重、llama.cpp 按 URL 与 SHA-256 固定；每轮记录种子、生成参数、Actions 运行编号、提交和吞吐。模型输出在不同硬件上不保证逐字相同，所以每轮的产物原样提交，页面只读提交过的文件。
+- **一致性检查**：`tests/redteam.test.ts` 要求页面的“当前结果”就是这次构建的引擎的结果、最后一次重审用的就是这次构建的规则库、修复前标出的说法没有退化、每条漏检都有决定；`tests/test_redteam.py` 检查抽样固定、噪声率计算、提案只列适用且已核对的条款、页面数据不过期。
+- **本地**：不在本机运行任何模型。`pnpm exec vite-node scripts/redteam-score.ts -- 文件.json` 可以用引擎审任意一组说法（确定性代码）。

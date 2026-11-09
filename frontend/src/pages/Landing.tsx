@@ -7,6 +7,7 @@ import { Manuscript, Redline } from "../components/Manuscript";
 import { Logo, ThemeButton, pct } from "../components/ui";
 import type { Disclosure, Finding, RewriteResult } from "../types";
 import recorded from "../specimen.json";
+import redteam from "../redteam-report.json";
 
 // One seeded review as the offline model annotated it, plus the offline eval summary; both
 // written by scripts/record_demo.py. Law text inside comes from the verified snapshots only.
@@ -76,6 +77,9 @@ export default function Landing() {
   const { user } = useAuth();
   const enter = user ? "/workbench" : "/login";
   const t = specimen.eval.test;
+  const blindRuns = ((redteam as unknown as { blind: { runs: { commit: string; precision: number; recall: number; f1: number; clean: number; clean_flagged: number }[] } | null }).blind?.runs) ?? [];
+  const blindFirst = blindRuns[0];
+  const blindLast = blindRuns[blindRuns.length - 1];
   const lawCount = new Set(specimen.findings.flatMap((f) => f.citations.filter((c) => c.status === "verified").map((c) => c.label))).size;
 
   return (
@@ -108,7 +112,7 @@ export default function Landing() {
           <div>
             <span className="eyebrow">AD COMPLIANCE · 带货素材合规审查</span>
             <h1 className="serif">AdProof</h1>
-            <p className="hero-stack">Multi-Agent · 规则引擎 · FastAPI · React · TypeScript</p>
+            <p className="hero-stack">Multi-Agent · 规则引擎 · llama.cpp 红队 · FastAPI · React · TypeScript</p>
             <p className="lead">
               短视频口播和直播字幕交上来，多个 Agent 逐条标出问题：落到原文的第几个字、命中哪条规则、对应《广告法》哪一条的原文；
               再给出改写稿并复审一遍，最后由审核员签字。
@@ -202,6 +206,18 @@ export default function Landing() {
                     {t.evidence_valid}/{t.evidence_checked}
                   </td>
                 </tr>
+                {blindFirst && (
+                  <tr>
+                    <td>
+                      盲测集 v2 片段 P / R / F1（另一模型家族编写，规则改动前提交；首跑 <span className="mono">{blindFirst.commit.slice(0, 7)}</span>
+                      {blindLast !== blindFirst && <> → 红队修复后 <span className="mono">{blindLast.commit.slice(0, 7)}</span></>}；干净脚本误报 {blindLast.clean_flagged}/{blindLast.clean}）· <Link to="/redteam">红队回合</Link>
+                    </td>
+                    <td className="mono num">
+                      {pct(blindFirst.precision)} / {pct(blindFirst.recall)} / {pct(blindFirst.f1)}
+                      {blindLast !== blindFirst && <><br />{pct(blindLast.precision)} / {pct(blindLast.recall)} / {pct(blindLast.f1)}</>}
+                    </td>
+                  </tr>
+                )}
                 <tr>
                   <td>dev F1（规则在 dev 上调试，仅供参考）</td>
                   <td className="mono num">{pct(specimen.eval.dev_f1)}</td>

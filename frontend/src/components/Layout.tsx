@@ -5,12 +5,13 @@ import { DEMO, api } from "../api";
 import { useAuth } from "../auth";
 import { Logo, ROLE_TEXT, ThemeButton } from "./ui";
 
-/** Console sections, set like a journal's table of contents (§1–§5). */
+/** Console sections, set like a journal's table of contents (§1–§6). */
 const SECTIONS = [
   { to: "/workbench", label: "脚本工作台", hint: "提交脚本或按资料生成" },
   { to: "/reviews", label: "审查记录", hint: "批注稿、改写与终审" },
   { to: "/rules", label: "规则库", hint: "规则、法条快照与试运行" },
   { to: "/evals", label: "评测报告", hint: "离线评测与逐条对照" },
+  { to: "/redteam", label: "红队回合", hint: "生成的规避说法与规则修复" },
   { to: "/traces", label: "链路追踪", hint: "每个环节的输入输出" },
 ];
 

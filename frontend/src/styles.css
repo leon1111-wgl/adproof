@@ -492,6 +492,14 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
+/* six console sections since v1.2: the model tag and user name give way first, then the nav folds into 目录 */
+@media (max-width: 1440px) {
+  .mast-model, .mast-user-text { display: none; }
+}
+@media (max-width: 1060px) {
+  .mast-nav { display: none; }
+  .icon-btn.mast-toc { display: inline-grid; }
+}
 @media (max-width: 1180px) {
   .review-grid { grid-template-columns: minmax(0, 1fr); }
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -567,4 +575,31 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
 @media (max-width: 720px) {
   .scope-cols { grid-template-columns: 1fr; }
   .scope-cols dl > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ---------------------------------------------------------------- 红队回合 (red-team rounds) */
+.rt-industry { color: var(--text-2); border-left: 2px solid var(--border); padding-left: 10px; max-width: 900px; }
+.rt-provenance { margin-top: 0; }
+.rt-provenance a { display: inline-flex; align-items: center; gap: 3px; }
+.rt-list { list-style: none; margin: 0; padding: 0; }
+.rt-item { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--border-2); min-width: 0; }
+.rt-item:last-child { border-bottom: none; }
+.rt-item-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.rt-text { font-size: 15.5px; line-height: 1.7; color: var(--text); overflow-wrap: anywhere; }
+.rt-text::before { content: "“"; } .rt-text::after { content: "”"; }
+.rt-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; color: var(--text-2); }
+.rt-meta > span { overflow-wrap: anywhere; }
+.rt-dispute { color: var(--warning); font-size: 12px; }
+.rt-fix { padding-left: 10px; border-left: 2px solid var(--link); color: var(--text-2); overflow-wrap: anywhere; }
+.rt-fix b { color: var(--text); font-weight: 600; }
+.rt-commits { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.rt-list-head { flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+.rt-try { display: grid; grid-template-columns: minmax(0, 1fr) 140px auto; gap: 8px; }
+.rt-try-out { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; overflow-wrap: anywhere; }
+@media (max-width: 780px) {
+  .table-wrap > .table.rt-cats, .table-wrap > .table.rt-blind { min-width: 0; }
+  .rt-blind th:nth-child(2), .rt-blind td:nth-child(2) { display: none; }
+  .rt-try { grid-template-columns: minmax(0, 1fr) 120px; }
+  .rt-try .btn { grid-column: 1 / -1; }
+  .rt-item { padding: 12px; }
 }
