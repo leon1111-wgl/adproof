@@ -60,6 +60,21 @@ OBVIOUS = {
 }
 
 
+# What a wording must still say to belong to the category. The probe run (r0) showed that "avoid the obvious words"
+# alone makes the generator drop the claim itself (a superlative became a plain compliment).
+CORE = {
+    "absolute_terms": "仍然要表达“最好、第一、独一无二、没有比它更好”这一层意思",
+    "authority_endorsement": "仍然要借国家机关、政府部门或其工作人员的名义或形象作背书",
+    "medical_claims": "仍然要宣称能预防、治疗或缓解某种疾病或症状，或者把商品说得像药",
+    "effect_claims": "仍然要对效果作出保证，或给出无法证明的具体效果（多快见效、变化多少）",
+    "unsourced_data": "仍然要用具体的数字、比例、调查或实验结论作证明，但不说出处",
+    "disparagement": "仍然要贬低其他商家或品牌的商品或服务",
+    "guaranteed_returns": "仍然要承诺收益、回本、保本，或保证考试通过、就业、接单变现",
+    "endorsement": "仍然要借专家、医生、教授、名校或其他专业人士的名义作推荐或证明",
+    "patent_claims": "仍然要宣称有专利（专利产品、技术或配方），但不给专利号和专利种类",
+}
+
+
 def load_policy(rules_path: Path = RULES_PATH) -> dict:
     """Category labels and descriptions from the rule library (its public part; no patterns)."""
     data = yaml.safe_load(rules_path.read_text(encoding="utf-8"))

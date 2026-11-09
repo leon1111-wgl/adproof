@@ -1,9 +1,9 @@
 {
- "round": "r0",
+ "round": "r1",
  "seed": 1,
- "per_product": 2,
+ "per_product": 3,
  "near_misses": 1,
- "categories": "absolute_terms,medical_claims",
+ "categories": "",
  "seeds": [],
- "audit_sample": 4
+ "audit_sample": 24
 }

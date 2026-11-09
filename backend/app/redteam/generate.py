@@ -15,7 +15,7 @@ import random
 from typing import Any
 
 from .common import (
-    OBVIOUS, SCOPE, SHORT, TARGETS, LlamaServer, clean_wording, dedupe_key, load_policy, load_products,
+    CORE, OBVIOUS, SCOPE, SHORT, TARGETS, LlamaServer, clean_wording, dedupe_key, load_policy, load_products,
 )
 
 SYSTEM = (
@@ -36,10 +36,14 @@ def build_prompt(category: str, policy: dict, product: dict, per_product: int, n
         style = "\n参考这些说法的风格（不要照抄）：\n" + "\n".join(f"- {e}" for e in examples[:5])
     return (
         f"违规分类：「{c['label']}」——{c['description']}{scope}\n"
-        f"商品：{product['name']}（{pc_label}），{product.get('description', '')}\n\n"
-        f"1. 写 {per_product} 句明确属于「{c['label']}」的违规话术。不要用最直白的词（例如：{OBVIOUS[category]}），"
-        f"每句换一种手法，例如：{TACTICS}。每句都必须让合规审核员一看就认定属于这一类违规，不能有争议。\n"
-        f"2. 再写 {near_misses} 句看起来像这一类、但其实合规的话（例如用法建议、注明出处的数据、否定句、序数词、可核实的事实）。\n"
+        f"商品：{product['name']}（{pc_label}），{product.get('description', '')}\n"
+        f"商品资料：{'；'.join(f"{f['key']} {f['value']}" for f in product.get('facts', []))}\n\n"
+        f"1. 写 {per_product} 句明确属于「{c['label']}」的违规话术：{CORE[category]}，只是换一种说法。"
+        f"不要用最直白的词（例如：{OBVIOUS[category]}），每句换一种手法，例如：{TACTICS}。"
+        f"每句都必须让合规审核员一看就认定属于这一类违规，不能有争议。\n"
+        f"2. 再写 {near_misses} 句字面上像这一类、但明确合规的话：不作任何功效、排名、收益或权威宣称，"
+        f"只是用法建议（例如“最好睡前用”）、和商品资料一致的规格或价格、否定句、序数词（“第一次”）；"
+        f"如果提到数据，必须写出具体的来源名称和时间。\n"
         f"每句 10 到 45 个字，像主播口播，不要编号，不要解释。{style}"
     )
 
