@@ -492,11 +492,12 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* six console sections since v1.2: the model tag and user name give way first, then the nav folds into 目录 */
+/* six console sections since v1.2: the model tag and user name give way first (1440px), then the nav folds into
+   目录 (1180px; at 1080px six sections overflowed the masthead) */
 @media (max-width: 1440px) {
   .mast-model, .mast-user-text { display: none; }
 }
-@media (max-width: 1060px) {
+@media (max-width: 1180px) {
   .mast-nav { display: none; }
   .icon-btn.mast-toc { display: inline-grid; }
 }
@@ -598,7 +599,7 @@ mark.miss { background: transparent; border-bottom: 2px dashed var(--pen); }
 .rt-try-out { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; overflow-wrap: anywhere; }
 @media (max-width: 780px) {
   .table-wrap > .table.rt-cats, .table-wrap > .table.rt-blind { min-width: 0; }
-  .rt-blind th:nth-child(2), .rt-blind td:nth-child(2) { display: none; }
+  .rt-blind th:nth-child(2), .rt-blind td:nth-child(2), .rt-blind th:nth-child(3), .rt-blind td:nth-child(3), .rt-blind th:nth-child(4), .rt-blind td:nth-child(4) { display: none; } /* P and R stay in the KPI above */
   .rt-try { grid-template-columns: minmax(0, 1fr) 120px; }
   .rt-try .btn { grid-column: 1 / -1; }
   .rt-item { padding: 12px; }
