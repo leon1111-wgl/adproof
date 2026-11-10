@@ -271,7 +271,7 @@ async function runVisitor(kind) {
       try {
         const url = new URL(u);
         if (url.protocol !== "https:") throw new Error("https only");
-        const res = await fetch(url, { redirect: "follow" });
+        const res = await fetch(url, { redirect: "follow", headers: { "User-Agent": "adproof-probe/1.0 (portfolio test script; github.com/leon1111-wgl/adproof)" } });
         const type = (res.headers.get("content-type") ?? "").split(";")[0];
         if (!res.ok || !["image/png", "image/jpeg", "image/webp"].includes(type)) throw new Error(`${res.status} ${type}`);
         if (Number(res.headers.get("content-length") ?? 0) > 15 * 1024 * 1024) throw new Error("larger than 15 MB");
