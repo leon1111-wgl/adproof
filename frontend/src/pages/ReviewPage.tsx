@@ -4,6 +4,7 @@ import { ArrowLeft, Check, CircleSlash, Activity as TraceIcon } from "lucide-rea
 import { ApiError, DEMO, api } from "../api";
 import { useAuth } from "../auth";
 import { Manuscript, Redline } from "../components/Manuscript";
+import { ImageEvidence } from "../components/ImageEvidence";
 import { AGENT_TEXT, Empty, ErrorBanner, Modal, RiskBadge, SEVERITY_TEXT, Stamp, StatusBadge, ms, time } from "../components/ui";
 import type { AgentSpan, Finding, Recheck, Review, ScopeReport } from "../types";
 
@@ -305,7 +306,7 @@ export default function ReviewPage() {
         </div>
         <div className="faint">
           {review.product.brand} {review.product.name} · {categoryName(review.product.category)} ·
-          {" "}{review.mode === "generate" ? `系统生成（${review.options?.tone === "aggressive" ? "激进·演示" : "稳妥"}）` : review.input_type === "srt" ? "SRT 字幕" : "口播文案"} ·
+          {" "}{review.mode === "generate" ? `系统生成（${review.options?.tone === "aggressive" ? "激进·演示" : "稳妥"}）` : review.input_type === "srt" ? "SRT 字幕" : review.input_type === "image" ? `图片文字（OCR，${review.ocr?.images.length ?? 0} 张${review.cues?.length ? " + 字幕" : ""}）` : "口播文案"} ·
           {" "}{review.created_by.name} 提交于 {time(review.created_at)} · 规则库 {review.ruleset_version}（{review.ruleset_hash.slice(0, 7)}）· {review.provider === "browser" ? "浏览器内引擎（规则 + 离线语义模式）" : review.provider === "mock" ? "离线确定性模型" : review.model}
         </div>
         {review.engine && (
@@ -362,6 +363,7 @@ export default function ReviewPage() {
                   actionsFor={(f) => <VerdictActions finding={f} canVerdict={Boolean(perms?.can_verdict)} onVerdict={(v, n) => verdict(f.key, v, n)} />}
                 />
               )}
+              {review.ocr && <ImageEvidence review={review} findings={findings} activeKey={active} onSelect={select} />}
               <div className="sheet-legend">
                 <span><mark className="hl high">删去</mark> 高风险</span>
                 <span><mark className="hl medium">波浪线</mark> 中风险</span>

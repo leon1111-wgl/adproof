@@ -1,0 +1,4637 @@
+{
+ "set": "blind_v1",
+ "commit": "72db193b126cc7956cfd7c442aa836cfb7094a51",
+ "results_commit": "72db193b126cc7956cfd7c442aa836cfb7094a51",
+ "run_id": "42822366071",
+ "engine": "ocr-1",
+ "aggregate_only": false,
+ "load": {
+  "initSeconds": 0.5093999999999942,
+  "downloadedBytes": 35654502,
+  "expectedBytes": 35654502,
+  "seconds": 0.7928999999999942,
+  "shapes": {
+   "det": [
+    "DynamicDimension.0",
+    3,
+    "DynamicDimension.1",
+    "DynamicDimension.2"
+   ],
+   "rec": [
+    "DynamicDimension.0",
+    3,
+    48,
+    "DynamicDimension.1"
+   ]
+  },
+  "wall_seconds": 0.795
+ },
+ "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.6778.33 Safari/537.36",
+ "items": 60,
+ "raw": {
+  "totals": {
+   "renders": 120,
+   "images": 200,
+   "chars_ref": 5950,
+   "chars_edit": 90,
+   "t0": 138,
+   "t1": 138,
+   "t2": 136,
+   "layout_retained": 138,
+   "ocr_retained": 136,
+   "total_retained": 136,
+   "introduced": 0,
+   "clean_renders": 40,
+   "clean_flagged": 0,
+   "anchor_eligible": 136,
+   "anchor_hit": 136,
+   "gold": {
+    "t0": {
+     "tp": 130,
+     "fp": 8,
+     "fn": 26
+    },
+    "t2": {
+     "tp": 128,
+     "fp": 8,
+     "fn": 28
+    }
+   },
+   "disclosures_differ": 0,
+   "invariant_violations": 0
+  },
+  "by_layout": {
+   "frames": {
+    "renders": 60,
+    "images": 140,
+    "chars_ref": 2975,
+    "chars_edit": 40,
+    "t0": 69,
+    "t1": 69,
+    "t2": 68,
+    "layout_retained": 69,
+    "ocr_retained": 68,
+    "total_retained": 68,
+    "introduced": 0,
+    "clean_renders": 20,
+    "clean_flagged": 0,
+    "anchor_eligible": 68,
+    "anchor_hit": 68,
+    "gold": {
+     "t0": {
+      "tp": 65,
+      "fp": 4,
+      "fn": 13
+     },
+     "t2": {
+      "tp": 64,
+      "fp": 4,
+      "fn": 14
+     }
+    },
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "poster": {
+    "renders": 60,
+    "images": 60,
+    "chars_ref": 2975,
+    "chars_edit": 50,
+    "t0": 69,
+    "t1": 69,
+    "t2": 68,
+    "layout_retained": 69,
+    "ocr_retained": 68,
+    "total_retained": 68,
+    "introduced": 0,
+    "clean_renders": 20,
+    "clean_flagged": 0,
+    "anchor_eligible": 68,
+    "anchor_hit": 68,
+    "gold": {
+     "t0": {
+      "tp": 65,
+      "fp": 4,
+      "fn": 13
+     },
+     "t2": {
+      "tp": 64,
+      "fp": 4,
+      "fn": 14
+     }
+    },
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   }
+  },
+  "by_factor": {
+   "font": {
+    "AR PL UKai CN": {
+     "renders": 31,
+     "images": 48,
+     "chars_ref": 1475,
+     "chars_edit": 44,
+     "t0": 35,
+     "t1": 35,
+     "t2": 34,
+     "layout_retained": 35,
+     "ocr_retained": 34,
+     "total_retained": 34,
+     "introduced": 0,
+     "clean_renders": 8,
+     "clean_flagged": 0,
+     "anchor_eligible": 34,
+     "anchor_hit": 34,
+     "gold": {
+      "t0": {
+       "tp": 35,
+       "fp": 0,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 34,
+       "fp": 0,
+       "fn": 9
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "WenQuanYi Zen Hei": {
+     "renders": 31,
+     "images": 53,
+     "chars_ref": 1510,
+     "chars_edit": 18,
+     "t0": 41,
+     "t1": 41,
+     "t2": 40,
+     "layout_retained": 41,
+     "ocr_retained": 40,
+     "total_retained": 40,
+     "introduced": 0,
+     "clean_renders": 8,
+     "clean_flagged": 0,
+     "anchor_eligible": 40,
+     "anchor_hit": 40,
+     "gold": {
+      "t0": {
+       "tp": 41,
+       "fp": 0,
+       "fn": 7
+      },
+      "t2": {
+       "tp": 40,
+       "fp": 0,
+       "fn": 8
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "Noto Sans CJK SC": {
+     "renders": 29,
+     "images": 48,
+     "chars_ref": 1493,
+     "chars_edit": 13,
+     "t0": 31,
+     "t1": 31,
+     "t2": 31,
+     "layout_retained": 31,
+     "ocr_retained": 31,
+     "total_retained": 31,
+     "introduced": 0,
+     "clean_renders": 11,
+     "clean_flagged": 0,
+     "anchor_eligible": 31,
+     "anchor_hit": 31,
+     "gold": {
+      "t0": {
+       "tp": 31,
+       "fp": 0,
+       "fn": 4
+      },
+      "t2": {
+       "tp": 31,
+       "fp": 0,
+       "fn": 4
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "Noto Serif CJK SC": {
+     "renders": 29,
+     "images": 51,
+     "chars_ref": 1472,
+     "chars_edit": 15,
+     "t0": 31,
+     "t1": 31,
+     "t2": 31,
+     "layout_retained": 31,
+     "ocr_retained": 31,
+     "total_retained": 31,
+     "introduced": 0,
+     "clean_renders": 13,
+     "clean_flagged": 0,
+     "anchor_eligible": 31,
+     "anchor_hit": 31,
+     "gold": {
+      "t0": {
+       "tp": 23,
+       "fp": 8,
+       "fn": 7
+      },
+      "t2": {
+       "tp": 23,
+       "fp": 8,
+       "fn": 7
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "background": {
+    "light": {
+     "renders": 30,
+     "images": 50,
+     "chars_ref": 1440,
+     "chars_edit": 15,
+     "t0": 35,
+     "t1": 35,
+     "t2": 35,
+     "layout_retained": 35,
+     "ocr_retained": 35,
+     "total_retained": 35,
+     "introduced": 0,
+     "clean_renders": 11,
+     "clean_flagged": 0,
+     "anchor_eligible": 35,
+     "anchor_hit": 35,
+     "gold": {
+      "t0": {
+       "tp": 35,
+       "fp": 0,
+       "fn": 0
+      },
+      "t2": {
+       "tp": 35,
+       "fp": 0,
+       "fn": 0
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "busy": {
+     "renders": 28,
+     "images": 45,
+     "chars_ref": 1388,
+     "chars_edit": 37,
+     "t0": 38,
+     "t1": 38,
+     "t2": 37,
+     "layout_retained": 38,
+     "ocr_retained": 37,
+     "total_retained": 37,
+     "introduced": 0,
+     "clean_renders": 8,
+     "clean_flagged": 0,
+     "anchor_eligible": 37,
+     "anchor_hit": 37,
+     "gold": {
+      "t0": {
+       "tp": 35,
+       "fp": 3,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 34,
+       "fp": 3,
+       "fn": 9
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "gradient": {
+     "renders": 34,
+     "images": 58,
+     "chars_ref": 1765,
+     "chars_edit": 26,
+     "t0": 31,
+     "t1": 31,
+     "t2": 30,
+     "layout_retained": 31,
+     "ocr_retained": 30,
+     "total_retained": 30,
+     "introduced": 0,
+     "clean_renders": 15,
+     "clean_flagged": 0,
+     "anchor_eligible": 30,
+     "anchor_hit": 30,
+     "gold": {
+      "t0": {
+       "tp": 31,
+       "fp": 0,
+       "fn": 6
+      },
+      "t2": {
+       "tp": 30,
+       "fp": 0,
+       "fn": 7
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "dark": {
+     "renders": 28,
+     "images": 47,
+     "chars_ref": 1357,
+     "chars_edit": 12,
+     "t0": 34,
+     "t1": 34,
+     "t2": 34,
+     "layout_retained": 34,
+     "ocr_retained": 34,
+     "total_retained": 34,
+     "introduced": 0,
+     "clean_renders": 6,
+     "clean_flagged": 0,
+     "anchor_eligible": 34,
+     "anchor_hit": 34,
+     "gold": {
+      "t0": {
+       "tp": 29,
+       "fp": 5,
+       "fn": 12
+      },
+      "t2": {
+       "tp": 29,
+       "fp": 5,
+       "fn": 12
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "jpeg": {
+    "0.45": {
+     "renders": 39,
+     "images": 68,
+     "chars_ref": 1891,
+     "chars_edit": 27,
+     "t0": 48,
+     "t1": 48,
+     "t2": 47,
+     "layout_retained": 48,
+     "ocr_retained": 47,
+     "total_retained": 47,
+     "introduced": 0,
+     "clean_renders": 12,
+     "clean_flagged": 0,
+     "anchor_eligible": 47,
+     "anchor_hit": 47,
+     "gold": {
+      "t0": {
+       "tp": 48,
+       "fp": 0,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 47,
+       "fp": 0,
+       "fn": 6
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "0.92": {
+     "renders": 42,
+     "images": 70,
+     "chars_ref": 2143,
+     "chars_edit": 32,
+     "t0": 47,
+     "t1": 47,
+     "t2": 47,
+     "layout_retained": 47,
+     "ocr_retained": 47,
+     "total_retained": 47,
+     "introduced": 0,
+     "clean_renders": 15,
+     "clean_flagged": 0,
+     "anchor_eligible": 47,
+     "anchor_hit": 47,
+     "gold": {
+      "t0": {
+       "tp": 46,
+       "fp": 1,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 46,
+       "fp": 1,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "0.7": {
+     "renders": 39,
+     "images": 62,
+     "chars_ref": 1916,
+     "chars_edit": 31,
+     "t0": 43,
+     "t1": 43,
+     "t2": 42,
+     "layout_retained": 43,
+     "ocr_retained": 42,
+     "total_retained": 42,
+     "introduced": 0,
+     "clean_renders": 13,
+     "clean_flagged": 0,
+     "anchor_eligible": 42,
+     "anchor_hit": 42,
+     "gold": {
+      "t0": {
+       "tp": 36,
+       "fp": 7,
+       "fn": 16
+      },
+      "t2": {
+       "tp": 35,
+       "fp": 7,
+       "fn": 17
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "style": {
+    "outline": {
+     "renders": 31,
+     "images": 73,
+     "chars_ref": 1580,
+     "chars_edit": 11,
+     "t0": 37,
+     "t1": 37,
+     "t2": 37,
+     "layout_retained": 37,
+     "ocr_retained": 37,
+     "total_retained": 37,
+     "introduced": 0,
+     "clean_renders": 12,
+     "clean_flagged": 0,
+     "anchor_eligible": 37,
+     "anchor_hit": 37,
+     "gold": {
+      "t0": {
+       "tp": 36,
+       "fp": 1,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 36,
+       "fp": 1,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "box": {
+     "renders": 29,
+     "images": 67,
+     "chars_ref": 1395,
+     "chars_edit": 29,
+     "t0": 32,
+     "t1": 32,
+     "t2": 31,
+     "layout_retained": 32,
+     "ocr_retained": 31,
+     "total_retained": 31,
+     "introduced": 0,
+     "clean_renders": 8,
+     "clean_flagged": 0,
+     "anchor_eligible": 31,
+     "anchor_hit": 31,
+     "gold": {
+      "t0": {
+       "tp": 29,
+       "fp": 3,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 28,
+       "fp": 3,
+       "fn": 9
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "body": {
+    "22": {
+     "renders": 20,
+     "images": 20,
+     "chars_ref": 1004,
+     "chars_edit": 16,
+     "t0": 20,
+     "t1": 20,
+     "t2": 19,
+     "layout_retained": 20,
+     "ocr_retained": 19,
+     "total_retained": 19,
+     "introduced": 0,
+     "clean_renders": 8,
+     "clean_flagged": 0,
+     "anchor_eligible": 19,
+     "anchor_hit": 19,
+     "gold": {
+      "t0": {
+       "tp": 16,
+       "fp": 4,
+       "fn": 6
+      },
+      "t2": {
+       "tp": 15,
+       "fp": 4,
+       "fn": 7
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "30": {
+     "renders": 18,
+     "images": 18,
+     "chars_ref": 946,
+     "chars_edit": 17,
+     "t0": 24,
+     "t1": 24,
+     "t2": 24,
+     "layout_retained": 24,
+     "ocr_retained": 24,
+     "total_retained": 24,
+     "introduced": 0,
+     "clean_renders": 5,
+     "clean_flagged": 0,
+     "anchor_eligible": 24,
+     "anchor_hit": 24,
+     "gold": {
+      "t0": {
+       "tp": 24,
+       "fp": 0,
+       "fn": 2
+      },
+      "t2": {
+       "tp": 24,
+       "fp": 0,
+       "fn": 2
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "40": {
+     "renders": 22,
+     "images": 22,
+     "chars_ref": 1025,
+     "chars_edit": 17,
+     "t0": 25,
+     "t1": 25,
+     "t2": 25,
+     "layout_retained": 25,
+     "ocr_retained": 25,
+     "total_retained": 25,
+     "introduced": 0,
+     "clean_renders": 7,
+     "clean_flagged": 0,
+     "anchor_eligible": 25,
+     "anchor_hit": 25,
+     "gold": {
+      "t0": {
+       "tp": 25,
+       "fp": 0,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 25,
+       "fp": 0,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   }
+  },
+  "latency": {
+   "frames": [
+    0.9438999999999942,
+    0.631,
+    0.6755666666666656,
+    1.0181666666666715,
+    0.6541666666666569,
+    0.625924999999992,
+    0.668224999999995,
+    1.0433250000000007,
+    0.6316250000000037,
+    0.6275666666666656,
+    0.7885666666666656,
+    0.6281666666666569,
+    0.815,
+    0.8235499999999957,
+    0.8066500000000015,
+    0.7965999999999913,
+    0.8223999999999941,
+    0.6741999999999826,
+    1.041,
+    0.8262500000000145,
+    0.6328499999999913,
+    0.8132999999999884,
+    0.6275,
+    0.8285999999999767,
+    0.7327500000000146,
+    0.8191500000000087,
+    0.8166000000000058,
+    1.035150000000009,
+    0.756949999999997,
+    0.839,
+    0.6157000000000117,
+    0.8132999999999884,
+    0.8538999999999942,
+    0.8267000000000116,
+    0.8323000000000175,
+    0.8083000000000174,
+    1.1320999999999768,
+    0.6346999999999825,
+    0.6541000000000058,
+    0.6837999999999883,
+    0.8401500000000087,
+    1.2758499999999913,
+    0.7949000000000233,
+    0.6245,
+    0.8255,
+    0.6632000000000117,
+    0.8100500000000029,
+    0.6135500000000029,
+    0.8256000000000058,
+    0.6607000000000116,
+    0.6576999999999825,
+    0.659,
+    0.6116999999999826,
+    0.6075,
+    0.797,
+    0.6097000000000117,
+    0.8282999999999884,
+    0.7763000000000174,
+    0.626,
+    0.7945,
+    0.6278999999999941,
+    0.6498000000000175,
+    0.6370250000000015,
+    0.6611250000000073,
+    0.6183249999999898,
+    0.663724999999984,
+    0.8266000000000058,
+    0.821,
+    0.7922500000000146,
+    0.6601500000000087,
+    0.8412000000000117,
+    0.8506499999999941,
+    0.8118500000000058,
+    0.8516500000000087,
+    0.7541500000000086,
+    0.8188999999999942,
+    0.8163000000000175,
+    0.7546000000000058,
+    0.8503999999999942,
+    0.6350999999999767,
+    0.6611000000000058,
+    0.6077000000000117,
+    0.6105,
+    0.860633333333312,
+    0.6144333333333295,
+    0.8252333333333469,
+    0.7721000000000058,
+    0.9983999999999942,
+    0.6138000000000174,
+    0.7603500000000059,
+    0.9981499999999942,
+    0.6604249999999957,
+    0.745325000000019,
+    0.6098249999999898,
+    0.8083249999999899,
+    0.8265333333333353,
+    0.6172333333333179,
+    1.0014333333333294,
+    0.7907333333333372,
+    0.7750333333333256,
+    1.0690333333333255,
+    0.814733333333347,
+    0.6067333333333179,
+    0.803733333333347,
+    0.8041999999999825,
+    0.7602999999999883,
+    0.6387000000000116,
+    0.7577000000000116,
+    0.7725,
+    1.0865999999999767,
+    1.025399999999994,
+    1.0189333333333197,
+    0.6590333333333256,
+    0.6037333333333372,
+    0.7706333333333412,
+    0.782133333333312,
+    0.6012333333333469,
+    0.8385,
+    0.814,
+    0.6538250000000116,
+    0.6474249999999884,
+    0.7959249999999883,
+    0.802625,
+    0.7984000000000233,
+    0.6505,
+    1.127,
+    0.8285,
+    0.8117999999999883,
+    0.6681000000000058,
+    0.8026333333333412,
+    0.8525333333333354,
+    0.6038333333333237,
+    0.7391500000000087,
+    0.781949999999997,
+    0.6556333333333314,
+    0.7770333333333256,
+    0.8432333333333372,
+    0.7861333333333023,
+    0.7767333333333081,
+    0.621833333333343
+   ],
+   "poster": [
+    1.1655,
+    1.438899999999994,
+    1.4703000000000175,
+    1.422,
+    1.287,
+    1.3515,
+    1.5755,
+    1.8599999999999999,
+    1.404,
+    1.3928999999999943,
+    1.8625,
+    1.5625999999999767,
+    1.9343999999999941,
+    1.4215,
+    1.2643000000000175,
+    1.4232999999999885,
+    1.1152999999999884,
+    1.2528999999999941,
+    1.3461999999999825,
+    1.5743000000000174,
+    1.228899999999994,
+    1.1822000000000117,
+    1.200899999999994,
+    1.2327999999999883,
+    1.3223000000000467,
+    1.5013000000000465,
+    1.3952999999999884,
+    1.2624000000000233,
+    1.3419000000000232,
+    1.6047999999999885,
+    1.4075000000000002,
+    1.4779000000000233,
+    1.2492000000000116,
+    1.5255,
+    1.328100000000035,
+    1.3469000000000233,
+    1.2992000000000115,
+    1.1082000000000116,
+    1.4280999999999766,
+    1.3889000000000233,
+    1.5770999999999766,
+    1.5013000000000465,
+    1.5717999999999883,
+    1.6877999999999884,
+    1.4955,
+    1.6965999999999768,
+    1.4712999999999883,
+    1.6391999999999534,
+    1.4747999999999886,
+    1.516399999999965,
+    1.5990999999999767,
+    1.4744000000000232,
+    1.508,
+    1.5965,
+    1.5205999999999766,
+    1.6291999999999534,
+    2.4080999999999766,
+    1.4736000000000349,
+    1.6417999999999884,
+    1.5574999999999999
+   ]
+  }
+ },
+ "metrics": {
+  "renders": 120,
+  "images": 200,
+  "char_accuracy": 0.984873949579832,
+  "chars": 5950,
+  "layout_retention": 1,
+  "ocr_retention": 0.9855072463768116,
+  "total_retention": 0.9855072463768116,
+  "ocr_introduced": 0,
+  "clean_flagged": 0,
+  "anchor_hit": 1,
+  "counts": {
+   "t0": 138,
+   "t1": 138,
+   "t2": 136,
+   "layout_retained": 138,
+   "ocr_retained": 136,
+   "total_retained": 136,
+   "introduced": 0,
+   "clean_renders": 40,
+   "clean_flagged": 0,
+   "anchor_eligible": 136,
+   "anchor_hit": 136,
+   "disclosures_differ": 0,
+   "invariant_violations": 0
+  },
+  "gold_t0": {
+   "precision": 0.9420289855072463,
+   "recall": 0.8333333333333334,
+   "f1": 0.8843537414965987,
+   "tp": 130,
+   "fp": 8,
+   "fn": 26
+  },
+  "gold_t2": {
+   "precision": 0.9411764705882353,
+   "recall": 0.8205128205128205,
+   "f1": 0.8767123287671232,
+   "tp": 128,
+   "fp": 8,
+   "fn": 28
+  }
+ },
+ "by_layout": {
+  "frames": {
+   "renders": 60,
+   "images": 140,
+   "char_accuracy": 0.9865546218487395,
+   "chars": 2975,
+   "layout_retention": 1,
+   "ocr_retention": 0.9855072463768116,
+   "total_retention": 0.9855072463768116,
+   "ocr_introduced": 0,
+   "clean_flagged": 0,
+   "anchor_hit": 1,
+   "counts": {
+    "t0": 69,
+    "t1": 69,
+    "t2": 68,
+    "layout_retained": 69,
+    "ocr_retained": 68,
+    "total_retained": 68,
+    "introduced": 0,
+    "clean_renders": 20,
+    "clean_flagged": 0,
+    "anchor_eligible": 68,
+    "anchor_hit": 68,
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "gold_t0": {
+    "precision": 0.9420289855072463,
+    "recall": 0.8333333333333334,
+    "f1": 0.8843537414965987,
+    "tp": 65,
+    "fp": 4,
+    "fn": 13
+   },
+   "gold_t2": {
+    "precision": 0.9411764705882353,
+    "recall": 0.8205128205128205,
+    "f1": 0.8767123287671232,
+    "tp": 64,
+    "fp": 4,
+    "fn": 14
+   }
+  },
+  "poster": {
+   "renders": 60,
+   "images": 60,
+   "char_accuracy": 0.9831932773109243,
+   "chars": 2975,
+   "layout_retention": 1,
+   "ocr_retention": 0.9855072463768116,
+   "total_retention": 0.9855072463768116,
+   "ocr_introduced": 0,
+   "clean_flagged": 0,
+   "anchor_hit": 1,
+   "counts": {
+    "t0": 69,
+    "t1": 69,
+    "t2": 68,
+    "layout_retained": 69,
+    "ocr_retained": 68,
+    "total_retained": 68,
+    "introduced": 0,
+    "clean_renders": 20,
+    "clean_flagged": 0,
+    "anchor_eligible": 68,
+    "anchor_hit": 68,
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "gold_t0": {
+    "precision": 0.9420289855072463,
+    "recall": 0.8333333333333334,
+    "f1": 0.8843537414965987,
+    "tp": 65,
+    "fp": 4,
+    "fn": 13
+   },
+   "gold_t2": {
+    "precision": 0.9411764705882353,
+    "recall": 0.8205128205128205,
+    "f1": 0.8767123287671232,
+    "tp": 64,
+    "fp": 4,
+    "fn": 14
+   }
+  }
+ },
+ "latency": {
+  "frames": {
+   "p50": 0.781949999999997,
+   "p95": 1.035150000000009,
+   "n": 140
+  },
+  "poster": {
+   "p50": 1.4703000000000175,
+   "p95": 1.8599999999999999,
+   "n": 60
+  }
+ },
+ "records": [
+  {
+   "id": "bl-01",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.944,
+    0.631
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，这是我用过最好用的精华，30%烟酰胺！\n上链接，冲！",
+   "ocr": "姐妹们，这是我用过最好用的精华，30%烟酰胺！\n上链接，冲！"
+  },
+  {
+   "id": "bl-02",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0.05,
+    0.07692307692307693
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.675,
+    1.018,
+    0.654
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，维C咀嚼片小黄车上架了！\n临床验证有效，无副作用，老人小孩都能吃。\n今天到手价69元，闭眼入！",
+   "ocr": "宝子们，维C咀嚼片小黄车上架了！\n临床验证有效，无副作用，老人小孩都能吃?\n今天到手价69元：闭眼入！"
+  },
+  {
+   "id": "bl-03",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0.36363636363636365,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.626,
+    0.668,
+    1.043,
+    0.632
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "夏天出门必备这支防晒乳\n今天直播间到手价79元，全网最低价\n涂一次一整天都不会晒黑\n想要的家人们直接拍小黄车",
+   "ocr": "夏天出门必备这支防晒乳\n今天直播间到手价79元，全网最低价\n中电电S\n涂一次一整天都不会晒黑\n想要的家人们直接拍小黄车"
+  },
+  {
+   "id": "bl-04",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.627,
+    0.788,
+    0.628
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们看过来！\n这个燕麦代餐粉，七天瘦十斤真的不是梦，98%的姐妹都回购了。\n早餐直接冲一杯，冲就完了！",
+   "ocr": "家人们看过来！\n这个燕麦代餐粉，七天瘦十斤真的不是梦，98%的姐妹都回购了。\n早餐直接冲一杯，冲就完了！"
+  },
+  {
+   "id": "bl-05",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.815
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副耳机的降噪效果行业第一，单次续航12小时，别家都是智商税。",
+   "ocr": "这副耳机的降噪效果行业第一，单次续航12小时，别家都是智商税。"
+  },
+  {
+   "id": "bl-06",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.824,
+    0.807
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "想创业的朋友看过来，加盟Leon优选社区零食店，稳赚不赔，三个月回本。\n加盟费只要19800元，名额不多，赶紧私信我。",
+   "ocr": "想创业的朋友看过来，加盟Leon优选社区零食店，稳赚不赔，三个月回本。\n加盟费只要19800元，名额不多，赶紧私信我。"
+  },
+  {
+   "id": "bl-07",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.797,
+    0.822,
+    0.674
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Leon学堂的剪辑实战课开课啦。\n跟着学完，保证你月入过万，不用担心没有出路。\n每周还有一次直播答疑，有问题随时问。",
+   "ocr": "宝子们，Leon学堂的剪辑实战课开课啦。\n跟着学完，保证你月入过万，不用担心没有出路。\n每周还有一次直播答疑，有问题随时问。"
+  },
+  {
+   "id": "bl-08",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 1,
+   "cer": [
+    0.02857142857142857
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.041
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们这款护颈枕用的是专利技术，天然乳胶含量95%，睡起来特别托住脖子。",
+   "ocr": "我们这款护颈枕用的是专利技术，天然乳胶含量95%，睡起来特别托住脖子中"
+  },
+  {
+   "id": "bl-09",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.826,
+    0.633
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，这三条毛巾是专利织法做的，吸水不掉毛。\n还是市政府指定用品，放心用。",
+   "ocr": "家人们，这三条毛巾是专利织法做的，吸水不掉毛。\n还是市政府指定用品，放心用。"
+  },
+  {
+   "id": "bl-10",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0.05263157894736842
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.813,
+    0.627,
+    0.829
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米茶我自己喝了好几盒了，喝了一个月血糖都稳了，\n朋友们都问我在哪买的。\n一盒三十袋，配料就是红豆、薏米、芡实。",
+   "ocr": "红豆薏米茶我自己喝了好几盒了，喝了一个月血糖都稳了，\n朋友们都问我在哪买的。\n一盒三十袋，配料就是红豆、薏米、芡实\nO"
+  },
+  {
+   "id": "bl-11",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.733,
+    0.819
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，益生菌固体饮料来了。\n便秘多年的宝子，能治疗便秘，实验证明肠道菌群明显改善，喝下去立竿见影。",
+   "ocr": "姐妹们，益生菌固体饮料来了。\n便秘多年的宝子，能治疗便秘，实验证明肠道菌群明显改善，喝下去立竿见影。"
+  },
+  {
+   "id": "bl-12",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.817
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这个氮化镓充电器最大输出100W，史上最快，吊打大牌，出差带一个就够了。",
+   "ocr": "这个氮化镓充电器最大输出100W，史上最快，吊打大牌，出差带一个就够了。"
+  },
+  {
+   "id": "bl-13",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.037037037037037035,
+    0.13333333333333333
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.035,
+    0.757
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Mia植萃烟酰胺精华，据说是政府特供产品，品质有保障。\n一瓶30ml，到手价129元。",
+   "ocr": "Mia植萃烟酰胺精华，据说是政府特供产品，品质有保障o\n一瓶30m1，到手价129元o"
+  },
+  {
+   "id": "bl-14",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.839,
+    0.616
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "很多单位都在用我们的降噪耳机，它是国家机关指定用品，35dB主动降噪，\n通勤午休都安静。",
+   "ocr": "很多单位都在用我们的降噪耳机，它是国家机关指定用品，35dB主动降噪，\n通勤午休都安静。"
+  },
+  {
+   "id": "bl-15",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.043478260869565216,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.813,
+    0.854
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选采用专利选品系统，每家店都是爆款。\n加盟以后你只管开店，零风险，利润我们帮你锁定。",
+   "ocr": "Leon优选采专利选品系统，每家店都是爆款。\n加盟以后你只管开店，零风险，利润我们帮你锁定。"
+  },
+  {
+   "id": "bl-16",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.827
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这门课共32节录播，90%的学员已经靠剪辑接到了单，学完保证接单变现。",
+   "ocr": "这门课共32节录播，90%的学员已经靠剪辑接到了单，学完保证接单变现。"
+  },
+  {
+   "id": "bl-17",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.832
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们的防晒乳含有专利防晒因子，SPF50+ PA++++，清透不闷痘。",
+   "ocr": "我们的防晒乳含有专利防晒因子，SPF50+PA++++，清透不闷痘。"
+  },
+  {
+   "id": "bl-18",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.808
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们家维C咀嚼片用了专利配方，每天一片，咀嚼食用，一周见效。",
+   "ocr": "我们家维C咀嚼片用了专利配方，每天一片，咀嚼食用，一周见效。"
+  },
+  {
+   "id": "bl-19",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0.06666666666666667,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 1,
+   "layout_retained": 2,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.132,
+    0.635,
+    0.654,
+    0.684
+   ],
+   "lost": [
+    {
+     "category": "fact_mismatch",
+     "quote": "300ml"
+    }
+   ],
+   "extra": [],
+   "drawn": "这袋高纤燕麦代餐粉我天天喝\n每次30g加300ml温水就行\n坚持喝，保证一个月瘦十五斤\n现在下单还有赠品",
+   "ocr": "这袋高纤燕麦代餐粉我天天喝\n每次30g加300m1温水就行\n坚持喝，保证一个月瘦十五斤\n现在下单还有赠品"
+  },
+  {
+   "id": "bl-20",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0.0625
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.84,
+    1.276
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "有颈椎问题的家人们注意，这款乳胶护颈枕可以治疗颈椎病，睡一个月就好。\n尺寸60cm×40cm，刚刚好。",
+   "ocr": "有颈椎问题的家人们注意，这款乳胶护颈枕可以治疗颈椎病，睡一个月就好。\n1\n尺寸60cm×40cm，刚刚好。"
+  },
+  {
+   "id": "bl-21",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.07692307692307693,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.795,
+    0.625
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Emma家居纯棉毛巾，100%棉，全网最柔软的一款。\n三条装，到手价69元。",
+   "ocr": "Emma家居纯棉，100%棉，全网最柔软的一款。\n三条装，到手价69元。"
+  },
+  {
+   "id": "bl-22",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.038461538461538464,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.826,
+    0.663
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "市面上那些祛湿茶全是骗人的玩意，我们这款红豆薏米茶，\n调查显示九成人喝完都说好。",
+   "ocr": "市面上那些祛湿茶全是骗人的玩意，我们这款红豆意米茶，\n调查显示九成人喝完都说好。"
+  },
+  {
+   "id": "bl-23",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.81,
+    0.614
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶烟酰胺精华是医用级的配方，用上七天美白，适合中性和混合性肌肤，\n姐妹们放心冲。",
+   "ocr": "这瓶烟酰胺精华是医用级的配方，用上七天美白，适合中性和混合性肌肤，\n姐妹们放心冲。"
+  },
+  {
+   "id": "bl-24",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.826,
+    0.661
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "益生菌固体饮料每盒30袋，每日一袋温水冲服。\n我们是国家专利产品，大家安心喝。",
+   "ocr": "益生菌固体饮料每盒30袋，每日一袋温水冲服。\n我们是国家专利产品，大家安心喝。"
+  },
+  {
+   "id": "bl-25",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.658,
+    0.659,
+    0.612,
+    0.608
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店正在招商\n加盟费9800元，开店就有生意\n每月保底收入两万\n欢迎留言咨询",
+   "ocr": "Leon优选社区零食店正在招商\n加盟费9800元，开店就有生意\n每月保底收入两万\n欢迎留言咨询"
+  },
+  {
+   "id": "bl-26",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.797
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款65W充电器用了专利散热技术，实验证明温度比同类低十度。",
+   "ocr": "这款65W充电器用了专利散热技术，实验证明温度比同类低十度。"
+  },
+  {
+   "id": "bl-27",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.61,
+    0.828
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "糖友们看这里！\n这款燕麦代餐粉能降血糖，每份含6g膳食纤维，还是代餐第一品牌。",
+   "ocr": "糖友们看这里！\n这款燕麦代餐粉能降血糖，每份含6g膳食纤维，还是代餐第一品牌。"
+  },
+  {
+   "id": "bl-28",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.776,
+    0.626
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂短视频剪辑课，一共20节录播课，从零基础讲到接单。\n学完包你找到工作。",
+   "ocr": "Leon学堂短视频剪辑课，一共20节录播课，从零基础讲到接单。\n学完包你找到工作。"
+  },
+  {
+   "id": "bl-29",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.794
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支清透防晒乳就是防晒界的天花板，抹上去永不晒黑，暴晒一天都没事。",
+   "ocr": "这支清透防晒乳就是防晒界的天花板，抹上去永不晒黑，暴晒一天都没事。"
+  },
+  {
+   "id": "bl-30",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.628,
+    0.65
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "一瓶100片，每天一片。\n感冒了就吃它，比吃药还管用。",
+   "ocr": "一瓶100片，每天一片。\n感冒了就吃它，比吃药还管用。"
+  },
+  {
+   "id": "bl-31",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.637,
+    0.661,
+    0.618,
+    0.664
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副蓝牙耳机35dB主动降噪\n98%的用户都说地铁里听歌很安静\n降噪同类产品中最强\n单次续航8小时，配合充电盒30小时",
+   "ocr": "这副蓝牙耳机35dB主动降噪\n98%的用户都说地铁里听歌很安静\n降噪同类产品中最强\n单次续航8小时，配合充电盒30小时"
+  },
+  {
+   "id": "bl-32",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.827,
+    0.821
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，别买那些便宜的乳胶枕了，别人家的都是掺了海绵的。\n我们的乳胶枕第三方检测全部合格，199元带走。",
+   "ocr": "姐妹们，别买那些便宜的乳胶枕了，别人家的都是掺了海绵的。\n我们的乳胶枕第三方检测全部合格，199元带走。"
+  },
+  {
+   "id": "bl-33",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.792,
+    0.66
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选是行业第一品牌，加盟店年入百万不是问题。\n当然，投资有风险，请大家理性考虑。",
+   "ocr": "Leon优选是行业第一品牌，加盟店年入百万不是问题。\n当然，投资有风险，请大家理性考虑。"
+  },
+  {
+   "id": "bl-34",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.841
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这盒红豆薏米茶每盒60袋，到手价39元，早晚各泡一袋，三天排水肿。",
+   "ocr": "这盒红豆薏米茶每盒60袋，到手价39元，早晚各泡一袋，三天排水肿。"
+  },
+  {
+   "id": "bl-35",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.851,
+    0.812
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "那些大牌的精华，成分全是水，纯属割韭菜。\n我们这瓶30ml的烟酰胺精华，5%烟酰胺，真材实料。",
+   "ocr": "那些大牌的精华，成分全是水，纯属割韭菜。\n我们这瓶30ml的烟酰胺精华，5%烟酰胺，真材实料。"
+  },
+  {
+   "id": "bl-36",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0.08333333333333333
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.852,
+    0.754
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "氮化镓充电器，65W大功率，用一整天也永远不会发热，\n放心给手机笔记本一起充。",
+   "ocr": "氮化镓充电器，65W大功率，用一整天也永远不会发热，\n放心给手机笔记本一起充。O"
+  },
+  {
+   "id": "bl-37",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.819
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款益生菌是国内最好的，还是卫健部门推荐的，家人们放心买，一盒20袋。",
+   "ocr": "这款益生菌是国内最好的，还是卫健部门推荐的，家人们放心买，一盒20袋。"
+  },
+  {
+   "id": "bl-38",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.058823529411764705,
+    0.0625
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.816,
+    0.755
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Emma家居毛巾，回购率高达九成。\n一份5条装，100%棉，很划算。",
+   "ocr": "Emma家居毛巾，回购率高达九成O\n一份5条装，100%棉，很划算。O"
+  },
+  {
+   "id": "bl-39",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 1,
+   "cer": [
+    0.05714285714285714
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.85
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这就是全网最好的剪辑课，到手价99元，每周还有直播答疑，错过再等一年。",
+   "ocr": "这就是全网最好的剪辑课，到手价99元每周还有直播答疑，错过再等一年"
+  },
+  {
+   "id": "bl-40",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.635,
+    0.661,
+    0.608,
+    0.611
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "肠胃不好的朋友看过来\n这款益生菌固体饮料可以调理肠炎\n喝一袋当天见效\n每日1袋，温水冲服",
+   "ocr": "肠胃不好的朋友看过来\n这款益生菌固体饮料可以调理肠炎\n喝一袋当天见效\n每日1袋，温水冲服"
+  },
+  {
+   "id": "bl-41",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.861,
+    0.614,
+    0.825
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，最近换季皮肤有点暗沉，我第一次用这瓶烟酰胺精华，含5%烟酰胺，\n30ml，到手价129元。\n最好在晚上洗完脸后用，效果因人而异，适合中性及混合性肌肤。",
+   "ocr": "姐妹们，最近换季皮肤有点暗沉，我第一次用这瓶烟酰胺精华，含5%烟酰胺，\n30ml，到手价129元。\n最好在晚上洗完脸后用，效果因人而异，适合中性及混合性肌肤。"
+  },
+  {
+   "id": "bl-42",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.772,
+    0.998,
+    0.614
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris营养维生素C咀嚼片，补充维生素C。\n每日1片，咀嚼食用，一瓶60片，到手价89元。\n本品不能代替药物。",
+   "ocr": "Iris营养维生素C咀嚼片，补充维生素C。\n每日1片，咀嚼食用，一瓶60片，到手价89元。\n本品不能代替药物。"
+  },
+  {
+   "id": "bl-43",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.76,
+    0.998
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支防晒乳SPF50+ PA++++，50ml，到手价89元。\n出门前最好提前十五分钟涂，粉丝特供福利价，今晚直播间有。",
+   "ocr": "这支防晒乳SPF50+PA++++，50ml，到手价89元。\n出门前最好提前十五分钟涂，粉丝特供福利价，今晚直播间有。"
+  },
+  {
+   "id": "bl-44",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0.037037037037037035
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.66,
+    0.745,
+    0.61,
+    0.808
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，高纤燕麦代餐粉第一时间发货！\n每次30g加200ml温水，每份含膳食纤维6g，500g一袋，\n到手价59元。\n回购率32%（数据来源：店铺后台2026年9月统计）。",
+   "ocr": "家人们，高纤燕麦代餐粉第一时间发货！\n每次30g加200ml温水，每份含膳食纤维6g，500g一袋，\n到手价59元。\n回购率32%（数据来源：店铺后台2026年9月统计）"
+  },
+  {
+   "id": "bl-45",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0.043478260869565216
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.827,
+    0.617,
+    1.001
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副耳机35dB主动降噪，单次续航8小时，配合充电盒30小时，\n到手价299元。\n顶部按压就能切换模式，我们不说最好，你自己试。",
+   "ocr": "这副耳机35dB主动降噪，单次续航8小时，配合充电盒30小时，\n到手价299元。\n顶部按压就能切换模式，我们不说最好，H你自己试。"
+  },
+  {
+   "id": "bl-46",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0.07142857142857142,
+    0.058823529411764705
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.791,
+    0.775,
+    1.069
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店加盟计划，加盟费29800元，\n门店面积建议40平方米以上。\n投资有风险，收益受选址和经营情况影响，我们不承诺回报，欢迎先来了解。",
+   "ocr": "Leon优选社区零食店加盟计划，加盟费29800元，\n门店面积建议40平方米以上O\n投资有风险，收益受选址和经营情况影响√我们不承诺回报，欢迎先来了解"
+  },
+  {
+   "id": "bl-47",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0.05
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.815,
+    0.607,
+    0.804
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Leon学堂短视频剪辑实战课，共32节录播课，每周1次直播答疑，\n到手价199元。\n第一次剪视频也能上手，学习效果因人而异。",
+   "ocr": "宝子们，Leon学堂短视频剪辑实战课，共32节录播课，每周1次直播答疑，\n到手价199元。\n第一次剪视频也能上手，学习效果因人而鼎。"
+  },
+  {
+   "id": "bl-48",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.804,
+    0.76,
+    0.639
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "乳胶护颈枕，天然乳胶含量85%，尺寸60cm×40cm，到手价199元。\n本品采用专利号ZL20231234567.8（发明专利）的透气结构。\n它不能治疗疾病，只是睡得舒服一点。",
+   "ocr": "乳胶护颈枕，天然乳胶含量85%，尺寸60cm×40cm，到手价199元。\n本品采用专利号ZL20231234567.8（发明专利)的透气结构。\n它不能治疗疾病，只是睡得舒服一点。"
+  },
+  {
+   "id": "bl-49",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.758,
+    0.772
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，Emma家居纯棉毛巾3条装，100%棉，到手价49元。\n最近天气干，家里换一批新毛巾正合适，冲！",
+   "ocr": "姐妹们，Emma家居纯棉毛巾3条装，100%棉，到手价49元。\n最近天气干，家里换一批新毛巾正合适，冲！"
+  },
+  {
+   "id": "bl-50",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.06451612903225806,
+    0.041666666666666664
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.087,
+    1.025
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米茶30袋一盒，配料就是红豆、薏米、芡实，到手价39元。\n它就是一款饮品，不能治疗疾病，也不保证任何效果。",
+   "ocr": "红豆薏米茶30袋一盒，配料就是红豆-薏米、芡实，到手价39元。O\n它就是一款饮品，不能治疗疾病，也不保证任何效果O"
+  },
+  {
+   "id": "bl-51",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0.06451612903225806,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.019,
+    0.659,
+    0.604
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "益生菌固体饮料，一盒20袋，每日1袋，温水冲服，到手价69元。\n它是普通食品，不是药，不能治疗疾病。\n最好在饭后喝。",
+   "ocr": "益生菌固体饮料，一盒20袋，每目1袋-，温水冲服，到手价69元。\n它是普通食品，不是药，不能治疗疾病。\n最好在饭后喝。"
+  },
+  {
+   "id": "bl-52",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0.15,
+    0,
+    0.14285714285714285
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.771,
+    0.782,
+    0.601
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "65W氮化镓充电器，最大输出功率65W，\n专利号ZL20231098765.4（实用新型专利），到手价119元，\n第一时间发货。",
+   "ocr": "65W氮化家充电器：最大输出功率65Wo\n专利号ZL20231098765.4(实用新型专利)，到手价119元，\n第一时间发货·"
+  },
+  {
+   "id": "bl-53",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.839,
+    0.814
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶精华是粉丝特供福利价，今天到手价129元。\n我自己最近一直在用，第一次用的时候有点轻微刺痛，建议先在耳后试一下。",
+   "ocr": "这瓶精华是粉丝特供福利价，今天到手价129元。\n我自己最近一直在用，第一次用的时候有点轻微刺痛，建议先在耳后试一下。"
+  },
+  {
+   "id": "bl-54",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.654,
+    0.647,
+    0.796,
+    0.803
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Iris维C咀嚼片上链接了。\n补充维生素C，每日1片，咀嚼食用。\n有人问能不能当药吃，我们明确说，本品不能代替药物。\n到手价89元，一瓶60片，闭眼入也要先看清楚成分哦。",
+   "ocr": "宝子们，Iris维C咀嚼片上链接了。\n补充维生素C，每日1片，咀嚼食用。\n有人问能不能当药吃，我们明确说，本品不能代替药物。\n到手价89元，一瓶60片，闭眼入也要先看清楚成分哦。"
+  },
+  {
+   "id": "bl-55",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0.03571428571428571
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.798,
+    0.65,
+    1.127
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店加盟，加盟费29800元，\n门店面积建议40平方米以上。\n投资有风险，收益受选址和经营情况影响，欢迎预约线下考察。",
+   "ocr": "Leon优选社区零食店加盟，加盟费29800元，\n门店面积建议40平方米以上。\n投资有风险，收益受选址和经营情况影响，又欢迎预约线下考察。"
+  },
+  {
+   "id": "bl-56",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.829,
+    0.812,
+    0.668
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂剪辑课，我们不保证你一定变现，也不承诺就业。\n你只会得到32节课和每周一次答疑，到手价199元。\n最近报名的同学可以先看第一节试听。",
+   "ocr": "Leon学堂剪辑课，我们不保证你一定变现，也不承诺就业。\n你只会得到32节课和每周一次答疑，到手价199元。\n最近报名的同学可以先看第一节试听。"
+  },
+  {
+   "id": "bl-57",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0.027777777777777776,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.803,
+    0.853,
+    0.604
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，Jack数码主动降噪蓝牙耳机，降噪深度35dB，到手价299元。\n最好在安静的环境里试戴，你会第一时间感受到差别。\n小黄车拍。",
+   "ocr": "家人们，Jack数码主动降噪蓝牙耳机降噪深度35dB，到手价299元。\n最好在安静的环境里试戴，你会第一时间感受到差别。\n小黄车拍。"
+  },
+  {
+   "id": "bl-58",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.739,
+    0.782
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "代餐粉500g一袋，到手价59元，每份含膳食纤维6g。\n最近我第一次尝试早餐换成燕麦代餐，感觉还不错，效果因人而异。",
+   "ocr": "代餐粉500g一袋，到手价59元，每份含膳食纤维6g。\n最近我第一次尝试早餐换成燕麦代餐，感觉还不错，效果因人而异。"
+  },
+  {
+   "id": "bl-59",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0.058823529411764705,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.656,
+    0.777,
+    0.843
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "清透防晒乳50ml，到手价89元。\n本品拥有专利号ZL20221076543.2（发明专利）的成膜技术，\n质地清透，顶部按压出液，夏天最好随身带一支补涂。",
+   "ocr": "清透防晒乳50ml，到价89元。\n本品拥有专利号ZL20221076543.2（发明专利）的成膜技术，\n质地清透，顶部按压出液，夏天最好随身带一支补涂。"
+  },
+  {
+   "id": "bl-60",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.786,
+    0.777,
+    0.622
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，Emma乳胶护颈枕，天然乳胶含量85%，到手价199元。\n回购率32%（数据来源：店铺后台2026年9月统计）。\n粉丝特供福利价，闭眼入！",
+   "ocr": "姐妹们，Emma乳胶护颈枕，天然乳胶含量85%，到手价199元。\n回购率32%（数据来源：店铺后台2026年9月统计)。\n粉丝特供福利价，闭眼入！"
+  },
+  {
+   "id": "bl-01",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.165
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，这是我用过最好用的精华，30%烟酰胺！上链接，冲！",
+   "ocr": "姐妹们，这是我用过最好用的精华，30%烟酰胺！上链接，冲！"
+  },
+  {
+   "id": "bl-02",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.02040816326530612
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.439
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，维C咀嚼片小黄车上架了！临床验证有效，无副作用，老人小孩都能吃。今天到手价69元，闭眼入！",
+   "ocr": "宝子们，维C咀嚼片小黄车上架了！临床验证有效，无副作用，老人小孩都能吃·今天到手价69元，闭眼入！"
+  },
+  {
+   "id": "bl-03",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.47
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "夏天出门必备这支防晒乳\n今天直播间到手价79元，全网最低价\n涂一次一整天都不会晒黑\n想要的家人们直接拍小黄车",
+   "ocr": "夏天出门必备这支防晒乳今天直播间到手价79元，全网最低价涂一次一整天都不会晒黑想要的家人们直接拍小黄车"
+  },
+  {
+   "id": "bl-04",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.422
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们看过来！这个燕麦代餐粉，七天瘦十斤真的不是梦，98%的姐妹都回购了。早餐直接冲一杯，冲就完了！",
+   "ocr": "家人们看过来！这个燕麦代餐粉，七天瘦十斤真的不是梦，98%的姐妹都回购了。早餐直接冲一杯，冲就完了！"
+  },
+  {
+   "id": "bl-05",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.287
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副耳机的降噪效果行业第一，单次续航12小时，别家都是智商税。",
+   "ocr": "这副耳机的降噪效果行业第一，单次续航12小时，别家都是智商税。"
+  },
+  {
+   "id": "bl-06",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.351
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "想创业的朋友看过来，加盟Leon优选社区零食店，稳赚不赔，三个月回本。加盟费只要19800元，名额不多，赶紧私信我。",
+   "ocr": "想创业的朋友看过来，加盟Leon优选社区零食店，稳赚不赔，三个月回本。加盟费只要19800元，名额不多，赶紧私信我。"
+  },
+  {
+   "id": "bl-07",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.575
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Leon学堂的剪辑实战课开课啦。跟着学完，保证你月入过万，不用担心没有出路。每周还有一次直播答疑，有问题随时问。",
+   "ocr": "宝子们，Leon学堂的剪辑实战课开课啦。跟着学完，保证你月入过万，不用担心没有出路。每周还有一次直播答疑，有问题随时问。"
+  },
+  {
+   "id": "bl-08",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.05714285714285714
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.86
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们这款护颈枕用的是专利技术，天然乳胶含量95%，睡起来特别托住脖子。",
+   "ocr": "我们这款护颈枕用的是专利技术，天然乳胶含量95%睡起来特别托住脖子。\n1"
+  },
+  {
+   "id": "bl-09",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.404
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，这三条毛巾是专利织法做的，吸水不掉毛。还是市政府指定用品，放心用。",
+   "ocr": "家人们，这三条毛巾是专利织法做的，吸水不掉毛。还是市政府指定用品，放心用。"
+  },
+  {
+   "id": "bl-10",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.03571428571428571
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.393
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米茶我自己喝了好几盒了，喝了一个月血糖都稳了，朋友们都问我在哪买的。一盒三十袋，配料就是红豆、薏米、芡实。",
+   "ocr": "红豆薏米茶我自己喝了好几盒了：喝了一个月血糖都稳了，朋友们都问我在哪买的一盒三十袋，配料就是红豆、薏米、芡实。"
+  },
+  {
+   "id": "bl-11",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.08163265306122448
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.863
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，益生菌固体饮料来了。便秘多年的宝子，能治疗便秘，实验证明肠道菌群明显改善，喝下去立竿见影。",
+   "ocr": "姐妹们，益生菌固体饮料来了。便秘多年的宝子，能治疗便秘，实验证明肠道菌群明显改善，喝下去立竿见影。\nTYH\nH"
+  },
+  {
+   "id": "bl-12",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.19444444444444445
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.563
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这个氮化镓充电器最大输出100W，史上最快，吊打大牌，出差带一个就够了。",
+   "ocr": "这个氮化家充电器最大输出100W·史上最快：吊打大牌：出差带一个就够了。O\n中车"
+  },
+  {
+   "id": "bl-13",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.047619047619047616
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.934
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Mia植萃烟酰胺精华，据说是政府特供产品，品质有保障。一瓶30ml，到手价129元。",
+   "ocr": "Mia植萃烟酰胺精华，据说是政府特供产品，品质有保障。一瓶30m1，到手价129元。D"
+  },
+  {
+   "id": "bl-14",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.421
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "很多单位都在用我们的降噪耳机，它是国家机关指定用品，35dB主动降噪，通勤午休都安静。",
+   "ocr": "很多单位都在用我们的降噪耳机，它是国家机关指定用品，35dB主动降噪，通勤午休都安静。"
+  },
+  {
+   "id": "bl-15",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.264
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选采用专利选品系统，每家店都是爆款。加盟以后你只管开店，零风险，利润我们帮你锁定。",
+   "ocr": "Leon优选采用专利选品系统，每家店都是爆款。加盟以后你只管开店，零风险，利润我们帮你锁定。"
+  },
+  {
+   "id": "bl-16",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.423
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这门课共32节录播，90%的学员已经靠剪辑接到了单，学完保证接单变现。",
+   "ocr": "这门课共32节录播，90%的学员已经靠剪辑接到了单，学完保证接单变现。"
+  },
+  {
+   "id": "bl-17",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.115
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们的防晒乳含有专利防晒因子，SPF50+ PA++++，清透不闷痘。",
+   "ocr": "我们的防晒乳含有专利防晒因子，SPF50+PA++++，清透不闷痘。"
+  },
+  {
+   "id": "bl-18",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.246
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "我们家维C咀嚼片用了专利配方，每天一片，咀嚼食用，一周见效。",
+   "ocr": "我们家维C咀嚼片用了专利配方，每天一片，咀嚼食用，一周见效。"
+  },
+  {
+   "id": "bl-19",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.346
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这袋高纤燕麦代餐粉我天天喝\n每次30g加300ml温水就行\n坚持喝，保证一个月瘦十五斤\n现在下单还有赠品",
+   "ocr": "这袋高纤燕麦代餐粉我天天喝每次30g加300ml温水就行坚持喝，保证一个月瘦十五斤现在下单还有赠品"
+  },
+  {
+   "id": "bl-20",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.574
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "有颈椎问题的家人们注意，这款乳胶护颈枕可以治疗颈椎病，睡一个月就好。尺寸60cm×40cm，刚刚好。",
+   "ocr": "有颈椎问题的家人们注意，这款乳胶护颈枕可以治疗颈椎病，睡一个月就好。尺寸60cm×40cm，刚刚好。"
+  },
+  {
+   "id": "bl-21",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.229
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Emma家居纯棉毛巾，100%棉，全网最柔软的一款。三条装，到手价69元。",
+   "ocr": "Emma家居纯棉毛巾，100%棉，全网最柔软的一款。三条装，到手价69元。"
+  },
+  {
+   "id": "bl-22",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.182
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "市面上那些祛湿茶全是骗人的玩意，我们这款红豆薏米茶，调查显示九成人喝完都说好。",
+   "ocr": "市面上那些祛湿茶全是骗人的玩意，我们这款红豆薏米茶，调查显示九成人喝完都说好。"
+  },
+  {
+   "id": "bl-23",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.201
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶烟酰胺精华是医用级的配方，用上七天美白，适合中性和混合性肌肤，姐妹们放心冲。",
+   "ocr": "这瓶烟酰胺精华是医用级的配方，用上七天美白，适合中性和混合性肌肤，姐妹们放心冲。"
+  },
+  {
+   "id": "bl-24",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.233
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "益生菌固体饮料每盒30袋，每日一袋温水冲服。我们是国家专利产品，大家安心喝。",
+   "ocr": "益生菌固体饮料每盒30袋，每日一袋温水冲服。我们是国家专利产品，大家安心喝。"
+  },
+  {
+   "id": "bl-25",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.322
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店正在招商\n加盟费9800元，开店就有生意\n每月保底收入两万\n欢迎留言咨询",
+   "ocr": "Leon优选社区零食店正在招商加盟费9800元，开店就有生意每月保底收入两万欢迎留言咨询"
+  },
+  {
+   "id": "bl-26",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.03333333333333333
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.501
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款65W充电器用了专利散热技术，实验证明温度比同类低十度。",
+   "ocr": "这款65W充电器用了专利散热技术，实验证明温度比同类低十度O"
+  },
+  {
+   "id": "bl-27",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.395
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "糖友们看这里！这款燕麦代餐粉能降血糖，每份含6g膳食纤维，还是代餐第一品牌。",
+   "ocr": "糖友们看这里！这款燕麦代餐粉能降血糖，每份含6g膳食纤维，还是代餐第一品牌。"
+  },
+  {
+   "id": "bl-28",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.025
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.262
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂短视频剪辑课，一共20节录播课，从零基础讲到接单。学完包你找到工作。",
+   "ocr": "Leon学堂短视频剪辑课，共20节录播课，从零基础讲到接单。学完包你找到工作。"
+  },
+  {
+   "id": "bl-29",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.342
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支清透防晒乳就是防晒界的天花板，抹上去永不晒黑，暴晒一天都没事。",
+   "ocr": "这支清透防晒乳就是防晒界的天花板，抹上去永不晒黑，暴晒一天都没事。"
+  },
+  {
+   "id": "bl-30",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.038461538461538464
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.605
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "一瓶100片，每天一片。感冒了就吃它，比吃药还管用。",
+   "ocr": "一瓶100片，每天一片·感冒了就吃它，比吃药还管用。"
+  },
+  {
+   "id": "bl-31",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.407
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副蓝牙耳机35dB主动降噪\n98%的用户都说地铁里听歌很安静\n降噪同类产品中最强\n单次续航8小时，配合充电盒30小时",
+   "ocr": "这副蓝牙耳机35dB主动降噪98%的用户都说地铁里听歌很安静降噪同类产品中最强单次续航8小时,配合充电盒30小时"
+  },
+  {
+   "id": "bl-32",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.0784313725490196
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.478
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，别买那些便宜的乳胶枕了，别人家的都是掺了海绵的。我们的乳胶枕第三方检测全部合格，199元带走。",
+   "ocr": "姐妹们·别买那些便宜的乳胶枕了：别人家的都是掺了海绵的·我们的乳胶枕第三方检测全部合格：199元带走。"
+  },
+  {
+   "id": "bl-33",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.249
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选是行业第一品牌，加盟店年入百万不是问题。当然，投资有风险，请大家理性考虑。",
+   "ocr": "Leon优选是行业第一品牌，加盟店年入百万不是问题。当然，投资有风险，请大家理性考虑。"
+  },
+  {
+   "id": "bl-34",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.030303030303030304
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.526
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这盒红豆薏米茶每盒60袋，到手价39元，早晚各泡一袋，三天排水肿。",
+   "ocr": "这盒红豆薏米茶每盒60袋，到手价39元，早晚各泡一袋，三天排水肿O"
+  },
+  {
+   "id": "bl-35",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.021739130434782608
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.328
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "那些大牌的精华，成分全是水，纯属割韭菜。我们这瓶30ml的烟酰胺精华，5%烟酰胺，真材实料。",
+   "ocr": "那些大牌的精华，成分全是水，纯属割韭菜。我们这瓶30m1的烟酰胺精华，5%烟酰胺，真材实料。"
+  },
+  {
+   "id": "bl-36",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.347
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "氮化镓充电器，65W大功率，用一整天也永远不会发热，放心给手机笔记本一起充。",
+   "ocr": "氮化镓充电器，65W大功率，用一整天也永远不会发热，放心给手机笔记本一起充。"
+  },
+  {
+   "id": "bl-37",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.299
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款益生菌是国内最好的，还是卫健部门推荐的，家人们放心买，一盒20袋。",
+   "ocr": "这款益生菌是国内最好的，还是卫健部门推荐的，家人们放心买，一盒20袋。"
+  },
+  {
+   "id": "bl-38",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.030303030303030304
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 0,
+   "layout_retained": 1,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.101
+   ],
+   "lost": [
+    {
+     "category": "unsourced_data",
+     "quote": "回购率高达九成"
+    }
+   ],
+   "extra": [],
+   "drawn": "Emma家居毛巾，回购率高达九成。一份5条装，100%棉，很划算。",
+   "ocr": "Emma家居毛巾，回购率达九成。一份5条装，100%棉，很划算。"
+  },
+  {
+   "id": "bl-39",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.02857142857142857
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.428
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这就是全网最好的剪辑课，到手价99元，每周还有直播答疑，错过再等一年。",
+   "ocr": "这就是全网最好的剪辑课，到价99元，每周还有直播答疑，错过再等一年。"
+  },
+  {
+   "id": "bl-40",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.389
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "肠胃不好的朋友看过来\n这款益生菌固体饮料可以调理肠炎\n喝一袋当天见效\n每日1袋，温水冲服",
+   "ocr": "肠胃不好的朋友看过来这款益生菌固体饮料可以调理肠炎喝一袋当天见效每日1袋，温水冲服"
+  },
+  {
+   "id": "bl-41",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.577
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，最近换季皮肤有点暗沉，我第一次用这瓶烟酰胺精华，含5%烟酰胺，30ml，到手价129元。最好在晚上洗完脸后用，效果因人而异，适合中性及混合性肌肤。",
+   "ocr": "姐妹们，最近换季皮肤有点暗沉，我第一次用这瓶烟酰胺精华，含5%烟酰胺，30ml，到手价129元。最好在晚上洗完脸后用，效果因人而异，适合中性及混合性肌肤。"
+  },
+  {
+   "id": "bl-42",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.05660377358490566
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.501
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris营养维生素C咀嚼片，补充维生素C。每日1片，咀嚼食用，一瓶60片，到手价89元。本品不能代替药物。",
+   "ocr": "Iris营养维生素C咀嚼，补充维生素C。每日1，咀嚼食用，一瓶60片，到手价89元。本品不能代替药物\no"
+  },
+  {
+   "id": "bl-43",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.017241379310344827
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.572
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支防晒乳SPF50+ PA++++，50ml，到手价89元。出门前最好提前十五分钟涂，粉丝特供福利价，今晚直播间有。",
+   "ocr": "这支防晒乳SPF50+PA++++，50ml，到价89元。出门前最好提前十五分钟涂，粉丝特供福利价，今晚直播间有。"
+  },
+  {
+   "id": "bl-44",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.688
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，高纤燕麦代餐粉第一时间发货！每次30g加200ml温水，每份含膳食纤维6g，500g一袋，到手价59元。回购率32%（数据来源：店铺后台2026年9月统计）。",
+   "ocr": "家人们，高纤燕麦代餐粉第一时间发货！每次30g加200ml温水，每份含膳食纤维6g，500g一袋，到手价59元。回购率32%（数据来源：店铺后台2026年9月统计)。"
+  },
+  {
+   "id": "bl-45",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.496
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副耳机35dB主动降噪，单次续航8小时，配合充电盒30小时，到手价299元。顶部按压就能切换模式，我们不说最好，你自己试。",
+   "ocr": "这副耳机35dB主动降噪，单次续航8小时，配合充电盒30小时，到手价299元。顶部按压就能切换模式，我们不说最好，你自己试。"
+  },
+  {
+   "id": "bl-46",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.697
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店加盟计划，加盟费29800元，门店面积建议40平方米以上。投资有风险，收益受选址和经营情况影响，我们不承诺回报，欢迎先来了解。",
+   "ocr": "Leon优选社区零食店加盟计划，加盟费29800元，门店面积建议40平方米以上。投资有风险，收益受选址和经营情况影响，我们不承诺回报，欢迎先来了解。"
+  },
+  {
+   "id": "bl-47",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.03125
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.471
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Leon学堂短视频剪辑实战课，共32节录播课，每周1次直播答疑，到手价199元。第一次剪视频也能上手，学习效果因人而异。",
+   "ocr": "宝子们，Leon学堂短视频剪辑实战课，共32节录播课，每周1次直播答疑，到价199元。第次剪视频也能上手，学习效果因人而异。"
+  },
+  {
+   "id": "bl-48",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.022988505747126436
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.639
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "乳胶护颈枕，天然乳胶含量85%，尺寸60cm×40cm，到手价199元。本品采用专利号ZL20231234567.8（发明专利）的透气结构。它不能治疗疾病，只是睡得舒服一点。",
+   "ocr": "乳胶护颈枕，天然乳胶含量85%，尺寸60cm×40cm，到手价199元·本品采用专利号ZL20231234567.8（发明专利）的透气结构·它不能治疗疾病，只是睡得舒服一点。"
+  },
+  {
+   "id": "bl-49",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.0196078431372549
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.475
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，Emma家居纯棉毛巾3条装，100%棉，到手价49元。最近天气干，家里换一批新毛巾正合适，冲！",
+   "ocr": "姐妹们，Emma家居纯棉毛巾3条装，100%棉，到手价49元。最近天气干，家里换一批新毛中正合适,冲!"
+  },
+  {
+   "id": "bl-50",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.01818181818181818
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.516
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米茶30袋一盒，配料就是红豆、薏米、芡实，到手价39元。它就是一款饮品，不能治疗疾病，也不保证任何效果。",
+   "ocr": "红豆薏米茶30袋一盒，配料就是红豆、薏米、荧实，到手价39元。它就是一款饮品，不能治疗疾病，也不保证任何效果。"
+  },
+  {
+   "id": "bl-51",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.017857142857142856
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.599
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "益生菌固体饮料，一盒20袋，每日1袋，温水冲服，到手价69元。它是普通食品，不是药，不能治疗疾病。最好在饭后喝。",
+   "ocr": "益生菌固体饮料，一盒20袋，每日1袋，温水冲服，到手价69元。它是普通食品，不是药，不能治疗疾病O最好在饭后喝。"
+  },
+  {
+   "id": "bl-52",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.03225806451612903
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.474
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "65W氮化镓充电器，最大输出功率65W，专利号ZL20231098765.4（实用新型专利），到手价119元，第一时间发货。",
+   "ocr": "65W氮化镓充电器，最大输出功率65W，专利号ZL20231098765.4（实新型专利)，到价119元，第一时间发货。"
+  },
+  {
+   "id": "bl-53",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.017543859649122806
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.508
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶精华是粉丝特供福利价，今天到手价129元。我自己最近一直在用，第一次用的时候有点轻微刺痛，建议先在耳后试一下。",
+   "ocr": "这瓶精华是粉丝特供福利价，今天到手价129元。我白己最近一直在用，第一次用的时候有点轻微刺痛,建议先在耳后试一下。"
+  },
+  {
+   "id": "bl-54",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.596
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "宝子们，Iris维C咀嚼片上链接了。补充维生素C，每日1片，咀嚼食用。有人问能不能当药吃，我们明确说，本品不能代替药物。到手价89元，一瓶60片，闭眼入也要先看清楚成分哦。",
+   "ocr": "宝子们，Iris维C咀嚼片上链接了。补充维生素C，每日1片，咀嚼食用。有人问能不能当药吃，我们明确说，本品不能代替药物。到手价89元，一瓶60片，闭眼入也要先看清楚成分哦。"
+  },
+  {
+   "id": "bl-55",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.521
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店加盟，加盟费29800元，门店面积建议40平方米以上。投资有风险，收益受选址和经营情况影响，欢迎预约线下考察。",
+   "ocr": "Leon优选社区零食店加盟，加盟费29800元，门店面积建议40平方米以上。投资有风险，收益受选址和经营情况影响，欢迎预约线下考察。"
+  },
+  {
+   "id": "bl-56",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.629
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂剪辑课，我们不保证你一定变现，也不承诺就业。你只会得到32节课和每周一次答疑，到手价199元。最近报名的同学可以先看第一节试听。",
+   "ocr": "Leon学堂剪辑课，我们不保证你一定变现，也不承诺就业。你只会得到32节课和每周一次答疑，到手价199元。最近报名的同学可以先看第一节试听。"
+  },
+  {
+   "id": "bl-57",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.06153846153846154
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    2.408
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "家人们，Jack数码主动降噪蓝牙耳机，降噪深度35dB，到手价299元。最好在安静的环境里试戴，你会第一时间感受到差别。小黄车拍。",
+   "ocr": "家人们，Jack数码主动降噪蓝牙耳机，降噪深度35dB，到手价299元。最好在安静的环境里试戴，你会第一时间感受到差别。小黄车拍。\n41中中"
+  },
+  {
+   "id": "bl-58",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.474
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "代餐粉500g一袋，到手价59元，每份含膳食纤维6g。最近我第一次尝试早餐换成燕麦代餐，感觉还不错，效果因人而异。",
+   "ocr": "代餐粉500g一袋，到手价59元，每份含膳食纤维6g。最近我第一次尝试早餐换成燕麦代餐，感觉还不错，效果因人而异。"
+  },
+  {
+   "id": "bl-59",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.04
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.642
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "清透防晒乳50ml，到手价89元。本品拥有专利号ZL20221076543.2（发明专利）的成膜技术，质地清透，顶部按压出液，夏天最好随身带一支补涂。",
+   "ocr": "清透防晒乳50ml，到价89元。本品拥有专利号ZL20221076543.2（发明专利）的成膜技术，质地清透，顶部按压出液，夏天最好随带支补涂。"
+  },
+  {
+   "id": "bl-60",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.557
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "姐妹们，Emma乳胶护颈枕，天然乳胶含量85%，到手价199元。回购率32%（数据来源：店铺后台2026年9月统计）。粉丝特供福利价，闭眼入！",
+   "ocr": "姐妹们，Emma乳胶护颈枕，天然乳胶含量85%，到手价199元。回购率32%（数据来源：店铺后台2026年9月统计）。粉丝特供福利价，闭眼入！"
+  }
+ ]
+}

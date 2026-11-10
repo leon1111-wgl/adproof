@@ -1,0 +1,228 @@
+{
+ "schema_version": 1,
+ "engine_version": "ocr-1",
+ "note": "Committed before any OCR run scored anything. Defines what is measured, on which renders, and the bar that decides whether the 图片 / 截图 input ships visible or stays hidden. Prose version: docs/EVALUATION.md section 8.",
+ "runtime": {
+  "name": "onnxruntime-web",
+  "version": "1.30.0",
+  "licence": "MIT",
+  "released": "2026-09-14",
+  "base_url": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/",
+  "files": {
+   "ort.wasm.min.js": {
+    "bytes": 50196,
+    "sha256_base64": "+uzgfoT6qQAfUQS75OXHCGHQbLI3ag3qH6CtM6Z63IE="
+   },
+   "ort-wasm-simd-threaded.mjs": {
+    "bytes": 24381,
+    "sha256_base64": "4T9/lPxRtMpysS+use6V9Kzm37yJObxxiqvcCifEKZs="
+   },
+   "ort-wasm-simd-threaded.wasm": {
+    "bytes": 14239897,
+    "sha256_base64": "M5jBDQfSKb2Rs2RUjhMODlGo5XBLiMfAg+u+t4hC3uI="
+   }
+  },
+  "execution": "WebAssembly SIMD, one thread (GitHub Pages is not cross-origin isolated). WebGPU is not used."
+ },
+ "weights": {
+  "model": "PP-OCRv5 mobile text detection + recognition (PaddlePaddle, Apache-2.0), ONNX conversion",
+  "original": [
+   "https://huggingface.co/PaddlePaddle/PP-OCRv5_mobile_det",
+   "https://huggingface.co/PaddlePaddle/PP-OCRv5_mobile_rec"
+  ],
+  "repo": "webnn/PP-OCRv5-ONNX",
+  "revision": "006b4419a415072fbb16a1d7d0d8548f789a8fae",
+  "licence": "apache-2.0 (model card tag)",
+  "base_url": "https://huggingface.co/webnn/PP-OCRv5-ONNX/resolve/006b4419a415072fbb16a1d7d0d8548f789a8fae/",
+  "files": {
+   "ch_PP-OCRv5_det.onnx": {
+    "bytes": 4748769,
+    "sha256_hex": "d7fe3ea74652890722c0f4d02458b7261d9f5ae6c92904d05707c9eb155c7924"
+   },
+   "ch_PP-OCRv5_rec.onnx": {
+    "bytes": 16517247,
+    "sha256_hex": "bf66820f48fa99f779974c4df78e5274a9d8e0458c4137e8c5357e40e2c3faf2"
+   },
+   "ch_PP-OCRv5_dict.txt": {
+    "bytes": 74012,
+    "sha256_hex": "d1979e9f794c464c0d2e0b70a7fe14dd978e9dc644c0e71f14158cdf8342af1b"
+   }
+  },
+  "served_from": {
+   "site_path": "models/pp-ocrv5/",
+   "note": "Same files and SHA-256 as CreditLens 0.35 (configs/table-check.json). Copied from base_url at build time on GitHub Actions by scripts/fetch_ocr_models.py with a size and SHA-256 check; the page checks SHA-256 again. Hugging Face's WAF answered headless Chromium on Actions with a CAPTCHA on 2026-11-10 (CreditLens runs 42776613837, 42777096938), so a direct Hugging Face fetch cannot be the tested path. The test browser is not disguised."
+  }
+ },
+ "download_bytes": 35654502,
+ "postprocess": {
+  "det_max_side": 1600,
+  "det_thresh": 0.3,
+  "box_thresh": 0.5,
+  "unclip": 1.6,
+  "min_size": 3,
+  "rec_height": 48,
+  "rec_min_width": 320,
+  "rec_batch": 6,
+  "row_overlap": 0.5,
+  "paragraph_gap": 1.0,
+  "low_confidence": 0.8,
+  "dev_tunable": [
+   "det_thresh",
+   "box_thresh",
+   "unclip",
+   "row_overlap",
+   "paragraph_gap",
+   "line ordering and joining code",
+   "character box mapping code"
+  ],
+  "frozen_before_test": "The engine (these values and the OCR / joining code) is frozen in a commit named in docs/EVALUATION.md 8.6 before the test run. low_confidence is a UI hint only and is not tuned."
+ },
+ "sets": {
+  "dev": {
+   "use": "tuning; any number of runs; outputs may be read",
+   "items": [
+    {
+     "name": "dev",
+     "file": "backend/evals/scripts.yaml",
+     "split": "dev",
+     "n": 30
+    }
+   ]
+  },
+  "test": {
+   "use": "one scored run on the frozen engine; the first run is the result",
+   "items": [
+    {
+     "name": "test",
+     "file": "backend/evals/scripts.yaml",
+     "split": "test",
+     "n": 30
+    },
+    {
+     "name": "blind_v1",
+     "file": "backend/evals/blind.yaml",
+     "split": "test",
+     "n": 60
+    },
+    {
+     "name": "blind_v2",
+     "file": "backend/evals/blind_v2.yaml",
+     "split": "test",
+     "n": 60,
+     "aggregate_only": true,
+     "note": "Sequestered since 792631a. The job writes only ids and numbers for it (no script text, no OCR text); nobody opens its renders."
+    }
+   ]
+  }
+ },
+ "render": {
+  "label": "SYNTHETIC",
+  "where": "In Chromium on GitHub Actions (Playwright), canvas 2D, fonts from Ubuntu packages fonts-noto-cjk, fonts-wqy-zenhei, fonts-arphic-ukai. The harness fails if a font is not present (its glyph widths equal the fallback's).",
+  "seed": 20261110,
+  "layouts": {
+   "frames": {
+    "what": "subtitle-style video frames, one image per subtitle",
+    "size": [
+     1280,
+     720
+    ],
+    "font_px": 44,
+    "line_chars": 18,
+    "max_lines": 2,
+    "styles": [
+     "outline",
+     "box"
+    ],
+    "split": "SRT items: one frame per cue. Text items: cut after 。！？；!?; ; a piece over 36 characters is cut after the last ，,、 that keeps it within 36, else hard-wrapped at 36. Line breaks inside a frame at 18 characters.",
+    "text_join": "lines inside a frame joined with nothing; frames joined with a newline (the same as parse_srt)"
+   },
+   "poster": {
+    "what": "poster or screenshot: the whole script as paragraphs on one or more portrait images",
+    "size": [
+     1080,
+     1440
+    ],
+    "margin_px": 72,
+    "line_height": 1.5,
+    "body_px": [
+     40,
+     30,
+     22
+    ],
+    "paragraphs": "source line breaks; SRT items one paragraph per cue",
+    "overflow": "continues on another image of the same conditions",
+    "text_join": "wrapped lines joined with nothing; paragraphs and images joined with a newline"
+   }
+  },
+  "fonts": [
+   "Noto Sans CJK SC",
+   "Noto Serif CJK SC",
+   "WenQuanYi Zen Hei",
+   "AR PL UKai CN"
+  ],
+  "backgrounds": {
+   "light": "flat off-white, dark text",
+   "dark": "flat near-black, light text",
+   "gradient": "two-colour linear gradient, text colour by mean luminance",
+   "busy": "seeded random shapes and noise in mid tones; frames keep the outline or box style, posters draw text with a 2 px contrasting outline"
+  },
+  "jpeg_quality": [
+   0.92,
+   0.7,
+   0.45
+  ],
+  "assignment": "Per set and layout, items in id order; the full factor grid (font x background x JPEG x style or body size) is shuffled with the seed and item k takes cell k mod grid size. Every image of one render shares its cell.",
+  "ground_truth": "the exact string drawn on each image and each character's box from canvas measureText"
+ },
+ "small_print_probe": {
+  "what": "descriptive, not part of the bar: the first sentence of each dev item drawn on a 1080 px wide light screenshot strip at each size, Noto Sans CJK SC, JPEG 0.92",
+  "font_px": [
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   24
+  ],
+  "report": "character accuracy by size; the smallest size at or above 95% is quoted on the page as the small-print limit"
+ },
+ "metrics": {
+  "references": {
+   "T0": "browser engine on the eval text as it is in the set (the existing text path)",
+   "T1": "browser engine on the text exactly as drawn (layout joins applied, no OCR errors)",
+   "T2": "browser engine on the OCR text"
+  },
+  "mapping": "T1 and T2 spans are mapped to eval-text coordinates: T1 by the renderer's character map, T2 by a Levenshtein alignment of OCR text to drawn text and then the renderer's map.",
+  "matching": "the section 2 rule: same category and character IoU >= 0.5, one-to-one greedy by IoU",
+  "char_accuracy": "1 - sum(edit distance) / sum(reference characters) over all images; reference = text drawn on the image; both sides NFKC with whitespace removed; punctuation counts",
+  "layout_retention": "share of T0 findings matched by T1",
+  "ocr_retention": "share of T1 findings matched by T2",
+  "total_retention": "share of T0 findings matched by T2 (what a visitor gets compared with pasting the text)",
+  "ocr_introduced": "T2 findings that match no T1 finding, as a share of T2 findings",
+  "clean_flagged": "renders of items with no gold span and no T0 finding that have at least one T2 finding, as a share of such renders",
+  "anchor_hit": "T2 findings matched to a T1 finding whose box, per image, has IoU >= 0.5 with the union of the drawn boxes of the same characters",
+  "gold": "span P/R/F1 against gold for T0 and T2 (secondary; blind_v2 gold is unaudited model labelling)",
+  "disclosures": "items whose missing-disclosure list differs between T0 and T2 (reported)",
+  "latency": "seconds per image from decoded image to joined text (detection, recognition, joining), P50 and P95 per layout; init seconds; downloaded bytes",
+  "invariants": "every T2 finding's quote equals the OCR text slice; every citation shown as verified is in the law snapshot"
+ },
+ "bar": {
+  "applies_to": "pooled test sets (test, blind_v1, blind_v2), all conditions, first test run on the frozen engine",
+  "char_accuracy_min": 0.95,
+  "total_retention_min": 0.9,
+  "total_retention_per_layout_min": 0.85,
+  "ocr_introduced_max": 0.03,
+  "clean_flagged_max": 0.02,
+  "anchor_hit_min": 0.95,
+  "latency_p95_seconds_max": {
+   "frames": 6.0,
+   "poster": 20.0
+  },
+  "init_seconds_max": 15.0,
+  "download_bytes_max": 40000000,
+  "invariants": "must hold on every item",
+  "check_job": "the real-OCR visitor check passes at 1440 and 375 px in light and dark",
+  "decision": "Visible (the 图片 / 截图 input in the workbench, weights in the Pages build) only if every bar holds. Otherwise the input stays out of the public build and the weights are not deployed; the numbers are reported in docs and CHANGELOG. Per-condition results are reported, not gating."
+ }
+}

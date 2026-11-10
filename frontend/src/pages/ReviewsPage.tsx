@@ -44,7 +44,7 @@ export default function ReviewsPage() {
                 <td className="mono faint">{r.id}</td>
                 <td style={{ maxWidth: 300 }}><div className="ellipsis">{r.title}</div></td>
                 <td className="nowrap">{r.product.brand} <span className="faint">{meta?.product_categories[r.product.category] ?? r.product.category}</span></td>
-                <td className="nowrap">{MODE_TEXT[r.mode]}{r.input_type === "srt" ? " · SRT" : ""}</td>
+                <td className="nowrap">{MODE_TEXT[r.mode]}{r.input_type === "srt" ? " · SRT" : r.input_type === "image" ? " · 图片" : ""}</td>
                 <td><StatusBadge status={r.status} /></td>
                 <td><RiskBadge level={r.risk_level} scope={r.scope?.state} /></td>
                 <td className="mono">{r.counts?.total ?? "—"}{r.counts?.high ? <span className="faint"> · 高 {r.counts.high}</span> : null}</td>

@@ -1,0 +1,28 @@
+{
+ "note": "First and only test run of the OCR evaluation (docs/EVALUATION.md 8.3), SYNTHETIC renders; shown on the image input with its run id. Not a measurement on real ads.",
+ "run_id": 42822366071,
+ "engine_commit": "72db193",
+ "renders": 300,
+ "images": 497,
+ "char_accuracy": 0.9806,
+ "total_retention": 0.9873,
+ "retained": "310/314",
+ "ocr_introduced": "2/312",
+ "clean_flagged": "1/90",
+ "anchor_hit": "310/310",
+ "latency_p95_seconds": {
+  "frames": 1.09,
+  "poster": 2.07
+ },
+ "small_print_px": 10,
+ "small_print_smallest_tested_px": 10,
+ "small_print_by_px": {
+  "10": 0.9823,
+  "12": 0.9926,
+  "14": 0.9941,
+  "16": 1,
+  "18": 1,
+  "20": 1,
+  "24": 1
+ }
+}

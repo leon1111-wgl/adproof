@@ -48,7 +48,7 @@ function Note({ finding, active, onSelect, actions }: { finding: Finding; active
         <div className="note-more">
           <q>{finding.quote}</q>
           <span className="where mono">
-            {finding.cue ? `字幕 #${finding.cue.index} ${finding.cue.start.slice(3, 8)} · ` : ""}字符 {finding.start}–{finding.end} · {finding.channels.map((c) => CHANNEL_TEXT[c]).join(" + ")}
+            {finding.cue ? `字幕 #${finding.cue.index} ${finding.cue.start.slice(3, 8)} · ` : ""}{finding.region?.length ? `图 ${finding.region.map((r) => r.image + 1).join("、")} · ` : ""}字符 {finding.start}–{finding.end} · {finding.channels.map((c) => CHANNEL_TEXT[c]).join(" + ")}
           </span>
           <p>
             {finding.reason}

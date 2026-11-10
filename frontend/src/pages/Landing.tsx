@@ -8,6 +8,7 @@ import { Logo, ThemeButton, pct } from "../components/ui";
 import type { Disclosure, Finding, RewriteResult } from "../types";
 import recorded from "../specimen.json";
 import redteam from "../redteam-report.json";
+import ocrMeasured from "../ocr/measured.json";
 
 // One seeded review as the offline model annotated it, plus the offline eval summary; both
 // written by scripts/record_demo.py. Law text inside comes from the verified snapshots only.
@@ -112,9 +113,9 @@ export default function Landing() {
           <div>
             <span className="eyebrow">AD COMPLIANCE · 带货素材合规审查</span>
             <h1 className="serif">AdProof</h1>
-            <p className="hero-stack">Multi-Agent · 规则引擎 · llama.cpp 红队 · FastAPI · React · TypeScript</p>
+            <p className="hero-stack">Multi-Agent · 规则引擎 · PP-OCRv5 · WASM · llama.cpp 红队 · FastAPI · React · TypeScript</p>
             <p className="lead">
-              短视频口播和直播字幕交上来，多个 Agent 逐条标出问题：落到原文的第几个字、命中哪条规则、对应《广告法》哪一条的原文；
+              短视频口播、直播字幕和广告截图交上来，多个 Agent 逐条标出问题：落到原文的第几个字或图上的位置、命中哪条规则、对应《广告法》哪一条的原文；
               再给出改写稿并复审一遍，最后由审核员签字。
             </p>
             <div className="hero-cta">
@@ -222,6 +223,15 @@ export default function Landing() {
                     </td>
                   </tr>
                 )}
+                <tr>
+                  <td>
+                    图片输入：与直接粘贴文字相比保留的问题（字符准确率 {pct(ocrMeasured.char_accuracy)}）
+                    <div className="faint">
+                      评测脚本渲染成字幕帧和海报（SYNTHETIC，{ocrMeasured.images} 张），浏览器内 OCR 后交给同一个引擎；冻结后首跑，运行 <span className="mono">{ocrMeasured.run_id}</span>
+                    </div>
+                  </td>
+                  <td className="mono num">{pct(ocrMeasured.total_retention)}（{ocrMeasured.retained}）</td>
+                </tr>
                 <tr>
                   <td>dev F1（规则在 dev 上调试，仅供参考）</td>
                   <td className="mono num">{pct(specimen.eval.dev_f1)}</td>
