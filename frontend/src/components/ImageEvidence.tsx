@@ -32,7 +32,11 @@ export function ImageEvidence({ review, findings, activeKey, onSelect }: { revie
                       className={`ocr-hit ${f.severity}${f.key === activeKey ? " active" : ""}`}
                       data-key={f.key}
                       x={b.x0} y={b.y0} width={b.x1 - b.x0} height={b.y1 - b.y0}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`批注 ${noteNo(f.key)} · ${f.category_label}：${f.quote}（图 ${k + 1}）`}
                       onClick={() => onSelect(f.key)}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(f.key); } }}
                     >
                       <title>{`批注 ${noteNo(f.key)} · ${f.category_label}：${f.quote}`}</title>
                     </rect>

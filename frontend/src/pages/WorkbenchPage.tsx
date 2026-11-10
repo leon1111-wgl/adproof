@@ -146,7 +146,7 @@ export default function WorkbenchPage() {
                     </>
                   )}
                 </div>
-                {images && <div hidden={inputType !== "image"}><ImageInput onChange={setOcr} /></div>}
+                {images && <div hidden={inputType !== "image"}><ImageInput onChange={setOcr} active={inputType === "image"} /></div>}
                 {inputType !== "image" && <>
                 <textarea
                   className="textarea mono"

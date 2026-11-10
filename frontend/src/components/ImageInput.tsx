@@ -53,6 +53,7 @@ export function OcrLimits() {
         <li><b>小字</b>：合成评测只测到 {M.small_print_smallest_tested_px} px（清晰的白底截图）；更小、低对比度或压缩过的角标和免责声明可能漏识或识别错，置信度低的行会标黄。</li>
         <li><b>画面本身</b>：前后对比图、白大褂、徽章、奖杯图标等视觉暗示不审查，只有文字进入规则引擎。</li>
         <li><b>竖排、弧形、艺术字和倾斜文字</b>：检测器只处理水平文字，可能整段漏掉。</li>
+        <li><b>排版</b>：按从上到下、从左到右读；多栏、表格和环绕排版可能读乱顺序，同一高度相距较远的几块文字分开审。</li>
       </ul>
     </div>
   );
@@ -78,7 +79,7 @@ export function OcrFigure({ index, url, image, seconds }: { index: number; url: 
   );
 }
 
-export default function ImageInput({ onChange }: { onChange: (payload: ImagePayload | null) => void }) {
+export default function ImageInput({ onChange, active = true }: { onChange: (payload: ImagePayload | null) => void; active?: boolean }) {
   const support = useMemo(() => canRun(), []);
   const [items, setItems] = useState<Item[]>([]);
   const [done, setDone] = useState<Record<number, Done>>({});
@@ -93,18 +94,22 @@ export default function ImageInput({ onChange }: { onChange: (payload: ImagePayl
   const srtInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!active || examples.length) return; // only once the visitor opens the image tab
     fetch(`${BASE}ocr-examples/index.json`)
       .then((r) => (r.ok && r.headers.get("content-type")?.includes("json") ? r.json() : { sets: [] }))
       .then((d: { sets: ExampleSet[] }) => setExamples(d.sets ?? []))
       .catch(() => setExamples([]));
-  }, []);
+  }, [active]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Object URLs are not revoked: a review submitted from this tab keeps showing its images.
 
   // recognise whatever is not recognised yet, once the engine is there, one image at a time
   // (no effect cleanup here: setting `working` re-runs this effect, and a cleanup would drop the result in flight)
   const mounted = useRef(true);
-  useEffect(() => () => { mounted.current = false; }, []);
+  useEffect(() => {
+    mounted.current = true; // StrictMode runs mount → unmount → mount in development
+    return () => { mounted.current = false; };
+  }, []);
   useEffect(() => {
     if (status !== "ready" || working !== null) return;
     const next = items.find((i) => !done[i.id]);

@@ -73,7 +73,7 @@ jobs:
               f.write(f"mode={mode}\n")
               f.write(f"label={''.join(c for c in str(d.get('label', 'run')) if c.isalnum() or c in '-_')[:40] or 'run'}\n")
               f.write(f"urls={' '.join(str(d.get('image_urls', '')).split())[:3000]}\n")
-              f.write(f"category={str(d.get('category', '美妆个护'))[:12]}\n")
+              f.write(f"category={''.join(str(d.get('category', '美妆个护')).split())[:12]}\n")
               f.write(f"sets={json.dumps(sets)}\n")
               f.write(f"lab={'1' if mode in ('dev', 'test', 'variants') else '0'}\n")
           print(mode, sets)

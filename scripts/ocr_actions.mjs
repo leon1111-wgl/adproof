@@ -274,6 +274,7 @@ async function runVisitor(kind) {
         const res = await fetch(url, { redirect: "follow" });
         const type = (res.headers.get("content-type") ?? "").split(";")[0];
         if (!res.ok || !["image/png", "image/jpeg", "image/webp"].includes(type)) throw new Error(`${res.status} ${type}`);
+        if (Number(res.headers.get("content-length") ?? 0) > 15 * 1024 * 1024) throw new Error("larger than 15 MB");
         const buf = Buffer.from(await res.arrayBuffer());
         if (buf.length > 15 * 1024 * 1024) throw new Error("larger than 15 MB");
         const name = `probe-${i + 1}.${type.split("/")[1].replace("jpeg", "jpg")}`;

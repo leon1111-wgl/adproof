@@ -205,3 +205,16 @@ describe("traditional to simplified table", () => {
     expect(t.source).toContain("Apache-2.0");
   });
 });
+
+describe("blocks at the same height", () => {
+  it("keeps far-apart boxes on one row apart (a newline), but joins pieces of one line", () => {
+    const slogan = line("全网最低", 100, 100, 160);
+    const badge = line("价格保护", 900, 100, 160); // 640 px away: another block
+    const doc = buildDocument([image("shot", [slogan, badge], 1280, 720)]);
+    expect(doc.text).toBe("全网最低\n价格保护");
+    expect(doc.anchors).toHaveLength(doc.text.length);
+    expect(doc.anchors[4]).toBeNull();
+    const split = buildDocument([image("frame", [line("今天直播间", 100, 100, 200), line("全网最低价", 310, 100, 200)], 1280, 720)]);
+    expect(split.text).toBe("今天直播间全网最低价"); // a 10 px gap is one line
+  });
+});

@@ -168,6 +168,7 @@ const OCR_NOT_CHECKED = [
   { label: "小字", detail: "角标、免责声明、价格旁的小字可能漏识或识别错；标为“可能识别错”的行请对照原图。" },
   { label: "画面本身", detail: "前后对比图、穿白大褂的人物、徽章和国旗、奖杯图标等视觉暗示不会被审查：进入规则引擎的只有文字。" },
   { label: "竖排、弧形、艺术字和倾斜文字", detail: "检测器只处理水平排列的文字，这类文字可能整段漏掉。" },
+  { label: "排版", detail: "按从上到下、从左到右的顺序读；多栏、表格和环绕排版可能读乱顺序。" },
 ];
 
 /** One review computed in the tab, shaped like the API's review (exported for tests). */

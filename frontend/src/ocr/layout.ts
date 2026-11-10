@@ -75,6 +75,10 @@ export function buildDocument(images: OcrImage[], opts: { paragraphGap?: number;
       prev = { top, bottom };
       let right = -Infinity; // the detector sometimes returns two overlapping boxes for one line: read the overlap once
       for (const line of row) {
+        // separate blocks at the same height (a price tag beside a slogan, two columns): a newline, so the rules
+        // never read across them; pieces of one line split by the detector stay joined
+        const first = line.chars.length ? line.chars[0][0] : line.box.x0;
+        if (right > -Infinity && first - right > (bottom - top)) newline();
         const start = text.length;
         let kept = "";
         for (let u = 0; u < line.text.length; u++) {
