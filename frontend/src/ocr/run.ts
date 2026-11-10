@@ -1,5 +1,5 @@
 /* The OCR session of one tab: the engine is loaded once (after a click) and reused for every image. */
-import { canRun, loadEngine, recognise, type Engine } from "./engine";
+import { canRun, loadEngine, recognise, type Engine, type Tuning } from "./engine";
 import type { OcrImage } from "./layout";
 
 /** Images may be large photos; the detector works at 1600 px anyway, so the working copy is capped. */
@@ -43,10 +43,10 @@ export async function imageCanvas(blob: Blob, maxSide = MAX_SIDE): Promise<HTMLC
 }
 
 /** OCR of one image: lines with boxes in the working copy's pixels, and the seconds it took. */
-export async function ocrBlob(e: Engine, name: string, blob: Blob): Promise<{ image: OcrImage; seconds: number }> {
+export async function ocrBlob(e: Engine, name: string, blob: Blob, over: Partial<Tuning> = {}): Promise<{ image: OcrImage; seconds: number }> {
   const c = await imageCanvas(blob);
   const started = performance.now();
-  const { lines } = await recognise(e, c);
+  const { lines } = await recognise(e, c, over);
   return { image: { name, width: c.width, height: c.height, lines }, seconds: (performance.now() - started) / 1000 };
 }
 

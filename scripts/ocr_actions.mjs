@@ -114,23 +114,32 @@ async function labPage() {
 
 const b64 = (page, expr) => page.evaluate(expr);
 
-if (mode === "eval") {
+// dev-only experiment: the same renders read with different recognition settings (docs/EVALUATION.md 8.6)
+const VARIANTS = {
+  base: { rec_max_ratio: 1e9 }, seg12: { rec_max_ratio: 12 }, unclip13: { rec_max_ratio: 1e9, unclip: 1.3 }, unclip20: { rec_max_ratio: 1e9, unclip: 2.0 },
+  xpad: { rec_max_ratio: 1e9, crop_x_pad: 0.3 }, yshrink: { rec_max_ratio: 1e9, crop_y_shrink: 0.12 }, smooth_low: { rec_max_ratio: 1e9, smoothing: "low" }, smooth_off: { rec_max_ratio: 1e9, smoothing: "off" }, rgb: { rec_max_ratio: 1e9, rgb: true },
+};
+
+if (mode === "eval" || mode === "variants") {
   const set = arg("set");
+  if (mode === "variants" && set !== "dev") throw new Error("variants run on dev only");
   const items = JSON.parse(fs.readFileSync(arg("items"), "utf8"));
   const sequestered = protocol.sets.test.items.some((s) => s.name === set && s.aggregate_only);
   const { page, log } = await labPage();
   if (fail.length) throw new Error(`setup failed: ${fail.join("; ")}`);
+  const variants = mode === "variants" ? Object.entries(VARIANTS) : [[null, {}]];
+  for (const [variant, over] of variants) {
   const renders = [];
-  const keep = set === "dev" ? path.join(out, "renders") : null;
+  const keep = set === "dev" && !variant ? path.join(out, "renders") : null;
   if (keep) fs.mkdirSync(keep, { recursive: true });
   for (const layout of ["frames", "poster"]) {
     const assigned = cells(set, layout, items.length);
     for (const [k, item] of items.entries()) {
       const cell = assigned[k];
-      const r = await page.evaluate(async ({ item, layout, cell, seed, keep }) => {
+      const r = await page.evaluate(async ({ item, layout, cell, seed, keep, over }) => {
         const rendered = await window.__ocrRender.render(item, layout, cell, seed);
         const ocr = [];
-        for (const [i, im] of rendered.images.entries()) ocr.push(await window.__adproofOcr.ocr(`${item.id}-${layout}-${i + 1}.jpg`, im.blob));
+        for (const [i, im] of rendered.images.entries()) ocr.push(await window.__adproofOcr.ocr(`${item.id}-${layout}-${i + 1}.jpg`, im.blob, over));
         const t = performance.now();
         const doc = window.__adproofOcr.join(ocr.map((o) => o.image));
         const join = (performance.now() - t) / 1000;
@@ -140,11 +149,11 @@ if (mode === "eval") {
           images: rendered.images.map((im, i) => ({ width: im.width, height: im.height, drawn: im.drawn, bytes: im.blob.size, seconds: ocr[i].seconds, lines: ocr[i].image.lines.length })),
           first: keep ? await toB64(rendered.images[0].blob) : null,
         };
-      }, { item, layout, cell, seed: protocol.render.seed, keep: Boolean(keep) });
+      }, { item, layout, cell, seed: protocol.render.seed, keep: Boolean(keep), over });
       if (keep && r.first) fs.writeFileSync(path.join(keep, `${item.id}-${layout}.jpg`), Buffer.from(r.first, "base64"));
       delete r.first;
       renders.push({ id: item.id, layout, cell, ...r });
-      console.log(`${set} ${item.id} ${layout} · ${r.images.length} image(s) · ${r.images.map((x) => x.seconds.toFixed(2)).join("/")} s`);
+      console.log(`${set}${variant ? `@${variant}` : ""} ${item.id} ${layout} · ${r.images.length} image(s) · ${r.images.map((x) => x.seconds.toFixed(2)).join("/")} s`);
     }
   }
   ok("no page errors", log.errors.length === 0, log.errors.slice(0, 5));
@@ -155,7 +164,8 @@ if (mode === "eval") {
   // the sequestered set's results stay on the runner (scored in the same job, aggregate only)
   const where = sequestered ? path.resolve(arg("private", "ocr-private")) : out;
   fs.mkdirSync(where, { recursive: true });
-  fs.writeFileSync(path.join(where, `${set}.results.json`), JSON.stringify(results));
+  fs.writeFileSync(path.join(where, `${set}${variant ? `@${variant}` : ""}.results.json`), JSON.stringify({ ...results, variant, overrides: over }));
+  }
 } else if (mode === "smallprint") {
   const items = JSON.parse(fs.readFileSync(arg("items"), "utf8"));
   const { page } = await labPage();

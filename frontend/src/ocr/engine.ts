@@ -170,7 +170,14 @@ export function sessionShapes(e: Engine) {
 }
 
 /** Full-image OCR: text boxes from the detector, text and per-character boxes from the recogniser, in image pixels. */
-export async function recognise(engine: Engine, source: HTMLCanvasElement): Promise<{ lines: OcrLine[]; timings: OcrTimings }> {
+/** Recognition settings tuned on dev (docs/EVALUATION.md 8.6); the evaluation hook can override them for experiments. */
+export interface Tuning { rec_max_ratio: number; crop_y_shrink: number; crop_x_pad: number; smoothing: "off" | "low" | "medium" | "high"; unclip: number; rgb: boolean }
+export const tuning = (over: Partial<Tuning> = {}): Tuning => ({
+  rec_max_ratio: PP.rec_max_ratio, crop_y_shrink: PP.crop_y_shrink, crop_x_pad: PP.crop_x_pad, smoothing: PP.rec_smoothing as Tuning["smoothing"], unclip: PP.unclip, rgb: PP.rec_rgb, ...over,
+});
+
+export async function recognise(engine: Engine, source: HTMLCanvasElement, over: Partial<Tuning> = {}): Promise<{ lines: OcrLine[]; timings: OcrTimings }> {
+  const tune = tuning(over);
   const { ort } = engine;
   const W0 = source.width;
   const H0 = source.height;
@@ -198,7 +205,7 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
   }
   const detOut = await engine.det.run({ [engine.det.inputNames[0]]: new ort.Tensor("float32", input, [1, 3, dh, dw]) });
   const prob = detOut[engine.det.outputNames[0]].data;
-  const boxes = dbBoxes(prob, dw, dh)
+  const boxes = dbBoxes(prob, dw, dh, tune.unclip)
     .map((b) => ({ x0: Math.max(0, (b.x0 * W0) / dw), y0: Math.max(0, (b.y0 * H0) / dh), x1: Math.min(W0, (b.x1 * W0) / dw), y1: Math.min(H0, (b.y1 * H0) / dh) }))
     .filter((b) => b.x1 - b.x0 >= 2 && b.y1 - b.y0 >= 2);
   const t1 = performance.now();
@@ -208,7 +215,11 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
   const H = PP.rec_height;
   // A recogniser with a fixed input width squeezes a long line until characters drop out, so long lines are
   // read as overlapping segments; each segment keeps the characters whose centre lies in the part it owns.
-  const crops = boxes.flatMap((b, i) => segments(b, recFixed?.[3] ? recFixed[3] / H : PP.rec_max_ratio).map((seg, k, all) => ({ i, k, n: all.length, ...seg })));
+  const cropOf = (b: Box): Box => {
+    const h = b.y1 - b.y0;
+    return { x0: Math.max(0, b.x0 - tune.crop_x_pad * h), x1: Math.min(W0, b.x1 + tune.crop_x_pad * h), y0: b.y0 + tune.crop_y_shrink * h, y1: b.y1 - tune.crop_y_shrink * h };
+  };
+  const crops = boxes.flatMap((b, i) => segments(cropOf(b), recFixed?.[3] ? recFixed[3] / H : tune.rec_max_ratio).map((seg, k, all) => ({ i, k, n: all.length, ...seg })));
   const order = crops.map((c, j) => ({ c, j, ratio: (c.x1 - c.x0) / (c.y1 - c.y0) })).sort((a, b) => a.ratio - b.ratio);
   const read: ({ tokens: string[]; centres: number[]; conf: number } | null)[] = new Array(crops.length).fill(null);
   for (let k = 0; k < order.length; k += PP.rec_batch) {
@@ -223,7 +234,8 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
       const tw = Math.min(W, Math.max(1, Math.ceil((H * bw) / bh)));
       widths.push(tw);
       const ctx = canvas(tw, H);
-      ctx.imageSmoothingQuality = "high";
+      if (tune.smoothing === "off") ctx.imageSmoothingEnabled = false;
+      else ctx.imageSmoothingQuality = tune.smoothing;
       ctx.drawImage(sctx.canvas, Math.round(c.x0), Math.round(c.y0), bw, bh, 0, 0, tw, H);
       const p = ctx.getImageData(0, 0, tw, H).data;
       const off = j * 3 * H * W;
@@ -232,9 +244,11 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
         for (let x = 0; x < tw; x++) {
           const s = (y * tw + x) * 4;
           const d = y * W + x;
-          data[off + d] = (p[s + 2] / 255 - 0.5) / 0.5;
+          const first = tune.rgb ? p[s] : p[s + 2]; // PaddleOCR reads BGR
+          const last = tune.rgb ? p[s + 2] : p[s];
+          data[off + d] = (first / 255 - 0.5) / 0.5;
           data[off + area + d] = (p[s + 1] / 255 - 0.5) / 0.5;
-          data[off + 2 * area + d] = (p[s] / 255 - 0.5) / 0.5;
+          data[off + 2 * area + d] = (last / 255 - 0.5) / 0.5;
         }
       }
     });
@@ -269,7 +283,7 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
 
 /** DB post-processing for axis-aligned text: threshold, 4-connected components, mean-probability
     score, then the usual unclip by area × ratio / perimeter. */
-export function dbBoxes(prob: Float32Array, w: number, h: number): { x0: number; y0: number; x1: number; y1: number; score: number }[] {
+export function dbBoxes(prob: Float32Array, w: number, h: number, unclip = PP.unclip): { x0: number; y0: number; x1: number; y1: number; score: number }[] {
   const seen = new Uint8Array(w * h);
   const out: { x0: number; y0: number; x1: number; y1: number; score: number }[] = [];
   const stack = new Int32Array(w * h);
@@ -304,7 +318,7 @@ export function dbBoxes(prob: Float32Array, w: number, h: number): { x0: number;
     if (Math.min(bw, bh) < PP.min_size || out.length >= 3000) continue;
     const score = sum / count;
     if (score < PP.box_thresh) continue;
-    const d = (bw * bh * PP.unclip) / (2 * (bw + bh));
+    const d = (bw * bh * unclip) / (2 * (bw + bh));
     out.push({ x0: Math.max(0, minx - d), y0: Math.max(0, miny - d), x1: Math.min(w, maxx + 1 + d), y1: Math.min(h, maxy + 1 + d), score });
   }
   return out;

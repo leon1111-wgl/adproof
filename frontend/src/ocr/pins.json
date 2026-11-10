@@ -65,6 +65,10 @@
   "row_overlap": 0.5,
   "paragraph_gap": 1.0,
   "low_confidence": 0.8,
-  "rec_max_ratio": 12
+  "rec_max_ratio": 12,
+  "crop_y_shrink": 0,
+  "crop_x_pad": 0,
+  "rec_smoothing": "high",
+  "rec_rgb": false
  }
 }

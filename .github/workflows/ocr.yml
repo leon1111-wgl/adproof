@@ -66,16 +66,16 @@ jobs:
           else:
               d = {"mode": "check", "label": "pr"}
           mode = d.get("mode", "check")
-          if mode not in {"check", "dev", "test", "examples", "probe"}:
+          if mode not in {"check", "dev", "test", "examples", "probe", "variants"}:
               raise SystemExit(f"unknown mode {mode}")
-          sets = {"dev": ["dev"], "test": ["test", "blind_v1", "blind_v2"]}.get(mode, [])
+          sets = {"dev": ["dev"], "variants": ["dev"], "test": ["test", "blind_v1", "blind_v2"]}.get(mode, [])
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
               f.write(f"mode={mode}\n")
               f.write(f"label={''.join(c for c in str(d.get('label', 'run')) if c.isalnum() or c in '-_')[:40] or 'run'}\n")
               f.write(f"urls={' '.join(str(d.get('image_urls', '')).split())[:3000]}\n")
               f.write(f"category={str(d.get('category', '美妆个护'))[:12]}\n")
               f.write(f"sets={json.dumps(sets)}\n")
-              f.write(f"lab={'1' if mode in ('dev', 'test') else '0'}\n")
+              f.write(f"lab={'1' if mode in ('dev', 'test', 'variants') else '0'}\n")
           print(mode, sets)
           PY
 
@@ -115,7 +115,7 @@ jobs:
 
   eval:
     needs: [plan, build]
-    if: needs.plan.outputs.mode == 'dev' || needs.plan.outputs.mode == 'test'
+    if: needs.plan.outputs.mode == 'dev' || needs.plan.outputs.mode == 'test' || needs.plan.outputs.mode == 'variants'
     runs-on: ubuntu-latest
     timeout-minutes: 150
     strategy:
@@ -152,15 +152,20 @@ jobs:
       - name: Install Playwright Chromium
         run: npm install --no-save --no-package-lock playwright@1.49.1 && npx playwright install --with-deps chromium
       - name: Render (SYNTHETIC) and OCR in the browser
-        run: node scripts/ocr_actions.mjs --mode eval --set ${{ matrix.set }} --items ocr-private/${{ matrix.set }}.items.json --out ocr-out --private ocr-private 2>&1 | tee ocr-out-log.txt; exit ${PIPESTATUS[0]}
+        run: node scripts/ocr_actions.mjs --mode ${{ needs.plan.outputs.mode == 'variants' && 'variants' || 'eval' }} --set ${{ matrix.set }} --items ocr-private/${{ matrix.set }}.items.json --out ocr-out --private ocr-private 2>&1 | tee ocr-out-log.txt; exit ${PIPESTATUS[0]}
       - name: Score with the browser engine
         working-directory: frontend
         run: |
           set -o pipefail
-          RES=../ocr-out/${{ matrix.set }}.results.json
-          FLAG=""
-          if [ "${{ matrix.set }}" = "blind_v2" ]; then RES=../ocr-private/blind_v2.results.json; FLAG=--aggregate-only; fi
-          pnpm exec vite-node scripts/ocr-score.ts -- set ../ocr-private/${{ matrix.set }}.items.json "$RES" ../ocr-out/${{ matrix.set }}.report.json $FLAG | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ "${{ matrix.set }}" = "blind_v2" ]; then
+            pnpm exec vite-node scripts/ocr-score.ts -- set ../ocr-private/blind_v2.items.json ../ocr-private/blind_v2.results.json ../ocr-out/blind_v2.report.json --aggregate-only | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            for RES in ../ocr-out/${{ matrix.set }}*.results.json; do
+              NAME=$(basename "$RES" .results.json)
+              echo "### $NAME" >> "$GITHUB_STEP_SUMMARY"
+              pnpm exec vite-node scripts/ocr-score.ts -- set ../ocr-private/${{ matrix.set }}.items.json "$RES" "../ocr-out/$NAME.report.json" | tee -a "$GITHUB_STEP_SUMMARY"
+            done
+          fi
       - name: Keep the sequestered set's texts off the artifact
         if: always()
         run: rm -f ocr-out/blind_v2.results.json
@@ -197,7 +202,7 @@ jobs:
           set -o pipefail
           pnpm install --frozen-lockfile
           BAR=""; if [ "${{ needs.plan.outputs.mode }}" = "test" ]; then BAR=--bar; fi
-          pnpm exec vite-node scripts/ocr-score.ts -- pool $(ls ../reports/*/ocr-out/*.report.json) --out ../pooled.json $BAR | tee -a "$GITHUB_STEP_SUMMARY"
+          pnpm exec vite-node scripts/ocr-score.ts -- pool $(ls ../reports/*/ocr-out/*.report.json | grep -v @) --out ../pooled.json $BAR | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: ocr-pooled-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}
