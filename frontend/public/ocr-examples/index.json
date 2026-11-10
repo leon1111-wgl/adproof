@@ -1,0 +1,24 @@
+{
+ "note": "SYNTHETIC renders of the demo's sample scripts (frontend/src/samples.json) by scripts/ocr-render.js; regenerate with the examples job of .github/workflows/ocr.yml.",
+ "sets": [
+  {
+   "id": "frames",
+   "label": "字幕帧（4 张，SYNTHETIC）",
+   "files": [
+    "frames-1.jpg",
+    "frames-2.jpg",
+    "frames-3.jpg",
+    "frames-4.jpg"
+   ],
+   "note": "SYNTHETIC：演示商品的示例口播按字幕样式渲染成视频帧（合成图，不是真实广告）"
+  },
+  {
+   "id": "poster",
+   "label": "海报（1 张，SYNTHETIC）",
+   "files": [
+    "poster-1.jpg"
+   ],
+   "note": "SYNTHETIC：演示商品的示例文案渲染成海报（合成图，不是真实广告）"
+  }
+ ]
+}
