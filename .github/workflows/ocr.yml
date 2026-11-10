@@ -1,0 +1,281 @@
+name: OCR (图片 / 截图)
+
+# The 图片 / 截图 input runs PP-OCRv5 mobile in the visitor's browser (onnxruntime-web, WebAssembly, one thread).
+# Real OCR runs only here, in Playwright Chromium on the runner, never on a developer machine.
+#   check    : the visitor flow with real OCR at 1440 and 375 px, light and dark; refusals; existing flows (every PR)
+#   dev/test : SYNTHETIC renders of the evaluation scripts → OCR → the same rule engine (docs/EVALUATION.md 8.1);
+#              test pools the three test sets and applies the bar in backend/evals/ocr/protocol.json
+#   examples : the visitor examples (renders of the demo's sample scripts)
+#   probe    : your own public image URLs through the real workbench (screenshots + probe.json)
+# Before this file is on main, run a mode by pushing a branch ocr-run/<anything> with backend/evals/ocr/dispatch.json.
+# Weights are copied into the built site from the pinned Hugging Face revision (size + SHA-256 checked twice).
+
+on:
+  pull_request:
+  push:
+    branches: ["ocr-run/**"]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check | dev | test | examples | probe"
+        default: check
+      label:
+        description: Name for the artifacts
+        default: manual
+      image_urls:
+        description: "probe: up to 8 https image URLs (PNG / JPEG / WebP), space-separated"
+        default: ""
+      category:
+        description: "probe: product category label as in the workbench (通用, 美妆个护, 普通食品, 保健食品, 数码家电, 家居日用, 服饰鞋包, 招商加盟, 课程培训)"
+        default: 美妆个护
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ocr-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.p.outputs.mode }}
+      label: ${{ steps.p.outputs.label }}
+      urls: ${{ steps.p.outputs.urls }}
+      category: ${{ steps.p.outputs.category }}
+      sets: ${{ steps.p.outputs.sets }}
+      lab: ${{ steps.p.outputs.lab }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_MODE: ${{ inputs.mode }}
+          IN_LABEL: ${{ inputs.label }}
+          IN_URLS: ${{ inputs.image_urls }}
+          IN_CATEGORY: ${{ inputs.category }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          ev = os.environ["EVENT"]
+          if ev == "push":
+              d = json.load(open("backend/evals/ocr/dispatch.json", encoding="utf-8"))
+          elif ev == "workflow_dispatch":
+              d = {"mode": os.environ["IN_MODE"], "label": os.environ["IN_LABEL"], "image_urls": os.environ["IN_URLS"], "category": os.environ["IN_CATEGORY"]}
+          else:
+              d = {"mode": "check", "label": "pr"}
+          mode = d.get("mode", "check")
+          if mode not in {"check", "dev", "test", "examples", "probe"}:
+              raise SystemExit(f"unknown mode {mode}")
+          sets = {"dev": ["dev"], "test": ["test", "blind_v1", "blind_v2"]}.get(mode, [])
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"mode={mode}\n")
+              f.write(f"label={''.join(c for c in str(d.get('label', 'run')) if c.isalnum() or c in '-_')[:40] or 'run'}\n")
+              f.write(f"urls={' '.join(str(d.get('image_urls', '')).split())[:3000]}\n")
+              f.write(f"category={str(d.get('category', '美妆个护'))[:12]}\n")
+              f.write(f"sets={json.dumps(sets)}\n")
+              f.write(f"lab={'1' if mode in ('dev', 'test') else '0'}\n")
+          print(mode, sets)
+          PY
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Copy the pinned OCR weights into the site (size + SHA-256)
+        run: python scripts/fetch_ocr_models.py --into frontend/public/models/pp-ocrv5
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: Build the demo with the image input${{ needs.plan.outputs.lab == '1' && ' and the evaluation hook' || '' }}
+        working-directory: frontend
+        env:
+          VITE_OCR: "1"
+          VITE_OCR_LAB: ${{ needs.plan.outputs.lab }}
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build:demo
+          cp dist/index.html dist/404.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ocr-site-${{ github.run_id }}
+          path: frontend/dist
+          retention-days: 3
+
+  eval:
+    needs: [plan, build]
+    if: needs.plan.outputs.mode == 'dev' || needs.plan.outputs.mode == 'test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        set: ${{ fromJSON(needs.plan.outputs.sets) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: ocr-site-${{ github.run_id }}
+          path: frontend/dist
+      - name: Fonts for the SYNTHETIC renders
+        run: sudo apt-get update -q && sudo apt-get install -y -q fonts-noto-cjk fonts-wqy-zenhei fonts-arphic-ukai && fc-list :lang=zh family | sort -u
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r backend/requirements.txt
+      - name: Evaluation items (same loader as the text evaluation)
+        working-directory: backend
+        run: python ../scripts/ocr_dump_items.py --set ${{ matrix.set }} --out ../ocr-private/${{ matrix.set }}.items.json
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - name: Install Playwright Chromium
+        run: npm install --no-save --no-package-lock playwright@1.49.1 && npx playwright install --with-deps chromium
+      - name: Render (SYNTHETIC) and OCR in the browser
+        run: node scripts/ocr_actions.mjs --mode eval --set ${{ matrix.set }} --items ocr-private/${{ matrix.set }}.items.json --out ocr-out --private ocr-private 2>&1 | tee ocr-out-log.txt; exit ${PIPESTATUS[0]}
+      - name: Score with the browser engine
+        working-directory: frontend
+        run: |
+          set -o pipefail
+          RES=../ocr-out/${{ matrix.set }}.results.json
+          FLAG=""
+          if [ "${{ matrix.set }}" = "blind_v2" ]; then RES=../ocr-private/blind_v2.results.json; FLAG=--aggregate-only; fi
+          pnpm exec vite-node scripts/ocr-score.ts -- set ../ocr-private/${{ matrix.set }}.items.json "$RES" ../ocr-out/${{ matrix.set }}.report.json $FLAG | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Keep the sequestered set's texts off the artifact
+        if: always()
+        run: rm -f ocr-out/blind_v2.results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ocr-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}-${{ matrix.set }}
+          path: |
+            ocr-out/
+            ocr-out-log.txt
+          retention-days: 30
+
+  pool:
+    needs: [plan, eval]
+    if: needs.plan.outputs.mode == 'dev' || needs.plan.outputs.mode == 'test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ocr-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}-*
+          path: reports
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: Pool${{ needs.plan.outputs.mode == 'test' && ' and apply the bar' || '' }}
+        working-directory: frontend
+        run: |
+          set -o pipefail
+          pnpm install --frozen-lockfile
+          BAR=""; if [ "${{ needs.plan.outputs.mode }}" = "test" ]; then BAR=--bar; fi
+          pnpm exec vite-node scripts/ocr-score.ts -- pool $(ls ../reports/*/ocr-out/*.report.json) --out ../pooled.json $BAR | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ocr-pooled-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}
+          path: pooled.json
+          retention-days: 90
+
+  smallprint:
+    needs: [plan, build]
+    if: needs.plan.outputs.mode == 'dev' || needs.plan.outputs.mode == 'test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: ocr-site-${{ github.run_id }}
+          path: frontend/dist
+      - run: sudo apt-get update -q && sudo apt-get install -y -q fonts-noto-cjk fonts-wqy-zenhei fonts-arphic-ukai
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r backend/requirements.txt
+      - run: python ../scripts/ocr_dump_items.py --set dev --out ../ocr-out/dev.items.json
+        working-directory: backend
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - run: npm install --no-save --no-package-lock playwright@1.49.1 && npx playwright install --with-deps chromium
+      - run: node scripts/ocr_actions.mjs --mode smallprint --items ocr-out/dev.items.json --out ocr-out 2>&1 | tee ocr-out-log.txt; exit ${PIPESTATUS[0]}
+      - name: Score
+        working-directory: frontend
+        run: pnpm exec vite-node scripts/ocr-score.ts -- small ../ocr-out/smallprint.results.json ../ocr-out/dev.items.json ../ocr-out/smallprint.report.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ocr-smallprint-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}
+          path: |
+            ocr-out/
+            ocr-out-log.txt
+          retention-days: 30
+
+  visitor:
+    needs: [plan, build]
+    if: needs.plan.outputs.mode == 'check' || needs.plan.outputs.mode == 'probe' || needs.plan.outputs.mode == 'examples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: ocr-site-${{ github.run_id }}
+          path: frontend/dist
+      - run: sudo apt-get update -q && sudo apt-get install -y -q fonts-noto-cjk fonts-wqy-zenhei fonts-arphic-ukai
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save --no-package-lock playwright@1.49.1 && npx playwright install --with-deps chromium
+      - name: ${{ needs.plan.outputs.mode }}
+        env:
+          URLS: ${{ needs.plan.outputs.urls }}
+          CATEGORY: ${{ needs.plan.outputs.category }}
+        run: node scripts/ocr_actions.mjs --mode ${{ needs.plan.outputs.mode }} --out ocr-out --urls "$URLS" --category "$CATEGORY" 2>&1 | tee ocr-out-log.txt; exit ${PIPESTATUS[0]}
+      - if: always()
+        run: cat ocr-out/*-summary.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ocr-${{ needs.plan.outputs.mode }}-${{ needs.plan.outputs.label }}
+          path: |
+            ocr-out/
+            ocr-out-log.txt
+          retention-days: 30

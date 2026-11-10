@@ -14,6 +14,8 @@ import { Tracer, recheck as engineRecheck, run as engineRun, type Product as Eng
 import { checkDisclosures, CATEGORIES, scan } from "./engine/rules";
 import { scopeOf } from "./engine/scope";
 import { cpLen, parseSrt, SRTError, type Cue } from "./engine/text";
+import { regionsForSpan, type OcrDocument } from "./ocr/layout";
+import ocrPins from "./ocr/pins.json";
 import samples from "./samples.json";
 import type { EngineInfo, Product, Recheck, Review, Severity, User, UserBrief } from "./types";
 
@@ -34,14 +36,29 @@ interface DemoIndex {
 interface WorkbenchRequest {
   sku: string;
   mode: "review" | "generate";
-  input_type: "text" | "srt";
+  input_type: "text" | "srt" | "image";
   content: string;
+  /** image input: the OCR document from this tab, the images' object URLs, and an optional .srt */
+  ocr?: ImagePayload;
   style: string;
   tone: string;
   inject_hallucination: boolean;
 }
 
+export interface ImagePayload {
+  document: OcrDocument;
+  images: { name: string; width: number; height: number; url: string }[];
+  srt?: string;
+  seconds: number[];
+}
+
 const MAX_CHARS = 6000; // Settings.max_script_chars
+
+const OCR_ENGINE: EngineInfo = {
+  kind: "browser",
+  label: "浏览器内审查 · 图片文字由本页 OCR 识别",
+  detail: `图片在本页由 PP-OCRv5 mobile（onnxruntime-web，WebAssembly）识别成文字，再交给与粘贴文字相同的浏览器引擎（规则库 ${pack.ruleset.version} · ${pack.ruleset.hash}）。图片不上传；识别可能有错字和漏字，结果以原图为准。`,
+};
 
 /** Category-only choices for a visitor's own product: no product sheet, so no fact check. */
 export const CUSTOM_PRODUCTS: Product[] = Object.entries(pack.product_categories).map(([category, label], i) => ({
@@ -104,11 +121,26 @@ function store(): Promise<Map<number, Review>> {
 // ---------------------------------------------------------------- the browser engine
 const browserRuns = new Map<string, unknown>(); // run id -> trace detail of a review computed here
 
-function prepareInput(inputType: string, content: string): [string, Cue[]] {
-  // review_service.prepare_input()
+function prepareInput(inputType: string, content: string, ocr?: ImagePayload): [string, Cue[], number] {
+  // review_service.prepare_input(); image input (demo only): an attached .srt first, then the OCR text
   let text: string;
   let cues: Cue[] = [];
-  if (inputType === "srt") {
+  let offset = 0;
+  if (inputType === "image") {
+    if (!ocr || !ocr.images.length) throw new ApiError(422, "没有识别过的图片");
+    let srtText = "";
+    if (ocr.srt?.trim()) {
+      try {
+        [srtText, cues] = parseSrt(ocr.srt);
+      } catch (e) {
+        if (e instanceof SRTError) throw new ApiError(422, `字幕文件解析失败：${e.message}`);
+        throw e;
+      }
+    }
+    offset = srtText ? srtText.length + 1 : 0;
+    text = srtText ? `${srtText}\n${ocr.document.text}` : ocr.document.text;
+    if (!ocr.document.text.trim() && !srtText) throw new ApiError(422, "图片里没有识别出文字");
+  } else if (inputType === "srt") {
     try {
       [text, cues] = parseSrt(content);
     } catch (e) {
@@ -120,33 +152,63 @@ function prepareInput(inputType: string, content: string): [string, Cue[]] {
   }
   if (!text.trim()) throw new ApiError(422, "脚本内容为空");
   if (cpLen(text) > MAX_CHARS) throw new ApiError(422, `脚本超过 ${MAX_CHARS} 字，请分段提交`);
-  return [text, cues];
+  return [text, cues, offset];
 }
 
+/** Image input: each finding's boxes, from the OCR characters its span covers. */
+function withRegions<T extends { start: number; end: number }>(findings: T[], doc: OcrDocument, offset: number): T[] {
+  return findings.map((f) => {
+    const region = regionsForSpan(doc, f.start - offset, f.end - offset);
+    return region.length ? { ...f, region } : f;
+  });
+}
+
+const OCR_NOT_CHECKED = [
+  { label: "说出来的话", detail: "口播、配音和背景里的人声不在画面上，OCR 看不到；请附上字幕文件或粘贴口播稿。" },
+  { label: "小字", detail: "角标、免责声明、价格旁的小字可能漏识或识别错；标为“可能识别错”的行请对照原图。" },
+  { label: "画面本身", detail: "前后对比图、穿白大褂的人物、徽章和国旗、奖杯图标等视觉暗示不会被审查：进入规则引擎的只有文字。" },
+  { label: "竖排、弧形、艺术字和倾斜文字", detail: "检测器只处理水平排列的文字，这类文字可能整段漏掉。" },
+];
+
 /** One review computed in the tab, shaped like the API's review (exported for tests). */
-export function buildBrowserReview(id: number, product: Product, request: Pick<WorkbenchRequest, "input_type" | "content" | "inject_hallucination">, user: User) {
-  const [text, cues] = prepareInput(request.input_type, request.content);
+export function buildBrowserReview(id: number, product: Product, request: Pick<WorkbenchRequest, "input_type" | "content" | "inject_hallucination" | "ocr">, user: User) {
+  const [text, cues, offset] = prepareInput(request.input_type, request.content, request.ocr);
+  const ocr = request.input_type === "image" ? request.ocr! : null;
   const runId = `browser-${Date.now().toString(36)}-${id}`;
   const tracer = new Tracer();
   const out = engineRun({ product: product as EngineProduct, script: text, cues, injectHallucination: request.inject_hallucination }, tracer);
   const at = now();
   const latency = tracer.spans.reduce((t, s) => t + s.latency_ms, 0);
   const label = pack.product_categories[product.category] ?? product.category;
-  const title = product.id < 0 ? `访客脚本 · ${label}` : `${product.brand}${product.name} · 访客脚本`;
+  const kind = ocr ? "访客图片" : "访客脚本";
+  const title = product.id < 0 ? `${kind} · ${label}` : `${product.brand}${product.name} · ${kind}`;
+  const findings = ocr ? withRegions(out.findings, ocr.document, offset) : out.findings;
   const review: Review = {
     id, title, status: "pending", mode: "review", input_type: request.input_type, product_id: product.id, product: clone(product),
     risk_level: out.risk_level, counts: out.counts, ruleset_version: pack.ruleset.version, ruleset_hash: pack.ruleset.hash,
     provider: "browser", model: pack.provider.model, run_id: runId, error: null, created_by: brief(user), created_at: at,
     decision: null, decision_version: null, decision_note: "", decided_by: null, decided_at: null,
-    source_text: out.script, source_raw: request.input_type === "srt" ? request.content : null, cues: out.cues,
+    source_text: out.script, source_raw: request.input_type === "srt" ? request.content : ocr?.srt?.trim() ? ocr.srt : null, cues: out.cues,
+    ocr: ocr ? { images: ocr.images, lines: ocr.document.lines, offset, seconds: ocr.seconds, engine: `PP-OCRv5 mobile · ${ocrPins.engine_version}` } : undefined,
     options: { inject_hallucination: request.inject_hallucination }, selling_points: out.selling_points,
-    findings: out.findings.map((f, i) => ({ ...f, id: -(i + 1), verdict: null, verdict_note: "", verdict_by: null })) as Review["findings"],
+    findings: findings.map((f, i) => ({ ...f, id: -(i + 1), verdict: null, verdict_note: "", verdict_by: null })) as Review["findings"],
     disclosures: out.disclosures as Review["disclosures"], rewrite: out.rewrite as Review["rewrite"], rejected: out.rejected as Review["rejected"],
     validation: out.validation as Review["validation"], final_text: null,
     agents: tracer.spans.map((s) => ({ agent: s.agent, name: s.name, status: s.status, started_ms: s.started_ms, latency_ms: s.latency_ms })),
-    engine: BROWSER_ENGINE,
+    engine: ocr ? OCR_ENGINE : BROWSER_ENGINE,
   };
   review.scope = scopeOf(text, product, { findings: out.findings, missing: out.disclosures.filter((d) => !d.present).length });
+  if (ocr) {
+    const low = ocr.document.lines.filter((l) => l.low).length;
+    review.scope = {
+      ...review.scope,
+      input_notes: [
+        `文字来自 ${ocr.images.length} 张图片的 OCR（本页识别，图片不上传）${low ? `，其中 ${low} 行置信度低，可能识别错` : ""}；每条问题都标出它在图上的位置。`,
+        ...review.scope.input_notes,
+      ],
+      not_checked: [...OCR_NOT_CHECKED, ...review.scope.not_checked],
+    };
+  }
   const row = { id: runId, kind: "review", status: "completed", provider: "browser", model: pack.provider.model, latency_ms: Math.round(latency),
     prompt_tokens: 0, completion_tokens: 0, tokens_estimated: false, error: null, created_at: at, review: { id, title, status: review.status }, spans: tracer.spans.length };
   return { review, row, detail: { ...row, spans: tracer.spans.map((s, i) => ({ id: i + 1, ...s })) } };
@@ -216,7 +278,8 @@ async function createReview(body: Record<string, unknown>, user: User): Promise<
   const inject = Boolean(body.inject_hallucination);
   if (inject && user.role === "operator") throw new ApiError(403, "演示开关仅对审核员和管理员开放");
   const request = { sku: product.sku, mode: body.mode, input_type: body.input_type, content: String(body.content ?? ""),
-    style: body.style, tone: body.tone, inject_hallucination: inject } as WorkbenchRequest;
+    style: body.style, tone: body.tone, inject_hallucination: inject,
+    ocr: body.input_type === "image" ? (body.ocr as ImagePayload | undefined) : undefined } as WorkbenchRequest;
   type Template = { request: WorkbenchRequest; review: Review; run_row: Record<string, unknown> | null };
   const sameText = (a: string) => a.replace(/\r\n/g, "\n").trim();
   let recorded: Template;

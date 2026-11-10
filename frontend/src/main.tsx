@@ -7,6 +7,7 @@ import { initTheme } from "./components/ui";
 import "./styles.css";
 
 initTheme();
+if (import.meta.env.VITE_OCR_LAB === "1") void import("./ocr/lab"); // Actions evaluation builds only
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -91,6 +91,8 @@ export interface Finding {
   references: ExternalRef[];
   pending_basis: boolean;
   cue: { index: number; last_index: number; start: string; end: string } | null;
+  /** image input (static demo): where the quoted text is on which image, one box per line part */
+  region?: { image: number; boxes: { x0: number; y0: number; x1: number; y1: number }[] }[];
   evidence: { fact_key: string; fact_value: string; script_value: string; expected_value: string } | null;
   suggestion?: { replacement: string | null; strategy: string; note: string };
   verdict?: "confirmed" | "false_positive" | null;
@@ -155,12 +157,24 @@ export interface ScopeReport {
   signals: { topic: string; quote: string; sentence: string; at: [number, number]; start: number; end: number; note: string }[];
 }
 
+export type InputType = "text" | "srt" | "image";
+
+/** Image input (static demo only): the images OCR read in this tab, and the recognised lines. */
+export interface ReviewImages {
+  images: { name: string; width: number; height: number; url: string }[];
+  lines: { image: number; text: string; conf: number; box: { x0: number; y0: number; x1: number; y1: number }; start: number; end: number; low: boolean }[];
+  /** where the OCR text starts in source_text (after an attached .srt, if any) */
+  offset: number;
+  seconds: number[];
+  engine: string;
+}
+
 export interface Review {
   id: number;
   title: string;
   status: "queued" | "running" | "pending" | "approved" | "rejected" | "failed";
   mode: "review" | "generate";
-  input_type: "text" | "srt";
+  input_type: InputType;
   product_id: number;
   product: Product;
   risk_level: Severity | null;
@@ -181,6 +195,7 @@ export interface Review {
   source_text?: string;
   source_raw?: string | null;
   cues?: Cue[];
+  ocr?: ReviewImages;
   options?: { style?: string; tone?: string; inject_hallucination?: boolean };
   selling_points?: { title: string; detail: string; source_field: string; evidence: string }[];
   findings?: Finding[];

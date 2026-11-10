@@ -2,7 +2,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FileUp, Play, Sparkles } from "lucide-react";
 import { DEMO, api } from "../api";
-import { CUSTOM_PRODUCTS } from "../demo";
+import { CUSTOM_PRODUCTS, type ImagePayload } from "../demo";
+import ImageInput from "../components/ImageInput";
+import { OCR_ENABLED } from "../ocr/run";
 import { canDecide, useAuth } from "../auth";
 import { ErrorBanner, RiskBadge, StatusBadge, time, useLoad } from "../components/ui";
 import samples from "../samples.json";
@@ -28,7 +30,9 @@ export default function WorkbenchPage() {
   const recent = useLoad(() => api.get<{ items: Review[] }>("/api/reviews?limit=6"));
   const [productId, setProductId] = useState<number | null>(null);
   const [mode, setMode] = useState<"review" | "generate">("review");
-  const [inputType, setInputType] = useState<"text" | "srt">("text");
+  const [inputType, setInputType] = useState<"text" | "srt" | "image">("text");
+  const [ocr, setOcr] = useState<ImagePayload | null>(null);
+  const images = DEMO && OCR_ENABLED;
   const [content, setContent] = useState("");
   const [style, setStyle] = useState<"short_video" | "live">("short_video");
   const [tone, setTone] = useState<"safe" | "aggressive">("safe");
@@ -73,7 +77,9 @@ export default function WorkbenchPage() {
     setError(null);
     try {
       const review = await api.post<Review>("/api/reviews", {
-        product_id: product.id, mode, input_type: inputType, content: mode === "review" ? content : "",
+        product_id: product.id, mode, input_type: inputType,
+        content: mode !== "review" ? "" : inputType === "image" ? (ocr?.document.text ?? "") : content,
+        ...(mode === "review" && inputType === "image" ? { ocr } : {}),
         style, tone, inject_hallucination: inject,
       });
       navigate(`/reviews/${review.id}`);
@@ -85,14 +91,16 @@ export default function WorkbenchPage() {
   }
 
   const categoryName = (c: string) => meta?.product_categories[c] ?? c;
-  const ready = product && (mode === "generate" ? !custom : content.trim().length > 0);
+  const ready = product && (mode === "generate" ? !custom
+    : inputType === "image" ? Boolean(ocr && (ocr.document.text.trim() || ocr.srt?.trim()))
+    : content.trim().length > 0);
 
   return (
     <div className="page stack" style={{ gap: 16 }}>
       <div className="page-head">
         <div>
           <h1>脚本工作台</h1>
-          <p>提交短视频脚本或直播字幕（.srt），或让系统按商品资料生成一版。审查结果会标出每处问题的原文位置、命中的规则和法条原文，最后由审核员终审。</p>
+          <p>提交短视频脚本或直播字幕（.srt）{images ? "，或上传广告截图、海报和视频帧（在本页识别文字）" : ""}，或让系统按商品资料生成一版。审查结果会标出每处问题的原文位置、命中的规则和法条原文，最后由审核员终审。</p>
         </div>
       </div>
       <ErrorBanner error={error ?? products.error} />
@@ -127,12 +135,19 @@ export default function WorkbenchPage() {
                   <div className="segmented">
                     <button className={inputType === "text" ? "active" : ""} onClick={() => setInputType("text")}>口播文案</button>
                     <button className={inputType === "srt" ? "active" : ""} onClick={() => setInputType("srt")}>SRT 字幕</button>
+                    {images && <button className={inputType === "image" ? "active" : ""} onClick={() => setInputType("image")}>图片 / 截图</button>}
                   </div>
                   <span className="spacer" />
-                  <button className="btn btn-sm" onClick={() => fileInput.current?.click()}><FileUp size={14} /> 上传 .srt / .txt</button>
-                  <input ref={fileInput} type="file" accept=".srt,.txt,text/plain" hidden onChange={(e) => onFile(e.target.files?.[0])} />
-                  <button className="btn btn-sm" disabled={!sample} onClick={fillSample}>填入示例</button>
+                  {inputType !== "image" && (
+                    <>
+                      <button className="btn btn-sm" onClick={() => fileInput.current?.click()}><FileUp size={14} /> 上传 .srt / .txt</button>
+                      <input ref={fileInput} type="file" accept=".srt,.txt,text/plain" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+                      <button className="btn btn-sm" disabled={!sample} onClick={fillSample}>填入示例</button>
+                    </>
+                  )}
                 </div>
+                {images && <div hidden={inputType !== "image"}><ImageInput onChange={setOcr} /></div>}
+                {inputType !== "image" && <>
                 <textarea
                   className="textarea mono"
                   style={{ minHeight: 240, fontFamily: inputType === "srt" ? "var(--mono)" : "var(--font)", fontSize: 14 }}
@@ -141,6 +156,7 @@ export default function WorkbenchPage() {
                   placeholder={inputType === "srt" ? "1\n00:00:00,000 --> 00:00:03,000\n字幕内容……" : "粘贴短视频口播或直播话术……"}
                 />
                 <div className="faint">{content.length} 字 · 上限 6000 字</div>
+                </>}
               </>
             ) : (
               <>
@@ -171,7 +187,7 @@ export default function WorkbenchPage() {
             )}
             {DEMO && (
               <div className="faint">
-                静态演示：粘贴自己的脚本会在本页浏览器内审查（规则与后端相同，脚本不上传）；“填入示例”的脚本和“生成新脚本”回放后端的录制结果。每条结果都会标明出自哪个引擎。
+                静态演示：粘贴自己的脚本{images ? "或上传图片" : ""}会在本页浏览器内审查（规则与后端相同，不上传）；“填入示例”的脚本和“生成新脚本”回放后端的录制结果。每条结果都会标明出自哪个引擎。
               </div>
             )}
             <div className="row">
