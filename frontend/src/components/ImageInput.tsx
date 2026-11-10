@@ -214,6 +214,7 @@ export default function ImageInput({ onChange }: { onChange: (payload: ImagePayl
               PP-OCRv5 mobile 检测 + 识别（PaddlePaddle，Apache-2.0）{MB(PINS.weights.files["ch_PP-OCRv5_det.onnx"].bytes)} + {MB(PINS.weights.files["ch_PP-OCRv5_rec.onnx"].bytes)} MB，
               onnxruntime-web {PINS.runtime.version} 运行时 {MB(PINS.runtime.files["ort-wasm-simd-threaded.wasm"].bytes)} MB，共 {MB(DOWNLOAD_BYTES)} MB。
               权重从本站加载，运行时来自 jsDelivr，每个文件都校验大小和 SHA-256，不符就拒绝运行；在本页用 WebAssembly 单线程运行，不用 GPU。
+              识别出的繁体字按 OpenCC 字表转成简体再审查（规则按简体编写）。
             </p>
           </div>
           {status === "loading" ? (
