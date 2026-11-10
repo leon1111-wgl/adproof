@@ -190,3 +190,18 @@ describe("long lines and overlapping boxes", () => {
     expect(doc.anchors).toHaveLength(doc.text.length);
   });
 });
+
+describe("traditional to simplified table", () => {
+  it("is single-character pairs from the pinned OpenCC table, leaving characters that are their own simplified form", async () => {
+    const t = (await import("../src/ocr/t2s.json")).default as { source: string; pairs: string };
+    const units = [...t.pairs];
+    expect(units.length % 2).toBe(0);
+    const map = new Map<string, string>();
+    for (let i = 0; i < units.length; i += 2) map.set(units[i], units[i + 1]);
+    expect(map.get("別")).toBe("别");
+    expect(map.get("煙")).toBe("烟");
+    expect(map.has("乾")).toBe(false); // also a valid simplified character (乾隆)
+    expect(map.has("别")).toBe(false);
+    expect(t.source).toContain("Apache-2.0");
+  });
+});

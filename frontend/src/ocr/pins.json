@@ -69,6 +69,7 @@
   "crop_y_shrink": 0,
   "crop_x_pad": 0,
   "rec_smoothing": "high",
-  "rec_rgb": false
+  "rec_rgb": false,
+  "t2s": false
  }
 }

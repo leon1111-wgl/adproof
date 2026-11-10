@@ -116,9 +116,13 @@ const b64 = (page, expr) => page.evaluate(expr);
 
 // dev-only experiment: the same renders read with different recognition settings (docs/EVALUATION.md 8.6)
 const VARIANTS = {
-  base: { rec_max_ratio: 1e9 }, seg12: { rec_max_ratio: 12 }, unclip13: { rec_max_ratio: 1e9, unclip: 1.3 }, unclip20: { rec_max_ratio: 1e9, unclip: 2.0 },
-  xpad: { rec_max_ratio: 1e9, crop_x_pad: 0.3 }, yshrink: { rec_max_ratio: 1e9, crop_y_shrink: 0.12 }, smooth_low: { rec_max_ratio: 1e9, smoothing: "low" }, smooth_off: { rec_max_ratio: 1e9, smoothing: "off" }, rgb: { rec_max_ratio: 1e9, rgb: true },
-};
+  // round 1 (run 42809793658): base, rgb, seg12, smooth_low, smooth_off, unclip13, unclip20, xpad, yshrink
+  xpad3: { rec_max_ratio: 1e9, crop_x_pad: 0.3 }, xpad5: { rec_max_ratio: 1e9, crop_x_pad: 0.5 },
+  xpad3_off: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off" }, xpad3_u20: { rec_max_ratio: 1e9, crop_x_pad: 0.3, unclip: 2.0 },
+  xpad3_off_u20: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", unclip: 2.0 },
+  xpad3_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, t2s: true }, xpad3_off_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", t2s: true },
+  xpad3_off_u20_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", unclip: 2.0, t2s: true },
+}
 
 if (mode === "eval" || mode === "variants") {
   const set = arg("set");

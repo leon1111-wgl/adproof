@@ -94,7 +94,7 @@ export async function fetchChecked(url: string, name: string, spec: FileSpec, on
   return buffer.buffer;
 }
 
-export interface Engine { det: OrtSession; rec: OrtSession; chars: string[]; ort: Ort; initSeconds: number; downloadedBytes: number }
+export interface Engine { det: OrtSession; rec: OrtSession; chars: string[]; ort: Ort; initSeconds: number; downloadedBytes: number; t2s: Map<string, string> }
 
 /** Weights are served from this site (copied from the pinned Hugging Face revision at build time). */
 export const weightBase = () => new URL(pins.weights.served_from.site_path, new URL(import.meta.env.BASE_URL, location.origin)).href;
@@ -144,7 +144,13 @@ export async function loadEngine(onProgress: (loaded: number, total: number, fil
   }
   const dict = new TextDecoder().decode(fetched["ch_PP-OCRv5_dict.txt"]).split(/\r?\n/);
   if (dict[dict.length - 1] === "") dict.pop();
-  return { det, rec, chars: ["", ...dict, " "], ort, initSeconds: (performance.now() - started) / 1000, downloadedBytes: loaded };
+  // The recogniser sometimes returns a traditional form for a simplified glyph (别 → 別); the rules are written in
+  // simplified Chinese, so recognised characters are converted (OpenCC table, src/ocr/t2s.json, loaded with the engine).
+  const { pairs } = (await import("./t2s.json")).default as { pairs: string };
+  const t2s = new Map<string, string>();
+  const units = [...pairs];
+  for (let i = 0; i + 1 < units.length; i += 2) t2s.set(units[i], units[i + 1]);
+  return { det, rec, chars: ["", ...dict, " "], ort, initSeconds: (performance.now() - started) / 1000, downloadedBytes: loaded, t2s };
 }
 
 // ------------------------------------------------------------------------------------------ inference
@@ -171,9 +177,9 @@ export function sessionShapes(e: Engine) {
 
 /** Full-image OCR: text boxes from the detector, text and per-character boxes from the recogniser, in image pixels. */
 /** Recognition settings tuned on dev (docs/EVALUATION.md 8.6); the evaluation hook can override them for experiments. */
-export interface Tuning { rec_max_ratio: number; crop_y_shrink: number; crop_x_pad: number; smoothing: "off" | "low" | "medium" | "high"; unclip: number; rgb: boolean }
+export interface Tuning { rec_max_ratio: number; crop_y_shrink: number; crop_x_pad: number; smoothing: "off" | "low" | "medium" | "high"; unclip: number; rgb: boolean; t2s: boolean }
 export const tuning = (over: Partial<Tuning> = {}): Tuning => ({
-  rec_max_ratio: PP.rec_max_ratio, crop_y_shrink: PP.crop_y_shrink, crop_x_pad: PP.crop_x_pad, smoothing: PP.rec_smoothing as Tuning["smoothing"], unclip: PP.unclip, rgb: PP.rec_rgb, ...over,
+  rec_max_ratio: PP.rec_max_ratio, crop_y_shrink: PP.crop_y_shrink, crop_x_pad: PP.crop_x_pad, smoothing: PP.rec_smoothing as Tuning["smoothing"], unclip: PP.unclip, rgb: PP.rec_rgb, t2s: PP.t2s, ...over,
 });
 
 export async function recognise(engine: Engine, source: HTMLCanvasElement, over: Partial<Tuning> = {}): Promise<{ lines: OcrLine[]; timings: OcrTimings }> {
@@ -258,6 +264,7 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement, over:
     lastShapes.rec = { W, T, C };
     batch.forEach(({ c, j }, b) => {
       const decoded = ctcDecode(tensor.data, b * T * C, T, C, engine.chars);
+      if (tune.t2s) decoded.tokens = decoded.tokens.map((t) => engine.t2s.get(t) ?? t);
       const bw = Math.max(1, Math.round(c.x1 - c.x0));
       const centres = decoded.steps.map((st) => c.x0 + (Math.min(widths[b], ((st + 0.5) * W) / T) * bw) / widths[b]);
       const keep = decoded.tokens.map((_, t) => centres[t] >= c.own0 && centres[t] < c.own1);
