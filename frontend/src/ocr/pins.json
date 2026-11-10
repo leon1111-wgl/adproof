@@ -64,6 +64,7 @@
   "rec_batch": 6,
   "row_overlap": 0.5,
   "paragraph_gap": 1.0,
-  "low_confidence": 0.8
+  "low_confidence": 0.8,
+  "rec_max_ratio": 12
  }
 }

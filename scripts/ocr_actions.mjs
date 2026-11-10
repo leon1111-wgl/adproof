@@ -148,6 +148,8 @@ if (mode === "eval") {
     }
   }
   ok("no page errors", log.errors.length === 0, log.errors.slice(0, 5));
+  results.rec_shapes = await page.evaluate(() => window.__adproofOcr.shapes());
+  console.log("session input shapes", JSON.stringify(results.load.shapes), "last recogniser call", JSON.stringify(results.rec_shapes));
   results.set = set;
   results.renders = renders;
   // the sequestered set's results stay on the runner (scored in the same job, aggregate only)

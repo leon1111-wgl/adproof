@@ -281,9 +281,11 @@
     ctx.restore();
   }
 
-  /** Small-print probe strip: one sentence at a given size on a light screenshot-like strip. */
+  /** Small-print probe: one sentence at a given size on a light screenshot. */
   async function strip(text, px, font = "Noto Sans CJK SC") {
-    const [c, ctx] = canvas(1080, Math.ceil(px * 2.4));
+    // a whole 1080 x 1440 screenshot with one line in the middle (a thin strip gets stretched by a detector
+    // with a fixed square input; found on dev run 42806792269)
+    const [c, ctx] = canvas(1080, 1440);
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.font = `${px}px "${font}"`;

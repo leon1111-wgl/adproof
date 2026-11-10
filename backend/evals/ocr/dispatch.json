@@ -1,1 +1,1 @@
-{"mode": "dev", "label": "dev-1", "image_urls": "", "category": "美妆个护", "note": "Read by .github/workflows/ocr.yml on a push to ocr-run/*: mode check | dev | test | examples | probe."}
+{"mode": "dev", "label": "dev-2", "image_urls": "", "category": "美妆个护", "note": "Read by .github/workflows/ocr.yml on a push to ocr-run/*: mode check | dev | test | examples | probe."}

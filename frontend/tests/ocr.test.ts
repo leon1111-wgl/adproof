@@ -167,3 +167,26 @@ describe("a review from images", () => {
     expect(scan(doc.text, "cosmetics").length).toBeGreaterThan(0);
   });
 });
+
+describe("long lines and overlapping boxes", () => {
+  it("splits a line wider than the recogniser takes into overlapping segments that own disjoint parts", async () => {
+    const { segments } = await import("../src/ocr/engine");
+    const segs = segments({ x0: 0, y0: 0, x1: 1000, y1: 40 }, 320 / 48);
+    expect(segs.length).toBeGreaterThan(3);
+    for (const s of segs) expect(s.x1 - s.x0).toBeLessThanOrEqual(0.9 * (320 / 48) * 40 + 1e-6);
+    for (let k = 0; k + 1 < segs.length; k++) {
+      expect(segs[k].x1 - segs[k + 1].x0).toBeCloseTo(1.5 * 40); // overlap
+      expect(segs[k].own1).toBe(segs[k + 1].own0);
+    }
+    expect(segs[0].own0).toBe(-Infinity);
+    expect(segs[segs.length - 1].x1).toBe(1000);
+    expect(segments({ x0: 0, y0: 0, x1: 200, y1: 40 }, 320 / 48)).toHaveLength(1);
+  });
+  it("reads the overlap of two boxes on one row once", () => {
+    const a = line("SPF50+PA++++，质", 68, 164, 361);
+    const b = line("质地轻薄", 398, 163, 174);
+    const doc = buildDocument([image("p", [a, b], 1080, 1440)]);
+    expect(doc.text).toBe("SPF50+PA++++，质地轻薄");
+    expect(doc.anchors).toHaveLength(doc.text.length);
+  });
+});

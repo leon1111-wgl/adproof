@@ -163,6 +163,12 @@ function canvas(w: number, h: number): CanvasRenderingContext2D {
 
 export interface OcrTimings { det: number; rec: number; lines: number; boxes: number }
 
+/** Input shapes the sessions report, and the last recogniser call's width and output (for the evaluation log). */
+export const lastShapes: { det?: (number | string)[] | null; rec?: { W: number; T: number; C: number } } = {};
+export function sessionShapes(e: Engine) {
+  return { det: e.det.inputMetadata?.[0]?.shape ?? null, rec: e.rec.inputMetadata?.[0]?.shape ?? null };
+}
+
 /** Full-image OCR: text boxes from the detector, text and per-character boxes from the recogniser, in image pixels. */
 export async function recognise(engine: Engine, source: HTMLCanvasElement): Promise<{ lines: OcrLine[]; timings: OcrTimings }> {
   const { ort } = engine;
@@ -198,24 +204,27 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
   const t1 = performance.now();
 
   const sctx = source.getContext("2d", { willReadFrequently: true }) as CanvasRenderingContext2D;
-  const order = boxes.map((b, i) => ({ b, i, ratio: (b.x1 - b.x0) / (b.y1 - b.y0) })).sort((a, b) => a.ratio - b.ratio);
-  const results: (OcrLine | null)[] = new Array(boxes.length).fill(null);
   const recFixed = fixedDims(engine.rec);
   const H = PP.rec_height;
+  // A recogniser with a fixed input width squeezes a long line until characters drop out, so long lines are
+  // read as overlapping segments; each segment keeps the characters whose centre lies in the part it owns.
+  const crops = boxes.flatMap((b, i) => segments(b, recFixed?.[3] ? recFixed[3] / H : PP.rec_max_ratio).map((seg, k, all) => ({ i, k, n: all.length, ...seg })));
+  const order = crops.map((c, j) => ({ c, j, ratio: (c.x1 - c.x0) / (c.y1 - c.y0) })).sort((a, b) => a.ratio - b.ratio);
+  const read: ({ tokens: string[]; centres: number[]; conf: number } | null)[] = new Array(crops.length).fill(null);
   for (let k = 0; k < order.length; k += PP.rec_batch) {
     const batch = order.slice(k, k + PP.rec_batch);
     const W = recFixed?.[3] ?? Math.max(PP.rec_min_width, Math.ceil(H * Math.max(...batch.map((x) => x.ratio))));
     const n = batch.length;
     const data = new Float32Array(n * 3 * H * W);
     const widths: number[] = [];
-    batch.forEach(({ b }, j) => {
-      const bw = Math.max(1, Math.round(b.x1 - b.x0));
-      const bh = Math.max(1, Math.round(b.y1 - b.y0));
+    batch.forEach(({ c }, j) => {
+      const bw = Math.max(1, Math.round(c.x1 - c.x0));
+      const bh = Math.max(1, Math.round(c.y1 - c.y0));
       const tw = Math.min(W, Math.max(1, Math.ceil((H * bw) / bh)));
       widths.push(tw);
       const ctx = canvas(tw, H);
       ctx.imageSmoothingQuality = "high";
-      ctx.drawImage(sctx.canvas, Math.round(b.x0), Math.round(b.y0), bw, bh, 0, 0, tw, H);
+      ctx.drawImage(sctx.canvas, Math.round(c.x0), Math.round(c.y0), bw, bh, 0, 0, tw, H);
       const p = ctx.getImageData(0, 0, tw, H).data;
       const off = j * 3 * H * W;
       const area = H * W;
@@ -232,14 +241,27 @@ export async function recognise(engine: Engine, source: HTMLCanvasElement): Prom
     const out = await engine.rec.run({ [engine.rec.inputNames[0]]: new ort.Tensor("float32", data, [n, 3, H, W]) });
     const tensor = out[engine.rec.outputNames[0]];
     const [, T, C] = tensor.dims as number[];
-    batch.forEach(({ b, i }, j) => {
-      const decoded = ctcDecode(tensor.data, j * T * C, T, C, engine.chars);
-      if (!decoded.text.trim()) return;
-      const box: Box = { x0: b.x0, y0: b.y0, x1: b.x1, y1: b.y1 };
-      const bw = Math.max(1, Math.round(b.x1 - b.x0));
-      results[i] = { text: decoded.text, conf: decoded.conf, box, chars: charBoxes(decoded, box, { T, W, tw: widths[j], bw }) };
+    lastShapes.rec = { W, T, C };
+    batch.forEach(({ c, j }, b) => {
+      const decoded = ctcDecode(tensor.data, b * T * C, T, C, engine.chars);
+      const bw = Math.max(1, Math.round(c.x1 - c.x0));
+      const centres = decoded.steps.map((st) => c.x0 + (Math.min(widths[b], ((st + 0.5) * W) / T) * bw) / widths[b]);
+      const keep = decoded.tokens.map((_, t) => centres[t] >= c.own0 && centres[t] < c.own1);
+      const tokens = decoded.tokens.filter((_, t) => keep[t]);
+      read[j] = { tokens, centres: centres.filter((_, t) => keep[t]), conf: decoded.conf };
     });
   }
+  const results: (OcrLine | null)[] = boxes.map((b, i) => {
+    const parts = crops.map((c, j) => ({ c, r: read[j] })).filter((x) => x.c.i === i && x.r).sort((a, b) => a.c.k - b.c.k);
+    const tokens = parts.flatMap((x) => x.r!.tokens);
+    const centres = parts.flatMap((x) => x.r!.centres);
+    const text = tokens.join("");
+    if (!text.trim()) return null;
+    const weight = parts.reduce((n, x) => n + x.r!.tokens.length, 0) || 1;
+    const conf = parts.reduce((n, x) => n + x.r!.conf * x.r!.tokens.length, 0) / weight;
+    const box: Box = { x0: b.x0, y0: b.y0, x1: b.x1, y1: b.y1 };
+    return { text, conf, box, chars: boxesFromCentres(tokens, centres, box) };
+  });
   const t2 = performance.now();
   const lines = results.filter((x): x is OcrLine => x !== null);
   return { lines, timings: { det: (t1 - t0) / 1000, rec: (t2 - t1) / 1000, lines: lines.length, boxes: boxes.length } };
@@ -325,20 +347,47 @@ export function ctcDecode(data: Float32Array, offset: number, T: number, C: numb
   return { text: tokens.join(""), conf: tokens.length ? sum / tokens.length : 0, tokens, steps };
 }
 
-/** Per UTF-16 unit of the line text: its x range in image pixels, from the CTC step of its token. */
-export function charBoxes(d: Decoded, box: Box, g: { T: number; W: number; tw: number; bw: number }): [number, number][] {
-  const centres = d.steps.map((s) => {
-    const xin = Math.min(g.tw, ((s + 0.5) * g.W) / g.T);
-    return Math.min(box.x1, Math.max(box.x0, box.x0 + (xin * g.bw) / g.tw));
-  });
+/** Split a text box into overlapping segments no wider than the recogniser takes (maxRatio = width / height);
+    segment k owns [own0, own1): the middle of each overlap is the boundary. Overlap 1.5 × box height, so a
+    character cut at one segment's edge is whole in its neighbour. */
+export function segments(b: Box, maxRatio: number): { x0: number; y0: number; x1: number; y1: number; own0: number; own1: number }[] {
+  const h = b.y1 - b.y0;
+  const width = b.x1 - b.x0;
+  const span = 0.9 * maxRatio * h;
+  if (!Number.isFinite(span) || width <= span) return [{ ...b, own0: -Infinity, own1: Infinity }];
+  const overlap = 1.5 * h;
+  const step = Math.max(h, span - overlap);
+  const out: { x0: number; y0: number; x1: number; y1: number; own0: number; own1: number }[] = [];
+  for (let s = b.x0; ; s += step) {
+    const e = Math.min(b.x1, s + span);
+    out.push({ x0: s, y0: b.y0, x1: e, y1: b.y1, own0: -Infinity, own1: Infinity });
+    if (e >= b.x1) break;
+  }
+  for (let k = 0; k + 1 < out.length; k++) {
+    const mid = (out[k + 1].x0 + out[k].x1) / 2;
+    out[k].own1 = mid;
+    out[k + 1].own0 = mid;
+  }
+  return out;
+}
+
+/** Per UTF-16 unit of the line text: its x range in image pixels, from its token's centre (CTC step). */
+export function boxesFromCentres(tokens: string[], centres: number[], box: Box): [number, number][] {
+  const c = centres.map((x) => Math.min(box.x1, Math.max(box.x0, x)));
   const out: [number, number][] = [];
-  centres.forEach((c, i) => {
-    const prev = i > 0 ? centres[i - 1] : null;
-    const next = i < centres.length - 1 ? centres[i + 1] : null;
-    const half = next !== null ? (next - c) / 2 : prev !== null ? (c - prev) / 2 : (box.x1 - box.x0) / 2;
-    const left = prev !== null ? (prev + c) / 2 : Math.max(box.x0, c - half);
-    const right = next !== null ? (c + next) / 2 : Math.min(box.x1, c + half);
-    for (let u = 0; u < d.tokens[i].length; u++) out.push([left, right]);
+  c.forEach((x, i) => {
+    const prev = i > 0 ? c[i - 1] : null;
+    const next = i < c.length - 1 ? c[i + 1] : null;
+    const half = next !== null ? (next - x) / 2 : prev !== null ? (x - prev) / 2 : (box.x1 - box.x0) / 2;
+    const left = prev !== null ? (prev + x) / 2 : Math.max(box.x0, x - half);
+    const right = next !== null ? (x + next) / 2 : Math.min(box.x1, x + half);
+    for (let u = 0; u < tokens[i].length; u++) out.push([left, right]);
   });
   return out;
+}
+
+/** charBoxes for one decoded crop (kept for tests and callers that decode a whole line). */
+export function charBoxes(d: Decoded, box: Box, g: { T: number; W: number; tw: number; bw: number }): [number, number][] {
+  const centres = d.steps.map((s) => box.x0 + (Math.min(g.tw, ((s + 0.5) * g.W) / g.T) * g.bw) / g.tw);
+  return boxesFromCentres(d.tokens, centres, box);
 }

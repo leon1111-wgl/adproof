@@ -73,14 +73,21 @@ export function buildDocument(images: OcrImage[], opts: { paragraphGap?: number;
         if (top - prev.bottom > gap * lineHeight) newline();
       }
       prev = { top, bottom };
+      let right = -Infinity; // the detector sometimes returns two overlapping boxes for one line: read the overlap once
       for (const line of row) {
         const start = text.length;
-        text += line.text;
+        let kept = "";
         for (let u = 0; u < line.text.length; u++) {
           const [x0, x1] = line.chars[u] ?? [line.box.x0, line.box.x1];
+          if ((x0 + x1) / 2 < right) continue;
+          kept += line.text[u];
           anchors.push({ image: k, line: lines.length, x0, x1 });
         }
-        lines.push({ image: k, text: line.text, conf: line.conf, box: line.box, start, end: text.length, low: line.conf < low });
+        // where this line's text ends (its last character's box, not the detector's padded box)
+        right = Math.max(right, line.chars.length ? line.chars[line.chars.length - 1][1] : line.box.x1);
+        if (!kept) continue;
+        text += kept;
+        lines.push({ image: k, text: kept, conf: line.conf, box: line.box, start, end: text.length, low: line.conf < low });
       }
     }
   });
