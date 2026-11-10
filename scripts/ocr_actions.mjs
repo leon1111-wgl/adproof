@@ -116,13 +116,9 @@ const b64 = (page, expr) => page.evaluate(expr);
 
 // dev-only experiment: the same renders read with different recognition settings (docs/EVALUATION.md 8.6)
 const VARIANTS = {
-  // round 1 (run 42809793658): base, rgb, seg12, smooth_low, smooth_off, unclip13, unclip20, xpad, yshrink
-  xpad3: { rec_max_ratio: 1e9, crop_x_pad: 0.3 }, xpad5: { rec_max_ratio: 1e9, crop_x_pad: 0.5 },
-  xpad3_off: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off" }, xpad3_u20: { rec_max_ratio: 1e9, crop_x_pad: 0.3, unclip: 2.0 },
-  xpad3_off_u20: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", unclip: 2.0 },
-  xpad3_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, t2s: true }, xpad3_off_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", t2s: true },
-  xpad3_off_u20_t2s: { rec_max_ratio: 1e9, crop_x_pad: 0.3, smoothing: "off", unclip: 2.0, t2s: true },
-}
+  // round 1 (run 42809793658) and round 2 (run 42813003494) chose crop_x_pad 0.3 + t2s (f7f0bad); round 3 looks at text size in the crop
+  cur: {}, ys10: { crop_y_shrink: 0.1 }, ys20: { crop_y_shrink: 0.2 }, u13: { unclip: 1.3 }, u20: { unclip: 2.0 }, xp5: { crop_x_pad: 0.5 }, off: { smoothing: "off" },
+};
 
 if (mode === "eval" || mode === "variants") {
   const set = arg("set");
@@ -169,6 +165,22 @@ if (mode === "eval" || mode === "variants") {
   const where = sequestered ? path.resolve(arg("private", "ocr-private")) : out;
   fs.mkdirSync(where, { recursive: true });
   fs.writeFileSync(path.join(where, `${set}${variant ? `@${variant}` : ""}.results.json`), JSON.stringify({ ...results, variant, overrides: over }));
+  if (variant) {
+    const strips = [];
+    for (const item of items) {
+      const m = /^[^。！？!?；;\n]{1,30}/.exec(item.text.trim());
+      const sentence = m ? m[0] : item.text.trim().slice(0, 30);
+      for (const px of protocol.small_print_probe.font_px) {
+        const r = await page.evaluate(async ({ sentence, px, over }) => {
+          const s = await window.__ocrRender.strip(sentence, px);
+          const o = await window.__adproofOcr.ocr(`strip-${px}.jpg`, s.blob, over);
+          return { drawn: s.drawn, ocr: o.image.lines.map((l) => l.text).join(""), seconds: o.seconds, heights: o.image.lines.map((l) => Math.round(l.box.y1 - l.box.y0)) };
+        }, { sentence, px, over });
+        strips.push({ id: item.id, px, ...r });
+      }
+    }
+    fs.writeFileSync(path.join(out, `smallprint@${variant}.results.json`), JSON.stringify({ run_id: results.run_id, variant, strips }));
+  }
   }
 } else if (mode === "smallprint") {
   const items = JSON.parse(fs.readFileSync(arg("items"), "utf8"));

@@ -165,6 +165,12 @@ jobs:
               echo "### $NAME" >> "$GITHUB_STEP_SUMMARY"
               pnpm exec vite-node scripts/ocr-score.ts -- set ../ocr-private/${{ matrix.set }}.items.json "$RES" "../ocr-out/$NAME.report.json" | tee -a "$GITHUB_STEP_SUMMARY"
             done
+            for RES in ../ocr-out/smallprint@*.results.json; do
+              [ -e "$RES" ] || continue
+              NAME=$(basename "$RES" .results.json)
+              echo "### $NAME" >> "$GITHUB_STEP_SUMMARY"
+              pnpm exec vite-node scripts/ocr-score.ts -- small "$RES" - "../ocr-out/$NAME.report.json" | tee -a "$GITHUB_STEP_SUMMARY"
+            done
           fi
       - name: Keep the sequestered set's texts off the artifact
         if: always()
