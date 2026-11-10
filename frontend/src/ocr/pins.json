@@ -68,7 +68,7 @@
   "rec_max_ratio": 1000,
   "crop_y_shrink": 0,
   "crop_x_pad": 0.3,
-  "rec_smoothing": "high",
+  "rec_smoothing": "off",
   "rec_rgb": false,
   "t2s": true
  }
