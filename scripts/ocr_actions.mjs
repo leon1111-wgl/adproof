@@ -254,7 +254,8 @@ async function imageTab(page, category = "美妆个护") {
   await page.getByRole("button", { name: "图片 / 截图" }).click();
 }
 async function recognised(page, n) {
-  await page.waitForFunction((n) => document.querySelectorAll(".ocr-item svg").length >= n, n, { timeout: 600_000 });
+  // a recognised image has its line overlay inside .ocr-frame (the remove button's icon is an svg too)
+  await page.waitForFunction((n) => n > 0 && document.querySelectorAll(".ocr-item .ocr-frame svg").length >= n, n, { timeout: 600_000 });
   await page.waitForSelector('[data-testid="ocr-text"]', { timeout: 120_000 });
 }
 async function shot(page, name) {
@@ -322,6 +323,7 @@ async function runVisitor(kind) {
   results.load_seconds = (Date.now() - t0) / 1000;
   ok("requests go only to this site (weights) and jsDelivr (runtime)", [...log.hosts].every((h) => h === "127.0.0.1:8766" || h === "cdn.jsdelivr.net"), [...log.hosts]);
   await page.getByRole("button", { name: /示例：字幕帧/ }).click();
+  await page.locator(".ocr-item").first().waitFor();
   const frames = await page.locator(".ocr-item").count();
   await recognised(page, frames);
   const text = await page.getByTestId("ocr-text").textContent();
@@ -370,6 +372,7 @@ async function runVisitor(kind) {
     await page.emulateMedia({ colorScheme: scheme });
     await imageTab(page);
     await page.getByRole("button", { name: /示例：海报/ }).click();
+    await page.locator(".ocr-item").first().waitFor();
     await recognised(page, 1);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     ok(`workbench 375px ${scheme}: poster example recognised, no overflow`, overflow <= 1, overflow);

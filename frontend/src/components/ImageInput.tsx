@@ -101,19 +101,24 @@ export default function ImageInput({ onChange }: { onChange: (payload: ImagePayl
 
   // Object URLs are not revoked: a review submitted from this tab keeps showing its images.
 
-  // recognise whatever is not recognised yet, once the engine is there
+  // recognise whatever is not recognised yet, once the engine is there, one image at a time
+  // (no effect cleanup here: setting `working` re-runs this effect, and a cleanup would drop the result in flight)
+  const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
   useEffect(() => {
     if (status !== "ready" || working !== null) return;
     const next = items.find((i) => !done[i.id]);
     if (!next) return;
-    let live = true;
     setWorking(next.id);
     getEngine(() => undefined, new AbortController().signal)
       .then((e) => ocrBlob(e, next.name, next.blob))
-      .then((r) => { if (live) setDone((d) => ({ ...d, [next.id]: r })); })
-      .catch((e) => { if (live) setMessage(`图片「${next.name}」识别失败：${e instanceof Error ? e.message : String(e)}`); setItems((xs) => xs.filter((x) => x.id !== next.id)); })
-      .finally(() => { if (live) setWorking(null); });
-    return () => { live = false; };
+      .then((r) => { if (mounted.current) setDone((d) => ({ ...d, [next.id]: r })); })
+      .catch((e) => {
+        if (!mounted.current) return;
+        setMessage(`图片「${next.name}」识别失败：${e instanceof Error ? e.message : String(e)}`);
+        setItems((xs) => xs.filter((x) => x.id !== next.id));
+      })
+      .finally(() => { if (mounted.current) setWorking(null); });
   }, [status, items, done, working]);
 
   // the payload for the review: only when every image is recognised
