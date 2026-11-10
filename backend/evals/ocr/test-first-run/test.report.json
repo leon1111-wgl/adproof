@@ -1,0 +1,2766 @@
+{
+ "set": "test",
+ "commit": "72db193b126cc7956cfd7c442aa836cfb7094a51",
+ "results_commit": "72db193b126cc7956cfd7c442aa836cfb7094a51",
+ "run_id": "42822366071",
+ "engine": "ocr-1",
+ "aggregate_only": false,
+ "load": {
+  "initSeconds": 0.6921999999999534,
+  "downloadedBytes": 35654502,
+  "expectedBytes": 35654502,
+  "seconds": 1.0371999999999535,
+  "shapes": {
+   "det": [
+    "DynamicDimension.0",
+    3,
+    "DynamicDimension.1",
+    "DynamicDimension.2"
+   ],
+   "rec": [
+    "DynamicDimension.0",
+    3,
+    48,
+    "DynamicDimension.1"
+   ]
+  },
+  "wall_seconds": 1.041
+ },
+ "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.6778.33 Safari/537.36",
+ "items": 30,
+ "raw": {
+  "totals": {
+   "renders": 60,
+   "images": 118,
+   "chars_ref": 2936,
+   "chars_edit": 52,
+   "t0": 102,
+   "t1": 102,
+   "t2": 101,
+   "layout_retained": 102,
+   "ocr_retained": 101,
+   "total_retained": 101,
+   "introduced": 0,
+   "clean_renders": 14,
+   "clean_flagged": 0,
+   "anchor_eligible": 101,
+   "anchor_hit": 101,
+   "gold": {
+    "t0": {
+     "tp": 100,
+     "fp": 2,
+     "fn": 28
+    },
+    "t2": {
+     "tp": 99,
+     "fp": 2,
+     "fn": 29
+    }
+   },
+   "disclosures_differ": 0,
+   "invariant_violations": 0
+  },
+  "by_layout": {
+   "frames": {
+    "renders": 30,
+    "images": 88,
+    "chars_ref": 1468,
+    "chars_edit": 28,
+    "t0": 51,
+    "t1": 51,
+    "t2": 51,
+    "layout_retained": 51,
+    "ocr_retained": 51,
+    "total_retained": 51,
+    "introduced": 0,
+    "clean_renders": 7,
+    "clean_flagged": 0,
+    "anchor_eligible": 51,
+    "anchor_hit": 51,
+    "gold": {
+     "t0": {
+      "tp": 50,
+      "fp": 1,
+      "fn": 14
+     },
+     "t2": {
+      "tp": 50,
+      "fp": 1,
+      "fn": 14
+     }
+    },
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "poster": {
+    "renders": 30,
+    "images": 30,
+    "chars_ref": 1468,
+    "chars_edit": 24,
+    "t0": 51,
+    "t1": 51,
+    "t2": 50,
+    "layout_retained": 51,
+    "ocr_retained": 50,
+    "total_retained": 50,
+    "introduced": 0,
+    "clean_renders": 7,
+    "clean_flagged": 0,
+    "anchor_eligible": 50,
+    "anchor_hit": 50,
+    "gold": {
+     "t0": {
+      "tp": 50,
+      "fp": 1,
+      "fn": 14
+     },
+     "t2": {
+      "tp": 49,
+      "fp": 1,
+      "fn": 15
+     }
+    },
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   }
+  },
+  "by_factor": {
+   "font": {
+    "Noto Serif CJK SC": {
+     "renders": 17,
+     "images": 36,
+     "chars_ref": 867,
+     "chars_edit": 17,
+     "t0": 26,
+     "t1": 26,
+     "t2": 26,
+     "layout_retained": 26,
+     "ocr_retained": 26,
+     "total_retained": 26,
+     "introduced": 0,
+     "clean_renders": 5,
+     "clean_flagged": 0,
+     "anchor_eligible": 26,
+     "anchor_hit": 26,
+     "gold": {
+      "t0": {
+       "tp": 25,
+       "fp": 1,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 25,
+       "fp": 1,
+       "fn": 8
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "WenQuanYi Zen Hei": {
+     "renders": 12,
+     "images": 25,
+     "chars_ref": 538,
+     "chars_edit": 5,
+     "t0": 22,
+     "t1": 22,
+     "t2": 22,
+     "layout_retained": 22,
+     "ocr_retained": 22,
+     "total_retained": 22,
+     "introduced": 0,
+     "clean_renders": 3,
+     "clean_flagged": 0,
+     "anchor_eligible": 22,
+     "anchor_hit": 22,
+     "gold": {
+      "t0": {
+       "tp": 22,
+       "fp": 0,
+       "fn": 3
+      },
+      "t2": {
+       "tp": 22,
+       "fp": 0,
+       "fn": 3
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "Noto Sans CJK SC": {
+     "renders": 16,
+     "images": 33,
+     "chars_ref": 775,
+     "chars_edit": 10,
+     "t0": 27,
+     "t1": 27,
+     "t2": 26,
+     "layout_retained": 27,
+     "ocr_retained": 26,
+     "total_retained": 26,
+     "introduced": 0,
+     "clean_renders": 4,
+     "clean_flagged": 0,
+     "anchor_eligible": 26,
+     "anchor_hit": 26,
+     "gold": {
+      "t0": {
+       "tp": 27,
+       "fp": 0,
+       "fn": 9
+      },
+      "t2": {
+       "tp": 26,
+       "fp": 0,
+       "fn": 10
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "AR PL UKai CN": {
+     "renders": 15,
+     "images": 24,
+     "chars_ref": 756,
+     "chars_edit": 20,
+     "t0": 27,
+     "t1": 27,
+     "t2": 27,
+     "layout_retained": 27,
+     "ocr_retained": 27,
+     "total_retained": 27,
+     "introduced": 0,
+     "clean_renders": 2,
+     "clean_flagged": 0,
+     "anchor_eligible": 27,
+     "anchor_hit": 27,
+     "gold": {
+      "t0": {
+       "tp": 26,
+       "fp": 1,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 26,
+       "fp": 1,
+       "fn": 8
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "background": {
+    "busy": {
+     "renders": 12,
+     "images": 25,
+     "chars_ref": 544,
+     "chars_edit": 9,
+     "t0": 20,
+     "t1": 20,
+     "t2": 20,
+     "layout_retained": 20,
+     "ocr_retained": 20,
+     "total_retained": 20,
+     "introduced": 0,
+     "clean_renders": 2,
+     "clean_flagged": 0,
+     "anchor_eligible": 20,
+     "anchor_hit": 20,
+     "gold": {
+      "t0": {
+       "tp": 20,
+       "fp": 0,
+       "fn": 6
+      },
+      "t2": {
+       "tp": 20,
+       "fp": 0,
+       "fn": 6
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "dark": {
+     "renders": 11,
+     "images": 24,
+     "chars_ref": 543,
+     "chars_edit": 7,
+     "t0": 20,
+     "t1": 20,
+     "t2": 20,
+     "layout_retained": 20,
+     "ocr_retained": 20,
+     "total_retained": 20,
+     "introduced": 0,
+     "clean_renders": 1,
+     "clean_flagged": 0,
+     "anchor_eligible": 20,
+     "anchor_hit": 20,
+     "gold": {
+      "t0": {
+       "tp": 19,
+       "fp": 1,
+       "fn": 7
+      },
+      "t2": {
+       "tp": 19,
+       "fp": 1,
+       "fn": 7
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "light": {
+     "renders": 20,
+     "images": 39,
+     "chars_ref": 1020,
+     "chars_edit": 25,
+     "t0": 39,
+     "t1": 39,
+     "t2": 39,
+     "layout_retained": 39,
+     "ocr_retained": 39,
+     "total_retained": 39,
+     "introduced": 0,
+     "clean_renders": 4,
+     "clean_flagged": 0,
+     "anchor_eligible": 39,
+     "anchor_hit": 39,
+     "gold": {
+      "t0": {
+       "tp": 38,
+       "fp": 1,
+       "fn": 11
+      },
+      "t2": {
+       "tp": 38,
+       "fp": 1,
+       "fn": 11
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "gradient": {
+     "renders": 17,
+     "images": 30,
+     "chars_ref": 829,
+     "chars_edit": 11,
+     "t0": 23,
+     "t1": 23,
+     "t2": 22,
+     "layout_retained": 23,
+     "ocr_retained": 22,
+     "total_retained": 22,
+     "introduced": 0,
+     "clean_renders": 7,
+     "clean_flagged": 0,
+     "anchor_eligible": 22,
+     "anchor_hit": 22,
+     "gold": {
+      "t0": {
+       "tp": 23,
+       "fp": 0,
+       "fn": 4
+      },
+      "t2": {
+       "tp": 22,
+       "fp": 0,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "jpeg": {
+    "0.45": {
+     "renders": 26,
+     "images": 48,
+     "chars_ref": 1220,
+     "chars_edit": 19,
+     "t0": 51,
+     "t1": 51,
+     "t2": 50,
+     "layout_retained": 51,
+     "ocr_retained": 50,
+     "total_retained": 50,
+     "introduced": 0,
+     "clean_renders": 4,
+     "clean_flagged": 0,
+     "anchor_eligible": 50,
+     "anchor_hit": 50,
+     "gold": {
+      "t0": {
+       "tp": 50,
+       "fp": 1,
+       "fn": 14
+      },
+      "t2": {
+       "tp": 49,
+       "fp": 1,
+       "fn": 15
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "0.92": {
+     "renders": 17,
+     "images": 41,
+     "chars_ref": 839,
+     "chars_edit": 11,
+     "t0": 23,
+     "t1": 23,
+     "t2": 23,
+     "layout_retained": 23,
+     "ocr_retained": 23,
+     "total_retained": 23,
+     "introduced": 0,
+     "clean_renders": 6,
+     "clean_flagged": 0,
+     "anchor_eligible": 23,
+     "anchor_hit": 23,
+     "gold": {
+      "t0": {
+       "tp": 23,
+       "fp": 0,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 23,
+       "fp": 0,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "0.7": {
+     "renders": 17,
+     "images": 29,
+     "chars_ref": 877,
+     "chars_edit": 22,
+     "t0": 28,
+     "t1": 28,
+     "t2": 28,
+     "layout_retained": 28,
+     "ocr_retained": 28,
+     "total_retained": 28,
+     "introduced": 0,
+     "clean_renders": 4,
+     "clean_flagged": 0,
+     "anchor_eligible": 28,
+     "anchor_hit": 28,
+     "gold": {
+      "t0": {
+       "tp": 27,
+       "fp": 1,
+       "fn": 9
+      },
+      "t2": {
+       "tp": 27,
+       "fp": 1,
+       "fn": 9
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "style": {
+    "box": {
+     "renders": 15,
+     "images": 45,
+     "chars_ref": 734,
+     "chars_edit": 14,
+     "t0": 33,
+     "t1": 33,
+     "t2": 33,
+     "layout_retained": 33,
+     "ocr_retained": 33,
+     "total_retained": 33,
+     "introduced": 0,
+     "clean_renders": 2,
+     "clean_flagged": 0,
+     "anchor_eligible": 33,
+     "anchor_hit": 33,
+     "gold": {
+      "t0": {
+       "tp": 32,
+       "fp": 1,
+       "fn": 6
+      },
+      "t2": {
+       "tp": 32,
+       "fp": 1,
+       "fn": 6
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "outline": {
+     "renders": 15,
+     "images": 43,
+     "chars_ref": 734,
+     "chars_edit": 14,
+     "t0": 18,
+     "t1": 18,
+     "t2": 18,
+     "layout_retained": 18,
+     "ocr_retained": 18,
+     "total_retained": 18,
+     "introduced": 0,
+     "clean_renders": 5,
+     "clean_flagged": 0,
+     "anchor_eligible": 18,
+     "anchor_hit": 18,
+     "gold": {
+      "t0": {
+       "tp": 18,
+       "fp": 0,
+       "fn": 8
+      },
+      "t2": {
+       "tp": 18,
+       "fp": 0,
+       "fn": 8
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   },
+   "body": {
+    "22": {
+     "renders": 10,
+     "images": 10,
+     "chars_ref": 508,
+     "chars_edit": 7,
+     "t0": 17,
+     "t1": 17,
+     "t2": 17,
+     "layout_retained": 17,
+     "ocr_retained": 17,
+     "total_retained": 17,
+     "introduced": 0,
+     "clean_renders": 1,
+     "clean_flagged": 0,
+     "anchor_eligible": 17,
+     "anchor_hit": 17,
+     "gold": {
+      "t0": {
+       "tp": 16,
+       "fp": 1,
+       "fn": 7
+      },
+      "t2": {
+       "tp": 16,
+       "fp": 1,
+       "fn": 7
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "30": {
+     "renders": 8,
+     "images": 8,
+     "chars_ref": 435,
+     "chars_edit": 11,
+     "t0": 7,
+     "t1": 7,
+     "t2": 7,
+     "layout_retained": 7,
+     "ocr_retained": 7,
+     "total_retained": 7,
+     "introduced": 0,
+     "clean_renders": 4,
+     "clean_flagged": 0,
+     "anchor_eligible": 7,
+     "anchor_hit": 7,
+     "gold": {
+      "t0": {
+       "tp": 7,
+       "fp": 0,
+       "fn": 5
+      },
+      "t2": {
+       "tp": 7,
+       "fp": 0,
+       "fn": 5
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    },
+    "40": {
+     "renders": 12,
+     "images": 12,
+     "chars_ref": 525,
+     "chars_edit": 6,
+     "t0": 27,
+     "t1": 27,
+     "t2": 26,
+     "layout_retained": 27,
+     "ocr_retained": 26,
+     "total_retained": 26,
+     "introduced": 0,
+     "clean_renders": 2,
+     "clean_flagged": 0,
+     "anchor_eligible": 26,
+     "anchor_hit": 26,
+     "gold": {
+      "t0": {
+       "tp": 27,
+       "fp": 0,
+       "fn": 2
+      },
+      "t2": {
+       "tp": 26,
+       "fp": 0,
+       "fn": 3
+      }
+     },
+     "disclosures_differ": 0,
+     "invariant_violations": 0
+    }
+   }
+  },
+  "latency": {
+   "frames": [
+    1.2499500000000698,
+    0.8369500000000698,
+    0.8178500000000349,
+    0.8418500000000348,
+    0.8577500000000582,
+    0.7205499999999884,
+    0.7305499999999884,
+    0.9715499999999884,
+    0.8866499999999651,
+    0.7242499999999418,
+    1.0105249999999941,
+    0.8350249999999941,
+    0.7902249999999476,
+    0.7237249999999475,
+    0.9918000000000465,
+    0.8086999999999535,
+    0.7407999999999302,
+    0.9402999999999302,
+    0.7465999999999767,
+    0.7909000000000233,
+    0.8062000000000699,
+    0.7655999999999767,
+    0.771,
+    1.02975,
+    0.7685500000000465,
+    1.0443333333333722,
+    0.8730333333333256,
+    0.8625333333333256,
+    0.9989333333333489,
+    0.7769333333333488,
+    0.7692333333333954,
+    1.0433999999999068,
+    0.953,
+    0.9549000000000233,
+    0.9610333333333644,
+    0.8674333333333877,
+    0.8481333333333412,
+    1.0448333333333721,
+    1.042233333333279,
+    0.9638333333332557,
+    0.7849250000000174,
+    0.7928249999999243,
+    0.7963250000000407,
+    0.795725000000064,
+    1.0706249999999418,
+    1.030024999999965,
+    0.8167249999999185,
+    0.771524999999965,
+    1.1801500000001397,
+    0.9426500000001397,
+    1.081,
+    1.5752000000001862,
+    0.8515999999998602,
+    0.8378999999999068,
+    0.7781999999999535,
+    0.7964000000001397,
+    0.9962333333334731,
+    0.78613333333338,
+    0.7694333333334266,
+    0.8014333333335041,
+    0.8315333333333644,
+    0.9415333333333644,
+    0.9948333333333333,
+    0.7900333333332868,
+    0.77013333333338,
+    1.001,
+    0.7872000000001863,
+    1.0191999999999535,
+    0.9808999999999068,
+    0.8246000000000931,
+    0.8965999999998603,
+    0.8059000000001397,
+    0.8042000000001862,
+    0.7651000000000932,
+    1.1621666666667443,
+    0.7588666666666977,
+    0.7629666666667908,
+    1.2875,
+    0.7602000000001863,
+    1.035,
+    0.8583000000000466,
+    0.7912333333333178,
+    0.7846333333334575,
+    0.7890333333333645,
+    1.1584500000001863,
+    0.8192499999999999,
+    0.7504499999999534,
+    1.567850000000093
+   ],
+   "poster": [
+    1.9468999999999068,
+    1.6963000000000465,
+    1.873,
+    1.6993000000000464,
+    1.9315,
+    1.7598000000000467,
+    1.693,
+    1.7804000000001396,
+    1.8207999999998137,
+    1.8705999999998604,
+    1.9495,
+    1.4838999999999067,
+    2.068,
+    1.6042000000001864,
+    1.9830999999998604,
+    1.5415,
+    1.894,
+    1.9529000000001395,
+    1.5663000000000467,
+    1.577,
+    1.8929000000001397,
+    2.2046999999999533,
+    1.8357999999998138,
+    1.6806999999999535,
+    1.8495,
+    1.5758000000000465,
+    1.6323999999999068,
+    1.55,
+    1.9465999999998602,
+    2.004
+   ]
+  }
+ },
+ "metrics": {
+  "renders": 60,
+  "images": 118,
+  "char_accuracy": 0.9822888283378747,
+  "chars": 2936,
+  "layout_retention": 1,
+  "ocr_retention": 0.9901960784313726,
+  "total_retention": 0.9901960784313726,
+  "ocr_introduced": 0,
+  "clean_flagged": 0,
+  "anchor_hit": 1,
+  "counts": {
+   "t0": 102,
+   "t1": 102,
+   "t2": 101,
+   "layout_retained": 102,
+   "ocr_retained": 101,
+   "total_retained": 101,
+   "introduced": 0,
+   "clean_renders": 14,
+   "clean_flagged": 0,
+   "anchor_eligible": 101,
+   "anchor_hit": 101,
+   "disclosures_differ": 0,
+   "invariant_violations": 0
+  },
+  "gold_t0": {
+   "precision": 0.9803921568627451,
+   "recall": 0.78125,
+   "f1": 0.8695652173913042,
+   "tp": 100,
+   "fp": 2,
+   "fn": 28
+  },
+  "gold_t2": {
+   "precision": 0.9801980198019802,
+   "recall": 0.7734375,
+   "f1": 0.8646288209606987,
+   "tp": 99,
+   "fp": 2,
+   "fn": 29
+  }
+ },
+ "by_layout": {
+  "frames": {
+   "renders": 30,
+   "images": 88,
+   "char_accuracy": 0.9809264305177112,
+   "chars": 1468,
+   "layout_retention": 1,
+   "ocr_retention": 1,
+   "total_retention": 1,
+   "ocr_introduced": 0,
+   "clean_flagged": 0,
+   "anchor_hit": 1,
+   "counts": {
+    "t0": 51,
+    "t1": 51,
+    "t2": 51,
+    "layout_retained": 51,
+    "ocr_retained": 51,
+    "total_retained": 51,
+    "introduced": 0,
+    "clean_renders": 7,
+    "clean_flagged": 0,
+    "anchor_eligible": 51,
+    "anchor_hit": 51,
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "gold_t0": {
+    "precision": 0.9803921568627451,
+    "recall": 0.78125,
+    "f1": 0.8695652173913042,
+    "tp": 50,
+    "fp": 1,
+    "fn": 14
+   },
+   "gold_t2": {
+    "precision": 0.9803921568627451,
+    "recall": 0.78125,
+    "f1": 0.8695652173913042,
+    "tp": 50,
+    "fp": 1,
+    "fn": 14
+   }
+  },
+  "poster": {
+   "renders": 30,
+   "images": 30,
+   "char_accuracy": 0.9836512261580381,
+   "chars": 1468,
+   "layout_retention": 1,
+   "ocr_retention": 0.9803921568627451,
+   "total_retention": 0.9803921568627451,
+   "ocr_introduced": 0,
+   "clean_flagged": 0,
+   "anchor_hit": 1,
+   "counts": {
+    "t0": 51,
+    "t1": 51,
+    "t2": 50,
+    "layout_retained": 51,
+    "ocr_retained": 50,
+    "total_retained": 50,
+    "introduced": 0,
+    "clean_renders": 7,
+    "clean_flagged": 0,
+    "anchor_eligible": 50,
+    "anchor_hit": 50,
+    "disclosures_differ": 0,
+    "invariant_violations": 0
+   },
+   "gold_t0": {
+    "precision": 0.9803921568627451,
+    "recall": 0.78125,
+    "f1": 0.8695652173913042,
+    "tp": 50,
+    "fp": 1,
+    "fn": 14
+   },
+   "gold_t2": {
+    "precision": 0.98,
+    "recall": 0.765625,
+    "f1": 0.8596491228070174,
+    "tp": 49,
+    "fp": 1,
+    "fn": 15
+   }
+  }
+ },
+ "latency": {
+  "frames": {
+   "p50": 0.8350249999999941,
+   "p95": 1.1801500000001397,
+   "n": 88
+  },
+  "poster": {
+   "p50": 1.8207999999998137,
+   "p95": 2.068,
+   "n": 30
+  }
+ },
+ "records": [
+  {
+   "id": "test-01",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.25,
+    0.837
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "今天给大家推荐这瓶烟酰胺精华，全网销量第一，最受欢迎的提亮单品。\n浓度10%，到手价129元。",
+   "ocr": "今天给大家推荐这瓶烟酰胺精华，全网销量第一,最受欢迎的提亮单品。\n浓度10%，到手价129元。"
+  },
+  {
+   "id": "test-02",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.818,
+    0.842,
+    0.858,
+    0.721
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "油痘肌的姐妹注意了\n这瓶精华专治闭口粉刺\n皮肤科医生推荐，药妆级配方\n到手价129元",
+   "ocr": "油痘肌的姐妹注意了\n这瓶精华专治闭口粉刺\n皮肤科医生推荐，药妆级配方\n到手价129元"
+  },
+  {
+   "id": "test-03",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 4,
+   "t1": 4,
+   "t2": 4,
+   "layout_retained": 4,
+   "ocr_retained": 4,
+   "total_retained": 4,
+   "introduced": 0,
+   "anchor": "4/4",
+   "seconds": [
+    0.731,
+    0.972,
+    0.887,
+    0.724
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "减肥的姐妹冲它！\n早餐换成Noah燕麦代餐，半个月瘦8斤，立刻见效。\n90%的用户反馈不饿肚子。\n到手价49元。",
+   "ocr": "减肥的姐妹冲它！\n早餐换成Noah燕麦代餐，半个月瘦8斤，立刻见效。\n90%的用户反馈不饿肚子。\n到手价49元。"
+  },
+  {
+   "id": "test-04",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.01,
+    0.835,
+    0.79,
+    0.724
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "熬夜党来一杯红豆薏米茶，喝完整个人都清爽了，长期喝还能降血脂、\n防治脂肪肝。\n别家的茶包全是香精勾兑的。\n30袋到手价39元。",
+   "ocr": "熬夜党来一杯红豆薏米茶，喝完整个人都清爽了，长期喝还能降血脂、\n防治脂肪肝。\n别家的茶包全是香精勾兑的。\n30袋到手价39元。"
+  },
+  {
+   "id": "test-05",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.992,
+    0.809,
+    0.741
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "每天一片Iris维生素C咀嚼片，有效预防感冒，免疫力差的人吃了就不生病，\n纯天然无副作用。\n60片到手价89元。",
+   "ocr": "每天一片Iris维生素C咀嚼片，有效预防感冒，免疫力差的人吃了就不生病，\n纯天然无副作用。\n60片到手价89元。"
+  },
+  {
+   "id": "test-06",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.94,
+    0.747,
+    0.791
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris维生素C咀嚼片，保健功能是补充维生素C，每日1片。\n一瓶60片，到手价89元。\n本品不能代替药物，请按推荐量食用。",
+   "ocr": "Iris维生素C咀嚼片，保健功能是补充维生素C，每日1片。\n一瓶60片，到手价89元。\n本品不能代替药物，请按推荐量食用。"
+  },
+  {
+   "id": "test-07",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.806,
+    0.766,
+    0.771
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副降噪耳机我愿称之为耳机界的天花板\n降噪深度45dB，地铁秒变图书馆\n某些大牌卖两千多还不如它",
+   "ocr": "这副降噪耳机我愿称之为耳机界的天花板\n降噪深度45dB，地铁秒变图书馆\n某些大牌卖两千多还不如它"
+  },
+  {
+   "id": "test-08",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0.029411764705882353,
+    0.125
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.03,
+    0.768
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "全球首款双口65W氮化镓充电器，测试显示充电速度比普通充电头快一倍。\n到手价119元。",
+   "ocr": "全球首款双口65W氮化镓充电器：测试显示充电速度比普通充电头快一倍。\n到手价119元·"
+  },
+  {
+   "id": "test-09",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0.03333333333333333,
+    0.1111111111111111,
+    0.1
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.044,
+    0.873,
+    0.863
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "颈椎不好的朋友一定要试试这款乳胶枕，矫正颈椎，改善睡眠障碍，\n用了三天就不疼了。\n天然乳胶含量95%。",
+   "ocr": "颈椎不好的朋友一定要试试这款乳胶枕：矫正颈椎，改善睡眠障碍，\n用了三天就不疼了\n天然乳胶含量95%"
+  },
+  {
+   "id": "test-10",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.999,
+    0.777,
+    0.769
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店，零风险创业，总部协助选址，一年回本，\n开起来在家就能收钱。\n加盟费29800元。",
+   "ocr": "Leon优选社区零食店，零风险创业，总部协助选址，一年回本，\n开起来在家就能收钱。\n加盟费29800元。"
+  },
+  {
+   "id": "test-11",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0.043478260869565216,
+    0.07142857142857142,
+    0.06666666666666667
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.043,
+    0.953,
+    0.955
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "零基础也能学的剪辑课，7天包会，学完保证接单。\n已帮助3万名学员转行做剪辑。\n32节录播课，到手价199元。",
+   "ocr": "零基础也能学的剪辑课·7天包会，学完保证接单。\n已帮助3万名学员转行做剪辑。0\n32节录播课，到手价199元。0"
+  },
+  {
+   "id": "test-12",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0.037037037037037035,
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    0.961,
+    0.867,
+    0.848
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支防晒乳是我用过最清爽的，SPF50+ PA++++，\n出门涂一层保证不晒黑。\n到手价89元。",
+   "ocr": "这支防晒乳是我用过最清爽的，SPF5O+PA++++，\n出门涂一层保证不晒黑。\n到手价89元。"
+  },
+  {
+   "id": "test-13",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0.047619047619047616,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.045,
+    1.042,
+    0.964
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "上班族的早餐可以这样搭：Noah燕麦代餐粉每次30g，\n加200ml温水冲开，每份含膳食纤维6g。\n500g一袋，到手价59元，具体以页面价格为准。",
+   "ocr": "上班族的早餐可以这样搭：Noah燕麦代餐粉每次30g，\n加200m1温水冲开，每份含膳食纤维6g。\n500g一袋，到手价59元，具体以页面价格为准。"
+  },
+  {
+   "id": "test-14",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    0.785,
+    0.793,
+    0.796,
+    0.796
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "肠胃不好的宝妈看过来\nIris益生菌专门调理肠胃\n孩子喝了一周便秘就好了\n八成宝妈都回购，20袋69元",
+   "ocr": "肠胃不好的宝妈看过来\nIris益生菌专门调理肠胃\n孩子喝了一周便秘就好了\n八成宝妈都回购，20袋69元"
+  },
+  {
+   "id": "test-15",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.071,
+    1.03,
+    0.817,
+    0.771
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "第一次用降噪耳机的话，建议先在安静的地方试戴。\n这副耳机降噪深度35dB，配合充电盒续航30小时，\n最好每天睡前放回盒里充电。\n到手价299元。",
+   "ocr": "第一次用降噪耳机的话，建议先在安静的地方试戴。\n这副耳机降噪深度35dB，配合充电盒续航30小时，\n最好每天睡前放回盒里充电。\n到手价299元。"
+  },
+  {
+   "id": "test-16",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0.10714285714285714,
+    0.2857142857142857
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.18,
+    0.943
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Emma纯棉毛巾，史上最柔软，实验表明吸水性提升50%。\n到手价39元。",
+   "ocr": "Emma纯棉毛巾，史上最柔软：实验表明吸水性提升50%·●\n到手价39元·回"
+  },
+  {
+   "id": "test-17",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0.06896551724137931,
+    0.125
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.081,
+    1.575,
+    0.852
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "用之前我脸上全是痘印，坚持用了两个月痘印全没了。\n有些品牌的精华就是在糊弄人，我们只讲真实成分：5%烟酰胺。\n到手价129元。",
+   "ocr": "用之前我脸上全是痘印，坚持用了两个月痘印全没了。\n有些品牌的精华就是在糊弄人，我们只讲真实成分：5%烟酰胺°C\n到手价129元0"
+  },
+  {
+   "id": "test-18",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.838,
+    0.778,
+    0.796
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米芡实，三样都是常见食材\n一盒30袋，每天一袋\n到手价39元，喜欢的点链接",
+   "ocr": "红豆薏米芡实，三样都是常见食材\n一盒30袋，每天一袋\n到手价39元，喜欢的点链接"
+  },
+  {
+   "id": "test-19",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0.06060606060606061,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.996,
+    0.786,
+    0.769
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris维生素C咀嚼片，效果堪比药品，能替代感冒药，吃了绝对有效。\n本品不能代替药物。\n到手价89元。",
+   "ocr": "Iris维生素C咀嚼，效果堪比药品能替代感冒药，吃了绝对有效。\n本品不能代替药物。\n到手价89元。"
+  },
+  {
+   "id": "test-20",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0.2857142857142857
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.801,
+    0.832,
+    0.942
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "出差党可以看看这个充电器\n最大输出功率65W，双口同时充\n到手价119元",
+   "ocr": "出差党可以看看这个充电器\n最大输出功率65W，双口同时充\nHH\n到手价119元"
+  },
+  {
+   "id": "test-21",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.995,
+    0.79,
+    0.77
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款乳胶枕是机关单位指定用枕，天然乳胶含量85%，\n我睡过最舒服的枕头就是它。\n到手价199元。",
+   "ocr": "这款乳胶枕是机关单位指定用枕，天然乳胶含量85%，\n我睡过最舒服的枕头就是它。\n到手价199元。"
+  },
+  {
+   "id": "test-22",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.001,
+    0.787,
+    1.019
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店正在招募加盟商，加盟费29800元，\n门店建议40平方米以上。\n投资有风险，收益受选址和经营情况影响，加盟前请做好评估。",
+   "ocr": "Leon优选社区零食店正在招募加盟商，加盟费29800元，\n门店建议40平方米以上。\n投资有风险，收益受选址和经营情况影响，加盟前请做好评估。"
+  },
+  {
+   "id": "test-23",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "dark",
+    "jpeg": 0.7,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.981,
+    0.825
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂剪辑课，好评率99%，包教包会，学完就可以变现。\n共32节录播课，每周1次直播答疑。",
+   "ocr": "Leon学堂剪辑课，好评率99%，包教包会，学完就可以变现。\n共32节录播课，每周1次直播答疑。"
+  },
+  {
+   "id": "test-24",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 4,
+   "cer": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    0.897,
+    0.806,
+    0.804,
+    0.765
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "防晒选不对，夏天白费\n这支是行业顶尖的防晒科技\n调查显示敏感肌也能放心用\n50ml到手价89元",
+   "ocr": "防晒选不对，夏天白费\n这支是行业顶尖的防晒科技\n调查显示敏感肌也能放心用\n50ml到手价89元"
+  },
+  {
+   "id": "test-25",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 3,
+   "cer": [
+    0.027777777777777776,
+    0,
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.162,
+    0.759,
+    0.763
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "外面卖的代餐粉都是智商税，我们的Noah燕麦代餐粉是官方认可的健康早餐，\n每份含膳食纤维6g。\n到手价59元。",
+   "ocr": "外面卖的代餐粉都是智商税，我我们的Noah燕麦代餐粉是官方认可的健康早餐，\n每份含膳食纤维6g。\n到手价59元。"
+  },
+  {
+   "id": "test-26",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.037037037037037035,
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.288,
+    0.76
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "最顶级的降噪体验，戴上立竿见影隔绝噪音，续航40小时。\n到手价299元。",
+   "ocr": "最顶级的降噪体验，戴上立竿见影隔绝噪音，续航40小时。-\n到手价299元。"
+  },
+  {
+   "id": "test-27",
+   "layout": "frames",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.7,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0.029411764705882353,
+    0.1
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.035,
+    0.858
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris益生菌固体饮料，最有效的肠道养护方案，治疗肠炎，还能抗病毒。\n20袋到手价69元。",
+   "ocr": "Iris益生菌固体饮料，最有效的肠道养护方案，治疗肠炎，还能抗病毒\n20袋到手价69元0"
+  },
+  {
+   "id": "test-28",
+   "layout": "frames",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "style": "outline"
+   },
+   "images": 3,
+   "cer": [
+    0,
+    0,
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    0.791,
+    0.785,
+    0.789
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "100%棉的毛巾，摸起来很软\n三条一起买更划算\n到手价49元，洗脸洗头都能用",
+   "ocr": "100%棉的毛巾，摸起来很软\n三条一起买更划算\n到手价49元，洗脸洗头都能用"
+  },
+  {
+   "id": "test-29",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.92,
+    "style": "outline"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.158,
+    0.819
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶烟酰胺精华，回购率32%（数据来源：店铺后台2026年9月统计），\n今天直播间到手价99元，比平时便宜。",
+   "ocr": "这瓶烟酰胺精华，回购率32%（数据来源：店铺后台2026年9月统计），\n今天直播间到手价99元，比平时便宜。"
+  },
+  {
+   "id": "test-30",
+   "layout": "frames",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "style": "box"
+   },
+   "images": 2,
+   "cer": [
+    0,
+    0.05714285714285714
+   ],
+   "t0": 4,
+   "t1": 4,
+   "t2": 4,
+   "layout_retained": 4,
+   "ocr_retained": 4,
+   "total_retained": 4,
+   "introduced": 0,
+   "anchor": "4/4",
+   "seconds": [
+    0.75,
+    1.568
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "全网最低！\n红豆薏米茶只要39元，喝它能排毒养颜，98%的人喝完都说好，一喝就瘦。",
+   "ocr": "全网最低！\n红豆薏米茶只要39元，喝它能排毒养颜-b98%的人喝完都说好，一喝就瘦。"
+  },
+  {
+   "id": "test-01",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.021739130434782608
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.947
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "今天给大家推荐这瓶烟酰胺精华，全网销量第一，最受欢迎的提亮单品。浓度10%，到手价129元。",
+   "ocr": "今天给大家推荐这瓶烟酰胺精华，全网销量第一，最受欢迎的提亮单品。浓度10%，到手价129元o"
+  },
+  {
+   "id": "test-02",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.696
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "油痘肌的姐妹注意了\n这瓶精华专治闭口粉刺\n皮肤科医生推荐，药妆级配方\n到手价129元",
+   "ocr": "油痘肌的姐妹注意了这瓶精华专治闭口粉刺皮肤科医生推荐，药妆级配方到手价129元"
+  },
+  {
+   "id": "test-03",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.018867924528301886
+   ],
+   "t0": 4,
+   "t1": 4,
+   "t2": 4,
+   "layout_retained": 4,
+   "ocr_retained": 4,
+   "total_retained": 4,
+   "introduced": 0,
+   "anchor": "4/4",
+   "seconds": [
+    1.873
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "减肥的姐妹冲它！早餐换成Noah燕麦代餐，半个月瘦8斤，立刻见效。90%的用户反馈不饿肚子。到手价49元。",
+   "ocr": "减肥的姐妹冲它！早餐换成Noah燕麦代餐，半个月瘦8斤，立刻见效。90%的用户反馈不饿肚子。到价49元。"
+  },
+  {
+   "id": "test-04",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "busy",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.699
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "熬夜党来一杯红豆薏米茶，喝完整个人都清爽了，长期喝还能降血脂、防治脂肪肝。别家的茶包全是香精勾兑的。30袋到手价39元。",
+   "ocr": "熬夜党来一杯红豆薏米茶，喝完整个人都清爽了，长期喝还能降血脂、防治脂肪肝。别家的茶包全是香精勾兑的。30袋到手价39元。"
+  },
+  {
+   "id": "test-05",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.931
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "每天一片Iris维生素C咀嚼片，有效预防感冒，免疫力差的人吃了就不生病，纯天然无副作用。60片到手价89元。",
+   "ocr": "每天一片Iris维生素C咀嚼片，有效预防感冒，免疫力差的人吃了就不生病，纯天然无副作用。60片到手价89元。"
+  },
+  {
+   "id": "test-06",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.13559322033898305
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.76
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris维生素C咀嚼片，保健功能是补充维生素C，每日1片。一瓶60片，到手价89元。本品不能代替药物，请按推荐量食用。",
+   "ocr": "Iris维素C咀嚼，保健功能是补充维素C，每1。瓶60，到价89元。本品不能代替药物，请按推荐量食用。"
+  },
+  {
+   "id": "test-07",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.693
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这副降噪耳机我愿称之为耳机界的天花板\n降噪深度45dB，地铁秒变图书馆\n某些大牌卖两千多还不如它",
+   "ocr": "这副降噪耳机我愿称之为耳机界的天花板降噪深度45dB，地铁秒变图书馆某些大牌卖两千多还不如它"
+  },
+  {
+   "id": "test-08",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.78
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "全球首款双口65W氮化镓充电器，测试显示充电速度比普通充电头快一倍。到手价119元。",
+   "ocr": "全球首款双口65W氮化镓充电器，测试显示充电速度比普通充电头快一倍。到手价119元。"
+  },
+  {
+   "id": "test-09",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.821
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "颈椎不好的朋友一定要试试这款乳胶枕，矫正颈椎，改善睡眠障碍，用了三天就不疼了。天然乳胶含量95%。",
+   "ocr": "颈椎不好的朋友一定要试试这款乳胶枕，矫正颈椎，改善睡眠障碍，用了三天就不疼了。天然乳胶含量95%。"
+  },
+  {
+   "id": "test-10",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.02
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.871
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店，零风险创业，总部协助选址，一年回本，开起来在家就能收钱。加盟费29800元。",
+   "ocr": "Leon优选社区零食店，零风险创业，总部协助选址，一年回本，开起来在家就能收钱，加盟费29800元。"
+  },
+  {
+   "id": "test-11",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.95
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "零基础也能学的剪辑课，7天包会，学完保证接单。已帮助3万名学员转行做剪辑。32节录播课，到手价199元。",
+   "ocr": "零基础也能学的剪辑课，7天包会，学完保证接单。已帮助3万名学员转行做剪辑。32节录播课，到手价199元。"
+  },
+  {
+   "id": "test-12",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.484
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这支防晒乳是我用过最清爽的，SPF50+ PA++++，出门涂一层保证不晒黑。到手价89元。",
+   "ocr": "这支防晒乳是我用过最清爽的，SPF50+PA++++，出门涂一层保证不晒黑。到手价89元。"
+  },
+  {
+   "id": "test-13",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0.041666666666666664
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    2.068
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "上班族的早餐可以这样搭：Noah燕麦代餐粉每次30g，加200ml温水冲开，每份含膳食纤维6g。500g一袋，到手价59元，具体以页面价格为准。",
+   "ocr": "上班族的早餐可以这样搭：Noah燕麦代餐粉每次30g，加200ml温水冲开，每份含膳食纤维6g。500g袋，到价59元，具体以页价格为准。"
+  },
+  {
+   "id": "test-14",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.604
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "肠胃不好的宝妈看过来\nIris益生菌专门调理肠胃\n孩子喝了一周便秘就好了\n八成宝妈都回购，20袋69元",
+   "ocr": "肠胃不好的宝妈看过来Iris益生菌专门调理肠胃孩子喝了一周便秘就好了八成宝妈都回购，20袋69元"
+  },
+  {
+   "id": "test-15",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.983
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "第一次用降噪耳机的话，建议先在安静的地方试戴。这副耳机降噪深度35dB，配合充电盒续航30小时，最好每天睡前放回盒里充电。到手价299元。",
+   "ocr": "第一次用降噪耳机的话，建议先在安静的地方试戴。这副耳机降噪深度35dB，配合充电盒续航30小时，最好每天睡前放回盒里充电。到手价299元。"
+  },
+  {
+   "id": "test-16",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.542
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Emma纯棉毛巾，史上最柔软，实验表明吸水性提升50%。到手价39元。",
+   "ocr": "Emma纯棉毛巾，史上最柔软，实验表明吸水性提升50%。到手价39元。"
+  },
+  {
+   "id": "test-17",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "light",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.04918032786885246
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.894
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "用之前我脸上全是痘印，坚持用了两个月痘印全没了。有些品牌的精华就是在糊弄人，我们只讲真实成分：5%烟酰胺。到手价129元。",
+   "ocr": "用之前我脸上全是痘印，坚持了两个痘印全没了。有些品牌的精华就是在糊弄，我们只讲真实成分：5%烟酰胺。到手价129元。"
+  },
+  {
+   "id": "test-18",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "busy",
+    "jpeg": 0.92,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.953
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "红豆薏米芡实，三样都是常见食材\n一盒30袋，每天一袋\n到手价39元，喜欢的点链接",
+   "ocr": "红豆薏米芡实，三样都是常见食材一盒30袋，每天一袋到手价39元，喜欢的点链接"
+  },
+  {
+   "id": "test-19",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.02040816326530612
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.566
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris维生素C咀嚼片，效果堪比药品，能替代感冒药，吃了绝对有效。本品不能代替药物。到手价89元。",
+   "ocr": "Iris维生素C咀嚼片，效果堪比药品，能替代感冒药，吃了绝对有效。本品不能代替药物。到价89元。"
+  },
+  {
+   "id": "test-20",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.577
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "出差党可以看看这个充电器\n最大输出功率65W，双口同时充\n到手价119元",
+   "ocr": "出差党可以看看这个充电器最大输出功率65W，双口同时充到手价119元"
+  },
+  {
+   "id": "test-21",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "dark",
+    "jpeg": 0.7,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.021739130434782608
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.893
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这款乳胶枕是机关单位指定用枕，天然乳胶含量85%，我睡过最舒服的枕头就是它。到手价199元。",
+   "ocr": "这款乳胶枕是机关单位指定用枕，天然乳胶含量85%，我睡过最舒服的枕头就是它。到手价199元\nO"
+  },
+  {
+   "id": "test-22",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 30
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    2.205
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon优选社区零食店正在招募加盟商，加盟费29800元，门店建议40平方米以上。投资有风险，收益受选址和经营情况影响，加盟前请做好评估。",
+   "ocr": "Leon优选社区零食店正在招募加盟商，加盟费29800元，门店建议40平方米以上。投资有风险，收益受选址和经营情况影响，加盟前请做好评估。"
+  },
+  {
+   "id": "test-23",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Serif CJK SC",
+    "background": "dark",
+    "jpeg": 0.45,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0.02127659574468085
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.836
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Leon学堂剪辑课，好评率99%，包教包会，学完就可以变现。共32节录播课，每周1次直播答疑。",
+   "ocr": "Leon学堂剪辑课，好评率99%，包教包会，学完就可以变现。共32节录播课，每周1次直播答疑©"
+  },
+  {
+   "id": "test-24",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "dark",
+    "jpeg": 0.92,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.022727272727272728
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.681
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "防晒选不对，夏天白费\n这支是行业顶尖的防晒科技\n调查显示敏感肌也能放心用\n50ml到手价89元",
+   "ocr": "防晒选不对，夏天白费这支是行业顶尖的防晒科技调查显示敏感肌也能放心用50mI到手价89元"
+  },
+  {
+   "id": "test-25",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.92,
+    "body": 22
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 2,
+   "t1": 2,
+   "t2": 2,
+   "layout_retained": 2,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.849
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "外面卖的代餐粉都是智商税，我们的Noah燕麦代餐粉是官方认可的健康早餐，每份含膳食纤维6g。到手价59元。",
+   "ocr": "外面卖的代餐粉都是智商税，我们的Noah燕麦代餐粉是官方认可的健康早餐，每份含膳食纤维6g。到手价59元。"
+  },
+  {
+   "id": "test-26",
+   "layout": "poster",
+   "cell": {
+    "font": "Noto Sans CJK SC",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.05714285714285714
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 2,
+   "layout_retained": 3,
+   "ocr_retained": 2,
+   "total_retained": 2,
+   "introduced": 0,
+   "anchor": "2/2",
+   "seconds": [
+    1.576
+   ],
+   "lost": [
+    {
+     "category": "effect_claims",
+     "quote": "立竿见影"
+    }
+   ],
+   "extra": [],
+   "drawn": "最顶级的降噪体验，戴上立竿见影隔绝噪音，续航40小时。到手价299元。",
+   "ocr": "最顶级的降噪体验，戴上竿见影隔绝噪，续航40小时。到手价299元。"
+  },
+  {
+   "id": "test-27",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "light",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 3,
+   "t1": 3,
+   "t2": 3,
+   "layout_retained": 3,
+   "ocr_retained": 3,
+   "total_retained": 3,
+   "introduced": 0,
+   "anchor": "3/3",
+   "seconds": [
+    1.632
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "Iris益生菌固体饮料，最有效的肠道养护方案，治疗肠炎，还能抗病毒。20袋到手价69元。",
+   "ocr": "Iris益生菌固体饮料，最有效的肠道养护方案，治疗肠炎，还能抗病毒。20袋到手价69元。"
+  },
+  {
+   "id": "test-28",
+   "layout": "poster",
+   "cell": {
+    "font": "WenQuanYi Zen Hei",
+    "background": "gradient",
+    "jpeg": 0.7,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 0,
+   "t1": 0,
+   "t2": 0,
+   "layout_retained": 0,
+   "ocr_retained": 0,
+   "total_retained": 0,
+   "introduced": 0,
+   "anchor": "0/0",
+   "seconds": [
+    1.55
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "100%棉的毛巾，摸起来很软\n三条一起买更划算\n到手价49元，洗脸洗头都能用",
+   "ocr": "100%棉的毛巾，摸起来很软三条一起买更划算到手价49元，洗脸洗头都能用"
+  },
+  {
+   "id": "test-29",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "busy",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0
+   ],
+   "t0": 1,
+   "t1": 1,
+   "t2": 1,
+   "layout_retained": 1,
+   "ocr_retained": 1,
+   "total_retained": 1,
+   "introduced": 0,
+   "anchor": "1/1",
+   "seconds": [
+    1.946
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "这瓶烟酰胺精华，回购率32%（数据来源：店铺后台2026年9月统计），今天直播间到手价99元，比平时便宜。",
+   "ocr": "这瓶烟酰胺精华，回购率32%（数据来源：店铺后台2026年9月统计），今天直播间到手价99元，比平时便宜。"
+  },
+  {
+   "id": "test-30",
+   "layout": "poster",
+   "cell": {
+    "font": "AR PL UKai CN",
+    "background": "gradient",
+    "jpeg": 0.45,
+    "body": 40
+   },
+   "images": 1,
+   "cer": [
+    0.025
+   ],
+   "t0": 4,
+   "t1": 4,
+   "t2": 4,
+   "layout_retained": 4,
+   "ocr_retained": 4,
+   "total_retained": 4,
+   "introduced": 0,
+   "anchor": "4/4",
+   "seconds": [
+    2.004
+   ],
+   "lost": [],
+   "extra": [],
+   "drawn": "全网最低！红豆薏米茶只要39元，喝它能排毒养颜，98%的人喝完都说好，一喝就瘦。",
+   "ocr": "全网最低！红豆薏米茶只要39元，喝它能排毒养颜，98%的人喝完都说好，一喝就瘦。o"
+  }
+ ]
+}

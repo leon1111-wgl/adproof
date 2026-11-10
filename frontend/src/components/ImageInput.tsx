@@ -29,15 +29,28 @@ const NO_RUN: Record<string, string> = {
   no_canvas: "这个浏览器不支持图片解码",
 };
 
+const M = measured as { run_id: number; char_accuracy: number; total_retention: number; retained: string; images: number; small_print_smallest_tested_px: number; latency_p95_seconds: Record<string, number> };
+const pct1 = (x: number) => `${(x * 100).toFixed(1)}%`;
+
+/** The measured result, with its run, so a visitor can tell what the numbers are (docs/EVALUATION.md 8.3). */
+export function OcrEvidence() {
+  return (
+    <p className="faint ocr-evidence-line">
+      评测（SYNTHETIC 渲染的字幕帧和海报 {M.images} 张，冻结后只跑一次，
+      <a href={`https://github.com/leon1111-wgl/adproof/actions/runs/${M.run_id}`} target="_blank" rel="noreferrer">运行 {M.run_id}</a>）：
+      字符准确率 {pct1(M.char_accuracy)}，与直接粘贴文字相比保留 {pct1(M.total_retention)} 的问题（{M.retained}）。真实广告更难，这些数字不代表真实素材上的表现。
+    </p>
+  );
+}
+
 /** What OCR does not see. Shown before and after recognition, and repeated in the review's scope. */
 export function OcrLimits() {
-  const px = (measured as { small_print_px?: number | null }).small_print_px;
   return (
     <div className="ocr-limits" role="note">
       <b>OCR 看不到的</b>
       <ul>
         <li><b>说出来的话</b>：口播、配音不在画面上；请同时附上字幕文件或粘贴口播稿。</li>
-        <li><b>小字</b>：{px ? `合成评测中小于 ${px} px 的字识别不可靠，` : ""}角标、免责声明可能漏识或识别错，置信度低的行会标黄。</li>
+        <li><b>小字</b>：合成评测只测到 {M.small_print_smallest_tested_px} px（清晰的白底截图）；更小、低对比度或压缩过的角标和免责声明可能漏识或识别错，置信度低的行会标黄。</li>
         <li><b>画面本身</b>：前后对比图、白大褂、徽章、奖杯图标等视觉暗示不审查，只有文字进入规则引擎。</li>
         <li><b>竖排、弧形、艺术字和倾斜文字</b>：检测器只处理水平文字，可能整段漏掉。</li>
       </ul>
@@ -228,6 +241,7 @@ export default function ImageInput({ onChange }: { onChange: (payload: ImagePayl
           )}
         </div>
       )}
+      <OcrEvidence />
       {message && <div className="notice" role="alert">{message}</div>}
 
       {items.length > 0 && (

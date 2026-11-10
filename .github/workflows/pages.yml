@@ -1,7 +1,8 @@
 name: Demo site (GitHub Pages)
 
 # The static demo at https://leon1111-wgl.github.io/adproof/ : the real console. A visitor's own script is
-# reviewed in the tab by frontend/src/engine (tested equal to the backend pipeline before deploy);
+# reviewed in the tab by frontend/src/engine (tested equal to the backend pipeline before deploy); a visitor's
+# images are read in the tab by PP-OCRv5 (onnxruntime-web, weights copied in below) into the same engine;
 # sample scripts and generate options replay recordings.
 # Every deployment re-records it from this commit's backend (offline mock model,
 # SYNTHETIC demo data; scripts/record_demo.py), so the demo always shows what the code does.
@@ -47,8 +48,12 @@ jobs:
           python ../scripts/record_demo.py | tee -a "$GITHUB_STEP_SUMMARY"
           python ../scripts/build_browser_pack.py --check
           python ../scripts/export_parity_fixtures.py --include-blind
-      - name: Test the browser engine, then build the console (own scripts in the tab, samples replayed)
+      - name: Copy the pinned OCR weights into the site (图片 / 截图 input; size + SHA-256)
+        run: python scripts/fetch_ocr_models.py --into frontend/public/models/pp-ocrv5
+      - name: Test the browser engine, then build the console (own scripts and images in the tab, samples replayed)
         working-directory: frontend
+        env:
+          VITE_OCR: "1" # shipped after the OCR evaluation passed its bar (docs/EVALUATION.md 8)
         run: |
           pnpm install --frozen-lockfile
           pnpm test

@@ -14,15 +14,15 @@
 
 | # | 候选 | 决定 | 落地位置 / 测试 |
 |---|---|---|---|
-| 11 | 截图 / 视频帧 OCR（PP-OCRv5 mobile，浏览器内 WebAssembly）接入同一个规则引擎，问题指到图上的框或字幕时间 | __DECISION__ | `frontend/src/ocr/` · `.github/workflows/ocr.yml` · `tests/ocr.test.ts` · `tests/ocr-score.test.ts` · 评测第 8 节 |
+| 11 | 截图 / 视频帧 OCR（PP-OCRv5 mobile，浏览器内 WebAssembly）接入同一个规则引擎，问题指到图上的框或字幕时间 | **采纳**（达到事先定的门槛，显示） | `frontend/src/ocr/` · `.github/workflows/ocr.yml` · `tests/ocr.test.ts` · `tests/ocr-score.test.ts` · 评测第 8 节 |
 | 14 | 浏览器内 ASR（口播转文字） | **不采纳** | 中文小模型在浏览器里质量弱（调研笔记 C.2），且无法在 Actions 上验证 WebGPU；口播请附字幕或粘贴文字，页面写明 OCR 看不到说出来的话 |
 | 15 | 让视觉模型判断画面本身（对比图、白大褂、徽章） | **不采纳** | 浏览器能跑的视觉语言模型（SmolVLM2、Florence-2）只够写描述，不能当事实；“引错条款比不引更糟”，画面暗示列入“OCR 看不到的” |
 
-### 11. 截图和视频帧 OCR —— 本轮采纳（__DECISION_SHORT__）
+### 11. 截图和视频帧 OCR —— 本轮采纳，达到门槛后显示
 
 - **模型与运行方式**：PP-OCRv5 mobile 检测 + 识别（PaddlePaddle，Apache-2.0；ONNX 转换 `webnn/PP-OCRv5-ONNX`），onnxruntime-web 1.30.0，WebAssembly SIMD 单线程。与 CreditLens 0.35 是同一组文件和 SHA-256。点击后才下载（约 35.7 MB），权重从本站加载：Hugging Face 的防火墙在 Actions 上给无头浏览器返回验证码，直接从 Hugging Face 加载的路径无法测试。
 - **本项目的部分**：按行排序、拼接成文字（与 SRT 的拼接方式相同）、把每个字符映射回图上的位置；超过识别器输入宽度的长行按有重叠的分段识别（dev 上发现长行会整字丢失，评测 8.6 有记录）。规则引擎没有改动，图片输入和粘贴文字走同一条路径。
-- **评测**：见评测第 8 节。参照是同一个引擎在原文上的结果，衡量“换成图片损失多少”；质量数字仍以盲测集 v2 的文字结果为准。
+- **评测**：见评测第 8 节。参照是同一个引擎在原文上的结果，衡量“换成图片损失多少”；质量数字仍以盲测集 v2 的文字结果为准。冻结引擎（`72db193`）上唯一一次 test 运行（[42822366071](https://github.com/leon1111-wgl/adproof/actions/runs/42822366071)，300 次 SYNTHETIC 渲染、497 张图）：字符准确率 98.1%，总保留率 98.7%（310/314），OCR 引入 0.6%，干净渲染被标出 1/90，框定位 310/310，P95 1.1 秒（字幕帧）/ 2.1 秒（海报），全部达到门槛。合成渲染比真实广告干净，数字不代表真实素材。
 
 ## 第二轮（2026-11-10）：红队回合
 
